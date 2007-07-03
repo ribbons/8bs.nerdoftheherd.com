@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Trap Vectors</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 30px "ModeSeven", "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 760px;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+&nbsp;&nbsp;&nbsp;&nbsp;0 MODE0<br />
+&nbsp;&nbsp;&nbsp;10 REM Prints out A,X,Y for a vector<br />
+
+&nbsp;&nbsp; 20 DIMalia$(27)<br />
+&nbsp;&nbsp;&nbsp;30 DIMtrap% 256<br />
+&nbsp;&nbsp;&nbsp;40 :<br />
+&nbsp;&nbsp;&nbsp;50 FORloop%=1TO27:READalia$(loop%):NE<br />
+XT<br />
+&nbsp;&nbsp;&nbsp;60 REPEAT<br />
+&nbsp;&nbsp;&nbsp;70&nbsp;&nbsp;&nbsp;&nbsp;INPUT"Trap which vector? "vecto<br />
+r$<br />
+&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;&nbsp;&nbsp;vector=TRUE<br />
+&nbsp;&nbsp;&nbsp;90&nbsp;&nbsp;&nbsp;&nbsp;IFLEFT$(vector$,1)="&" THENvect<br />
+or=EVAL(vector$)<br />
+&nbsp; 100&nbsp;&nbsp;IFLEFT$(vector$,1)<>"&" THENvecto<br />
+r=FNlookup(FNucase(vector$))<br />
+&nbsp; 110 UNTIL(vector>=&200)AND(vector<&236<br />
+)<br />
+&nbsp; 120 :<br />
+&nbsp; 130 INPUT"Assemble at "loc$<br />
+&nbsp; 140 loc%=EVAL(loc$)<br />
+&nbsp; 150 :<br />
+&nbsp; 160 FORX=4TO7STEP3<br />
+&nbsp; 170 oswc=&FFEE<br />
+&nbsp; 180 O%=trap%:P%=loc%<br />
+&nbsp; 190 [OPTX<br />
+&nbsp; 200 .repoint<br />
+&nbsp; 210 SEI<br />
+&nbsp; 220 LDXvector:STXoldvec+1<br />
+&nbsp; 230 LDYvector+1:STYoldvec+2<br />
+&nbsp; 240 LDX#print MOD256:STXvector<br />
+&nbsp; 250 LDY#print DIV256:STYvector+1<br />
+&nbsp; 260 CLI:RTS<br />
+&nbsp; 270 .print<br />
+&nbsp; 280 PHP:PHA:LDA#ASC"[":JSRoswc:\Save s<br />
+tatus & open brackets<br />
+&nbsp; 290 .pA<br />
+&nbsp; 300 LDA#ASC"A":JSRoswc:PLA:PHA:JSRhex:<br />
+\Print A<br />
+&nbsp; 310 .pX<br />
+&nbsp; 320 LDA#ASC"X":JSRoswc:TXA:JSRhex:\Pri<br />
+nt X<br />
+&nbsp; 330 .pY<br />
+&nbsp; 340 LDA#ASC"Y":JSRoswc:TYA:JSRhex:\Pri<br />
+nt Y<br />
+&nbsp; 350 .done<br />
+&nbsp; 360 LDA#ASC"]":JSRoswc:LDA#32:JSRoswc:<br />
+PLA:PLP:\Close brackets & return<br />
+&nbsp; 370 .oldvec<br />
+&nbsp; 380 JMP&9999:\Self modifies earlier<br />
+&nbsp; 390 .hex<br />
+&nbsp; 400 PHA:LSRA:LSRA:LSRA:LSRA:JSRconvert<br />
+:PLA:AND#15<br />
+&nbsp; 410 .convert<br />
+&nbsp; 420 SED:CMP#10:ADC#48:CLD:JMPoswc<br />
+&nbsp; 430 ]<br />
+&nbsp; 440 NEXT<br />
+&nbsp; 450 OSCLI("SAVE OUTPUT "+STR$~(trap%)+<br />
+" "+STR$~(O%)+" "+STR$~(loc%)+" "+STR$~(<br />
+loc%))<br />
+&nbsp; 460 END<br />
+&nbsp; 470 :<br />
+&nbsp; 480 DEFFNucase(string$)<br />
+&nbsp; 490 REM Alphabetics => upper case (ASC<br />
+ii values of a,z are 97,122)<br />
+&nbsp; 500 LOCALdata%,work$,byte%<br />
+&nbsp; 510 FORdata%=1TOLENstring$<br />
+&nbsp; 520 byte%=ASC(MID$(string$,data%,1))AN<br />
+D&DF<br />
+&nbsp; 530 IFbyte%>ASC"Z" ORbyte%<ASC"A" THEN<br />
+work$=work$+MID$(string$,data%,1) ELSEwo<br />
+rk$=work$+CHR$byte%<br />
+&nbsp; 540 NEXT<br />
+&nbsp; 550 =work$<br />
+&nbsp; 560 :<br />
+&nbsp; 570 DEFFNlookup(string$)<br />
+&nbsp; 580 LOCALdata%:data%=TRUE<br />
+&nbsp; 590 FORloop%=1TO27<br />
+&nbsp; 600 IFstring$=alia$(loop%) THENdata%=&<br />
+200+((loop%-1)*2):loop%=27<br />
+&nbsp; 610 NEXT<br />
+&nbsp; 620 =data%<br />
+&nbsp; 630 :<br />
+&nbsp; 640 DATA"USERV","BRKV","IRQ1V","IRQ2V"<br />
+<br />
+&nbsp; 650 DATA"CLIV","BYTEV","WORDV","WRCHV"<br />
+<br />
+&nbsp; 660 DATA"RDCHV","FILEV","ARGSV","BGETV<br />
+"<br />
+&nbsp; 670 DATA"BPUTV","GBPBV","FINDV","FSCV"<br />
+<br />
+&nbsp; 680 DATA"EVENTV","UPTV","NETV","VDUV"<br />
+
+&nbsp;&nbsp;690 DATA"KEYV","INSV","REMV","CNPV"<br />
+&nbsp; 700 DATA"IND1V","IND2V","IND3V"<br />
+    </td></tr></table>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+    Disk Converter v2.0
+    -------------------
+copyright (C) 1996 by Tom Seddon
+
+This is an update to my Watford DFS conversion program. It should now cater
+for virtually all your disk conversion needs, converting single- and
+double-sided, 40- and 80-track and 31- or 62-file images in three different
+interleave formats to archive format. It will create directories based on
+the disk image name, which will assist greatly in automated conversion.
+
+No valid DFS disk will be able to resist the conversion process now!
+
+Any problems with this program? Mail me the program output and the disk
+image and I'll try to help!
+
+T.W.Seddon@ncl.ac.uk
+
+Bugs fixed
+----------
+* Files get converted correctly this time :-)
+* Better detection of errors
+* Filenames with '=' in them get converted correctly -- this fixes any
+  'Null pointer assignment' errors on quit
+
+Command-line parameters
+-----------------------
+This bit is just taken from the dconv -help option, with some expansion.
+
+-d <file> *Obligatory*
+    Specifies the name of the disk image to convert.
+-o <path>
+    Specifies the output path for the converted files. If the
+    directory you specify does not exist, it will be created.
+    If you specify the destination directory as "*", the
+    disk image will be converted into a new directory with
+    the name of the disk image without its extension.
+    If no output path is specified, the current directory will
+    be used.
+-40|80
+    Specifies the number of tracks on the disk. You must include
+    this if you are using -interleave side.
+-31|62
+    Forces the number of files in the catalogue. This will
+    be autodetected by default.
+    Use this option if the autodetection gets it wrong.
+-side <side>
+    Indicates the side to convert. This implies that the disk
+    is double-sided -- don't use with single-sided images.
+-interleave <track|side|sector>
+    Specifies the interleave type. Use with the -side parameter
+    only. 'track' indicates that tracks come from alternating
+    sides -- this is a BeebEm-style disk image. 'side' indicates
+    that the sides are stored one after the other, side 0 first.
+    'sector' indicates that the sectors come from alternating
+    sides.
+    If you specify side-interleave then you must specify the number
+    of tracks on the disk.
+    If this option is not specified then track interleave is assumed.
+-help
+    Gives this help page, or one similar to it.
+
+Techy Notes
+-----------
+The Watford format was deciphered by looking at a disk image. It seems to
+work but I make no guarantees.
+
+Watford disks are autodetected by the fact they have 8 bytes of $AA at the
+beginning of the filenames section of the second catalogue. Of course if
+the first file in an Acorn DFS disk contains bytes of $AA at the beginning
+the autodetect will fail, so you should specify the number of files in this
+case.
+
+I've only seen track-interleaved disk images. The side- and sector-interleaved
+options are there purely for completeness, although no doubt there are some
+images of those types out there somewhere.
+
+Source Code
+-----------
+The source code has been tested on djgpp and Turbo C++ 3.0, and compiled fine
+on both. The .COM executable supplied was compiled with Turbo C++, using
+8086 instructions and optimize for size.
+
+The program isn't particularly fast because of the use of a function to
+read individual bytes from the disk -- although this does make coping with
+strange interleaved formats much easier. If you have a large number of disks
+it may take a while -- running Smartdrv with write-caching will speed things
+up a lot since the files are written to byte-by-byte.
+
+When compiling under gcc, some functions will be made inline. However the
+speed under gcc isn't too hot because of the overhead of switching between
+protected and real mode to do the disk reads.
+
+If you make any additions to the source code, please send them to me so I can
+incorporate them in the next version. This will include, among other things:
+
+* Better caching method (load entire image into memory if enough is free)
+* Faster file output
+* Split double-sided disk images/convert two single-sided disk images into
+  one double-sided one
+* Opus DDOS/Challenger conversion
+

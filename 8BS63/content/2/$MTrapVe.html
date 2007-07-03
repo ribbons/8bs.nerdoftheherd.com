@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Trap Vectors</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 15px "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+MANUAL FOR TRAPVEC (BBC BASIC & 6502 ASSEMBLER)<br /><br />This file describes the program TRAPVEC which intercepts a soft vector and<br />shows the contents of AXY that were used when calling it,then carrys on.<br />The manual is (C)1997 SPROW and software is (C)1995 SPROW<br /><br />INSTRUCTIONS-<br />At the BASIC prompt,type CHAIN"TRAPVEC"<br /><br />Next,you'll need to know which vector you wish to trap.Addresses for the 27<br />available vectors are given in the back of the 'BBC Microcomputer User guide'.<br />Alternatively,it's textual name can be entered:<br /><br />"USERV","BRKV","IRQ1V","IRQ2V","CLIV","BYTEV","WORDV","WRCHV","RDCHV","FILEV"<br />"ARGSV","BGETV","BPUTV","GBPBV","FINDV","FSCV","EVENTV","UPTV","NETV","VDUV"<br />"KEYV","INSV","REMV","CNPV","IND1V","IND2V","IND3V" are all understood.<br /><br />Next the address at which to assemble is needed,try &C00 (for example) as this<br />is only the character definitions on the BBC B and Econet use on a Master.So<br />if you don't require either of these this will be fine.<br /><br />A resulting file 'OUTPUT' will be saved,which must then be *RUN.<br /><br />Any requests that pass through the vector will show [AhhXhhYhh] where hh <br />is a hex value,in a similar format to the 'TRACE' command in BASIC.<br /><br />Obviously DON'T trap any of the character output vectors as this will cause<br />continual looping!<br /><br />KNOWN PROBLEMS/FUTURE ENHANCEMENTS-<br />No known problems.<br /><br />HISTORY-<br />V1.00 First release version,to the 8 Bit Software user group.<br />V1.05 Some speed/space optimisations and vector alias names may now be used<br /><br />    </td></tr></table>
+  </body>
+</html>

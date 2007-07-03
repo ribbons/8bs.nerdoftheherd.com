@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>HTML Reader</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 15px "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+MANUAL FOR WEBBC (6502 ROM image)<br /><br />This file describes the ROM image WEBBC which attempts to render HTML files<br />from the current filing system into a readable format.<br />The manual and software are (C)1998 SPROW<br /><br />INSTRUCTIONS-<br />At any command line prompt,eg.the BASIC command prompt '>' type<br />ON A MASTER: *SRLOAD WEBBC 8000 <socket#><br />             *INSERT <socket#> <br />             where <socket#> may be 7,6,5,4<br />ON A MACHINE WITH SWRAM: *LOAD WEBBC 8000<br />and press CTRL-BREAK to initialise.<br /><br />The image will then be installed into the chosen socket where it can be entered<br />with *WEBBC if in a valid mode.Valid modes are 0,3,4,and 6.<br /><br />The useage of WebBC is easy,and all actions are entered by pressing CTRL-key<br />combinations as detailed below.<br /><br />COMMANDS-<br /> CTRL-U     Enter a URL (well,valid filing system filename really)<br />            URL names can be upto 255 characters long<br /> CTRL-C     Enter an OS star command<br />            The screen will clear and star commands will be interpretted until<br />            a blank line is entered<br /> CTRL-B     Go back one position in the history list<br /> CTRL-F     Go forward one position in the history list<br /> CTRL-H     Go home<br /> CTRL-R     Reload the last valid URL entered<br /> Escape     Stop whatever is being done<br /><br />TAGS UNDERSTOOD-<br />None.All tags are ignored.<br /><br />EXIT MESSAGES-<br />"Escape" - the user pressed escape while at the command line<br />"Not found" - invalid URL name was entered,ie.the HTML file couldn't be opened<br />"Corrupted history list" - another task inside the BBC has overwritten part<br />                           of the history list.Usually,you'll have to press<br />                           break to clear this.<br />"Bad MODE" - you attempted to start WebBC in an unsupported mode.<br /><br />KNOWN PROBLEMS/FUTURE ENHANCEMENTS-<br />No known problems<br />Better interpretation of HTML 'tags' and better filetyping.<br />Caching of files,rather than multiple BGETs which will be inefficient over<br />the Econet etc...<br /><br />HISTORY-<br />V0.10 Beta release to webpages,with no tag support at all<br />    </td></tr></table>
+  </body>
+</html>

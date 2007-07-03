@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>8BS Issue 63 - Utilities Menu</title>
+    <link rel="stylesheet" type="text/css" href="styles/menu.css" />
+    
+    <script>
+      function linehl(obj) {
+          document.getElementById('line0').className = '';
+document.getElementById('gtline0').className = 'menugt';
+document.getElementById('txtline0').className = 'menurow';
+document.getElementById('line1').className = '';
+document.getElementById('gtline1').className = 'menugt';
+document.getElementById('txtline1').className = 'menurow';
+document.getElementById('line2').className = '';
+document.getElementById('gtline2').className = 'menugt';
+document.getElementById('txtline2').className = 'menurow';
+document.getElementById('line3').className = '';
+document.getElementById('gtline3').className = 'menugt';
+document.getElementById('txtline3').className = 'menurow';
+document.getElementById('line4').className = '';
+document.getElementById('gtline4').className = 'menugt';
+document.getElementById('txtline4').className = 'menurow';
+document.getElementById('line5').className = '';
+document.getElementById('gtline5').className = 'menugt';
+document.getElementById('txtline5').className = 'menurow';
+
+      	  document.getElementById(obj).className = 'highlight';
+      }
+      
+      function linegt(obj) {
+	      document.getElementById('gt'+obj).className = '';
+	      document.getElementById('txt'+obj).className = '';
+      }
+      
+      function desctxt(newtext) {
+          document.getElementById('descript').innerHTML = newtext;
+      }
+    </script>
+  </head>
+  
+  <body>
+    <table widxth="100%">
+      <tr>
+        <td rowspan="2">&nbsp;</td><td rowspan="2" class="id">I.D. ***&nbsp;</td><td rowspan="2" class="bord" style="width: 13px;"></td><td class="bord" colspan="2" style="width: 100px; height: 13px;"></td><td rowspan="2" style="width: 7px;"></td><td rowspan="2" class="bord" style="width: 13px;"></td><td class="bord" style="height: 13px;"></td><td rowspan="2" class="bord">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height: 7px;" colspan="2"></td><td rowspan="3" class="issue">Issue 63</td>
+      </tr>
+      <tr>
+        <td rowspan="2" class="bord"></td><td class="bord" colspan="2"></td><td style="width: 7px;"></td><td class="bord" style="width: 100px; height: 13px;"></td><td class="bord" style="height: 13px;" colspan="2"></td><td rowspan="2" class="bord"></td>
+      </tr>
+      <tr>
+        <td colspan="6" style="height: 7px;"></td>
+      </tr>
+      <tr>
+        <td class="bord">&nbsp;</td>
+        <td colspan="7">
+          <table>
+            <tr>
+              <td class="title">8-Bit<span style="font-size: 25px;"> </span>Software</td><td class="date"><br />14/05/98
+</td>
+            </tr>
+          </table>
+        </td>
+        <td class="bord"></td>
+      </tr>
+      <tr>
+        <td class="bord" colspan="9" style="height: 13px;"></td>
+      </tr>
+      <tr>
+        <td class="bord">&nbsp;</td>
+        <td colspan="7" style="padding-bottom: 7px;"><div class="menutt">Utilities Menu</div><br />
+            <div style="padding-left: 40px;"><span id="line0"><a href="content/2/SXterm.html" onmouseover="linehl('line0'); desctxt('Basic Program');" onmousedown="linegt('line0');">&nbsp;&nbsp;A<span id="gtline0" class="menugt">&gt;</span><span id="txtline0" class="menurow">XTerm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></a></div>
+<div style="padding-left: 40px;"><span id="line1"><a href="content/2/SStop.html" onmouseover="linehl('line1'); desctxt('Basic Program');" onmousedown="linegt('line1');">&nbsp;&nbsp;B<span id="gtline1" class="menugt">&gt;</span><span id="txtline1" class="menurow">HTML Reader (D6G)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></a></div>
+<div style="padding-left: 40px;"><span id="line2"><a href="content/2/SHTMread.html" onmouseover="linehl('line2'); desctxt('Basic Program');" onmousedown="linegt('line2');">&nbsp;&nbsp;C<span id="gtline2" class="menugt">&gt;</span><span id="txtline2" class="menurow">HTML Reader (2J3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></a></div>
+<div style="padding-left: 40px;"><span id="line3"><a href="content/2/SWorkRo2.html" onmouseover="linehl('line3'); desctxt('Basic Program');" onmousedown="linegt('line3');">&nbsp;&nbsp;D<span id="gtline3" class="menugt">&gt;</span><span id="txtline3" class="menurow">CJR Shift Calculator&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></a></div>
+<div style="padding-left: 40px;"><span id="line4"><a href="content/2/STrapVec.html" onmouseover="linehl('line4'); desctxt('Basic Program');" onmousedown="linegt('line4');">&nbsp;&nbsp;E<span id="gtline4" class="menugt">&gt;</span><span id="txtline4" class="menurow">Trap Vectors&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></a></div>
+<div style="padding-left: 40px;"><span id="line5"><a href="index.html" onmouseover="linehl('line5'); desctxt('Another menu');" onmousedown="linegt('line5');">&nbsp;&nbsp;F<span id="gtline5" class="menugt">&gt;</span><span id="txtline5" class="menurow">Return To Main Menu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></a></div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+            <br /><br /><div style="padding-left: 30px;"><span class="helptxt">Click <a href="#">here</a> for help.</span> &nbsp;<span id="descript">Basic Program</span></div></td>
+        <td class="bord"></td>
+      </tr>      
+      <tr>
+        <td class="bord" colspan="9" style="height: 13px;"></td>
+      </tr>
+    </table>
+  </body>
+</html>

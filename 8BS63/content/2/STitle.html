@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Tetris MASTER ONLY</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 30px "ModeSeven", "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 760px;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+&nbsp;&nbsp; 10&nbsp;&nbsp;REM TETRIS Title<br />
+&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;IFPAGE<>&1100:PAGE=&1100:CHAIN"TI<br />
+TLE"<br />
+&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;MODE129<br />
+&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;NumShapes=21<br />
+&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;?&7D=NumShapes<br />
+&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;*FX229 1<br />
+&nbsp;&nbsp;&nbsp;70&nbsp;&nbsp;*DISC<br />
+&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;VDU19,1,5;0;0;0;<br />
+&nbsp;&nbsp;&nbsp;90&nbsp;&nbsp;VDU19,2,2;0;0;0;<br />
+&nbsp; 100&nbsp;&nbsp;VDU19,3,6;0;0;0;<br />
+&nbsp; 110&nbsp;&nbsp;VDU23,150,255,255,254,252,248,240<br />
+,224,192<br />
+&nbsp; 120&nbsp;&nbsp;VDU23,151,128,0,0,0,0,0,0,0<br />
+&nbsp; 130&nbsp;&nbsp;VDU23,152,63,63,63,63,63,63,63,63<br />
+<br />
+&nbsp; 140&nbsp;&nbsp;VDU23,153,63,63,62,60,56,48,32,0<br />
+
+&nbsp;&nbsp;150&nbsp;&nbsp;VDU23,154,255,255,127,63,31,15,7,<br />
+3<br />
+&nbsp; 160&nbsp;&nbsp;VDU23,155,1,0,0,0,0,0,0,0<br />
+&nbsp; 170&nbsp;&nbsp;VDU23,156,252,252,252,252,252,252<br />
+,252,252<br />
+&nbsp; 180&nbsp;&nbsp;VDU23,157,252,252,124,60,28,12,4,<br />
+0<br />
+&nbsp; 190&nbsp;&nbsp;VDU23,158,31,15,3,0,0,0,0,0<br />
+&nbsp; 200&nbsp;&nbsp;VDU23,159,255,255,255,127,31,7,1,<br />
+0<br />
+&nbsp; 210&nbsp;&nbsp;VDU23,160,0,0,0,1,3,7,15,31<br />
+&nbsp; 220&nbsp;&nbsp;VDU23,161,32,96,224,224,224,224,2<br />
+24,224<br />
+&nbsp; 230&nbsp;&nbsp;VDU23,162,15,7,3,1,0,0,0,0<br />
+&nbsp; 240&nbsp;&nbsp;VDU23,163,224,224,224,224,224,96,<br />
+32,0<br />
+&nbsp; 250&nbsp;&nbsp;VDU23,164,0,0,0,0,0,3,15,31<br />
+&nbsp; 260&nbsp;&nbsp;VDU23,165,0,1,7,31,127,255,255,25<br />
+5<br />
+&nbsp; 270&nbsp;&nbsp;VDU23,166,7,7,7,7,7,7,7,7<br />
+&nbsp; 280&nbsp;&nbsp;VDU23,167,192,240,248,254,254,255<br />
+,255,254<br />
+&nbsp; 290&nbsp;&nbsp;VDU23,169,254,252,252,248,240,192<br />
+,128,128<br />
+&nbsp; 300&nbsp;&nbsp;VDU23,170,0,0,128,192,224,240,248<br />
+,252<br />
+&nbsp; 310&nbsp;&nbsp;VDU23,171,254,255,255,255,255,255<br />
+,255,255<br />
+&nbsp; 320&nbsp;&nbsp;VDU23,172,0,0,128,192,224,240,248<br />
+,252<br />
+&nbsp; 330&nbsp;&nbsp;VDU23,173,31,126,254,255,255,127,<br />
+127,63<br />
+&nbsp; 340&nbsp;&nbsp;VDU23,174,127,63,31,15,3,128,128,<br />
+192<br />
+&nbsp; 350&nbsp;&nbsp;VDU23,175,252,252,252,252,252,252<br />
+,60,12<br />
+&nbsp; 360&nbsp;&nbsp;VDU23,176,63,31,31,15,15,15,7,7<br />
+&nbsp; 370&nbsp;&nbsp;VDU23,177,192,224,224,240,240,248<br />
+,248,252<br />
+&nbsp; 380&nbsp;&nbsp;VDU23,178,254,255,127,127,63,63,3<br />
+1,15<br />
+&nbsp; 390&nbsp;&nbsp;VDU23,179,0,0,128,192,224,224,224<br />
+,240<br />
+&nbsp; 400&nbsp;&nbsp;VDU23,183,3,1,0,0,0,0,0,0<br />
+&nbsp; 410&nbsp;&nbsp;VDU23,180,0,0,192,240,252,254,255<br />
+,255<br />
+&nbsp; 420&nbsp;&nbsp;VDU23,181,7,7,7,7,15,31,31,158<br />
+&nbsp; 430&nbsp;&nbsp;VDU23,182,240,240,240,240,224,192<br />
+,128,0<br />
+&nbsp; 440&nbsp;&nbsp;VDU23,184,12,15,15,15,15,15,15,15<br />
+<br />
+&nbsp; 450&nbsp;&nbsp;VDU23,254,255,195,219,219,219,219<br />
+,195,255<br />
+&nbsp; 460&nbsp;&nbsp;VDU23,253,255,255,255,231,231,255<br />
+,255,255<br />
+&nbsp; 470&nbsp;&nbsp;VDU23,252,255,255,195,219,219,195<br />
+,255,255<br />
+&nbsp; 480&nbsp;&nbsp;COLOUR3:PRINTTAB(2,2)CHR$152;CHR$<br />
+150:COLOUR2:PRINTTAB(2,3)CHR$153;CHR$151<br />
+<br />
+&nbsp; 490&nbsp;&nbsp;COLOUR3:PRINTTAB(4,2)CHR$255:COLO<br />
+UR2:PRINTTAB(4,3)CHR$255:COLOUR1:PRINTTA<br />
+B(4,4)CHR$255;TAB(4,5)CHR$255<br />
+&nbsp; 500&nbsp;&nbsp;COLOUR3:PRINTTAB(5,2)CHR$154;CHR$<br />
+156:COLOUR2:PRINTTAB(5,3)CHR$155;CHR$157<br />
+<br />
+&nbsp; 510&nbsp;&nbsp;COLOUR3:PRINTTAB(9,2)CHR$255:COLO<br />
+UR2:PRINTTAB(9,3)CHR$255:COLOUR1:PRINTTA<br />
+B(9,4)CHR$255;TAB(9,5)CHR$255<br />
+&nbsp; 520&nbsp;&nbsp;COLOUR3:PRINTTAB(10,2)CHR$158;CHR<br />
+$159;:COLOUR1:PRINTTAB(10,5)CHR$164;CHR$<br />
+165<br />
+&nbsp; 530&nbsp;&nbsp;COLOUR2:PRINTTAB(10,3)CHR$160;CHR<br />
+$161:COLOUR1:PRINTTAB(10,4)CHR$162;CHR$1<br />
+63<br />
+&nbsp; 540&nbsp;&nbsp;COLOUR3:PRINTTAB(14,2)CHR$152;CHR<br />
+$150:COLOUR2:PRINTTAB(14,3)CHR$153;CHR$1<br />
+51<br />
+&nbsp; 550&nbsp;&nbsp;COLOUR3:PRINTTAB(16,2)CHR$255:COL<br />
+OUR2:PRINTTAB(16,3)CHR$255:COLOUR1:PRINT<br />
+TAB(16,4)CHR$255;TAB(16,5)CHR$255<br />
+&nbsp; 560&nbsp;&nbsp;COLOUR3:PRINTTAB(17,2)CHR$154;CHR<br />
+$156:COLOUR2:PRINTTAB(17,3)CHR$155;CHR$1<br />
+57<br />
+&nbsp; 570&nbsp;&nbsp;COLOUR3:PRINTTAB(21,2)CHR$255:COL<br />
+OUR2:PRINTTAB(21,3)CHR$255:COLOUR1:PRINT<br />
+TAB(21,4)CHR$255;TAB(21,5)CHR$255<br />
+&nbsp; 580&nbsp;&nbsp;COLOUR3:PRINTTAB(22,2)CHR$166;CHR<br />
+$167:COLOUR2:PRINTTAB(22,3)CHR$166;CHR$1<br />
+69<br />
+&nbsp; 590&nbsp;&nbsp;COLOUR1:PRINTTAB(22,4)CHR$166;CHR<br />
+$170;TAB(22,5)CHR$166;CHR$171;CHR$172<br />
+&nbsp; 600&nbsp;&nbsp;COLOUR3:PRINTTAB(27,2)CHR$255:COL<br />
+OUR2:PRINTTAB(27,3)CHR$255:COLOUR1:PRINT<br />
+TAB(27,4)CHR$255;TAB(27,5)CHR$255<br />
+&nbsp; 610&nbsp;&nbsp;PRINTTAB(30,5)CHR$184:COLOUR3:PRI<br />
+NTTAB(31,2)CHR$173;CHR$174;CHR$175:COLOU<br />
+R2:PRINTTAB(31,3)CHR$176;CHR$177;" ":COL<br />
+OUR1:PRINTTAB(31,4)CHR$183;CHR$178;CHR$1<br />
+79;TAB(31,5)CHR$180;CHR$181;CHR$182<br />
+&nbsp; 620&nbsp;&nbsp;PRINT''"TETRIS&nbsp;&nbsp;is a new&nbsp;&nbsp;type of<br />
+&nbsp; puzzle game"'"from&nbsp;&nbsp;the Soviet&nbsp;&nbsp;Union.<br />
+&nbsp;It's&nbsp;&nbsp; really"'"simple to play. Seven d<br />
+ifferent shapped"'"blocks&nbsp;&nbsp;fall down&nbsp;&nbsp;th<br />
+e game&nbsp;&nbsp;field&nbsp;&nbsp;one"'"after&nbsp;&nbsp;the&nbsp;&nbsp;other. <br />
+The&nbsp;&nbsp;object&nbsp;&nbsp;of&nbsp;&nbsp;the"<br />
+&nbsp; 630&nbsp;&nbsp;PRINT"game is to keep the blocks <br />
+from piling"'"up to the top of the game <br />
+field."'<br />
+&nbsp; 640&nbsp;&nbsp;PRINT"To do this, you can move th<br />
+e blocks to"'"the left and right, and ro<br />
+tate them"'"as they fall. If you can com<br />
+pletely"'"fill in one horizontal line, t<br />
+hat line"'"disappears and your score inc<br />
+reases"'"If the blocks pile up to the to<br />
+p";<br />
+&nbsp; 650&nbsp;&nbsp;PRINT" then"'"that's the end of t<br />
+he game. TETRIS"'"is simple, easy-to-und<br />
+erstand and"'"difficult to drag yourself<br />
+&nbsp;away from!"'"TETRIS originally came fro<br />
+m the word"'"""tetra"" meaning the numbe<br />
+r 4."<br />
+&nbsp; 660&nbsp;&nbsp;PRINT"By rearranging four squares<br />
+, you can"'"make seven different shapes <br />
+which are"'"the pieces in this game. As <br />
+the game"'"progresses, more difficult sh<br />
+apes are"'"added."<br />
+&nbsp; 670&nbsp;&nbsp;FORI%=&B4B TO &CB3:?I%=0:NEXT:REM<br />
+&nbsp;CLEAR SCREEN ARRAY<br />
+&nbsp; 680&nbsp;&nbsp;PRINT'"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PRESS <RETURN>...."<br />
+;:VDU28,0,31,39,5:REPEATUNTILGET=13<br />
+&nbsp; 690&nbsp;&nbsp;CLS:PRINT"The KEYS are :"'''"ˆ Mo<br />
+ves block to the left"''"‰ Moves block t<br />
+o the right"''"Š Drops the block"''"Z Ro<br />
+tates block 90 degrees anti-clockwise"''<br />
+"X Rotates block 90 degrees clockwise."<br />
+
+&nbsp;&nbsp;700&nbsp;&nbsp;PRINT'"And <ESCAPE> To Quit."<br />
+&nbsp; 710&nbsp;&nbsp;FORI%=0TO (NumShapes*2)-1 STEP2:R<br />
+EADD1%,D2%:?(&FA2+I%)=D1%:?(&FA2+I%+1)=D<br />
+2%:NEXT<br />
+&nbsp; 720&nbsp;&nbsp;PRINT''"Press <RETURN> To play...<br />
+";:REPEATUNTILGET=13:PAGE=&1100:CHAIN"TE<br />
+TRIS"<br />
+&nbsp; 730&nbsp;&nbsp;REM SHAPE DEFINITIONS<br />
+&nbsp; 740&nbsp;&nbsp;DATA51,0<br />
+&nbsp; 750&nbsp;&nbsp;DATA17,3<br />
+&nbsp; 760&nbsp;&nbsp;DATA49,2<br />
+&nbsp; 770&nbsp;&nbsp;DATA17,17<br />
+&nbsp; 780&nbsp;&nbsp;DATA34,3<br />
+&nbsp; 790&nbsp;&nbsp;DATA50,1<br />
+&nbsp; 800&nbsp;&nbsp;DATA114,0<br />
+&nbsp; 810&nbsp;&nbsp;DATA51,2<br />
+&nbsp; 820&nbsp;&nbsp;DATA17,49<br />
+&nbsp; 830&nbsp;&nbsp;DATA34,50<br />
+&nbsp; 840&nbsp;&nbsp;DATA114,2<br />
+&nbsp; 850&nbsp;&nbsp;DATA17,19<br />
+&nbsp; 860&nbsp;&nbsp;DATA49,17<br />
+&nbsp; 870&nbsp;&nbsp;DATA51,1<br />
+&nbsp; 880&nbsp;&nbsp;DATA34,7<br />
+&nbsp; 890&nbsp;&nbsp;DATA100,3<br />
+&nbsp; 900&nbsp;&nbsp;DATA117,0<br />
+&nbsp; 910&nbsp;&nbsp;DATA51,51<br />
+&nbsp; 920&nbsp;&nbsp;DATA34,37<br />
+&nbsp; 930&nbsp;&nbsp;DATA119,7<br />
+&nbsp; 940&nbsp;&nbsp;DATA185,14<br />
+    </td></tr></table>
+  </body>
+</html>

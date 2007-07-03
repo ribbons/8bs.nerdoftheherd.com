@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Wordpower</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 30px "ModeSeven", "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 760px;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+&nbsp;&nbsp; 10&nbsp;&nbsp;MODE0<br />
+&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;PROCintro<br />
+&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;MODE2<br />
+&nbsp;&nbsp;&nbsp;40&nbsp;&nbsp;DIM word$(4)<br />
+&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;DIM guess$(4)<br />
+&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;DIM result$(4)<br />
+&nbsp;&nbsp;&nbsp;70&nbsp;&nbsp;DIM score$(4)<br />
+&nbsp;&nbsp;&nbsp;80&nbsp;&nbsp;*FX4,1<br />
+&nbsp;&nbsp;&nbsp;90&nbsp;&nbsp;ONERROR:PROCerror<br />
+&nbsp; 100&nbsp;&nbsp;PROCinit<br />
+&nbsp; 110 REPEAT<br />
+&nbsp; 120&nbsp;&nbsp;&nbsp;&nbsp;VDU26,28,0,31,19,14,12<br />
+&nbsp; 130&nbsp;&nbsp;&nbsp;&nbsp;COLOUR7<br />
+&nbsp; 140&nbsp;&nbsp;&nbsp;&nbsp;PRINT"Computers Score&nbsp;&nbsp;"STR$(co<br />
+mputer%)<br />
+&nbsp; 150&nbsp;&nbsp;&nbsp;&nbsp;COLOUR2<br />
+&nbsp; 160&nbsp;&nbsp;&nbsp;&nbsp;PRINT"Players&nbsp;&nbsp; Score&nbsp;&nbsp;"STR$(pl<br />
+ayer%)'<br />
+&nbsp; 170&nbsp;&nbsp;&nbsp;&nbsp;PROCselect<br />
+&nbsp; 180&nbsp;&nbsp;&nbsp;&nbsp;COLOUR3<br />
+&nbsp; 190&nbsp;&nbsp;&nbsp;&nbsp;FORr=1TO6<br />
+&nbsp; 200&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINTSTR$(r)" -----"'<br />
+&nbsp; 210&nbsp;&nbsp;&nbsp;&nbsp;NEXT<br />
+&nbsp; 220&nbsp;&nbsp;&nbsp;&nbsp;VDU26,28,2,31,19,17<br />
+&nbsp; 230&nbsp;&nbsp;&nbsp;&nbsp;IFshow%:PRINTTAB(0,12)fw$:VDU30<br />
+<br />
+&nbsp; 240&nbsp;&nbsp;&nbsp;&nbsp;r=1<br />
+&nbsp; 250&nbsp;&nbsp; REPEAT<br />
+&nbsp; 260&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR3<br />
+&nbsp; 270&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROCreset<br />
+&nbsp; 280&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROCinput<br />
+&nbsp; 290&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU13<br />
+&nbsp; 300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORi=1TO6:VDU9:NEXT<br />
+&nbsp; 310&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROCcheck<br />
+&nbsp; 320&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR6<br />
+&nbsp; 330&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORi=0TO4:PRINTresult$(i);:NE<br />
+XT<br />
+&nbsp; 340&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFr=1:cscore%=0:pscore%=8<br />
+&nbsp; 350&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFr=2:cscore%=0:pscore%=7<br />
+&nbsp; 360&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFr=3:cscore%=0:pscore%=6<br />
+&nbsp; 370&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFr=4:cscore%=0:pscore%=5<br />
+&nbsp; 380&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFr=5:cscore%=0:pscore%=0<br />
+&nbsp; 390&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFr=6:cscore%=3:pscore%=0<br />
+&nbsp; 400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR7<br />
+&nbsp; 410&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT" "STR$(cscore%);<br />
+&nbsp; 420&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR2<br />
+&nbsp; 430&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"&nbsp;&nbsp;"STR$(pscore%)'<br />
+&nbsp; 440&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r=r+1<br />
+&nbsp; 450&nbsp;&nbsp; UNTIL result%=10 OR r=7<br />
+&nbsp; 460&nbsp;&nbsp;&nbsp;&nbsp;IFresult%<10:cscore%=5:pscore%=<br />
+0<br />
+&nbsp; 470&nbsp;&nbsp;&nbsp;&nbsp;computer%=computer%+cscore%<br />
+&nbsp; 480&nbsp;&nbsp;&nbsp;&nbsp;player%=player%+pscore%<br />
+&nbsp; 490&nbsp;&nbsp;&nbsp;&nbsp;COLOUR3<br />
+&nbsp; 500&nbsp;&nbsp;&nbsp;&nbsp;IFresult%<10:FORi=0TO4:PRINTwor<br />
+d$(i);:NEXT:COLOUR7:PRINTSPC(7)STR$(csco<br />
+re%);:COLOUR2:PRINT"&nbsp;&nbsp;"STR$(pscore%)<br />
+&nbsp; 510&nbsp;&nbsp;&nbsp;&nbsp;COLOUR10<br />
+&nbsp; 520&nbsp;&nbsp;&nbsp;&nbsp;PRINTTAB(2,14)"Hit Any Key";<br />
+&nbsp; 530&nbsp;&nbsp;&nbsp;&nbsp;A=GET<br />
+&nbsp; 540&nbsp;&nbsp;UNTILFALSE<br />
+&nbsp; 550 :<br />
+&nbsp; 560 DEFPROCerror<br />
+&nbsp; 570&nbsp;&nbsp;&nbsp;&nbsp;ONERROR OFF<br />
+&nbsp; 580&nbsp;&nbsp;&nbsp;&nbsp;VDU22,0<br />
+&nbsp; 590&nbsp;&nbsp;&nbsp;&nbsp;*FX4,0<br />
+&nbsp; 600&nbsp;&nbsp;&nbsp;&nbsp;END<br />
+&nbsp; 610&nbsp;&nbsp; :<br />
+&nbsp; 620&nbsp;&nbsp; DEFPROCinput<br />
+&nbsp; 630&nbsp;&nbsp;&nbsp;&nbsp; REPEAT<br />
+&nbsp; 640&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REPEAT<br />
+&nbsp; 650&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;K%=GET<br />
+&nbsp; 660&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFK%=136ANDPOS=0:K%=0<br />
+&nbsp; 670&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFK%=136ANDPOS>0:VDU8:K%=<br />
+0<br />
+&nbsp; 680&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFK%=137ANDPOS<4:VDU9:K%=<br />
+0<br />
+&nbsp; 690&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFK%=137ANDPOS=4:K%=0<br />
+&nbsp; 700&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFK%=127:guess$(POS)="-":<br />
+VDUASC"-":VDU8:K%=0<br />
+&nbsp; 710&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UNTIL K%>&40 AND K%<&80 OR K<br />
+%=13<br />
+&nbsp; 720&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; K%=K%AND&DF<br />
+&nbsp; 730&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IFK%<>13:guess$(POS)=CHR$(K%<br />
+):VDUK%<br />
+&nbsp; 740&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IFPOS>4:VDU8<br />
+&nbsp; 750&nbsp;&nbsp;&nbsp;&nbsp; UNTILK%=13<br />
+&nbsp; 760&nbsp;&nbsp; ENDPROC<br />
+&nbsp; 770&nbsp;&nbsp; :<br />
+&nbsp; 780&nbsp;&nbsp; DEFPROCcheck<br />
+&nbsp; 790&nbsp;&nbsp;&nbsp;&nbsp; FORi=0TO4<br />
+&nbsp; 800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score$(i)=word$(i)<br />
+&nbsp; 810&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result$(i)=guess$(i)<br />
+&nbsp; 820&nbsp;&nbsp;&nbsp;&nbsp; NEXT<br />
+&nbsp; 830&nbsp;&nbsp;&nbsp;&nbsp; :<br />
+&nbsp; 840&nbsp;&nbsp;&nbsp;&nbsp; FORi=0TO4<br />
+&nbsp; 850&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFguess$(i)=word$(i):result<br />
+$(i)="*":score$(i)="2"<br />
+&nbsp; 860&nbsp;&nbsp;&nbsp;&nbsp; NEXT<br />
+&nbsp; 870&nbsp;&nbsp;&nbsp;&nbsp; :<br />
+&nbsp; 880&nbsp;&nbsp;&nbsp;&nbsp; FORi=0TO4<br />
+&nbsp; 890&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;check%=TRUE<br />
+&nbsp; 900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;leave%=FALSE<br />
+&nbsp; 910&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j=0<br />
+&nbsp; 920&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REPEAT<br />
+&nbsp; 930&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFVAL(score$(i))=2:check%<br />
+=FALSE<br />
+&nbsp; 940&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFcheck%:IFguess$(i)=scor<br />
+e$(j):result$(i)="@":score$(j)="1":leave<br />
+%=TRUE<br />
+&nbsp; 950&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j=j+1<br />
+&nbsp; 960&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UNTILj=5 OR leave%=TRUE<br />
+&nbsp; 970&nbsp;&nbsp;&nbsp;&nbsp; NEXT<br />
+&nbsp; 980&nbsp;&nbsp;&nbsp;&nbsp; :<br />
+&nbsp; 990&nbsp;&nbsp;&nbsp;&nbsp; FORi=0TO4<br />
+&nbsp;1000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFresult$(i)<>"*" AND resul<br />
+t$(i)<>"@":result$(i)="X"<br />
+&nbsp;1010&nbsp;&nbsp;&nbsp;&nbsp; NEXT<br />
+&nbsp;1020&nbsp;&nbsp;&nbsp;&nbsp; :<br />
+&nbsp;1030&nbsp;&nbsp;&nbsp;&nbsp; result%=0<br />
+&nbsp;1040&nbsp;&nbsp;&nbsp;&nbsp; FORi=0TO4<br />
+&nbsp;1050&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result%=result%+VAL(score$(<br />
+i))<br />
+&nbsp;1060&nbsp;&nbsp;&nbsp;&nbsp; NEXT<br />
+&nbsp;1070&nbsp;&nbsp; ENDPROC<br />
+&nbsp;1080&nbsp;&nbsp; :<br />
+&nbsp;1090&nbsp;&nbsp; DEFPROCselect<br />
+&nbsp;1100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disp%=RND(max%)*5<br />
+&nbsp;1110&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REPEAT:disp%=disp%-1:UNTILdis<br />
+p%MOD5=0<br />
+&nbsp;1120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fw$=""<br />
+&nbsp;1130&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S%=OPENINdic$:PTR#S%=disp%<br />
+&nbsp;1140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORx=0TO4<br />
+&nbsp;1150&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l$=CHR$(BGET#S%)<br />
+&nbsp;1160&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fw$=fw$+l$:word$(x)=l$<br />
+&nbsp;1170&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NEXT<br />
+&nbsp;1180&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLOSE#S%<br />
+&nbsp;1190&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORx=0TO4:result$(x)="X":NEXT<br />
+<br />
+&nbsp;1200&nbsp;&nbsp; ENDPROC<br />
+&nbsp;1210&nbsp;&nbsp; :<br />
+&nbsp;1220&nbsp;&nbsp; DEFPROCreset<br />
+&nbsp;1230&nbsp;&nbsp;&nbsp;&nbsp; FORx=0TO4<br />
+&nbsp;1240&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF result$(x)="*":guess$(x)<br />
+=word$(x) ELSE guess$(x)="-"<br />
+&nbsp;1250&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDUASC(guess$(x))<br />
+&nbsp;1260&nbsp;&nbsp;&nbsp;&nbsp; NEXT<br />
+&nbsp;1270&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU13<br />
+&nbsp;1280&nbsp;&nbsp; ENDPROC<br />
+&nbsp;1290&nbsp;&nbsp; :<br />
+&nbsp;1300&nbsp;&nbsp; DEFPROCinit<br />
+&nbsp;1310&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show%=0<br />
+&nbsp;1320&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dic$="DIC5"<br />
+&nbsp;1330&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S%=OPENINdic$:max%=EXT#S%/5:C<br />
+LOSE#S%<br />
+&nbsp;1340&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU19,0,4;0;<br />
+&nbsp;1350&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;computer%=0:player%=0:result%<br />
+=0<br />
+&nbsp;1360&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR3<br />
+&nbsp;1370&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT<br />
+&nbsp;1380&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"&nbsp;&nbsp;&nbsp;&nbsp; Word Power"<br />
+&nbsp;1390&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"&nbsp;&nbsp;&nbsp;&nbsp; __________"'<br />
+&nbsp;1400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR6<br />
+&nbsp;1410&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"You have six goes&nbsp;&nbsp;"<br />
+&nbsp;1420&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"to find the hidden "<br />
+&nbsp;1430&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"five letter word.&nbsp;&nbsp;"'<br />
+&nbsp;1440&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR3<br />
+&nbsp;1450&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"Result code:-"'<br />
+&nbsp;1460&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLOUR6<br />
+&nbsp;1470&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"X Wrong"<br />
+&nbsp;1480&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"* Correct"<br />
+&nbsp;1490&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"@ Wrong position"<br />
+&nbsp;1500&nbsp;&nbsp; ENDPROC<br />
+&nbsp;1510&nbsp;&nbsp; :<br />
+&nbsp;1520&nbsp;&nbsp; DEFPROCintro<br />
+&nbsp;1530&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU23,1,0,0;0;0;0;<br />
+&nbsp;1532&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU19,0,7;0;0;0;<br />
+&nbsp;1534&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU19,7,0;0;0;0;<br />
+&nbsp;1540&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT<br />
+&nbsp;1550&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCEED v.i. press any <br />
+key to, go forward or on further, make o<br />
+ne's way."<br />
+&nbsp;1560&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCEEDING n. action, p<br />
+iece of conduct; (pl.) legal action, pub<br />
+lished report of"<br />
+&nbsp;1570&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT" discussions or confere<br />
+nce."<br />
+&nbsp;1580&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCEEDS n.pl. money pr<br />
+oduced by sale or performance etc."<br />
+&nbsp;1590&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCESS n. course of ac<br />
+tion or proceeding, esp. series of stage<br />
+s in manufacture"<br />
+&nbsp;1600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCESSION n. number of<br />
+&nbsp;persons or vehicles ect. going along in<br />
+&nbsp;orderly"<br />
+&nbsp;1610&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT" succession, esp. as ce<br />
+romony or demonstration or festivity; ac<br />
+tion of this."<br />
+&nbsp;1620&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCESSIONAL a. of proc<br />
+essions; used or carried or sung in proc<br />
+essions."<br />
+&nbsp;1630&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCESSOR n. machine th<br />
+at processes things."<br />
+&nbsp;1640&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCLAIM v.t. announce <br />
+or declare publicly or officially."<br />
+&nbsp;1650&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCLAMATION n. proclai<br />
+ming; things proclaimed."<br />
+&nbsp;1660&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCLIVITY n. tendency <br />
+or natural inclination."<br />
+&nbsp;1670&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCRASTINATE v.i. defe<br />
+r action; be dilatory."<br />
+&nbsp;1680&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCREATE v.t. bring in<br />
+to existence by natural process of repro<br />
+duction."<br />
+&nbsp;1690&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCRUSTEAN a. seeking <br />
+to enforce uniformity by violent methods<br />
+."<br />
+&nbsp;1700&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCURATION n. procurin<br />
+g; functoin or authorized action of atto<br />
+rney."<br />
+&nbsp;1710&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCURATOR n. agent or <br />
+proxy, esp. with power of attorney."<br />
+&nbsp;1720&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROCURE n. obtain by ca<br />
+re or effort, aquire; bring about."<br />
+&nbsp;1730&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PROD v. poke with finge<br />
+r or end of stick etc.; stimulate to act<br />
+ion."<br />
+&nbsp;1740&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODIGAL a. recklessly <br />
+wasteful; extravagant, lavish."<br />
+&nbsp;1750&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODIGIOUS a. marvellou<br />
+s; enormous; abnormal."<br />
+&nbsp;1760&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODIGY n. person with <br />
+exceptional qualities or abilities."<br />
+&nbsp;1770&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODUCE v.t. bring forw<br />
+ord for consideration or inspection or u<br />
+se; manufacture"<br />
+&nbsp;1780&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT" from raw materials ect<br />
+.; bear or yield; bring into existence."<br />
+<br />
+&nbsp;1790&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODUCER n. one who pro<br />
+duces articles or produce; person who di<br />
+rects peformance"<br />
+&nbsp;1800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT" of play or broadcast p<br />
+rogramme."<br />
+&nbsp;1810&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODUCT n. thing or sub<br />
+stance produced by natural process or ma<br />
+nufacture;"<br />
+&nbsp;1820&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT" result; quantity obtai<br />
+ned by multiplying."<br />
+&nbsp;1830&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODUCTION n. producing<br />
+, being produced or manufactured esp. in<br />
+&nbsp;large numbers."<br />
+&nbsp;1840&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODUCTIVE a. of or eng<br />
+aged in production of goods; producing m<br />
+uch."<br />
+&nbsp;1850&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT"PRODUCTIVITY n. capacit<br />
+y to produce; effectiveness of productiv<br />
+e effort.";<br />
+&nbsp;1860&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A=GET<br />
+&nbsp;1870&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VDU23,1,1,0;0;0;0;<br />
+&nbsp;1880&nbsp;&nbsp; ENDPROC<br />
+    </td></tr></table>
+  </body>
+</html>

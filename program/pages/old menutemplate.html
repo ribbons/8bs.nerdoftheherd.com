@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>8BS Issue %iss% - %menutitle%</title>
+    <link rel="stylesheet" type="text/css" href="styles/menu.css" />
+    
+    <script>
+      function linehl(obj) {
+          %scriptitems%
+      	  document.getElementById(obj).className = 'highlight';
+      }
+      
+      function linegt(obj) {
+	      document.getElementById('gt'+obj).className = '';
+	      document.getElementById('txt'+obj).className = '';
+      }
+      
+      function desctxt(newtext) {
+          document.getElementById('descript').innerHTML = newtext;
+      }
+    </script>
+  </head>
+  
+  <body>
+    <table widxth="100%">
+      <tr>
+        <td rowspan="2">&nbsp;</td><td rowspan="2" class="id">I.D. ***&nbsp;</td><td rowspan="2" class="bord" style="width: 13px;"></td><td class="bord" colspan="2" style="width: 100px; height: 13px;"></td><td rowspan="2" style="width: 7px;"></td><td rowspan="2" class="bord" style="width: 13px;"></td><td class="bord" style="height: 13px;"></td><td rowspan="2" class="bord">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height: 7px;" colspan="2"></td><td rowspan="3" class="issue">Issue %iss%</td>
+      </tr>
+      <tr>
+        <td rowspan="2" class="bord"></td><td class="bord" colspan="2"></td><td style="width: 7px;"></td><td class="bord" style="width: 100px; height: 13px;"></td><td class="bord" style="height: 13px;" colspan="2"></td><td rowspan="2" class="bord"></td>
+      </tr>
+      <tr>
+        <td colspan="6" style="height: 7px;"></td>
+      </tr>
+      <tr>
+        <td class="bord">&nbsp;</td>
+        <td colspan="7">
+          <table>
+            <tr>
+              <td class="title">8-Bit<span style="font-size: 25px;"> </span>Software</td><td class="date"><br />%issdte%</td>
+            </tr>
+          </table>
+        </td>
+        <td class="bord"></td>
+      </tr>
+      <tr>
+        <td class="bord" colspan="9" style="height: 13px;"></td>
+      </tr>
+      <tr>
+        <td class="bord">&nbsp;</td>
+        <td colspan="7" style="padding-bottom: 7px;"><div class="menutt">%menutitle%</div><br />
+            %menuitems%
+            <br /><br /><div style="padding-left: 30px;"><span class="helptxt">Click <a href="#">here</a> for help.</span> &nbsp;<span id="descript">%descript%</span></div></td>
+        <td class="bord"></td>
+      </tr>      
+      <tr>
+        <td class="bord" colspan="9" style="height: 13px;"></td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>8BS Messaging System</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 30px "ModeSeven", "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 760px;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+&nbsp;&nbsp; 10 REM*Basic<br />
+&nbsp;&nbsp;&nbsp;20 REMCHAIN"$.!Boot"<br />
+&nbsp;&nbsp;&nbsp;25 *Exec<br />
+&nbsp;&nbsp;&nbsp;30 *Fx119<br />
+&nbsp;&nbsp;&nbsp;40 MODE7:LOMEM=TOP+452:PROCa:b$=FNc:O<br />
+NERRORPROCd:b$=" "<br />
+&nbsp; 340 IFb$=" "ANDFNb=4THENb$="D"<br />
+&nbsp; 350 IFb$=" "ANDFNb=8THENb$="A"<br />
+&nbsp; 360 IFb$=" "ANDFNb=16THENb$="H"<br />
+&nbsp; 365 IFb$="A"THENPROCe<br />
+&nbsp; 370 IFb$="D"THENPROCf<br />
+&nbsp; 380 IFb$="H"THENPROCj<br />
+&nbsp; 385 ONERRORVDU3:PROCg("FX3"):CLOSE#0:I<br />
+FERR=17THENPROCg("FX229,1"):PROCXELSEMOD<br />
+E7:REPORT:PRINT" at line ";ERL:PROCh:END<br />
+<br />
+&nbsp; 390 DIMM% -1:IFHIMEM-M%<256THENPROCi("<br />
+There are less than 256 bytes of RAM fre<br />
+e. The program will run but you will kee<br />
+p receiving warnings about the shortage <br />
+of RAM.")<br />
+&nbsp; 420 IFFNj("!Mesg")THENPROCkELSEPROCl<br />
+&nbsp; 440 PROCm<br />
+&nbsp; 460 REPEAT:PROCn:o%=FNp:IFo%=1THENPROC<br />
+q<br />
+&nbsp; 490 IFo%=2THENPROCr<br />
+&nbsp; 500 IFo%=3THENPROCs<br />
+&nbsp; 510 IFo%=4THENPROCt<br />
+&nbsp; 520 IFo%=5THENPROCu<br />
+&nbsp; 530 UNTILo%=6:MODE7:PROCh:END<br />
+&nbsp; 580 DEFPROCv<br />
+&nbsp; 610 *FX229,1<br />
+&nbsp; 610 *FX4,1<br />
+&nbsp; 620 *FX225,200<br />
+&nbsp; 630 *FX226,210<br />
+&nbsp; 640 *FX227,220<br />
+&nbsp; 650 *FX202,48<br />
+&nbsp; 660 ENDPROC<br />
+&nbsp; 670 DEFPROCh<br />
+&nbsp; 700 *FX202,32<br />
+&nbsp; 700 *FX118<br />
+&nbsp; 710 *FX225,1<br />
+&nbsp; 720 *FX226,128<br />
+&nbsp; 730 *FX227,144<br />
+&nbsp; 740 *FX229<br />
+&nbsp; 750 *FX4<br />
+&nbsp; 760 ENDPROC<br />
+&nbsp; 770 DEFPROCa:ONERRORMODE7:REPORT:PRINT<br />
+" at line ";ERL:PROCh:END<br />
+&nbsp; 800 CLOSE#0:PROCv:PROCw:PROCx:PROCy:PR<br />
+OCz:J%=4080:l%=25:DIMn% 32,f% J%,a$(l%-1<br />
+),b$(l%-1),a%(l%-1):r%=1:PROCH:ENDPROC<br />
+&nbsp; 930 DEFFNS="SendMes"<br />
+&nbsp; 970 DEFPROCe<br />
+&nbsp; 980 *ADFS<br />
+&nbsp; 980 OSCLI"MOUNT "+STR$K%<br />
+&nbsp;1000 *DIR $<br />
+&nbsp;1000 ENDPROC<br />
+&nbsp;1010 DEFPROCf<br />
+&nbsp;1040 *DISC<br />
+&nbsp;1040 OSCLI"DRIVE "+STR$K%<br />
+&nbsp;1060 *DIR $<br />
+&nbsp;1060 ENDPROC<br />
+&nbsp;1070 DEFPROCj<br />
+&nbsp;1074 *HADFS<br />
+&nbsp;1074 OSCLI"DIR :"+STR$K%+".$":ENDPROC<br />
+&nbsp;1078 DEFPROCw:VDU23,1,0;0;0;0;<br />
+&nbsp;1100 ENDPROC<br />
+&nbsp;1110 DEFPROCp:VDU23,1,1;0;0;0;<br />
+&nbsp;1140 ENDPROC<br />
+&nbsp;1150 DEFPROCg($n%):LOCALX%,Y%:X%=n%MOD2<br />
+56:Y%=n%DIV256:CALL65527:ENDPROC<br />
+&nbsp;1220 DEFPROCx:t%=150:W%=147:s%=135:u%=1<br />
+31:aa%=131:Z%=132:_%=135:ba%=130:ca%=131<br />
+:R%=135:`%=131:da%=135:ea%=135:fa%=135:g<br />
+a%=135:ha%=135:ia%=135:ja%=135:ka%=135:E<br />
+NDPROC<br />
+&nbsp;1440 DEFPROCy:LOCALla%:VDU26,12<br />
+&nbsp;1480 PRINTTAB(0,23);CHR$(t%);"ˇ¸¸¸¸¸¸¸¸<br />
+¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸¸ˇ";:VDU30,1<br />
+1,30<br />
+&nbsp;1500 PRINT"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";CHR$(t%);"ˇØØØØ<br />
+ØØØ•ˇØØØØØØØØØØØØØØØØØˇ";:PRINTCHR$(t%);<br />
+"ˇØØØØØØØØØØØ™ØØØØØØØØ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";<br />
+CHR$(t%);"ˇ";:PRINTCHR$(t%);"ˇ";CHR$(W%)<br />
+;"∂£¥ ∑È®Ë∞ ∂©†∞‡§Ù‡†‡†∞†∞‡†††&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";C<br />
+HR$(t%);"ˇ";<br />
+&nbsp;1530 PRINTCHR$(t%);"ˇ";CHR$(W%);"∂£¥°∑È<br />
+ÍÍ† ≤ÈÍÍÍ°µÍËÍ‡ÓÍ†Ω°&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";CHR$(t%);<br />
+"ˇ";:PRINTCHR$(t%);"ù";CHR$(W%);"¢£&nbsp;&nbsp;£°¢<br />
+†° ¢°†°¢ ¢†°°†£¢†¢°††&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ":FORla%=1TO<br />
+19:PRINTCHR$(t%);"ˇ";SPC(36);CHR$(t%);"ˇ<br />
+";:NEXT:PRINTTAB(7,5);CHR$(W%-16);"8BS m<br />
+essaging system 2.16":VDU28,2,23,37,7<br />
+&nbsp;1600 ENDPROC<br />
+&nbsp;1610 DEFPROCz:IF?31784=t%THENENDPROC<br />
+&nbsp;1640 PROCi("Sorry, this program uses di<br />
+rect screen access and the screen RAM is<br />
+&nbsp;not at &7C00. If you have them, try dis<br />
+abling your shadow RAM and/or second pro<br />
+cessor."):VDU26,12<br />
+&nbsp;1660 PROCp:PROCh:END<br />
+&nbsp;1690 DEFPROCH:i%=TOP:ma%=i%+31:na%=i%+1<br />
+64:oa%=i%+183:pa%=i%+201:qa%=i%+235:ra%=<br />
+i%+294:sa%=i%+344:ta%=i%+394:ua%=i%+426:<br />
+ENDPROC<br />
+&nbsp;1840 DEFPROCb(T$):PROCA(T$,s%,TRUE):END<br />
+PROC<br />
+&nbsp;1880 DEFPROCB(T$):PROCA(T$,s%,FALSE):EN<br />
+DPROC<br />
+&nbsp;1920 DEFPROCA(T$,C%,N%):REPEAT:IFLEN(T$<br />
+)<36THENPRINTCHR$(C%);T$;SPC((35-LEN(T$)<br />
+)*-N%);:T$=""ELSEA%=INSTR(T$," ",37):A%=<br />
+A%+(A%=0)*-36:REPEAT:A%=A%-1:UNTILMID$(T<br />
+$,A%,1)=" ":PRINTCHR$(C%);LEFT$(T$,A%-1)<br />
+;SPC(36-A%);:T$=MID$(T$,A%+1)<br />
+&nbsp;1970 UNTILT$="":ENDPROC<br />
+&nbsp;1990 DEFPROCi(m$):CLS:PROCb(m$):PRINT'C<br />
+HR$(s%);"Press SPACE to continue..."<br />
+&nbsp;2050 *FX21<br />
+&nbsp;2050 REPEATUNTILGET=32:ENDPROC<br />
+&nbsp;2070 DEFPROCC(m$):CLS:PROCb(m$):PRINT'C<br />
+HR$(s%);"Press SPACE to return to BASIC"<br />
+<br />
+&nbsp;2130 *FX21<br />
+&nbsp;2130 REPEATUNTILGET=32:VDU26,12<br />
+&nbsp;2150 PROCp:PROCh:END<br />
+&nbsp;2180 DEFFNc:LOCALb%,n$:CLS:PROCb("Pleas<br />
+e insert your submission disc in drive 0<br />
+. This disc should remain in the drive a<br />
+t all times when you are using this prog<br />
+ram."):PRINT<br />
+&nbsp;2200 PROCb("When you have done this, pr<br />
+ess"+STRING$(7," ")+"A if it an ADFS dis<br />
+c,"+STRING$(15," ")+"D if it is a DFS di<br />
+sc,"+STRING$(14," ")+"H if it is an HADF<br />
+S disk or"+STRING$(8," ")+"SPACE to use <br />
+the current filing system."):PRINT:PROCb<br />
+("If in doubt, just press SPACE.")<br />
+&nbsp;2220 PRINT:PROCb("To select another dri<br />
+ve enter that drive number."):K%=0:REPEA<br />
+T*FX21<br />
+&nbsp;2230 b%=GET:IFb%>=48ANDb%<=53K%=b%-48:P<br />
+RINTTAB(10,1);K%<br />
+&nbsp;2250 n$=CHR$((b%AND223)-32*(b%=32)):UNT<br />
+ILINSTR(" ADH",n$)<>0:=n$<br />
+&nbsp;2350 DEFFNb:LOCALA%,Y%:A%=0:Y%=0:=(USR(<br />
+65498)AND255)<br />
+&nbsp;2410 DEFPROCd:SOUND1,-10,52,5:ENDPROC<br />
+&nbsp;2430 DEFFNj(v$):LOCALd%:d%=OPENIN(v$):I<br />
+Fd%<>0THENCLOSE#d%<br />
+&nbsp;2480 =(d%<>0)<br />
+&nbsp;2510 DEFPROCk:LOCALd%,va%:CLS:PRINTCHR$<br />
+(s%);"Please wait, scanning messages..."<br />
+:d%=OPENIN("!Mesg"):va%=BGET#d%:IFva%<>1<br />
+THENPROCC("The !Mesg file on this disc i<br />
+s a version "+STR$(va%)+" file. This pro<br />
+gram can only handle version 1 files.")<br />
+
+ 2570 INPUT#d%,e$:INPUT#d%,d$:d$=FNi(d$)<br />
+:l%=(EXT#d%-256)/4096:IF((EXT#d%-256)MOD<br />
+4096)<>0ORl%<5ORl%>25THENPROCC("The !Mes<br />
+g file is an unacceptable size.")<br />
+&nbsp;2605 CLOSE#d%:ENDPROC<br />
+&nbsp;2620 DEFFNi(g$):LOCALi%:i%=ASC(RIGHT$(g<br />
+$,1)):REPEAT:IFi%<33ORi%>126THENg$=LEFT$<br />
+(g$,LEN(g$)-1)<br />
+&nbsp;2700 i%=ASC(RIGHT$(g$,1)):UNTIL(i%>=33A<br />
+NDi%<=126)ORg$="":=g$<br />
+&nbsp;2740 DEFPROCI:REPEAT:PRINT':PROCb("How <br />
+many messages do you wish to have room f<br />
+or in the message file?"):PRINT'CHR$(s%)<br />
+;"Messages (5-25):";CHR$(u%);:l%=VAL(FNd<br />
+(1,2,"")):UNTILl%>=5ANDl%<=25:ENDPROC<br />
+&nbsp;2740 DEFPROCl:LOCALd%,wa%:e$="":d$="":P<br />
+ROCD:PROCI:PRINT''CHR$(s%);"Please wait.<br />
+..":d%=OPENOUT("!Mesg"):BPUT#d%,1:PRINT#<br />
+d%,e$:PRINT#d%,LEFT$(d$+STRING$(20," "),<br />
+20):FORwa%=0TOl%-1:PTR#d%=256+wa%*4096:P<br />
+RINT#d%,"XXX":BPUT#d%,1:NEXT:PTR#d%=256+<br />
+l%*4096:CLOSE#d%:ENDPROC<br />
+&nbsp;2910 DEFPROCD:LOCALk$:CLS:PROCb("Please<br />
+&nbsp;enter your three-character ID. If you d<br />
+on't know it, it is shown in the top lef<br />
+t hand corner of the menu."):PRINT:PRINT<br />
+'CHR$(s%);"ID:";CHR$(u%);:e$=FNg(FNd(3,3<br />
+,e$)):PRINT'<br />
+&nbsp;2940 PROCb("Please enter your name as y<br />
+ou wish it to appear in message headings<br />
+. Just enter a blank name if you wish to<br />
+&nbsp;remain anonymous."):PRINT'CHR$(u%);:d$=<br />
+FNd(0,20,d$)<br />
+&nbsp;2950 CLS:PROCb("Would you like the mess<br />
+aging system to be installed on your sub<br />
+missions disc so that it can be loaded b<br />
+y pressing Shift+Break."):PRINT:PROCb("W<br />
+ould you like this (Y/N) : "):REPEATk$=G<br />
+ET$:UNTILINSTR("YyNn",k$)<br />
+&nbsp;2965 IFINSTR("Yy",k$)PROCg("Save !Boot <br />
+"+STR$~PAGE+" "+STR$~(TOP+451)):PROCg("O<br />
+pt 4,3")<br />
+&nbsp;2970 CLS:ENDPROC<br />
+&nbsp;2980 DEFFNd(xa%,ya%,c$):LOCALza%,Aa%,a%<br />
+:za%=POS:Aa%=VPOS:PRINTLEFT$(c$+STRING$(<br />
+ya%,"."),ya%);TAB(za%+LEN(c$),Aa%);:REPE<br />
+AT:REPEAT<br />
+&nbsp;3110 *FX21<br />
+&nbsp;3110 a%=GET:UNTILa%=13OR(a%>=32ANDa%<=1<br />
+27):IFa%=127ANDLEN(c$)>0THENVDU8,46,8:c$<br />
+=LEFT$(c$,LEN(c$)-1)<br />
+&nbsp;3140 IFa%<>127ANDa%<>13ANDLEN(c$)<ya%TH<br />
+ENVDUa%:c$=c$+CHR$(a%)<br />
+&nbsp;3150 UNTIL(a%=13ANDLEN(c$)>=xa%):=c$<br />
+&nbsp;3190 DEFFNg(o$):LOCALl$,Ba%,y%:l$="":IF<br />
+o$=""THEN=""<br />
+&nbsp;3220 FORBa%=1TOLEN(o$):y%=ASC(MID$(o$,B<br />
+a%,1)):IFy%>=ASC"a"ANDy%<=ASC"z"THENy%=y<br />
+%-32<br />
+&nbsp;3250 l$=l$+CHR$(y%):NEXT:=l$<br />
+&nbsp;3300 DEFFNp:LOCALv%,h$,a%:CLS:PRINTFNa(<br />
+"Start a new message","N");FNa("View/edi<br />
+t/print messages","V");FNa("Print all th<br />
+e messages","P");FNa("Re-enter your user<br />
+&nbsp;ID/name","R");FNa("Undelete deleted mes<br />
+sages","U");:PRINTFNa("Quit the program"<br />
+,"Q")<br />
+&nbsp;3340 PROCb("Use the up and down cursor <br />
+keys to move the bar, or press the key s<br />
+hown after the option you want. Press RE<br />
+TURN to select the highlighted option.")<br />
+:PRINT<br />
+&nbsp;3360 PROCB("If you select an option by <br />
+mistake, pressing ESCAPE will usually re<br />
+turn you to this menu."):v%=r%:h$="NVPRU<br />
+Q":PRINTTAB(1,r%-1);CHR$(Z%);CHR$157;CHR<br />
+$(_%):REPEAT:REPEAT<br />
+&nbsp;3430 *FX21<br />
+&nbsp;3430 a%=GETAND223:IFINKEY-1ANDa%=27THEN<br />
+v%=LEN(h$):a%=13<br />
+&nbsp;3450 UNTILINSTR(CHR$138+CHR$139+CHR$13+<br />
+h$,CHR$(a%))<>0:r%=INSTR(h$,CHR$(a%)):IF<br />
+r%=0THENr%=v%<br />
+&nbsp;3470 IFa%=138ANDr%<LEN(h$)THENr%=r%+1<br />
+&nbsp;3480 IFa%=139ANDr%>1THENr%=r%-1<br />
+&nbsp;3490 IFr%<>v%THENPRINTTAB(1,v%-1);"&nbsp;&nbsp;";<br />
+CHR$(aa%);TAB(1,r%-1);CHR$(Z%);CHR$157;C<br />
+HR$(_%):v%=r%<br />
+&nbsp;3500 UNTILa%=13:=r%<br />
+&nbsp;3540 DEFFNa(q$,h$)="&nbsp;&nbsp; "+CHR$(aa%)+q$+S<br />
+TRING$(28-LEN(q$)," ")+h$+"&nbsp;&nbsp;"+CHR$156<br />
+&nbsp;3560 DEFPROCq:LOCALi$,S%:CLS:IFk%>=l%TH<br />
+ENPROCi("Sorry, there is a limit of "+ST<br />
+R$(l%)+" messages."):ENDPROC<br />
+&nbsp;3590 PROCb("Please enter the 3-characte<br />
+r ID of the person who will receive the <br />
+message. Messages to individual members <br />
+are private and will not be published. E<br />
+nter 999 to send a message to everyone o<br />
+r CCC to send in a comment for publicati<br />
+on.")<br />
+&nbsp;3600 PRINT'CHR$(s%);"ID:";CHR$(u%);<br />
+&nbsp;3620 *FX229<br />
+&nbsp;3620 i$=FNg(FNd(3,3,""))<br />
+&nbsp;3640 *FX229,1<br />
+&nbsp;3640 PROCJ:S%=(i$<>"CCC"):IFi$="999"THE<br />
+Nr$="(all members)"ELSEr$=""<br />
+&nbsp;3670 IFS%THENPROCo(CHR$(ba%)+"To:&nbsp;&nbsp;&nbsp;&nbsp; "<br />
++CHR$(ca%)+i$+" "+r$,f%)<br />
+&nbsp;3680 IFd$=""THENs$=""ELSEs$="("+d$+")"<br />
+
+ 3690 PROCo(CHR$(ba%)+"From:&nbsp;&nbsp; "+CHR$(ca<br />
+%)+e$+" "+s$,f%-40*S%):PROCo(CHR$(ba%)+"<br />
+Subject:"+CHR$(ca%),f%+40-40*S%):i$=FNk(<br />
+10,1-S%,i$):PROCE(i$,FNn):k%=k%+1:ENDPRO<br />
+C<br />
+&nbsp;3750 DEFPROCE(a$,j%):LOCALd%:PRINTTAB(0<br />
+,0);CHR$(ka%);"Please wait, saving messa<br />
+ge...";:d%=OPENUP("!Mesg"):PTR#d%=256+j%<br />
+*4096:PRINT#d%,a$:BPUT#d%,0:PROCK(FNh+1,<br />
+d%):CLOSE#d%:a$(j%)=a$:b$(j%)=FNl(30):a%<br />
+(j%)=0:ENDPROC<br />
+&nbsp;3900 DEFFNn:LOCALT%,m%:T%=-1:FORm%=0TOl<br />
+%-1:IFa%(m%)=255THENT%=m%<br />
+&nbsp;3970 IFa%(m%)=1THENT%=m%:m%=l%<br />
+&nbsp;3980 NEXT:IFT%=-1THENPROCi("An attempt <br />
+was made to add a new message when no sp<br />
+ace was free"):PROCg("FX125")<br />
+&nbsp;4000 =T%<br />
+&nbsp;4030 DEFFNh:!112=f%+J%+1:!114=f%:CALLpa<br />
+%:!114=0:=(!112)-f%<br />
+&nbsp;4100 DEFPROCK(h%,d%):LOCALA%,X%,Y%:n%?0<br />
+=d%:n%!1=f%:n%!5=h%:A%=2:X%=n%MOD256:Y%=<br />
+n%DIV256:CALL65489:BPUT#d%,152:ENDPROC<br />
+&nbsp;4200 DEFPROCo(p$,Ca%):LOCALq%:q%=Ca%?LE<br />
+N(p$):$Ca%=p$:Ca%?LEN(p$)=q%:ENDPROC<br />
+&nbsp;4270 DEFPROCJ:!112=f%:!114=f%+J%+1:CALL<br />
+ta%:ENDPROC<br />
+&nbsp;4330 DEFFNk(g%,c%,a$):LOCALe%,E%,B%,w%,<br />
+a%:VDU22,7<br />
+&nbsp;4370 e%=0:E%=0:B%=(J%DIV40)-25:w%=FALSE<br />
+:PROCc(a$,w%):PROCF(e%)<br />
+&nbsp;4420 *FX21<br />
+&nbsp;4420 REPEAT:VDU31,g%,c%<br />
+&nbsp;4440 REPEAT:a%=GET:UNTIL(a%>=32ANDa%<=1<br />
+27)OR(a%>=136ANDa%<=139)OR(a%>=200ANDa%<<br />
+=229)ORa%=13ORa%=27ORa%=20:IFa%=ASC"£"TH<br />
+ENa%=35ELSEIFa%=ASC"#"THENa%=95ELSEIFa%=<br />
+ASC"_"THENa%=96<br />
+&nbsp;4490 IFa%>=32ANDa%<=126ANDNOTw%THEN?(g%<br />
++c%*40+31744)=a%:f%?(g%+(c%+e%)*40)=a%:g<br />
+%=g%+1:IFg%=40ANDNOT(e%=B%ANDc%=23)ANDa%<br />
+<>32THENg%=FNo(c%,e%):c%=c%+1:E%=-1<br />
+&nbsp;4510 IFa%=32ANDg%=40THENg%=39:a%=13<br />
+&nbsp;4520 IFa%>=200ANDa%<=229THENDa%=FNq(a%,<br />
+g%,c%):g%=g%-Da%:IFg%=40ANDNOT(e%=B%ANDc<br />
+%=23)THENg%=0:c%=c%+1:E%=-1<br />
+&nbsp;4530 IFa%=127ANDg%>0THEN!112=f%+(c%+e%)<br />
+*40:?114=g%:CALLna%:!112=31744+c%*40:?11<br />
+4=g%:CALLna%:g%=g%-1<br />
+&nbsp;4540 IFa%=13THENIFNOT(e%=B%ANDc%=23)THE<br />
+Nf%?((c%+1+e%)*40)=f%?((c%+e%)*40):g%=1:<br />
+c%=c%+1:E%=-1<br />
+&nbsp;4550 IFa%=209THENw%=NOTw%:PROCc(a$,w%)<br />
+
+ 4560 IFa%=219THENa$=FNr(a$):PROCc(a$,w%<br />
+)<br />
+&nbsp;4570 IFINSTR("QWASZXqwaszx",CHR$(a%))<><br />
+0ANDw%THENPROCL(g%,c%,e%,a%)<br />
+&nbsp;4580 IFa%=226THENPROCM(g%,c%,e%)<br />
+&nbsp;4590 IFa%=227THENPROCN(c%,e%):E%=-1<br />
+&nbsp;4600 IFa%=228THENPROCO(c%,e%):E%=-1<br />
+&nbsp;4610 IFa%=20THENPROCP(g%,c%,e%,B%):E%=-<br />
+1<br />
+&nbsp;4620 IFa%=136THENg%=g%-1<br />
+&nbsp;4630 IFa%=137THENg%=g%+1<br />
+&nbsp;4640 IFa%=138THENc%=c%+1<br />
+&nbsp;4650 IFa%=139THENc%=c%-1<br />
+&nbsp;4660 IFg%<0THENg%=39:c%=c%-1<br />
+&nbsp;4670 IFg%>39THENg%=0:c%=c%+1<br />
+&nbsp;4680 IFc%<0THENc%=0:e%=e%+(e%>0)<br />
+&nbsp;4690 IFc%>23THENc%=23:e%=e%-(e%<B%)<br />
+&nbsp;4700 IFE%<>e%THENPROCF(e%):E%=e%:PROCc(<br />
+a$,w%)<br />
+&nbsp;4710 UNTILa%=27ANDNOTw%:PROCw:PROCy:=a$<br />
+<br />
+&nbsp;4770 DEFPROCM(g%,c%,e%):IFg%=39THENf%?(<br />
+39+(c%+e%)*40)=32:?(31744+39+c%*40)=32:E<br />
+NDPROC<br />
+&nbsp;4780 !112=f%+(c%+e%)*40:?114=g%:CALLoa%<br />
+:!112=31744+c%*40:?114=g%:CALLoa%:ENDPRO<br />
+C<br />
+&nbsp;4850 DEFPROCN(c%,e%):LOCALx%,L%:x%=FNh:<br />
+IFx%>=J%-80THENPROCd:ENDPROC<br />
+&nbsp;4900 IF(c%+e%)*40>x%THENENDPROC<br />
+&nbsp;4910 !112=f%+(c%+e%-1)*40:!114=f%+(x%DI<br />
+V40)*40:CALLra%:FORL%=(c%+e%)*40TO39+(c%<br />
++e%)*40:f%?L%=32:NEXT:ENDPROC<br />
+&nbsp;4980 DEFPROCO(c%,e%):LOCALx%,L%:x%=FNh:<br />
+IF(c%+e%)*40>x%THENENDPROC<br />
+&nbsp;5030 IFx%>=(c%+e%)*40ANDx%<=39+(c%+e%)*<br />
+40THENFORL%=(c%+e%)*40TO39+(c%+e%)*40:f%<br />
+?L%=32:NEXT:ENDPROC<br />
+&nbsp;5040 !112=f%+(c%+e%)*40:!114=f%+(x%DIV4<br />
+0)*40:CALLsa%:FORL%=(x%DIV40)*40TO(x%DIV<br />
+40)*40+40:f%?L%=32:NEXT:ENDPROC<br />
+&nbsp;5110 DEFPROCc(a$,w%):PRINTTAB(0,24);SPC<br />
+(39);TAB(0,24);CHR$(ia%);"Message to ";a<br />
+$;TAB(29,24);:IFw%THENPRINT"Pixel edit";<br />
+ELSEPRINTSPC(10);<br />
+&nbsp;5150 ENDPROC<br />
+&nbsp;5160 DEFFNo(c%,e%):LOCALF%,Ea%:F%=40:RE<br />
+PEAT:F%=F%-1:UNTILf%?(F%+(c%+e%)*40)=32O<br />
+RF%=0:IFf%?(F%+(c%+e%)*40)<>32THENf%?((c<br />
+%+1+e%)*40)=f%?((c%+e%)*40):=1<br />
+&nbsp;5240 FOREa%=F%+1TO39:f%?(Ea%-F%+(c%+1+e<br />
+%)*40)=f%?(Ea%+(c%+e%)*40):f%?(Ea%+(c%+e<br />
+%)*40)=32:NEXT:f%?((c%+1+e%)*40)=f%?((c%<br />
++e%)*40):=40-F%<br />
+&nbsp;5320 DEFPROCF(e%):!112=f%+e%*40:CALLua%<br />
+:ENDPROC<br />
+&nbsp;5350 DEFFNq(a%,g%,c%):LOCALD%:D%=-1:IFa<br />
+%>=200ANDa%<=208THEND%=a%-71<br />
+&nbsp;5400 IFa%>=210ANDa%<=216THEND%=a%-65<br />
+&nbsp;5410 IFa%>=217ANDa%<=218THEND%=a%-61<br />
+&nbsp;5420 IFa%>=220ANDa%<=221THEND%=a%-67<br />
+&nbsp;5430 IFa%>=222ANDa%<=223THEND%=a%-64<br />
+&nbsp;5440 IFa%>=224ANDa%<=225THEND%=365-a%<br />
+&nbsp;5450 IFD%<>-1THEN?(g%+c%*40+31744)=D%:f<br />
+%?(g%+(c%+e%)*40)=D%:=TRUE<br />
+&nbsp;5460 =FALSE<br />
+&nbsp;5490 DEFFNr(a$):PRINTTAB(0,24);SPC(39);<br />
+TAB(0,24);CHR$(ja%);"Send this message t<br />
+o:";CHR$(u%);:=FNg(FNd(3,3,a$))<br />
+&nbsp;5530 DEFPROCL(g%,c%,e%,a%):LOCALU%,G%,F<br />
+a%:U%=2^((INSTR("QWASZ X",CHR$(a%AND223)<br />
+))-1):G%=f%+g%+(c%+e%)*40:IF(?G%AND160)<<br />
+>160THEN?G%=?G%OR160<br />
+&nbsp;5570 IF(?G%ANDU%)=U%THENFa%=?G%AND(255-<br />
+U%)ELSEFa%=?G%ORU%<br />
+&nbsp;5580 ?G%=Fa%:?(31744+g%+c%*40)=Fa%:ENDP<br />
+ROC<br />
+&nbsp;5610 DEFPROCP(g%,c%,e%,B%):LOCALh%,c$:P<br />
+ROCw:PROCy:PRINTCHR$(s%);"Are you sure y<br />
+ou want to read in"'CHR$(s%);"a text fil<br />
+e?";CHR$(u%);:IFNOTFNeTHENVDU22,7:ENDPRO<br />
+C<br />
+&nbsp;5680 PRINT':PROCb("Please insert the di<br />
+sc containing the text file into drive "<br />
++STR$K%+" and press SPACE...")<br />
+&nbsp;5710 *FX21<br />
+&nbsp;5710 REPEATUNTILGET=32:h%=10:IFFNb=4THE<br />
+NPROCf:h%=7<br />
+&nbsp;5740 IFFNb=8THENPROCe<br />
+&nbsp;5750 IFFNb=16THENPROCj<br />
+&nbsp;5755 PRINT:PRINTCHR$(s%);"Filename:";CH<br />
+R$(u%);:c$=FNd(0,h%,""):IFc$<>""THENPROC<br />
+Q(g%,c%,e%,B%,c$)<br />
+&nbsp;5790 PROCb("Please insert your submissi<br />
+on disc in drive "+STR$K%+" and press SP<br />
+ACE...")<br />
+&nbsp;5810 *FX21<br />
+&nbsp;5810 REPEATUNTILGET=32:IFFNb=4THENPROCf<br />
+<br />
+&nbsp;5830 IFFNb=8THENPROCe<br />
+&nbsp;5840 IFFNb=16THENPROCj<br />
+&nbsp;5845 VDU22,7<br />
+&nbsp;5850 ENDPROC<br />
+&nbsp;5860 DEFPROCQ(g%,c%,e%,B%,c$):LOCALd%,f<br />
+$,q%,O%:d%=OPENIN(c$):IFd%=0THENPRINT':P<br />
+ROCb("Sorry, the file "+c$+" is not pres<br />
+ent on this disc."):PRINT:ENDPROC<br />
+&nbsp;5910 IFEOF#d%THENCLOSE#d%:ENDPROC<br />
+&nbsp;5920 PRINT''CHR$(s%);"Please wait..."':<br />
+REPEAT:f$="":REPEAT:q%=BGET#d%:IFq%=ASC"<br />
+£"THENq%=35ELSEIFq%=ASC"#"THENq%=95ELSEI<br />
+Fq%=ASC"_"THENq%=96<br />
+&nbsp;5990 IFq%>=33ANDq%<=126THENf$=f$+CHR$(q<br />
+%)<br />
+&nbsp;6000 UNTILq%<33ORq%>126OREOF#d%:O%=-1:I<br />
+Fg%+LEN(f$)<=39THENO%=g%:Ga%=c%:Ha%=e%:g<br />
+%=g%+LEN(f$)+1<br />
+&nbsp;6030 IFO%=-1THENg%=1:c%=c%+1:i%=?(f%+(c<br />
+%-1+e%)*40):IFi%>=129ANDi%<=135THEN?(f%+<br />
+(c%+e%)*40)=i%<br />
+&nbsp;6040 IFc%>23THENc%=23:e%=e%-(e%<B%)<br />
+&nbsp;6050 IFO%=-1THENO%=g%:Ga%=c%:Ha%=e%:g%=<br />
+g%+LEN(f$)+1<br />
+&nbsp;6060 $(f%+O%+(Ga%+Ha%)*40)=f$:?(f%+O%+(<br />
+Ga%+Ha%)*40+LEN(f$))=32:IFq%=13ORq%=10TH<br />
+ENg%=1:c%=c%+1:i%=?(f%+(c%-1+e%)*40):IFi<br />
+%>=129ANDi%<=135THEN?(f%+(c%+e%)*40)=i%<br />
+
+ 6080 UNTILEOF#d%:CLOSE#d%:ENDPROC<br />
+&nbsp;6110 DEFPROCm:LOCALd%,m%,a$,Ia%:d%=OPEN<br />
+IN("!Mesg"):FORm%=0TOl%-1:PTR#d%=256+m%*<br />
+4096:INPUT#d%,a$:a%(m%)=BGET#d%:IFa%(m%)<br />
+<>1THENIa%=FNm(d%,FALSE):b$(m%)=FNl(30):<br />
+a$(m%)=a$<br />
+&nbsp;6200 NEXT:CLOSE#d%:k%=FNs:ENDPROC<br />
+&nbsp;6240 DEFFNs:LOCALk%,m%:k%=0:FORm%=0TOl%<br />
+-1:IFa%(m%)=0THENk%=k%+1<br />
+&nbsp;6300 NEXT:=k%<br />
+&nbsp;6340 DEFFNl(Ja%):LOCALj$:f%?128=13:j$="<br />
+Subject:":IFINSTR($f%,j$)=0THENj$="Artic<br />
+le:"<br />
+&nbsp;6380 IFINSTR($f%,j$)=0THEN="No subject?<br />
+"<br />
+&nbsp;6390 =FNi(MID$($f%,INSTR($f%,j$)+9,Ja%)<br />
+)<br />
+&nbsp;6420 DEFPROCr:LOCALz%,v%,p%,V%,H%,Ka%,P<br />
+%,a%,La%,Q%:CLS:IFk%=0THENPROCi("Sorry, <br />
+there are no messages to view."):ENDPROC<br />
+<br />
+&nbsp;6450 z%=1:v%=1:p%=1:V%=-1:REPEAT:REPEAT<br />
+:PROCR:IFp%=V%THENv%=1:p%=1<br />
+&nbsp;6530 CLS:PRINTTAB(0,16);CHR$(R%);"Use:"<br />
+;CHR$(`%);"V";CHR$(R%);"iew,";CHR$(`%);"<br />
+E";CHR$(R%);"dit,";CHR$(`%);"P";CHR$(R%)<br />
+;"rint,";CHR$(`%);"D";CHR$(R%);"elete";:<br />
+VDU30<br />
+&nbsp;6560 IFz%>k%THENz%=1<br />
+&nbsp;6570 H%=z%+13:IFH%>k%THENH%=k%<br />
+&nbsp;6580 FORKa%=z%TOH%:PRINTFNa(a$(n%?Ka%)+<br />
+": "+LEFT$(b$(n%?Ka%),22)," ");:NEXT:P%=<br />
+H%-z%+1:V%=P%+1:IFk%>14THENPRINTFNa("Mor<br />
+e messages..."," ");:P%=P%+1<br />
+&nbsp;6630 IFp%>P%THENp%=P%<br />
+&nbsp;6640 PRINTTAB(1,p%-1);CHR$(Z%);CHR$157;<br />
+CHR$(_%):REPEAT:REPEAT<br />
+&nbsp;6680 *FX21<br />
+&nbsp;6680 a%=GETAND223:UNTILINSTR(CHR$138+CH<br />
+R$139+CHR$13+CHR$27+"PVED",CHR$(a%))<>0:<br />
+IFa%=138ANDp%<P%THENp%=p%+1<br />
+&nbsp;6710 IFa%=139ANDp%>1THENp%=p%-1<br />
+&nbsp;6720 IFp%<>v%THENPRINTTAB(1,v%-1);"&nbsp;&nbsp;";<br />
+CHR$(aa%);TAB(1,p%-1);CHR$(Z%);CHR$157;C<br />
+HR$(_%):v%=p%<br />
+&nbsp;6730 UNTILINSTR(CHR$13+CHR$27+"PVED",CH<br />
+R$(a%))<>0:IFp%=V%THENz%=z%+14:IFz%>k%TH<br />
+ENz%=1<br />
+&nbsp;6750 UNTILp%<V%ORa%=27:La%=p%+z%-1:Q%=n<br />
+%?La%:IFa%=13ORa%=ASC("V")THENPRINTTAB(0<br />
+,16);SPC(35);TAB(0,16);CHR$(ea%);"Loadin<br />
+g message, please wait...";:h%=FNf(Q%)<br />
+&nbsp;6790 IFa%=13ORa%=ASC("V")THENVDU22,7,23<br />
+;8202;0;0;0;:PRINTTAB(0,24);FNt(La%,k%,a<br />
+$(Q%));:?116=f%MOD256:?117=f%DIV256:H%=f<br />
+%+FNu(h%):?118=H%MOD256:?119=H%DIV256:CA<br />
+LLma%:PROCy<br />
+&nbsp;6800 IFa%=ASC("P")THENPROCS(Q%)<br />
+&nbsp;6810 IFa%=ASC("D")THENPROCT(Q%)<br />
+&nbsp;6820 IFa%=ASC("E")THENPROCU(Q%)<br />
+&nbsp;6830 UNTILa%=27ORk%=0:ENDPROC<br />
+&nbsp;6850 DEFPROCR:LOCALN%,m%:N%=1:FORm%=0TO<br />
+l%-1:IFa%(m%)=0THENn%?N%=m%:N%=N%+1<br />
+&nbsp;6930 NEXT:ENDPROC<br />
+&nbsp;6950 DEFFNf(j%):LOCALd%,h%:d%=OPENIN("!<br />
+Mesg"):PTR#d%=256+j%*4096+6:h%=FNm(d%,TR<br />
+UE):CLOSE#d%:=h%<br />
+&nbsp;7090 DEFFNm(d%,Ma%):LOCALA%,X%,Y%:n%?0=<br />
+d%:n%!1=f%:IFMa%THENn%!5=J%+1ELSEn%!5=25<br />
+6<br />
+&nbsp;7130 A%=4:X%=n%MOD256:Y%=n%DIV256:CALL6<br />
+5489:IFNOTMa%THEN=0<br />
+&nbsp;7180 !112=f%-1:!114=f%+J%+1:CALLqa%:!11<br />
+8=0:=(!116-f%)<br />
+&nbsp;7250 DEFFNt(j%,Na%,a$)=CHR$(da%)+"This <br />
+is message "+STR$(j%)+" of "+STR$(Na%)+"<br />
+, to "+a$<br />
+&nbsp;7270 DEFFNu(h%):IFh%<960THENh%=960<br />
+&nbsp;7280 IF(h%MOD40)<>0THENh%=h%+(40-(h%MOD<br />
+40))<br />
+&nbsp;7290 =h%-960<br />
+&nbsp;7320 DEFPROCT(j%):PRINTTAB(0,16);SPC(35<br />
+);TAB(0,16);CHR$(fa%);"Delete this - are<br />
+&nbsp;you sure?";CHR$(u%);:IFNOTFNeTHENENDPRO<br />
+C<br />
+&nbsp;7340 PROCV(j%):ENDPROC<br />
+&nbsp;7360 DEFPROCV(j%):LOCALd%:d%=OPENUP("!M<br />
+esg"):PTR#d%=256+j%*4096+5:BPUT#d%,255:C<br />
+LOSE#d%:a%(j%)=255:k%=k%-1:ENDPROC<br />
+&nbsp;7460 DEFPROCU(j%):LOCALh%,a$:PRINTTAB(0<br />
+,16);SPC(35);TAB(0,16);CHR$(ha%);"Edit t<br />
+his - are you sure?";CHR$(u%);:IFNOTFNeT<br />
+HENENDPROC<br />
+&nbsp;7510 PRINTTAB(0,16);SPC(35);TAB(0,16);C<br />
+HR$(ea%);"Loading message, please wait..<br />
+.";:h%=FNf(j%):a$=FNk(1,4,a$(j%)):PROCE(<br />
+a$,j%):ENDPROC<br />
+&nbsp;7580 DEFFNe:LOCALa%:REPEAT<br />
+&nbsp;7630 *FX21<br />
+&nbsp;7630 a%=GETAND223:UNTILa%=ASC("Y")ORa%=<br />
+ASC("N"):IFa%=ASC("Y")THENPRINT"Yes";:=T<br />
+RUE<br />
+&nbsp;7660 PRINT"No";:=FALSE<br />
+&nbsp;7700 DEFPROCS(j%):LOCALh%:PRINTTAB(0,16<br />
+);SPC(35);TAB(0,16);CHR$(ga%);"Print thi<br />
+s - are you sure?";CHR$(u%);<br />
+&nbsp;7730 *FX229<br />
+&nbsp;7730 IFNOTFNeTHENPROCg("FX229,1"):ENDPR<br />
+OC<br />
+&nbsp;7740 PRINTTAB(0,16);SPC(35);TAB(0,16);C<br />
+HR$(ea%);"Loading message, please wait..<br />
+.";:h%=FNf(j%):PRINTTAB(0,16);SPC(35);TA<br />
+B(0,16);CHR$(ga%);"Printing, please wait<br />
+...";:PROCG(h%)<br />
+&nbsp;7790 *FX229,1<br />
+&nbsp;7790 ENDPROC<br />
+&nbsp;7800 DEFPROCs:LOCALI%:CLS:IFk%=0THENPRO<br />
+Ci("Sorry, there are no messages to prin<br />
+t."):ENDPROC<br />
+&nbsp;7850 PRINTCHR$(s%);"Are you sure you wa<br />
+nt to print the"'CHR$(s%);"messages?";CH<br />
+R$(u%);<br />
+&nbsp;7870 *FX229<br />
+&nbsp;7870 IFNOTFNeTHENPROCg("FX229,1"):ENDPR<br />
+OC<br />
+&nbsp;7880 PRINT':PROCb("Please wait, printin<br />
+g - press ESCAPE to stop..."):FORI%=0TOl<br />
+%-1:IFa%(I%)=0THENPROCG(FNf(I%))<br />
+&nbsp;7920 NEXT<br />
+&nbsp;7940 *FX229,1<br />
+&nbsp;7940 ENDPROC<br />
+&nbsp;7950 DEFPROCG(h%):LOCALI%,y%<br />
+&nbsp;7990 *FX3,10<br />
+&nbsp;7990 FORI%=0TOh%-1:y%=f%?I%:IFy%>=32AND<br />
+y%<=126THENVDUy%ELSEVDU32<br />
+&nbsp;8020 IF(I%MOD40)=39ORI%=h%-1THENPRINT<br />
+&nbsp;8030 NEXT:PRINT<br />
+&nbsp;8060 *FX3<br />
+&nbsp;8060 ENDPROC<br />
+&nbsp;8070 DEFPROCt:LOCALt$,u$,d%:t$=e$:u$=d$<br />
+:PROCD:IFe$=t$ANDd$=u$THENENDPROC<br />
+&nbsp;8130 d%=OPENUP("!Mesg"):PTR#d%=1:PRINT#<br />
+d%,e$:PRINT#d%,LEFT$(d$+STRING$(20," "),<br />
+20):CLOSE#d%:ENDPROC<br />
+&nbsp;8190 DEFPROCu:LOCALOa%,Pa%:CLS<br />
+&nbsp;8240 *FX229<br />
+&nbsp;8240 Oa%=FALSE:FORPa%=0TOl%-1:IFa%(Pa%)<br />
+=255THENOa%=TRUE:PROCW(Pa%)<br />
+&nbsp;8270 NEXT<br />
+&nbsp;8290 *FX229,1<br />
+&nbsp;8290 IFNOTOa%THENPROCi("Sorry, there ar<br />
+e no messages to undelete.")<br />
+&nbsp;8300 ENDPROC<br />
+&nbsp;8310 DEFPROCW(j%):LOCALd%:PROCB("Undele<br />
+te the message to "+a$(j%)+" with subjec<br />
+t '"+b$(j%)+"'?"):IFPOS>31THENPRINT<br />
+&nbsp;8360 VDUu%<br />
+&nbsp;8370 IFNOTFNeTHENPRINT':ENDPROC<br />
+&nbsp;8380 PRINT'<br />
+&nbsp;8400 *FX229,1<br />
+&nbsp;8400 d%=OPENUP("!Mesg"):PTR#d%=256+j%*4<br />
+096+5:BPUT#d%,0:CLOSE#d%<br />
+&nbsp;8450 *FX229<br />
+&nbsp;8450 a%(j%)=0:k%=k%+1:ENDPROC<br />
+&nbsp;8480 DEFPROCn:DIMM% -1:IFHIMEM-M%>=256T<br />
+HENENDPROC<br />
+&nbsp;8520 IFHIMEM-M%>=128THENPROCi("There ar<br />
+e less than 256 bytes of RAM free. I rec<br />
+ommend quitting the program and restarti<br />
+ng, as a crash may occur if RAM is exhau<br />
+sted."):ENDPROC<br />
+&nbsp;8530 PROCi("There are less than 128 byt<br />
+es of RAM free. You should quit the prog<br />
+ram and restart it very soon, otherwise <br />
+a crash may occur due to lack of RAM."):<br />
+ENDPROC<br />
+    </td></tr></table>
+  </body>
+</html>

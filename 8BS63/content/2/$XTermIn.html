@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>XTerm Info</title>
+  <style type="text/css">
+    body {
+	    background-color: black;
+	    text-align: center;
+    }
+    
+    table {
+	    color: white;
+	    font: 15px "Courier New", "Courier", monospace;
+	    text-align: left;
+	    border: 0px;
+	    border-collapse: collapse;
+	    margin-left: auto;
+	    margin-right: auto;
+    }
+    
+    td {
+    	margin: 0px;
+    	padding: 0px;
+    }
+  </style>
+  </head>
+  
+  <body>
+    <table><tr><td>
+				XTerm c0.35<br />				===========<br />		   J.G.Harston - jgh@arcade.demon.co.uk<br />		70 Camm Street, Walkley, Sheffield, S6 3TR<br />				31-Jan-1998<br /><br />XTerm is a small terminal program with XYModem upload and download<br />facilities.  To start, use *XTerm, and the correct character set will be<br />selected, and an extended serial input buffer will be created.  The<br />program then enters mode 3 (or mode 0 if enough memory is available) and a<br />brief help message is displayed.  It starts off with the baud rate set to<br />9600.  To change the baud rate, press f2 and enter the rate required.<br /><br />Pressing function keys have the following effects:<br /><br />	f0 - Help<br />	f1 - *Commands.  Pressing Return on its own will return to data mode.<br />	f2 - Set baud rate.<br /><br />	f5 - Download file.  See below.<br />	f6 - Upload a file.  See below.<br />	f7 - Select MODE 7, 40 column teletext.<br />	f8 - Select MODE 0, 80 column text.<br />	f9 - Exit.<br /><br /><br />File Transfer<br />-------------<br />Pressing f5 and f6 allow you to download and upload a file.  When you tell<br />the bulletin board that you want to up or download, you will be told<br />something like 'Start your up/download now'.  Press f5 or f6 as relevant.<br />You are then prompted for the filename to download to or to upload from,<br />and then whether the file is Text or Binary.  Text files have CRs<br />converted to LFs on being sent, and LFs converted to CRs on receipt.  If<br />you just press Return, the function is aborted.  While transferring, the<br />current block number is displayed.  Escape will abort the transfer.<br /><br /><br />File Transfer protocols<br />-----------------------<br />File download is a fully implemented XYModem file transfer routine. <br />XYModem intelligently switches between XModem, XModem-CRC, XModem-1k,<br />YModem and YModem-G according to what the other end can do.<br /><br />If the length of the file being transfered is not known, as with an XModem<br />download, then the status displayed looks as follows:<br /><br />Action   'filename' Pkt nn: nnn bytes Status<br /><br />If the length is known, as with uploading or with a YModem download, the<br />status is displayed as follows:<br /><br />Action   'filename' Pkt nn: nnn bytes, xx% of nnnnnn mm:ss Status<br /><br />showing how much of the file has been transfered, and an approximate time<br />to completion.<br /><br /><br />Program History<br />---------------<br />c0.35	30-Jan-1998	Combined Basic/Machine code<br />b0.28	24-Nov-1997	Fully Basic version<br />    </td></tr></table>
+  </body>
+</html>
