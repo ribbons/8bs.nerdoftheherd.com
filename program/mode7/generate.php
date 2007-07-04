@@ -233,12 +233,12 @@
 			
 			case 140:
 				$textdheight=false;
-				echo '&nbsp';
+				echo '&nbsp;';
 				break;
 			case 141:
 				$textdheight=true;
 				$textdused=true;
-				echo '&nbsp';
+				echo '&nbsp;';
 				break;
 
 			# -----------------------------
