@@ -83,7 +83,7 @@
 	
 	function simplifysymbols($contents) {
 		# Replace symbol tables which are all one colour with an empty cell of the same colour.
-		$contents=preg_replace('/<td class="(?:[^"]*)"><table><tr><td class="([^"]*)"><\/td><td class="\1"><\/td><\/tr><tr><td class="\1"><\/td><td class="\1"><\/td><\/tr><tr><td class="\1"><\/td><td class="\1"><\/td><\/tr><\/table><\/td>/', '<td class="\1">&nbsp;</td>', $contents);
+		$contents=preg_replace('/<td class="(?:[^"]*)"><table><tr><td class="([^"]*)" colspan="2"><\/td><\/tr><tr><td class="\1" colspan="2"><\/td><\/tr><tr><td class="\1" colspan="2"><\/td><\/tr><\/table><\/td>/', '<td class="\1">&nbsp;</td>', $contents);
 		return $contents;
 	}
 	

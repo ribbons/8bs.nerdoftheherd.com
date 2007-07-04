@@ -55,8 +55,8 @@
 	
 	function makesymbol($symbol, $width, $height, $backcol, $textcol, $lookup) {
 		$symboldesc=$lookup[$symbol];
-		
 		$textcol=convtoclass($textcol);
+		$symboloutput='';
 		
 		if($symboldesc==0):
 			return '';
@@ -80,42 +80,47 @@
 		$parts[0][0]=(($symboldesc-1)>=0);
 		if(($symboldesc-1)>=0) $symboldesc=$symboldesc-1;
 		
-		echo '<table><tr><td';
+		$symboloutput.='<table><tr><td';
 		
 		if($parts[0][0]):
-			echo ' class="'.$textcol.'"';
+			$symboloutput.=' class="'.$textcol.'"';
 		endif;
 		
-		echo '></td><td';
+		$symboloutput.='></td><td';
 		
 		if($parts[1][0]):
-			echo ' class="'.$textcol.'"';
+			$symboloutput.=' class="'.$textcol.'"';
 		endif;
 		
-		echo '></td></tr><tr><td';
+		$symboloutput.='></td></tr><tr><td';
 		
 		if($parts[0][1]):
-			echo ' class="'.$textcol.'"';
+			$symboloutput.=' class="'.$textcol.'"';
 		endif;
 		
-		echo '></td><td';
+		$symboloutput.='></td><td';
 		
 		if($parts[1][1]):
-			echo ' class="'.$textcol.'"';
+			$symboloutput.=' class="'.$textcol.'"';
 		endif;
 		
-		echo '></td></tr><tr><td';
+		$symboloutput.='></td></tr><tr><td';
 		
 		if($parts[0][2]):
-			echo ' class="'.$textcol.'"';
+			$symboloutput.=' class="'.$textcol.'"';
 		endif;
 		
-		echo '></td><td';
+		$symboloutput.='></td><td';
 		
 		if($parts[1][2]):
-			echo ' class="'.$textcol.'"';
+			$symboloutput.=' class="'.$textcol.'"';
 		endif;
-				
-		echo '></td></tr></table>';
+		
+		$symboloutput.='></td></tr></table>';
+		
+		# If there are two cells next to each other which are the same, then combine them.
+		$symboloutput=str_replace('<td class="'.$textcol.'"></td><td class="'.$textcol.'"></td>', '<td class="'.$textcol.'" colspan="2"></td>', $symboloutput);
+		
+		echo $symboloutput;
 	}
 ?>
