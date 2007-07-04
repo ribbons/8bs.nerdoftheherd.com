@@ -40,11 +40,13 @@
 		$skipcell=0;
 		
 		foreach($matches[1] as $key => $classes):
+			$classes=trim($classes);
+			
 			if(substr($matches[2][$key],0,1)=='<'):
 				$skipcell=2;
 			endif;
 			
-			if($lastclass==$classes && $skipcell==0):
+			if($lastclass===$classes && $skipcell==0):
 				$colspan++;
 			else:
 				if(isset($colspan)):
