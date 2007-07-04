@@ -24,8 +24,39 @@
 		return $lookup;
 	}
 	
+	function convtoclass($colour) {
+		switch($colour):
+			case '#ffffff':
+				return 'bw';
+				break;
+			case '#ff0000':
+				return 'br';
+				break;
+			case '#00ff00':
+				return 'bg';
+				break;
+			case '#0000ff':
+				return 'bb';
+				break;
+			case '#ffff00':
+				return 'by';
+				break;
+			case '#000000':
+				return 'bbk';
+				break;
+			case '#ff00ff':
+				return 'bm';
+				break;
+			case '#00ffff':
+				return 'bc';
+				break;
+		endswitch;
+	}
+	
 	function makesymbol($symbol, $width, $height, $backcol, $textcol, $lookup) {
 		$symboldesc=$lookup[$symbol];
+		
+		$textcol=convtoclass($textcol);
 		
 		if($symboldesc==0):
 			return '';
@@ -52,37 +83,37 @@
 		echo '<table><tr><td';
 		
 		if($parts[0][0]):
-			echo ' style="background-color:'.$textcol.';"';
+			echo ' class="'.$textcol.'"';
 		endif;
 		
 		echo '></td><td';
 		
 		if($parts[1][0]):
-			echo ' style="background-color:'.$textcol.';"';
+			echo ' class="'.$textcol.'"';
 		endif;
 		
 		echo '></td></tr><tr><td';
 		
 		if($parts[0][1]):
-			echo ' style="background-color:'.$textcol.';"';
+			echo ' class="'.$textcol.'"';
 		endif;
 		
 		echo '></td><td';
 		
 		if($parts[1][1]):
-			echo ' style="background-color:'.$textcol.';"';
+			echo ' class="'.$textcol.'"';
 		endif;
 		
 		echo '></td></tr><tr><td';
 		
 		if($parts[0][2]):
-			echo ' style="background-color:'.$textcol.';"';
+			echo ' class="'.$textcol.'"';
 		endif;
 		
 		echo '></td><td';
 		
 		if($parts[1][2]):
-			echo ' style="background-color:'.$textcol.';"';
+			echo ' class="'.$textcol.'"';
 		endif;
 				
 		echo '></td></tr></table>';
