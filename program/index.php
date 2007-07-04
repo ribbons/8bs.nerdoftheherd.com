@@ -93,7 +93,7 @@
 		$descriptions[-7]='Uses LDPIC'; # Guess
 		$descriptions[-8]='*RUN';
 		
-		if($descriptions[$id]):
+		if(isset($descriptions[$id])):
 			$descript=$descriptions[$id];
 		else:
 			$descript='Another menu';
