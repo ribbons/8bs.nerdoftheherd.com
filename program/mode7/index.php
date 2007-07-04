@@ -114,6 +114,7 @@
 	$contents = reducenbsp($contents);
 	
 	$contents = str_replace(' class=""','',$contents); # Remove empty class definiton attributes
+	$contents = str_replace("\r\n	<tr></tr>\r\n","\r\n",$contents); # Remove the empty table row from the bottom
 	
 	echo $contents;
 ?>
