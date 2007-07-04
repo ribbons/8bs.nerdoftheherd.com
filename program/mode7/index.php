@@ -1,5 +1,6 @@
 <?php
 	# Load the HTML created by create.php, and do cleanup and size reduction
+	define('CHAR_CELL', '<td class="');
 	
 	function MergeCells($contents) {
 		$contentlines = explode("\r\n", $contents);
@@ -15,6 +16,41 @@
 	}
 	
 	function MergeRows($row) {
+		$restofline=$row;
+		$row='';
+		$lastclasses=false;
+		
+		$nextpos=strpos($restofline, CHAR_CELL);
+		
+		while(!$nextpos===false):
+			$nextpos+=strlen(CHAR_CELL);
+			$thisclasses=substr($restofline,$nextpos,strpos(substr($restofline,$nextpos),'"'));
+			$nextpos+=strlen($thisclasses)+1;
+			
+			if(substr($restofline,$nextpos+1,7)=='<table>'):
+				$lastclasses=false;
+			endif;
+			
+			if($thisclasses==$lastclasses):
+				$colspan++;
+			else:
+				if(isset($colspan)):
+					$row.=$lastrow;
+					$row.=' colspan="'.$colspan.'"';
+				endif;
+				
+				$colspan=1;
+				$lastrow=substr($restofline,0,$nextpos);
+				
+				$lastclasses=$thisclasses;
+			endif;
+			
+			$restofline=substr($restofline,$nextpos);
+			
+			$nextpos=strpos($restofline, CHAR_CELL);
+		endwhile;
+		
+		$row.=$restofline;
 		
 		return $row;
 	}
