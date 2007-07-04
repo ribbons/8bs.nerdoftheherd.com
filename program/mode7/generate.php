@@ -291,6 +291,7 @@
 		global $charwidth;
 		global $charheight;
 		global $lookup;
+		global $display;
 		
 		if($display==JUST_TEXT):
 			echo makesymbol($charval, $charwidth, $charheight, $backgroundcolour, $textcolour, $lookup);
