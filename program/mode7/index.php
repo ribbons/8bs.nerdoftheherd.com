@@ -30,18 +30,8 @@
 		$pos=strpos($_SERVER['REQUEST_URI'],'?');
 		$pathto=substr($_SERVER['REQUEST_URI'],0,$pos);
 	
-		$handle=fopen('http://127.0.0.1'.$pathto.'generate.php?file='.rawurlencode($file).'&title='.rawurlencode($title),'r');
-				
-		$returned=fgets($handle,50000);
-		
-		while($returned<>''):
-			$complete.=$returned;			
-			$returned=fgets($handle,5000);
-		endwhile;
-		
-		fclose($handle);
-		
-		return $complete;
+		$complete=file('http://127.0.0.1'.$pathto.'generate.php?file='.rawurlencode($file).'&title='.rawurlencode($title));
+		return implode('',$complete);
 	}
 	
 	# Don't forget 
