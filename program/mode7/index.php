@@ -2,31 +2,20 @@
 	# Load the HTML created by create.php, and do cleanup and size reduction
 	define('CHAR_CELL', '<td class="');
 	
-	function MergeCells($contents) {
+	function processrows($contents) {
 		$contentlines = explode("\r\n", $contents);
 		$contents='';
 		
 		foreach($contentlines as $key => $line):
 			if(substr($line, 1, 18) == '<!-- mode7 row -->'):
-				$contentlines[$key] = MergeRows($contentlines[$key]);
+				$contentlines[$key] = mergecells($contentlines[$key]);
 			endif;
 		endforeach;
 		
 		return implode("\r\n", $contentlines);
 	}
 	
-	function addmergedrow($row,$colspan,$class,$cellcontents) {
-		$row.='<td class="'.$class.'"';
-		
-		if($colspan>1):
-			$row.=' colspan="'.$colspan.'"';
-		endif;
-		
-		$row.='>'.$cellcontents.'</td>';
-		return $row;
-	}
-	
-	function MergeRows($row) {
+	function mergecells($row) {
 		global $firstrow;
 		
 		# Go through the row and convert all of the cells into two arrays, one with the cell classes, and one with the contents.
@@ -74,10 +63,27 @@
 		return $row;
 	}
 	
+	function addmergedrow($row,$colspan,$class,$cellcontents) {
+		$row.='<td class="'.$class.'"';
+		
+		if($colspan>1):
+			$row.=' colspan="'.$colspan.'"';
+		endif;
+		
+		$row.='>'.$cellcontents.'</td>';
+		return $row;
+	}
+	
 	function SimplifyDivs($contents) {
 		# Convert fudged background change in a DIV to a real change in the parent TD
 		$contents = preg_replace('/<td class="([^"]*)"><div class="([^"]*)">/', '<td class="\2">', $contents);
 		$contents = str_replace('</div>','',$contents);
+		return $contents;
+	}
+	
+	function simplifysymbols($contents) {
+		# Replace symbol tables which are all one colour with an empty cell of the same colour.
+		$contents=preg_replace('/<td class="(?:[^"]*)"><table><tr><td class="([^"]*)"><\/td><td class="\1"><\/td><\/tr><tr><td class="\1"><\/td><td class="\1"><\/td><\/tr><tr><td class="\1"><\/td><td class="\1"><\/td><\/tr><\/table><\/td>/', '<td class="\1">&nbsp;</td>', $contents);
 		return $contents;
 	}
 	
@@ -98,7 +104,8 @@
 	
 	$contents = GetTeletext($_GET['file'],$_GET['title']);
 	$contents = SimplifyDivs($contents);
-	$contents = MergeCells($contents);
+	$contents = simplifysymbols($contents);
+	$contents = processrows($contents);
 	
 	$contents = str_replace(' class=""','',$contents); # Remove empty class definiton attributes
 	
