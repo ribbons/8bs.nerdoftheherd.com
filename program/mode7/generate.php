@@ -51,8 +51,8 @@
     }
     
     body img {
-	    width: <?php echo $charwidth-2; ?>px;
-	    height: <?php echo $charheight-3; ?>px;
+	    width: <?php echo $charwidth; ?>px;
+	    height: <?php echo $charheight; ?>px;
 	    display: block;
     }
     
@@ -96,7 +96,6 @@
     	letter-spacing: 2px;
     	width: <?php echo $charwidth; ?>px;
     	line-height: <?php echo $charheight; ?>px;
-    	border: 1px solid green;
     }
     
     td table {
