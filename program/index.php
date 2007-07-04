@@ -140,7 +140,10 @@
 	}
 	
 	# empty the temp folder
-	destroy('temp\\');
+	if(is_dir('temp\\')):
+		destroy('temp\\');
+	endif;
+	
 	mkdir('temp\0');
 	mkdir('temp\2');
 	
