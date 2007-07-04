@@ -105,19 +105,19 @@
 	function LinkTo($id, $file, $thisissue, $title) {
 		switch($id):
 			case -1:
-				#getscrolltext($file, $thisissue, '0', $title);
+				getscrolltext($file, $thisissue, '0', $title);
 				return 'content/'.$file.'.html';
 				break;
 			case -2:
-				#getscrolltext($file, $thisissue, '7', $title);
+				getscrolltext($file, $thisissue, '7', $title);
 				return 'content/'.$file.'.html';
 				break;
 			case -4:
-				#getbasic($file, $thisissue, '7', $title);
+				getbasic($file, $thisissue, '7', $title);
 				return 'content/'.$file.'.html';
 				break;
 			case -8:
-				#getrun($file, $thisissue, $title);
+				getrun($file, $thisissue, $title);
 				return 'content/'.$file.'.html';
 				break;
 			case 0:
