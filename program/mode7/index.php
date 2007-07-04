@@ -15,43 +15,60 @@
 		return implode("\r\n", $contentlines);
 	}
 	
+	function addmergedrow($row,$colspan,$class,$cellcontents) {
+		$row.='<td class="'.$class.'"';
+		
+		if($colspan>1):
+			$row.=' colspan="'.$colspan.'"';
+		endif;
+		
+		$row.='>'.$cellcontents.'</td>';
+		return $row;
+	}
+	
 	function MergeRows($row) {
-		$restofline=$row;
-		$row='';
-		$lastclasses=false;
+		global $firstrow;
 		
-		$nextpos=strpos($restofline, CHAR_CELL);
+		# Go through the row and convert all of the cells into two arrays, one with the cell classes, and one with the contents.
+		# A cell is assumed to be able to contain a non breaking space, an image, a table, a single character or nothing.
+		preg_match_all('/<td class="([^"]*)">(&nbsp;|<img .*?\/>|<table>.*?<\/table>|.|)<\/td>/', $row, $matches, PREG_PATTERN_ORDER);
 		
-		while(!$nextpos===false):
-			$nextpos+=strlen(CHAR_CELL);
-			$thisclasses=substr($restofline,$nextpos,strpos(substr($restofline,$nextpos),'"'));
-			$nextpos+=strlen($thisclasses)+1;
-			
-			if(substr($restofline,$nextpos+1,7)=='<table>'):
-				$lastclasses=false;
+		$oldrow=$row;
+		$row='	<tr>';
+		
+		$lastclass=false;
+		$skipcell=0;
+		
+		foreach($matches[1] as $key => $classes):
+			if(substr($matches[2][$key],0,1)=='<'):
+				$skipcell=2;
 			endif;
 			
-			if($thisclasses==$lastclasses):
+			if($lastclass==$classes && $skipcell==0):
 				$colspan++;
 			else:
 				if(isset($colspan)):
-					$row.=$lastrow;
-					$row.=' colspan="'.$colspan.'"';
+					$row=addmergedrow($row,$colspan,$lastclass,$cellcontents);
+				endif;
+				
+				if($skipcell>0):
+					$skipcell--;
 				endif;
 				
 				$colspan=1;
-				$lastrow=substr($restofline,0,$nextpos);
-				
-				$lastclasses=$thisclasses;
+				$cellcontents='';
+				$lastclass=$classes;
 			endif;
-			
-			$restofline=substr($restofline,$nextpos);
-			
-			$nextpos=strpos($restofline, CHAR_CELL);
-		endwhile;
+				
+			$cellcontents.=$matches[2][$key];
+		endforeach;
 		
-		$row.=$restofline;
+		if(isset($colspan)):
+			$row=addmergedrow($row,$colspan,$lastclass,$cellcontents);
+		endif;
 		
+		$row.='</tr>';
+		#$oldrow."\r\n".
 		return $row;
 	}
 	
@@ -69,6 +86,8 @@
 		$complete=file('http://127.0.0.1'.$pathto.'generate.php?file='.rawurlencode($file).'&title='.rawurlencode($title));
 		return implode('',$complete);
 	}
+	
+	$firstrow='';
 	
 	# Don't forget 
 	#  * HTML entity escaping
