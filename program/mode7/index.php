@@ -95,14 +95,12 @@
 	#  * HTML entity escaping
 	#  * Most common colours of row
 	#  * Simplify symbol tables
-	#  * Combine blank columns
 	
 	$contents = GetTeletext($_GET['file'],$_GET['title']);
 	$contents = SimplifyDivs($contents);
 	$contents = MergeCells($contents);
-
 	
-	#$contents = str_replace(' class=" "','',$contents); # Remove empty class definiton attributes
+	$contents = str_replace(' class=""','',$contents); # Remove empty class definiton attributes
 	
 	echo $contents;
 ?>
