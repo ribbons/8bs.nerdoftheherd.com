@@ -413,16 +413,20 @@
 	
 	$file=$_GET['file'];	
 	
-	$handle=fopen($file,'r');
+	@$handle=fopen($file,'r');
 	
-	$returned=fread($handle,5000);
-	
-	while($returned<>''):
-		parseline($returned);
+	if($handle):
 		$returned=fread($handle,5000);
-	endwhile;
-	
-	fclose($handle);
+		
+		while($returned<>''):
+			parseline($returned);
+			$returned=fread($handle,5000);
+		endwhile;
+		
+		fclose($handle);
+	else:
+		echo '<span style="color: white;">Unable to open file: '.$file.'</span>';
+	endif;
 ?></tr>
     </table>
   </body>
