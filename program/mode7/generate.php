@@ -43,7 +43,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
-    <title><?=$_GET['title']?></title>
+    <title><?php echo $_GET['title']; ?></title>
   <style type="text/css">
     body {
 	    background-color: black;
@@ -51,14 +51,14 @@
     }
     
     body img {
-	    width: <?= $charwidth-2 ?>px;
-	    height: <?= $charheight-3 ?>px;
+	    width: <?php echo $charwidth-2; ?>px;
+	    height: <?php echo $charheight-3; ?>px;
 	    display: block;
     }
     
     table {
 	    color: white;
-	    font: <?= $charheight ?>px "ModeSeven", "Courier New", "Courier", "Monotype";
+	    font: <?php echo $charheight; ?>px "ModeSeven", "Courier New", "Courier", "Monotype";
 	    text-align: left;
 	    border: 0px;
 	    border-collapse: collapse;
@@ -94,8 +94,8 @@
     	margin: 0px;
     	padding: 0px;
     	letter-spacing: 2px;
-    	width: <?= $charwidth ?>px;
-    	line-height: <?= $charheight ?>px;
+    	width: <?php echo $charwidth; ?>px;
+    	line-height: <?php echo $charheight; ?>px;
     	border: 1px solid green;
     }
     
