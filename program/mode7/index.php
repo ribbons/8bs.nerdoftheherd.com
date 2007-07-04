@@ -87,6 +87,16 @@
 		return $contents;
 	}
 	
+	function reducenbsp($contents) {
+		# Replace a cell with multiple non breaking spaces with a cell with one non breaking space.
+		$contents=preg_replace('/<td class="([^"]*)"( colspan="(?:[^"]*)"|)>(?:&nbsp;)+<\/td>/', '<td class="\1"\2>&nbsp;</td>', $contents);
+		# Remove multiple non breaking spaces from cells with other contents.
+		$contents=preg_replace('/<td class="([^"]*)"( colspan="(?:[^"]*)"|)>([^<]+?)(?:&nbsp;)+<\/td>/', '<td class="\1"\2>\3</td>', $contents);
+		# Replace &nbsp;s between word with spaces.
+		$contents=preg_replace('/([^;> ])&nbsp;([^&< ])/', '\1 \2', $contents);
+		return $contents;
+	}
+	
 	function GetTeletext($file, $title) {
 		$pos=strpos($_SERVER['REQUEST_URI'],'?');
 		$pathto=substr($_SERVER['REQUEST_URI'],0,$pos);
@@ -97,15 +107,11 @@
 	
 	$firstrow='';
 	
-	# Don't forget 
-	#  * HTML entity escaping
-	#  * Most common colours of row
-	#  * Simplify symbol tables
-	
 	$contents = GetTeletext($_GET['file'],$_GET['title']);
 	$contents = SimplifyDivs($contents);
 	$contents = simplifysymbols($contents);
 	$contents = processrows($contents);
+	$contents = reducenbsp($contents);
 	
 	$contents = str_replace(' class=""','',$contents); # Remove empty class definiton attributes
 	
