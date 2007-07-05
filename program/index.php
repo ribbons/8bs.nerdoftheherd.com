@@ -69,19 +69,6 @@
 		return $collook;
 	}
 	
-	function GetTemplate($filename) {
-		$handle=fopen($filename,'r');
-		$returned=fgets($handle,5000);
-
-		while($returned<>''):
-			$template.=$returned;
-			$returned=fgets($handle,5000);
-		endwhile;
-
-		fclose($handle);
-		return $template;
-	}
-	
 	function GetDescript($id) {
 		$descriptions[0]='Runs Code'; # Guess
 		$descriptions[-1]='80 Column Text';
@@ -178,7 +165,7 @@
 	
 	$splitdata=GetData();
 	$collook=TransCols($colours);
-	$menu=GetTemplate('pages/menutemplate.html');
+	$menu=implode('', file('pages/menutemplate.html'));
 	
 	$menu=str_replace('%iss%', $splitdata[0][0], $menu);
 	$menu=str_replace('%issdte%', $splitdata[0][1], $menu);
@@ -242,7 +229,7 @@
 	
 	floutput('Creating CSS',1);
 	
-	$css=GetTemplate('pages/styles/menu.css');
+	$css=implode('', file('pages/styles/menu.css'));
 	
 	$css=str_replace('%id%', $collook['i'], $css);
 	$css=str_replace('%dteiss%', $collook['r'], $css);
