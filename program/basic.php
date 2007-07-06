@@ -41,8 +41,8 @@
 	endif;
 
 	$handle=fopen($_GET['file'].'.txt','r');
-	
 	$returned=fgets($handle,5000);
+	$text='';
 	
 	while($returned<>''):
 		# Add a space in after the line number
