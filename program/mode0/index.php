@@ -30,7 +30,10 @@
 <?php
 	$text=implode('',file($_GET['file']));
 	
-	echo str_replace("\r","<br />\r",$text);
+	$text=str_replace('  ','&nbsp;&nbsp;',$text);
+	$text=str_replace("\r","<br />\r",$text);
+	
+	echo $text;
 ?>
     </td></tr></table>
   </body>
