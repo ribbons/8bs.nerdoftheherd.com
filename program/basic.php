@@ -10,7 +10,7 @@
     
     table {
 	    color: white;
-	    font: 30px "ModeSeven", "Courier New", "Courier", monospace;
+	    font: 24px "ModeSeven", "Courier New", "Courier", monospace;
 	    text-align: left;
 	    border: 0px;
 	    border-collapse: collapse;
