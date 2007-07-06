@@ -28,16 +28,9 @@
   <body>
     <table><tr><td>
 <?php
-	$handle=fopen($_GET['file'],'r');
+	$text=implode('',file($_GET['file']));
 	
-	$returned=fread($handle,5000);
-	
-	while($returned<>''):
-		$text.=$returned;
-		$returned=fread($handle,5000);
-	endwhile;
-	
-	echo str_replace(chr(13),'<br />'.chr(13),$text);
+	echo str_replace("\r","<br />\r",$text);
 ?>
     </td></tr></table>
   </body>
