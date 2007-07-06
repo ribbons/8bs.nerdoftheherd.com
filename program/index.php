@@ -199,10 +199,8 @@
 		$curline++;
 		
 		while($curline <= $stopline):
-			$menuitems.='<div style="padding-left: 40px;"><span id="line'.$menuline.'"><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue, $splitdata[$curline][0]).'" onmouseover="linehl(\'line'.$menuline.'\'); desctxt(\''.GetDescript(trim($splitdata[$curline][3])).'\');" onmousedown="linegt(\'line'.$menuline.'\');">&nbsp;&nbsp;'.$letters[$menuline].'<span id="gtline'.$menuline.'" class="menugt">&gt;</span><span id="txtline'.$menuline.'" class="menurow">'.str_replace("\t", '&nbsp;', str_pad($splitdata[$curline][0], 31, "\t")).'</span></span></a></div>'."\n";
-			$scriptitems.="document.getElementById('line".$menuline."').className = '';\n";
-			$scriptitems.="document.getElementById('gtline".$menuline."').className = 'menugt';\n";
-			$scriptitems.="document.getElementById('txtline".$menuline."').className = 'menurow';\n";
+			$menuitems.="\t".'<tr><td>&nbsp;</td><td class="bord">&nbsp;</td><td colspan="2">&nbsp;</td><td colspan="33" class="menuline" id="line'.$menuline.'"><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue, $splitdata[$curline][0]).'" onmouseover="linehl(\'line'.$menuline.'\'); desctxt(\''.GetDescript(trim($splitdata[$curline][3])).'\');">&nbsp;&nbsp;<span class="letters">'.$letters[$menuline].'</span><span class="gt">&gt;</span>'.$splitdata[$curline][0].'</a></td><td>&nbsp;</td><td class="fc">&nbsp;</td><td class="bord">&nbsp;</td></tr>'."\r\n";
+			$scriptitems.="document.getElementById('line".$menuline."').className = 'menuline';\n";
 			
 			if($menuline==1):
 				$firstdesc=GetDescript(trim($splitdata[$curline][3]));
@@ -212,14 +210,14 @@
 			$menuline++;
 		endwhile;
 		
-		while($menuline < 13):
-			$menuitems.="<br />\n";
+		while($menuline < 15):
+			$menuitems.="	<tr><td>&nbsp;</td><td class=\"bord\">&nbsp;</td><td colspan=\"37\">&nbsp;</td><td class=\"bord\">&nbsp;</td></tr>\r\n";
 			$menuline++;
 		endwhile;
 		
 		$thismenu=str_replace('%menuitems%', $menuitems, $thismenu);
 		$thismenu=str_replace('%scriptitems%', $scriptitems, $thismenu);
-		$thismenu=str_replace('%descript%', $firstdesc, $thismenu);
+		$thismenu=str_replace('%firstdesc%', $firstdesc, $thismenu);
 		
 		$handle=fopen('../'.$thisissue.str_replace('menu1','index','/menu'.$menupagenum).'.html','w');
 		fputs($handle, $thismenu);
