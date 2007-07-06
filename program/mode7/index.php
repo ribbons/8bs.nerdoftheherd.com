@@ -22,7 +22,6 @@
 		# A cell is assumed to be able to contain a non breaking space, an image, a table, a single character or nothing.
 		preg_match_all('/<td class="([^"]*)">(&nbsp;|<img .*?\/>|<table>.*?<\/table>|.|)<\/td>/', $row, $matches, PREG_PATTERN_ORDER);
 		
-		$oldrow=$row;
 		$row='	<tr>';
 		
 		$lastclass=false;
@@ -50,7 +49,7 @@
 				$cellcontents='';
 				$lastclass=$classes;
 			endif;
-				
+			
 			$cellcontents.=$matches[2][$key];
 		endforeach;
 		
@@ -59,7 +58,6 @@
 		endif;
 		
 		$row.='</tr>';
-		#$oldrow."\r\n".
 		return $row;
 	}
 	
