@@ -357,14 +357,9 @@
 	}
 	
 	function parseline ($line) {
+		global $discard;
+	
 		$linelen=strlen($line);
-		
-		if($_GET['type']=='scroll'):
-			# The input file has a machine code header to make the text scroll, so chop this off.
-			static $discard=2;
-		else:
-			static $discard=0;
-		endif;
 		
 		global $linebreak;
 		global $graphics;
@@ -409,15 +404,18 @@
 					$linebreak=0;
 				endif;
 			else:
-				 if(substr($line,$analyse,2)=='|M'):
-				 	$discard--;
-				 	$analyse+=2;
-				 endif;
+				$discard--;
 			endif;
 		endfor;
 	}
 	
 	$file=$_GET['file'];	
+	
+	if(isset($_GET['discard'])):
+		$discard=$_GET['discard'];
+	else:
+		$discard=0;
+	endif;
 	
 	@$handle=fopen($file,'r');
 	

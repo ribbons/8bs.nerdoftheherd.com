@@ -95,17 +95,23 @@
 		return $contents;
 	}
 	
-	function GetTeletext($file, $title, $type) {
+	function GetTeletext($file, $title, $discard) {
 		$pos=strpos($_SERVER['REQUEST_URI'],'?');
 		$pathto=substr($_SERVER['REQUEST_URI'],0,$pos);
 	
-		$complete=file('http://127.0.0.1'.$pathto.'generate.php?file='.rawurlencode($file).'&title='.rawurlencode($title).'&type='.rawurlencode($type));
+		$complete=file('http://127.0.0.1'.$pathto.'generate.php?file='.rawurlencode($file).'&title='.rawurlencode($title).'&discard='.rawurlencode($discard));
 		return implode('',$complete);
 	}
 	
 	$firstrow='';
 	
-	$contents = GetTeletext($_GET['file'],$_GET['title'],$_GET['type']);
+	if(isset($_GET['discard'])):
+		$discard=$_GET['discard'];
+	else:
+		$discard=0;
+	endif;
+	
+	$contents = GetTeletext($_GET['file'],$_GET['title'],$discard);
 	$contents = SimplifyDivs($contents);
 	$contents = simplifysymbols($contents);
 	$contents = processrows($contents);

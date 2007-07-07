@@ -2,7 +2,7 @@
 	function GetScrollText($file, $thisissue, $mode, $title) {
 		FlOutput('Converting Mode '.$mode.' text "'.substr($file,2).'"',2);
 		
-		$handle=fopen('http://127.0.0.1'.$_SERVER['REQUEST_URI'].'mode'.$mode.'/?file=../temp/'.$file.'&title='.rawurlencode($title).'&type=scroll','r');
+		$handle=fopen('http://127.0.0.1'.$_SERVER['REQUEST_URI'].'mode'.$mode.'/?file=../temp/'.$file.'&title='.rawurlencode($title).'&discard=255','r');
 		$whandle=fopen('../'.$thisissue.'/content/'.$file.'.html','w');
 		
 		$returned=fread($handle,5000);
@@ -27,7 +27,7 @@
 			exit;
 		endif;
 		
-		$converted=implode('',file('http://127.0.0.1'.$_SERVER['REQUEST_URI'].'mode7/?file=../temp/'.$file.'.txt&title='.rawurlencode($title).'&type=nonscroll'));
+		$converted=implode('',file('http://127.0.0.1'.$_SERVER['REQUEST_URI'].'mode7/?file=../temp/'.$file.'.txt&title='.rawurlencode($title)));
 		
 		$whandle=fopen('../'.$thisissue.'/content/'.$file.'.html','w');
 		fputs($whandle, $converted);
