@@ -33,22 +33,4 @@
 		fputs($whandle, $converted);
 		fclose($whandle);
 	}
-	
-	function GetRun($file, $thisissue, $title) {
-		FlOutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"',2);
-		
-		$handle=fopen('http://127.0.0.1'.$_SERVER['REQUEST_URI'].'starrun.php?file=temp/'.$file.'&title='.rawurlencode($title),'r');
-		$whandle=fopen('../'.$thisissue.'/content/'.$file.'.html','w');
-		
-		$returned=fread($handle,5000);
-		
-		while($returned<>''):
-			fputs($whandle, $returned);	
-
-			$returned=fread($handle,5000);
-		endwhile;
-		
-		fclose($handle);
-		fclose($whandle);
-	}
 ?>

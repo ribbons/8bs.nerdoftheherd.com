@@ -1,6 +1,8 @@
 <?php
-	include 'filehandlers.inc.php';
-
+	require 'convert.php';
+	require 'convertbasic.php';
+	require 'convertrunnable.php';
+	
 	# Empty a directory
 	function destroy($dir) {
 	    $mydir = opendir($dir);
@@ -90,34 +92,34 @@
 	}
 	
 	function LinkTo($id, $file, $thisissue, $title) {
-		switch($id):
-			case -1:
-				getscrolltext($file, $thisissue, '0', $title);
-				return 'content/'.$file.'.html';
-				break;
-			case -2:
-				getscrolltext($file, $thisissue, '7', $title);
-				return 'content/'.$file.'.html';
-				break;
-			case -4:
-				getbasic($file, $thisissue, '7', $title);
-				return 'content/'.$file.'.html';
-				break;
-			case -8:
-				getrun($file, $thisissue, $title);
-				return 'content/'.$file.'.html';
-				break;
-			case 0:
-			case -3:
-			case -5:
-			case -6:
-			case -7:
-				echo 'Action not defined for '.$id.' - Aborting.';
-				exit;
-				break;
-			default:
-				return str_replace('menu1','index','menu'.$id).'.html';
-		endswitch;
+		if($id > 0):
+			return str_replace('menu1','index','menu'.$id).'.html';
+		else:
+			switch($id):
+				case -1:
+				#	getscrolltext($file, $thisissue, '0', $title);
+				#	break;
+				case -2:
+				#	getscrolltext($file, $thisissue, '7', $title);
+				#	break;
+					return false;
+				case -4:
+				#	getbasic($file, $thisissue, '7', $title);
+					$convert=new convertbasic($file);
+					break;
+				case -8:
+					FlOutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
+					$convert=new convertrunnable($file, $title);
+					break;
+				default:
+					echo 'Action not defined for '.$id.' - Aborting.';
+					exit;
+					break;
+			endswitch;
+			
+			$convert->savehtml('../'.$thisissue.'/content/'.$file.'.html');
+			return 'content/'.$file.'.html';
+		endif;
 	}
 	
 	function FlOutput($text,$indent) {

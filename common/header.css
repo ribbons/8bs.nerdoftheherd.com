@@ -1,0 +1,16 @@
+body {
+	margin: 2em 1em 1em 1em;
+	padding: 0;
+}
+
+div.header {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	
+	text-align: left;
+	
+	color: black;
+	background-color: white;
+}

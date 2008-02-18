@@ -1,0 +1,29 @@
+body {
+	color: white;
+	background-color: black;
+	text-align: center;
+}
+
+div.runnablemsg {
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	width: 560px;
+	font: 24px "ModeSeven", "Courier New", "Courier", monospace;
+}
+
+.yellow {
+	color: yellow;
+}
+
+.red {
+	color: red;
+}
+
+.cyan {
+	color: cyan;
+}
+
+.green {
+	color: #00ff00;
+}
