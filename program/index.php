@@ -126,13 +126,17 @@
 		flush();
 	}
 	
-	# Empty the temp folder
+	# Set up the temp folders
 	if(is_dir('temp\0\\')):
 		destroy('temp\0\\');
+	else:
+		mkdir('temp\0');
 	endif;
 	
 	if(is_dir('temp\2\\')):
 		destroy('temp\2\\');
+	else:
+		mkdir('temp\2');
 	endif;
 	
 	$thisissue='8BS64';
