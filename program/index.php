@@ -135,10 +135,6 @@
 		destroy('temp\2\\');
 	endif;
 	
-	# Create the folders for the sides of the disk
-	mkdir('temp\0');
-	mkdir('temp\2');
-	
 	$thisissue='8BS64';
 	
 	floutput('Issue '.$thisissue,0);
