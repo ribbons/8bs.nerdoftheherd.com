@@ -127,12 +127,12 @@
 	}
 	
 	# Empty the temp folder
-	if(is_dir('temp\0')):
-		destroy('temp\0');
+	if(is_dir('temp\0\\')):
+		destroy('temp\0\\');
 	endif;
 	
-	if(is_dir('temp\2')):
-		destroy('temp\2');
+	if(is_dir('temp\2\\')):
+		destroy('temp\2\\');
 	endif;
 	
 	# Create the folders for the sides of the disk
