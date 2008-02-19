@@ -178,6 +178,12 @@
 	endif;
 	
 	$splitdata=GetData();
+	
+	$header=implode('', file('pages/header.html'));
+	$handle=fopen('temp/header.html','w');
+	fputs($handle, $header);
+	fclose($handle);
+	
 	$collook=TransCols($colours);
 	$menu=implode('', file('pages/menutemplate.html'));
 	
