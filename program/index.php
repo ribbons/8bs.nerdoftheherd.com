@@ -185,8 +185,11 @@
 	fclose($handle);
 	
 	$collook=TransCols($colours);
-	$menu=implode('', file('pages/menutemplate.html'));
+	$menu=implode('', file('temp/header.html')).implode('', file('pages/menu.html')).implode('', file('pages/footer.html'));
 	
+	$menu=str_replace('%commonrel%', '', $menu);
+	$menu=str_replace('%stylesheetpath%', 'styles/menu.css', $menu);
+	$menu=str_replace('%includejs%', '', $menu);
 	$menu=str_replace('%iss%', $splitdata[0][0], $menu);
 	$menu=str_replace('%issdte%', $splitdata[0][1], $menu);
 	
@@ -214,7 +217,7 @@
 		
 		floutput('Generating menu "'.$splitdata[$curline][0].'"',1);
 		
-		$thismenu=str_replace('%menutitle%', $splitdata[$curline][0], $menu);
+		$thismenu=str_replace('%title%', $splitdata[$curline][0], $menu);
 		$stopline=$curline+$splitdata[$curline][1];
 		$curline++;
 		

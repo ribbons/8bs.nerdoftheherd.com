@@ -1,41 +1,36 @@
- body {
-    background-color: black;
-    text-align: center;
- }
- 
- body img {
-    width: 16px;
-    height: 24px;
-    display: block;
- }
- 
- table {
-    color: white;
-    font: 24px "ModeSeven", "Courier New", "Courier", "Monotype";
-    text-align: left;
-    border: 0px;
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
- }
- 
- td {
- 	margin: 0px;
- 	padding: 0px;
- 	letter-spacing: 2px;
- 	width: 16px;
- 	line-height: 24px;
- }
- 
- td table {
- 	width: 100%;
- }
- 
- td table td {
- 	height: 0.33em;
- }
- 
- .bord {
+body img {
+	width: 16px;
+	height: 24px;
+	display: block;
+}
+
+table {
+	color: white;
+	font: 24px "ModeSeven", "Courier New", "Courier", "Monotype";
+	text-align: left;
+	border: 0px;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td {
+	margin: 0px;
+	padding: 0px;
+	letter-spacing: 2px;
+	width: 16px;
+	line-height: 24px;
+}
+
+td table {
+	width: 100%;
+}
+
+td table td {
+	height: 0.33em;
+}
+
+.bord {
 	background-color: %border%;
 }
 
@@ -99,5 +94,10 @@
 	color: %descript%;
 }
 
-.fc { color: #00ffff; }
-.bb { background-color: #0000ff; }
+.fc {
+	color: #00ffff;
+}
+
+.bb {
+	background-color: #0000ff;
+}
