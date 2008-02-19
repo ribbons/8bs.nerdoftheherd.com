@@ -1,5 +1,7 @@
 <?php
 	require 'convert.php';
+	require 'convertmode0.php';
+	require 'convertmode7.php';
 	require 'convertbasic.php';
 	require 'convertrunnable.php';
 	
@@ -97,15 +99,13 @@
 		else:
 			switch($id):
 				case -1:
-				#	getscrolltext($file, $thisissue, '0', $title);
-				#	break;
+					$convert=new convertmode0($file, $title);
+					break;
 				case -2:
-				#	getscrolltext($file, $thisissue, '7', $title);
-				#	break;
-					return false;
+					$convert=new convertmode7($file, $title);
+					break;
 				case -4:
-				#	getbasic($file, $thisissue, '7', $title);
-					$convert=new convertbasic($file);
+					$convert=new convertbasic($file, $title);
 					break;
 				case -8:
 					FlOutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
