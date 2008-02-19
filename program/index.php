@@ -109,7 +109,7 @@
 					$convert=new convertmode0($file, $title);
 					break;
 				case -2:
-					$convert=new convertmode7($file, $title);
+					$convert=new convertmode7('temp//'.$file, $title, true);
 					break;
 				case -4:
 					$convert=new convertbasic($file, $title);

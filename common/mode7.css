@@ -1,0 +1,29 @@
+/*body img {
+	width: <?php echo $charwidth; ?>px;
+	height: <?php echo $charheight; ?>px;
+	display: block;
+}*/
+
+table {
+	text-align: left;
+	border: 0px;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td {
+	margin: 0px;
+	padding: 0px;
+	letter-spacing: 2px;
+	/*width: <?php echo $charwidth; ?>px;*/
+	line-height: 1em;
+}
+
+td table {
+	width: 100%;
+}
+
+td table td {
+	height: 0.5em;
+}
