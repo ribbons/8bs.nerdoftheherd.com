@@ -69,7 +69,7 @@
 					case 35:
 					case 163:
 						if($mode==MODE_TEXT):
-							$this->tokenised[$row][$column]='CHAR_#';
+							$this->tokenised[$row][$column]='CHAR_£';
 						else:
 							$this->tokenised[$row][$column]='GRAP_3';
 						endif;
@@ -429,7 +429,7 @@
 					case 96:
 					case 224:
 						if($mode==MODE_TEXT):
-							$this->tokenised[$row][$column]='CHAR_£';
+							$this->tokenised[$row][$column]='CHAR_#';
 						else:
 							$this->tokenised[$row][$column]='GRAP_32';
 						endif;
@@ -989,7 +989,7 @@
 								$this->html.='_';
 								break;
 							case 'CHAR_£':
-								$this->html.='£';
+								$this->html.='&pound;';
 								break;
 							case 'CHAR_a':
 								$this->html.='a';
