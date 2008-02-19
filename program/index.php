@@ -1,3 +1,10 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<title>8BS to HTML conversion</title>
+	</head>
+	
+	<body>
 <?php
 	require 'convert.php';
 	require 'convertmode0.php';
@@ -122,8 +129,8 @@
 		endif;
 	}
 	
-	function FlOutput($text,$indent) {
-		echo '<span style="margin-left: '.($indent*10).'px">'.$text.'</span><br />';
+	function floutput($text,$indent) {
+		echo '<div style="margin-left: '.$indent.'em">'.$text.'</div>';
 		ob_flush( );
 		flush();
 	}
@@ -251,5 +258,7 @@
 	fputs($handle, $css);
 	fclose($handle);
 	
-	echo '<br />Finished';
+	echo '<p>Finished</p>';
 ?>
+	</body>
+</html>
