@@ -5,22 +5,42 @@
 		private $bkgdcolours;
 		
 		public function convertmode7($filename, $title, $trimscroller) {
-			echo '<p>TODO: Mode 7 conversion</p>';
-			$this->html='mode7 conversion';
+			$this->html=implode('', file('temp/header.html'));
+			
+			$this->html=str_replace('%title%', $title, $this->html);
+			$this->html=str_replace('%commonrel%', '', $this->html);
+			$this->html=str_replace('%stylesheetpath%', '../../common/mode7.css', $this->html);
+			$this->html=str_replace('%includejs%', '', $this->html);
 			
 			$this->tokeniseinput($filename, $trimscroller);
 			$this->generatehtml();
+			
+			$this->html.=implode('', file('pages/footer.html'));
 		}
 		
 		private function tokeniseinput($filename, $trimscroller) {
+			define('MODE_TEXT', 1);
+			define('MODE_GRAPHICS', 2);
+			define('COL_BLACK', 1);
+			define('COL_RED', 2);
+			define('COL_GREEN', 3);
+			define('COL_YELLOW', 4);
+			define('COL_BLUE', 5);
+			define('COL_MAGENTA', 6);
+			define('COL_CYAN', 7);
+			define('COL_WHITE', 8);
+			
 			if($trimscroller):
-				$startpos=255;
+				$startpos=256;
 			else:
 				$startpos=0;
 			endif;
 			
 			$row=0;
 			$column=0;
+			$mode=MODE_TEXT;
+			$forecolour=COL_WHITE;
+			$backcolour=COL_BLACK;
 			
 			$file=implode('', file($filename));
 			
@@ -58,71 +78,71 @@
 						$this->tokenised[$row][$column]="CHAR_G";
 						break;
 					case 72:
-					case 120:
+					case 200:
 						$this->tokenised[$row][$column]="CHAR_H";
 						break;
 					case 73:
-					case 121:
+					case 201:
 						$this->tokenised[$row][$column]="CHAR_I";
 						break;
 					case 74:
-					case 122:
+					case 202:
 						$this->tokenised[$row][$column]="CHAR_J";
 						break;
 					case 75:
-					case 123:
+					case 203:
 						$this->tokenised[$row][$column]="CHAR_K";
 						break;
 					case 76:
-					case 124:
+					case 204:
 						$this->tokenised[$row][$column]="CHAR_L";
 						break;
 					case 77:
-					case 125:
+					case 205:
 						$this->tokenised[$row][$column]="CHAR_M";
 						break;
 					case 78:
-					case 126:
+					case 206:
 						$this->tokenised[$row][$column]="CHAR_N";
 						break;
 					case 79:
-					case 127:
+					case 207:
 						$this->tokenised[$row][$column]="CHAR_O";
 						break;
 					case 80:
-					case 128:
+					case 208:
 						$this->tokenised[$row][$column]="CHAR_P";
 						break;
 					case 81:
-					case 129:
+					case 209:
 						$this->tokenised[$row][$column]="CHAR_Q";
 						break;
 					case 82:
-					case 130:
+					case 210:
 						$this->tokenised[$row][$column]="CHAR_R";
 						break;
 					case 83:
-					case 131:
+					case 211:
 						$this->tokenised[$row][$column]="CHAR_S";
 						break;
 					case 84:
-					case 132:
+					case 212:
 						$this->tokenised[$row][$column]="CHAR_T";
 						break;
 					case 85:
-					case 133:
+					case 213:
 						$this->tokenised[$row][$column]="CHAR_U";
 						break;
 					case 86:
-					case 134:
+					case 214:
 						$this->tokenised[$row][$column]="CHAR_V";
 						break;
 					case 87:
-					case 135:
+					case 215:
 						$this->tokenised[$row][$column]="CHAR_W";
 						break;
 					case 88:
-					case 136:
+					case 216:
 						$this->tokenised[$row][$column]="CHAR_X";
 						break;
 					case 89:
@@ -130,7 +150,7 @@
 						$this->tokenised[$row][$column]="CHAR_Y";
 						break;
 					case 90:
-					case 138:
+					case 218:
 						$this->tokenised[$row][$column]="CHAR_Z";
 						break;
 					case 97:
@@ -237,28 +257,105 @@
 					case 250:
 						$this->tokenised[$row][$column]="CHAR_z";
 						break;
+					case 145:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_RED;
+						break;
+					default:
+					case 146:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_GREEN;
+						break;
+					default:
+					case 147:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_YELLOW;
+						break;
+					default:
+					case 148:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_BLUE;
+						break;
+					default:
+					case 149:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_MAGENTA;
+						break;
+					default:
+					case 150:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_CYAN;
+						break;
+					default:
+					case 151:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$mode=MODE_GRAPHICS;
+						$forecolour=COL_WHITE;
+						break;
+					case 157:
+						$this->tokenised[$row][$column]="CHAR_SPACE";
+						$backcolour=$forecolour;
+						break;
 					default:
 						echo '<p>Unknown character value '.ord($file[$filepos]).' - unable to tokenise.</p>';
 						$this->tokenised[$row][$column]="CHAR_SPACE";
 				endswitch;
+				
+				$this->textcolours[$row][$column]=$forecolour;
+				$this->bkgdcolours[$row][$column]=$backcolour;
 				
 				$column++;
 				
 				if($column>39):
 					$column=0;
 					$row++;
+					$mode=MODE_TEXT;
+					$forecolour=COL_WHITE;
+					$backcolour=COL_BLACK;
 				endif;
 			endfor;
 		}
 		
 		private function generatehtml() {
-			$this->html.='<table>';
+			$this->html.='<table class="mode7">';
 			
-			foreach($this->tokenised as $line):
+			foreach($this->tokenised as $lnkey => $line):
 				$this->html.='<tr>';
 				
-				foreach($line as $character):
-					$this->html.='<td>';
+				foreach($line as $colkey => $character):
+					$this->html.='<td style="color: ';
+					switch($this->textcolours[$lnkey][$colkey]):
+						case COL_RED:
+							$this->html.='red';
+							break;
+						case COL_GREEN:
+							$this->html.='#00ff00';
+							break;
+						case COL_YELLOW:
+							$this->html.='yellow';
+							break;
+						case COL_BLUE:
+							$this->html.='blue';
+							break;
+						case COL_MAGENTA:
+							$this->html.='magenta';
+							break;
+						case COL_CYAN:
+							$this->html.='cyan';
+							break;
+						case COL_WHITE:
+							$this->html.='white';
+							break;
+					endswitch;
+					$this->html.='; background-color: ';
+					$this->html.='black';
+					$this->html.=';">';
 					
 					switch($character):
 						case 'CHAR_A':
