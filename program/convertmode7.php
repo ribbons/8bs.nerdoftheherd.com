@@ -1,6 +1,7 @@
 <?php
 	class convertmode7 extends convert {
 		private $tokenised;
+		private $textheights;
 		private $textcolours;
 		private $bkgdcolours;
 		
@@ -21,6 +22,8 @@
 		private function tokeniseinput($filename, $trimscroller) {
 			define('MODE_TEXT', 1);
 			define('MODE_GRAPHICS', 2);
+			define('TXHEIGHT_STD', 1);
+			define('TXHEIGHT_DBL', 2);
 			define('COL_BLACK', 1);
 			define('COL_RED', 2);
 			define('COL_GREEN', 3);
@@ -41,6 +44,7 @@
 			$mode=MODE_TEXT;
 			$forecolour=COL_WHITE;
 			$backcolour=COL_BLACK;
+			$currentheight=TXHEIGHT_STD;
 			
 			$file=implode('', file($filename));
 			
@@ -718,6 +722,10 @@
 						$mode=MODE_TEXT;
 						$forecolour=COL_WHITE;
 						break;
+					case 141:
+						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$currentheight=TXHEIGHT_DBL;
+						break;
 					case 145:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=MODE_GRAPHICS;
@@ -774,6 +782,7 @@
 				
 				$this->textcolours[$row][$column]=$forecolour;
 				$this->bkgdcolours[$row][$column]=$backcolour;
+				$this->textheights[$row][$column]=$mode;
 				
 				$column++;
 				
@@ -783,6 +792,7 @@
 					$mode=MODE_TEXT;
 					$forecolour=COL_WHITE;
 					$backcolour=COL_BLACK;
+					$currentheight=TXHEIGHT_STD;
 				endif;
 			endfor;
 		}
