@@ -1,5 +1,18 @@
 <?php
 	class convertmode7 extends convert {
+		const MODE_TEXT=1;
+		const MODE_GRAPHICS=2;
+		const TXHEIGHT_STD=1;
+		const TXHEIGHT_DBL=2;
+		const COL_BLACK=1;
+		const COL_RED=2;
+		const COL_GREEN=3;
+		const COL_YELLOW=4;
+		const COL_BLUE=5;
+		const COL_MAGENTA=6;
+		const COL_CYAN=7;
+		const COL_WHITE=8;
+		
 		private $tokenised;
 		private $textheights;
 		private $textcolours;
@@ -20,19 +33,6 @@
 		}
 		
 		private function tokeniseinput($filename, $trimscroller) {
-			define('MODE_TEXT', 1);
-			define('MODE_GRAPHICS', 2);
-			define('TXHEIGHT_STD', 1);
-			define('TXHEIGHT_DBL', 2);
-			define('COL_BLACK', 1);
-			define('COL_RED', 2);
-			define('COL_GREEN', 3);
-			define('COL_YELLOW', 4);
-			define('COL_BLUE', 5);
-			define('COL_MAGENTA', 6);
-			define('COL_CYAN', 7);
-			define('COL_WHITE', 8);
-			
 			if($trimscroller):
 				$startpos=256;
 			else:
@@ -41,10 +41,10 @@
 			
 			$row=0;
 			$column=0;
-			$mode=MODE_TEXT;
-			$forecolour=COL_WHITE;
-			$backcolour=COL_BLACK;
-			$currentheight=TXHEIGHT_STD;
+			$mode=convertmode7::MODE_TEXT;
+			$forecolour=convertmode7::COL_WHITE;
+			$backcolour=convertmode7::COL_BLACK;
+			$currentheight=convertmode7::TXHEIGHT_STD;
 			
 			$file=implode('', file($filename));
 			
@@ -56,7 +56,7 @@
 						break;
 					case 33:
 					case 161:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_!';
 						else:
 							$this->tokenised[$row][$column]='GRAP_1';
@@ -64,7 +64,7 @@
 						break;
 					case 34:
 					case 162:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_"';
 						else:
 							$this->tokenised[$row][$column]='GRAP_2';
@@ -72,7 +72,7 @@
 						break;
 					case 35:
 					case 163:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_£';
 						else:
 							$this->tokenised[$row][$column]='GRAP_3';
@@ -80,7 +80,7 @@
 						break;
 					case 36:
 					case 164:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_$';
 						else:
 							$this->tokenised[$row][$column]='GRAP_4';
@@ -88,7 +88,7 @@
 						break;
 					case 37:
 					case 165:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_%';
 						else:
 							$this->tokenised[$row][$column]='GRAP_5';
@@ -96,7 +96,7 @@
 						break;
 					case 38:
 					case 166:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_&';
 						else:
 							$this->tokenised[$row][$column]='GRAP_6';
@@ -104,7 +104,7 @@
 						break;
 					case 39:
 					case 167:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_\'';
 						else:
 							$this->tokenised[$row][$column]='GRAP_7';
@@ -112,7 +112,7 @@
 						break;
 					case 40:
 					case 168:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_(';
 						else:
 							$this->tokenised[$row][$column]='GRAP_8';
@@ -120,7 +120,7 @@
 						break;
 					case 41:
 					case 169:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_)';
 						else:
 							$this->tokenised[$row][$column]='GRAP_9';
@@ -128,7 +128,7 @@
 						break;
 					case 42:
 					case 170:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_*';
 						else:
 							$this->tokenised[$row][$column]='GRAP_10';
@@ -136,7 +136,7 @@
 						break;
 					case 43:
 					case 171:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_+';
 						else:
 							$this->tokenised[$row][$column]='GRAP_11';
@@ -144,7 +144,7 @@
 						break;
 					case 44:
 					case 172:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_,';
 						else:
 							$this->tokenised[$row][$column]='GRAP_12';
@@ -152,7 +152,7 @@
 						break;
 					case 45:
 					case 173:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_-';
 						else:
 							$this->tokenised[$row][$column]='GRAP_13';
@@ -160,7 +160,7 @@
 						break;
 					case 46:
 					case 174:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_.';
 						else:
 							$this->tokenised[$row][$column]='GRAP_14';
@@ -168,7 +168,7 @@
 						break;
 					case 47:
 					case 175:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_/';
 						else:
 							$this->tokenised[$row][$column]='GRAP_15';
@@ -176,7 +176,7 @@
 						break;
 					case 48:
 					case 176:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_0';
 						else:
 							$this->tokenised[$row][$column]='GRAP_16';
@@ -184,7 +184,7 @@
 						break;
 					case 49:
 					case 177:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_1';
 						else:
 							$this->tokenised[$row][$column]='GRAP_17';
@@ -192,7 +192,7 @@
 						break;
 					case 50:
 					case 178:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_2';
 						else:
 							$this->tokenised[$row][$column]='GRAP_18';
@@ -200,7 +200,7 @@
 						break;
 					case 51:
 					case 179:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_3';
 						else:
 							$this->tokenised[$row][$column]='GRAP_19';
@@ -208,7 +208,7 @@
 						break;
 					case 52:
 					case 180:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_4';
 						else:
 							$this->tokenised[$row][$column]='GRAP_20';
@@ -216,7 +216,7 @@
 						break;
 					case 53:
 					case 181:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_5';
 						else:
 							$this->tokenised[$row][$column]='GRAP_21';
@@ -224,7 +224,7 @@
 						break;
 					case 54:
 					case 182:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_6';
 						else:
 							$this->tokenised[$row][$column]='GRAP_22';
@@ -232,7 +232,7 @@
 						break;
 					case 55:
 					case 183:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_7';
 						else:
 							$this->tokenised[$row][$column]='GRAP_23';
@@ -240,7 +240,7 @@
 						break;
 					case 56:
 					case 184:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_8';
 						else:
 							$this->tokenised[$row][$column]='GRAP_24';
@@ -248,7 +248,7 @@
 						break;
 					case 57:
 					case 185:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_9';
 						else:
 							$this->tokenised[$row][$column]='GRAP_25';
@@ -256,7 +256,7 @@
 						break;
 					case 58:
 					case 186:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_:';
 						else:
 							$this->tokenised[$row][$column]='GRAP_26';
@@ -264,7 +264,7 @@
 						break;
 					case 59:
 					case 187:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_;';
 						else:
 							$this->tokenised[$row][$column]='GRAP_27';
@@ -272,7 +272,7 @@
 						break;
 					case 60:
 					case 188:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_<';
 						else:
 							$this->tokenised[$row][$column]='GRAP_28';
@@ -280,7 +280,7 @@
 						break;
 					case 61:
 					case 189:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_=';
 						else:
 							$this->tokenised[$row][$column]='GRAP_29';
@@ -288,7 +288,7 @@
 						break;
 					case 62:
 					case 190:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_>';
 						else:
 							$this->tokenised[$row][$column]='GRAP_30';
@@ -296,7 +296,7 @@
 						break;
 					case 63:
 					case 191:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_?';
 						else:
 							$this->tokenised[$row][$column]='GRAP_31';
@@ -432,7 +432,7 @@
 						break;
 					case 96:
 					case 224:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_#';
 						else:
 							$this->tokenised[$row][$column]='GRAP_32';
@@ -440,7 +440,7 @@
 						break;
 					case 97:
 					case 225:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_a';
 						else:
 							$this->tokenised[$row][$column]='GRAP_33';
@@ -448,7 +448,7 @@
 						break;
 					case 98:
 					case 226:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_b';
 						else:
 							$this->tokenised[$row][$column]='GRAP_34';
@@ -456,7 +456,7 @@
 						break;
 					case 99:
 					case 227:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_c';
 						else:
 							$this->tokenised[$row][$column]='GRAP_35';
@@ -464,7 +464,7 @@
 						break;
 					case 100:
 					case 228:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_d';
 						else:
 							$this->tokenised[$row][$column]='GRAP_36';
@@ -472,7 +472,7 @@
 						break;
 					case 101:
 					case 229:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_e';
 						else:
 							$this->tokenised[$row][$column]='GRAP_37';
@@ -480,7 +480,7 @@
 						break;
 					case 102:
 					case 230:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_f';
 						else:
 							$this->tokenised[$row][$column]='GRAP_38';
@@ -488,7 +488,7 @@
 						break;
 					case 103:
 					case 231:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_g';
 						else:
 							$this->tokenised[$row][$column]='GRAP_39';
@@ -496,7 +496,7 @@
 						break;
 					case 104:
 					case 232:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_h';
 						else:
 							$this->tokenised[$row][$column]='GRAP_40';
@@ -504,7 +504,7 @@
 						break;
 					case 105:
 					case 233:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_i';
 						else:
 							$this->tokenised[$row][$column]='GRAP_41';
@@ -512,7 +512,7 @@
 						break;
 					case 106:
 					case 234:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_j';
 						else:
 							$this->tokenised[$row][$column]='GRAP_42';
@@ -520,7 +520,7 @@
 						break;
 					case 107:
 					case 235:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_k';
 						else:
 							$this->tokenised[$row][$column]='GRAP_43';
@@ -528,7 +528,7 @@
 						break;
 					case 108:
 					case 236:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_l';
 						else:
 							$this->tokenised[$row][$column]='GRAP_44';
@@ -536,7 +536,7 @@
 						break;
 					case 109:
 					case 237:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_m';
 						else:
 							$this->tokenised[$row][$column]='GRAP_45';
@@ -544,7 +544,7 @@
 						break;
 					case 110:
 					case 238:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_n';
 						else:
 							$this->tokenised[$row][$column]='GRAP_46';
@@ -552,7 +552,7 @@
 						break;
 					case 111:
 					case 239:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_o';
 						else:
 							$this->tokenised[$row][$column]='GRAP_47';
@@ -560,7 +560,7 @@
 						break;
 					case 112:
 					case 240:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_p';
 						else:
 							$this->tokenised[$row][$column]='GRAP_48';
@@ -568,7 +568,7 @@
 						break;
 					case 113:
 					case 241:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_q';
 						else:
 							$this->tokenised[$row][$column]='GRAP_49';
@@ -576,7 +576,7 @@
 						break;
 					case 114:
 					case 242:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_r';
 						else:
 							$this->tokenised[$row][$column]='GRAP_50';
@@ -584,7 +584,7 @@
 						break;
 					case 115:
 					case 243:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_s';
 						else:
 							$this->tokenised[$row][$column]='GRAP_51';
@@ -592,7 +592,7 @@
 						break;
 					case 116:
 					case 244:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_t';
 						else:
 							$this->tokenised[$row][$column]='GRAP_52';
@@ -600,7 +600,7 @@
 						break;
 					case 117:
 					case 245:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_u';
 						else:
 							$this->tokenised[$row][$column]='GRAP_53';
@@ -608,7 +608,7 @@
 						break;
 					case 118:
 					case 246:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_v';
 						else:
 							$this->tokenised[$row][$column]='GRAP_54';
@@ -616,7 +616,7 @@
 						break;
 					case 119:
 					case 247:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_w';
 						else:
 							$this->tokenised[$row][$column]='GRAP_55';
@@ -624,7 +624,7 @@
 						break;
 					case 120:
 					case 248:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_x';
 						else:
 							$this->tokenised[$row][$column]='GRAP_56';
@@ -632,7 +632,7 @@
 						break;
 					case 121:
 					case 249:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_y';
 						else:
 							$this->tokenised[$row][$column]='GRAP_57';
@@ -640,7 +640,7 @@
 						break;
 					case 122:
 					case 250:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_z';
 						else:
 							$this->tokenised[$row][$column]='GRAP_58';
@@ -648,7 +648,7 @@
 						break;
 					case 123:
 					case 251:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_{';
 						else:
 							$this->tokenised[$row][$column]='GRAP_59';
@@ -656,7 +656,7 @@
 						break;
 					case 124:
 					case 252:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_:';
 						else:
 							$this->tokenised[$row][$column]='GRAP_60';
@@ -664,7 +664,7 @@
 						break;
 					case 125:
 					case 253:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_}';
 						else:
 							$this->tokenised[$row][$column]='GRAP_61';
@@ -672,7 +672,7 @@
 						break;
 					case 126:
 					case 254:
-						if($mode==MODE_TEXT):
+						if($mode==convertmode7::MODE_TEXT):
 							$this->tokenised[$row][$column]='CHAR_~';
 						else:
 							$this->tokenised[$row][$column]='GRAP_62';
@@ -683,93 +683,93 @@
 						break;
 					case 129:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_RED;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_RED;
 						break;
 					default:
 					case 130:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_GREEN;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_GREEN;
 						break;
 					default:
 					case 131:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_YELLOW;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_YELLOW;
 						break;
 					default:
 					case 132:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_BLUE;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_BLUE;
 						break;
 					default:
 					case 133:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_MAGENTA;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_MAGENTA;
 						break;
 					default:
 					case 134:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_CYAN;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_CYAN;
 						break;
 					default:
 					case 135:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_TEXT;
-						$forecolour=COL_WHITE;
+						$mode=convertmode7::MODE_TEXT;
+						$forecolour=convertmode7::COL_WHITE;
 						break;
 					case 141:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$currentheight=TXHEIGHT_DBL;
+						$currentheight=convertmode7::TXHEIGHT_DBL;
 						break;
 					case 145:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_RED;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_RED;
 						break;
 					default:
 					case 146:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_GREEN;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_GREEN;
 						break;
 					default:
 					case 147:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_YELLOW;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_YELLOW;
 						break;
 					default:
 					case 148:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_BLUE;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_BLUE;
 						break;
 					default:
 					case 149:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_MAGENTA;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_MAGENTA;
 						break;
 					default:
 					case 150:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_CYAN;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_CYAN;
 						break;
 					default:
 					case 151:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$mode=MODE_GRAPHICS;
-						$forecolour=COL_WHITE;
+						$mode=convertmode7::MODE_GRAPHICS;
+						$forecolour=convertmode7::COL_WHITE;
 						break;
 					case 156:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
-						$backcolour=COL_BLACK;
+						$backcolour=convertmode7::COL_BLACK;
 						break;
 					case 157:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
@@ -789,10 +789,10 @@
 				if($column>39):
 					$column=0;
 					$row++;
-					$mode=MODE_TEXT;
-					$forecolour=COL_WHITE;
-					$backcolour=COL_BLACK;
-					$currentheight=TXHEIGHT_STD;
+					$mode=convertmode7::MODE_TEXT;
+					$forecolour=convertmode7::COL_WHITE;
+					$backcolour=convertmode7::COL_BLACK;
+					$currentheight=convertmode7::TXHEIGHT_STD;
 				endif;
 			endfor;
 		}
@@ -1180,25 +1180,25 @@
 		
 		private function translatecolour($colour) {
 			switch($colour):
-				case COL_RED:
+				case convertmode7::COL_RED:
 					return 'red';
 					break;
-				case COL_GREEN:
+				case convertmode7::COL_GREEN:
 					return '#00ff00';
 					break;
-				case COL_YELLOW:
+				case convertmode7::COL_YELLOW:
 					return 'yellow';
 					break;
-				case COL_BLUE:
+				case convertmode7::COL_BLUE:
 					return 'blue';
 					break;
-				case COL_MAGENTA:
+				case convertmode7::COL_MAGENTA:
 					return 'magenta';
 					break;
-				case COL_CYAN:
+				case convertmode7::COL_CYAN:
 					return 'cyan';
 					break;
-				case COL_WHITE:
+				case convertmode7::COL_WHITE:
 					return 'white';
 					break;
 			endswitch;
