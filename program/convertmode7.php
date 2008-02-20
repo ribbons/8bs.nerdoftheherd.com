@@ -782,7 +782,7 @@
 				
 				$this->textcolours[$row][$column]=$forecolour;
 				$this->bkgdcolours[$row][$column]=$backcolour;
-				$this->textheights[$row][$column]=$mode;
+				$this->textheights[$row][$column]=$currentheight;
 				
 				$column++;
 				
@@ -808,16 +808,33 @@
 				
 				foreach($line as $colkey => $character):
 					if(substr($character, 0, 5)=='CHAR_'):
-						switch($character):
-							case 'CHAR_SPACE':
-								$cellcontents.='&nbsp;';
-								break;
-							case 'CHAR_£':
-								$cellcontents.='&pound;';
-								break;
-							default:
-								$cellcontents.=substr($character, 5);
-						endswitch;
+						if($this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_DBL):
+							switch($character):
+								case 'CHAR_SPACE':
+									$cellcontents.='&nbsp;';
+									break;
+								default:
+									if($lnkey==0 || $this->textheights[$lnkey-1][$colkey]==convertmode7::TXHEIGHT_STD):
+										$dblpart=1;
+									else:
+										$dblpart=2;
+									endif;
+									
+									$cellcontents.='<img src="../../../common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
+									break;
+								endswitch;
+						else:
+							switch($character):
+								case 'CHAR_SPACE':
+									$cellcontents.='&nbsp;';
+									break;
+								case 'CHAR_£':
+									$cellcontents.='&pound;';
+									break;
+								default:
+									$cellcontents.=substr($character, 5);
+							endswitch;
+						endif;
 					elseif(substr($character, 0, 5)=='GRAP_'):
 						$graphicid=substr($character, 5);
 						$cellcontents.=$this->makesymbol($graphicid, $this->translatecolour($this->textcolours[$lnkey][$colkey]));
@@ -825,7 +842,7 @@
 						echo '<p>Unknown token '.$character.'</p>';
 					endif;
 					
-					if($lnkey>0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1]):
+					if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1]):
 						$colspan++;
 					else:
 						$this->html.='<td style="color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]);
