@@ -1173,7 +1173,7 @@
 			$symboloutput.='></td></tr></table>';
 			
 			# If there are two cells next to each other which are the same, then combine them.
-			#$symboloutput=str_replace('<td class="'.$textcol.'"></td><td class="'.$textcol.'"></td>', '<td class="'.$textcol.'" colspan="2"></td>', $symboloutput);
+			$symboloutput=str_replace('<td style="background-color:'.$colour.'"></td><td style="background-color:'.$colour.'"></td>', '<td style="background-color:'.$colour.'" colspan="2"></td>', $symboloutput);
 			
 			return $symboloutput;
 		}
