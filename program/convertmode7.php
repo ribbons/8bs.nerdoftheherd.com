@@ -803,311 +803,324 @@
 			foreach($this->tokenised as $lnkey => $line):
 				$this->html.='<tr>';
 				
+				$cellcontents='';
+				$colspan=1;
+				
 				foreach($line as $colkey => $character):
-					$this->html.='<td style="color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]);
-					$this->html.='; background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';">';
-					
 					if(substr($character, 0, 5)=='CHAR_'):
 						switch($character):
 							case 'CHAR_!':
-								$this->html.='!';
+								$cellcontents.='!';
 								break;
 							case 'CHAR_"':
-								$this->html.='"';
+								$cellcontents.='"';
 								break;
 							case 'CHAR_#':
-								$this->html.='#';
+								$cellcontents.='#';
 								break;
 							case 'CHAR_$':
-								$this->html.='$';
+								$cellcontents.='$';
 								break;
 							case 'CHAR_%':
-								$this->html.='%';
+								$cellcontents.='%';
 								break;
 							case 'CHAR_&':
-								$this->html.='&';
+								$cellcontents.='&';
 								break;
 							case 'CHAR_\'':
-								$this->html.='\'';
+								$cellcontents.='\'';
 								break;
 							case 'CHAR_(':
-								$this->html.='(';
+								$cellcontents.='(';
 								break;
 							case 'CHAR_)':
-								$this->html.=')';
+								$cellcontents.=')';
 								break;
 							case 'CHAR_*':
-								$this->html.='*';
+								$cellcontents.='*';
 								break;
 							case 'CHAR_+':
-								$this->html.='+';
+								$cellcontents.='+';
 								break;
 							case 'CHAR_,':
-								$this->html.=',';
+								$cellcontents.=',';
 								break;
 							case 'CHAR_-':
-								$this->html.='-';
+								$cellcontents.='-';
 								break;
 							case 'CHAR_.':
-								$this->html.='.';
+								$cellcontents.='.';
 								break;
 							case 'CHAR_/':
-								$this->html.='/';
+								$cellcontents.='/';
 								break;
 							case 'CHAR_0':
-								$this->html.='0';
+								$cellcontents.='0';
 								break;
 							case 'CHAR_1':
-								$this->html.='1';
+								$cellcontents.='1';
 								break;
 							case 'CHAR_2':
-								$this->html.='2';
+								$cellcontents.='2';
 								break;
 							case 'CHAR_3':
-								$this->html.='3';
+								$cellcontents.='3';
 								break;
 							case 'CHAR_4':
-								$this->html.='4';
+								$cellcontents.='4';
 								break;
 							case 'CHAR_5':
-								$this->html.='5';
+								$cellcontents.='5';
 								break;
 							case 'CHAR_6':
-								$this->html.='6';
+								$cellcontents.='6';
 								break;
 							case 'CHAR_7':
-								$this->html.='7';
+								$cellcontents.='7';
 								break;
 							case 'CHAR_8':
-								$this->html.='8';
+								$cellcontents.='8';
 								break;
 							case 'CHAR_9':
-								$this->html.='9';
+								$cellcontents.='9';
 								break;
 							case 'CHAR_:':
-								$this->html.=':';
+								$cellcontents.=':';
 								break;
 							case 'CHAR_;':
-								$this->html.=';';
+								$cellcontents.=';';
 								break;
 							case 'CHAR_<':
-								$this->html.='<';
+								$cellcontents.='<';
 								break;
 							case 'CHAR_=':
-								$this->html.='=';
+								$cellcontents.='=';
 								break;
 							case 'CHAR_>':
-								$this->html.='>';
+								$cellcontents.='>';
 								break;
 							case 'CHAR_?':
-								$this->html.='?';
+								$cellcontents.='?';
 								break;
 							case 'CHAR_@':
-								$this->html.='@';
+								$cellcontents.='@';
 								break;
 							case 'CHAR_A':
-								$this->html.='A';
+								$cellcontents.='A';
 								break;
 							case 'CHAR_B':
-								$this->html.='B';
+								$cellcontents.='B';
 								break;
 							case 'CHAR_C':
-								$this->html.='C';
+								$cellcontents.='C';
 								break;
 							case 'CHAR_D':
-								$this->html.='D';
+								$cellcontents.='D';
 								break;
 							case 'CHAR_E':
-								$this->html.='E';
+								$cellcontents.='E';
 								break;
 							case 'CHAR_F':
-								$this->html.='F';
+								$cellcontents.='F';
 								break;
 							case 'CHAR_G':
-								$this->html.='G';
+								$cellcontents.='G';
 								break;
 							case 'CHAR_H':
-								$this->html.='H';
+								$cellcontents.='H';
 								break;
 							case 'CHAR_I':
-								$this->html.='I';
+								$cellcontents.='I';
 								break;
 							case 'CHAR_J':
-								$this->html.='J';
+								$cellcontents.='J';
 								break;
 							case 'CHAR_K':
-								$this->html.='K';
+								$cellcontents.='K';
 								break;
 							case 'CHAR_L':
-								$this->html.='L';
+								$cellcontents.='L';
 								break;
 							case 'CHAR_M':
-								$this->html.='M';
+								$cellcontents.='M';
 								break;
 							case 'CHAR_N':
-								$this->html.='N';
+								$cellcontents.='N';
 								break;
 							case 'CHAR_O':
-								$this->html.='O';
+								$cellcontents.='O';
 								break;
 							case 'CHAR_P':
-								$this->html.='P';
+								$cellcontents.='P';
 								break;
 							case 'CHAR_Q':
-								$this->html.='Q';
+								$cellcontents.='Q';
 								break;
 							case 'CHAR_R':
-								$this->html.='R';
+								$cellcontents.='R';
 								break;
 							case 'CHAR_S':
-								$this->html.='S';
+								$cellcontents.='S';
 								break;
 							case 'CHAR_T':
-								$this->html.='T';
+								$cellcontents.='T';
 								break;
 							case 'CHAR_U':
-								$this->html.='U';
+								$cellcontents.='U';
 								break;
 							case 'CHAR_V':
-								$this->html.='V';
+								$cellcontents.='V';
 								break;
 							case 'CHAR_W':
-								$this->html.='W';
+								$cellcontents.='W';
 								break;
 							case 'CHAR_X':
-								$this->html.='X';
+								$cellcontents.='X';
 								break;
 							case 'CHAR_Y':
-								$this->html.='Y';
+								$cellcontents.='Y';
 								break;
 							case 'CHAR_Z':
-								$this->html.='Z';
+								$cellcontents.='Z';
 								break;
 							case 'CHAR_[':
-								$this->html.='[';
+								$cellcontents.='[';
 								break;
 							case 'CHAR_\\':
-								$this->html.='\\';
+								$cellcontents.='\\';
 								break;
 							case 'CHAR_]':
-								$this->html.=']';
+								$cellcontents.=']';
 								break;
 							case 'CHAR_^':
-								$this->html.='^';
+								$cellcontents.='^';
 								break;
 							case 'CHAR__':
-								$this->html.='_';
+								$cellcontents.='_';
 								break;
 							case 'CHAR_£':
-								$this->html.='&pound;';
+								$cellcontents.='&pound;';
 								break;
 							case 'CHAR_a':
-								$this->html.='a';
+								$cellcontents.='a';
 								break;
 							case 'CHAR_b':
-								$this->html.='b';
+								$cellcontents.='b';
 								break;
 							case 'CHAR_c':
-								$this->html.='c';
+								$cellcontents.='c';
 								break;
 							case 'CHAR_d':
-								$this->html.='d';
+								$cellcontents.='d';
 								break;
 							case 'CHAR_e':
-								$this->html.='e';
+								$cellcontents.='e';
 								break;
 							case 'CHAR_f':
-								$this->html.='f';
+								$cellcontents.='f';
 								break;
 							case 'CHAR_g':
-								$this->html.='g';
+								$cellcontents.='g';
 								break;
 							case 'CHAR_h':
-								$this->html.='h';
+								$cellcontents.='h';
 								break;
 							case 'CHAR_i':
-								$this->html.='i';
+								$cellcontents.='i';
 								break;
 							case 'CHAR_j':
-								$this->html.='j';
+								$cellcontents.='j';
 								break;
 							case 'CHAR_k':
-								$this->html.='k';
+								$cellcontents.='k';
 								break;
 							case 'CHAR_l':
-								$this->html.='l';
+								$cellcontents.='l';
 								break;
 							case 'CHAR_m':
-								$this->html.='m';
+								$cellcontents.='m';
 								break;
 							case 'CHAR_n':
-								$this->html.='n';
+								$cellcontents.='n';
 								break;
 							case 'CHAR_o':
-								$this->html.='o';
+								$cellcontents.='o';
 								break;
 							case 'CHAR_p':
-								$this->html.='p';
+								$cellcontents.='p';
 								break;
 							case 'CHAR_q':
-								$this->html.='q';
+								$cellcontents.='q';
 								break;
 							case 'CHAR_r':
-								$this->html.='r';
+								$cellcontents.='r';
 								break;
 							case 'CHAR_s':
-								$this->html.='s';
+								$cellcontents.='s';
 								break;
 							case 'CHAR_t':
-								$this->html.='t';
+								$cellcontents.='t';
 								break;
 							case 'CHAR_u':
-								$this->html.='u';
+								$cellcontents.='u';
 								break;
 							case 'CHAR_v':
-								$this->html.='v';
+								$cellcontents.='v';
 								break;
 							case 'CHAR_w':
-								$this->html.='w';
+								$cellcontents.='w';
 								break;
 							case 'CHAR_x':
-								$this->html.='x';
+								$cellcontents.='x';
 								break;
 							case 'CHAR_y':
-								$this->html.='y';
+								$cellcontents.='y';
 								break;
 							case 'CHAR_z':
-								$this->html.='z';
+								$cellcontents.='z';
 								break;
 							case 'CHAR_{':
-								$this->html.='{';
+								$cellcontents.='{';
 								break;
 							case 'CHAR_:':
-								$this->html.=':';
+								$cellcontents.=':';
 								break;
 							case 'CHAR_}':
-								$this->html.='}';
+								$cellcontents.='}';
 								break;
 							case 'CHAR_~':
-								$this->html.='~';
+								$cellcontents.='~';
 								break;
 							case 'CHAR_SPACE':
-								$this->html.='&nbsp;';
+								$cellcontents.='&nbsp;';
 								break;
 							default:
 								echo '<p>Unknown character token '.$character.'</p>';
 						endswitch;
 					elseif(substr($character, 0, 5)=='GRAP_'):
 						$graphicid=substr($character, 5);
-						$this->html.=$this->makesymbol($graphicid, $this->translatecolour($this->textcolours[$lnkey][$colkey]));
+						$cellcontents.=$this->makesymbol($graphicid, $this->translatecolour($this->textcolours[$lnkey][$colkey]));
 					else:
 						echo '<p>Unknown token '.$character.'</p>';
 					endif;
 					
-					$this->html.='</td>';
+					if($lnkey>0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1]):
+						$colspan++;
+					else:
+						$this->html.='<td style="color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]);
+						$this->html.='; background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';"';
+						if($colspan>1):
+							$this->html.=' colspan="'.$colspan.'"';
+						endif;
+						$this->html.='>'.$cellcontents;
+						$this->html.='</td>';
+						
+						$cellcontents='';
+						$colspan=1;
+					endif;
 				endforeach;
 				
-				$this->html.='</tr>';
+				$this->html.="</tr>\n";
 			endforeach;
 			
 			$this->html.='</table>';
