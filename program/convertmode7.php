@@ -931,6 +931,9 @@
 		
 		private function translatecolour($colour) {
 			switch($colour):
+				case convertmode7::COL_BLACK:
+					return 'black';
+					break;
 				case convertmode7::COL_RED:
 					return 'red';
 					break;
