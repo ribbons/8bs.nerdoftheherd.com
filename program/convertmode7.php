@@ -806,6 +806,16 @@
 			$this->html.='<table class="mode7">';
 			
 			foreach($this->tokenised as $lnkey => $line):
+				foreach($line as $colkey => $character):
+					if($colkey > 0):
+						if($this->textcolours[$lnkey][$colkey]!=$lastcolour && $character=='CHAR_SPACE'):
+							$this->textcolours[$lnkey][$colkey]=$lastcolour;
+						endif;
+					endif;
+					
+					$lastcolour=$this->textcolours[$lnkey][$colkey];
+				endforeach;
+				
 				$this->html.='<tr>';
 				
 				$cellcontents='';
@@ -814,14 +824,13 @@
 				foreach($line as $colkey => $character):
 					if(substr($character, 0, 5)=='CHAR_'):
 						if($this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_DBL):
-							switch($character):
-								if($lnkey==0 || $this->textheights[$lnkey-1][$colkey]==convertmode7::TXHEIGHT_STD):
-									$dblpart=1;
-								else:
-									$dblpart=2;
-								endif;
-								
-								$cellcontents.='<img src="../../../common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
+							if($lnkey==0 || $this->textheights[$lnkey-1][$colkey]==convertmode7::TXHEIGHT_STD):
+								$dblpart=1;
+							else:
+								$dblpart=2;
+							endif;
+							
+							$cellcontents.='<img src="../../../common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
 						else:
 							switch($character):
 								case 'CHAR_SPACE':
