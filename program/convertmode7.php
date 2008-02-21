@@ -845,11 +845,26 @@
 					if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1]):
 						$colspan++;
 					else:
-						$this->html.='<td style="color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]);
-						$this->html.='; background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';"';
+						$this->html.='<td style="color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]).';';
+						if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+							$this->html.=' background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';';
+						endif;
+						$this->html.='"';
 						if($colspan>1):
 							$this->html.=' colspan="'.$colspan.'"';
 						endif;
+						
+						# Replace a cell full of only non-breaking spaces, with a single non-breaking space
+						if(str_replace('&nbsp;', '', $cellcontents)==''):
+							$cellcontents='&nbsp;';
+						endif;
+						# Replace non-breaking spaces between word with spaces
+						$cellcontents=preg_replace('/([^; ])&nbsp;([^& ])/', '\1 \2', $cellcontents);
+						# Remove multiple non breaking spaces from the ends of cells with other contents
+						$cellcontents=preg_replace('/\A(.+?)(?:&nbsp;)+\z/', '\1', $cellcontents);
+						# Alternate non-breaking and standard spaces
+						$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
+						
 						$this->html.='>'.$cellcontents;
 						$this->html.='</td>';
 						
