@@ -107,7 +107,7 @@
 			switch($id):
 				case -1:
 					floutput('Converting Mode 0 text "'.substr($file,2).'"',2);
-					$convert=new convertmode0($file, $title);
+					$convert=new convertmode0('temp//'.$file, $title);
 					break;
 				case -2:
 					floutput('Converting Mode 7 text "'.substr($file,2).'"',2);

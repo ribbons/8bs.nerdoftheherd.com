@@ -10,11 +10,15 @@ body {
 	text-align: left;
 	margin-left: auto;
 	margin-right: auto;
-	width: 560px;
+	width: 48em;
 }
 
 .mode7 {
 	font: 24px "ModeSeven", "Courier New", "Courier", monospace;
+}
+
+.mode0 {
+	font: 15px "Courier New", "Courier", monospace;
 }
 
 div.header {
