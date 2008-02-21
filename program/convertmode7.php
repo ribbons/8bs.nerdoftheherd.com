@@ -980,34 +980,5 @@
 			$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h2"></td><td class="b'.$colour.' h2"></td></tr>', $symboloutput);
 			return $symboloutput;
 		}
-		
-		private function translatecolour($colour) {
-			switch($colour):
-				case convertmode7::COL_BLACK:
-					return 'black';
-					break;
-				case convertmode7::COL_RED:
-					return 'red';
-					break;
-				case convertmode7::COL_GREEN:
-					return '#00ff00';
-					break;
-				case convertmode7::COL_YELLOW:
-					return 'yellow';
-					break;
-				case convertmode7::COL_BLUE:
-					return 'blue';
-					break;
-				case convertmode7::COL_MAGENTA:
-					return 'magenta';
-					break;
-				case convertmode7::COL_CYAN:
-					return 'cyan';
-					break;
-				case convertmode7::COL_WHITE:
-					return 'white';
-					break;
-			endswitch;
-		}
 	}
 ?>
