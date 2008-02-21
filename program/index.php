@@ -106,16 +106,19 @@
 		else:
 			switch($id):
 				case -1:
+					floutput('Converting Mode 0 text "'.substr($file,2).'"',2);
 					$convert=new convertmode0($file, $title);
 					break;
 				case -2:
+					floutput('Converting Mode 7 text "'.substr($file,2).'"',2);
 					$convert=new convertmode7('temp//'.$file, $title, true);
 					break;
 				case -4:
+					floutput('Converting basic file "'.substr($file,2).'"',2);
 					$convert=new convertbasic($file, $title);
 					break;
 				case -8:
-					FlOutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
+					floutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
 					$convert=new convertrunnable($file, $title);
 					break;
 				default:
