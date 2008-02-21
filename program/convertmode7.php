@@ -807,6 +807,15 @@
 			
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
+					# If a cell contains a 'fully on' graphics character, convert this to an empty cell
+					# with the character colour as the background colour
+					if($character=='GRAP_63'):
+						$this->tokenised[$lnkey][$colkey] = $line[$colkey] = $character = 'CHAR_SPACE';
+						$this->bkgdcolours[$lnkey][$colkey]=$this->textcolours[$lnkey][$colkey];
+					endif;
+					
+					# Make the text colour of spaces the same as much as possible, to allow as much
+					# merging as possible
 					if($colkey > 0):
 						if($this->textcolours[$lnkey][$colkey]!=$lastcolour && $character=='CHAR_SPACE'):
 							$this->textcolours[$lnkey][$colkey]=$lastcolour;
