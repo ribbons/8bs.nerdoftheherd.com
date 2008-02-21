@@ -862,21 +862,6 @@
 					if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1]):
 						$colspan++;
 					else:
-						$this->html.='<td';
-						if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE || $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-							$this->html.=' style="';
-							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE):
-								$this->html.='color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]).';';
-							endif;
-							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$this->html.=' background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';';
-							endif;
-							$this->html.='"';
-						endif;
-						if($colspan>1):
-							$this->html.=' colspan="'.$colspan.'"';
-						endif;
-						
 						# Replace a cell full of only non-breaking spaces, with a single non-breaking space
 						if(str_replace('&nbsp;', '', $cellcontents)==''):
 							$cellcontents='&nbsp;';
@@ -888,6 +873,20 @@
 						# Alternate non-breaking and standard spaces
 						$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
 						
+						$this->html.='<td';
+						if(($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;') || $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+							$this->html.=' style="';
+							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;'):
+								$this->html.='color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]).';';
+							endif;
+							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+								$this->html.=' background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';';
+							endif;
+							$this->html.='"';
+						endif;
+						if($colspan>1):
+							$this->html.=' colspan="'.$colspan.'"';
+						endif;
 						$this->html.='>'.$cellcontents;
 						$this->html.='</td>';
 						
