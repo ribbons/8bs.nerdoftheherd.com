@@ -4,14 +4,14 @@
 		const MODE_GRAPHICS=2;
 		const TXHEIGHT_STD=1;
 		const TXHEIGHT_DBL=2;
-		const COL_BLACK=1;
-		const COL_RED=2;
-		const COL_GREEN=3;
-		const COL_YELLOW=4;
-		const COL_BLUE=5;
-		const COL_MAGENTA=6;
-		const COL_CYAN=7;
-		const COL_WHITE=8;
+		const COL_BLACK=0;
+		const COL_RED=1;
+		const COL_GREEN=2;
+		const COL_YELLOW=3;
+		const COL_BLUE=4;
+		const COL_MAGENTA=5;
+		const COL_CYAN=6;
+		const COL_WHITE=7;
 		
 		private $tokenised;
 		private $textheights;
@@ -854,7 +854,7 @@
 						endif;
 					elseif(substr($character, 0, 5)=='GRAP_'):
 						$graphicid=substr($character, 5);
-						$cellcontents.=$this->makesymbol($graphicid, $this->translatecolour($this->textcolours[$lnkey][$colkey]));
+						$cellcontents.=$this->makesymbol($graphicid, $this->textcolours[$lnkey][$colkey]);
 					else:
 						echo '<p>Unknown token '.$character.'</p>';
 					endif;
@@ -875,12 +875,15 @@
 						
 						$this->html.='<td';
 						if(($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;') || $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-							$this->html.=' style="';
+							$this->html.=' class="';
 							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;'):
-								$this->html.='color: '.$this->translatecolour($this->textcolours[$lnkey][$colkey]).';';
+								$this->html.='t'.$this->textcolours[$lnkey][$colkey];
+							endif;
+							if(($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;') && $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+								$this->html.=' ';
 							endif;
 							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$this->html.=' background-color: '.$this->translatecolour($this->bkgdcolours[$lnkey][$colkey]).';';
+								$this->html.='b'.$this->bkgdcolours[$lnkey][$colkey];
 							endif;
 							$this->html.='"';
 						endif;
@@ -925,43 +928,43 @@
 			$symboloutput.='<table><tr><td';
 			
 			if($parts[0][0]):
-				$symboloutput.=' style="background-color:'.$colour.'"';
+				$symboloutput.=' class="b'.$colour.'"';
 			endif;
 			
 			$symboloutput.='></td><td';
 			
 			if($parts[1][0]):
-				$symboloutput.=' style="background-color:'.$colour.'"';
+				$symboloutput.=' class="b'.$colour.'"';
 			endif;
 			
 			$symboloutput.='></td></tr><tr><td';
 			
 			if($parts[0][1]):
-				$symboloutput.=' style="background-color:'.$colour.'"';
+				$symboloutput.=' class="b'.$colour.'"';
 			endif;
 			
 			$symboloutput.='></td><td';
 			
 			if($parts[1][1]):
-				$symboloutput.=' style="background-color:'.$colour.'"';
+				$symboloutput.=' class="b'.$colour.'"';
 			endif;
 			
 			$symboloutput.='></td></tr><tr><td';
 			
 			if($parts[0][2]):
-				$symboloutput.=' style="background-color:'.$colour.'"';
+				$symboloutput.=' class="b'.$colour.'"';
 			endif;
 			
 			$symboloutput.='></td><td';
 			
 			if($parts[1][2]):
-				$symboloutput.=' style="background-color:'.$colour.'"';
+				$symboloutput.=' class="b'.$colour.'"';
 			endif;
 			
 			$symboloutput.='></td></tr></table>';
 			
 			# If there are two cells next to each other which are the same, then combine them.
-			$symboloutput=str_replace('<td style="background-color:'.$colour.'"></td><td style="background-color:'.$colour.'"></td>', '<td style="background-color:'.$colour.'" colspan="2"></td>', $symboloutput);
+			$symboloutput=str_replace('<td class="b'.$colour.'"></td><td class="b'.$colour.'"></td>', '<td class="b'.$colour.'" colspan="2"></td>', $symboloutput);
 			
 			return $symboloutput;
 		}

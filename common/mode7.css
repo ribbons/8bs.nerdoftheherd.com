@@ -13,15 +13,31 @@ td {
 	line-height: 1em;
 }
 
+td.t0 { color: black; }
+td.t1 { color: red; }
+td.t2 { color: #00ff00; }
+td.t3 { color: yellow; }
+td.t4 { color: blue; }
+td.t5 { color: magenta; }
+td.t6 { color: cyan; }
+
+td.b1 { background-color: red; }
+td.b2 { background-color: #00ff00; }
+td.b3 { background-color: yellow; }
+td.b4 { background-color: blue; }
+td.b5 { background-color: magenta; }
+td.b6 { background-color: cyan; }
+td.b7 { background-color: white; }
+
+td img {
+	display: block;
+	height: 1em;
+}
+
 td table {
 	width: 100%;
 }
 
 td table td {
 	height: 0.33em;
-}
-
-td img {
-	display: block;
-	height: 1em;
 }
