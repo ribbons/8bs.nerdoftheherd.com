@@ -965,7 +965,19 @@
 			
 			# If there are two cells next to each other which are the same, then combine them.
 			$symboloutput=str_replace('<td class="b'.$colour.'"></td><td class="b'.$colour.'"></td>', '<td class="b'.$colour.'" colspan="2"></td>', $symboloutput);
+			$symboloutput=str_replace('<td></td><td></td>', '<td colspan="2"></td>', $symboloutput);
 			
+			# If there are two rows of two cells, then combine them.
+			$symboloutput=str_replace('<tr><td class="b'.$colour.'" colspan="2"></td></tr><tr><td class="b'.$colour.'" colspan="2"></td></tr>', '<tr><td class="b'.$colour.' h2" colspan="2"></td></tr>', $symboloutput);
+			$symboloutput=str_replace('<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>', '<tr><td class="h2" colspan="2"></td></tr>', $symboloutput);
+			
+			# If there are three rows of cells then combine them
+			$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h3"></td><td class="h3"></td></tr>', $symboloutput);
+			$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h3"></td><td class="b'.$colour.' h3"></td></tr>', $symboloutput);
+			
+			# If there are two rows of cells then combine them
+			$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h2"></td><td class="h2"></td></tr>', $symboloutput);
+			$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h2"></td><td class="b'.$colour.' h2"></td></tr>', $symboloutput);
 			return $symboloutput;
 		}
 		

@@ -41,3 +41,11 @@ td table {
 td table td {
 	height: 0.33em;
 }
+
+td table td.h2 {
+	height: 0.66em;
+}
+
+td table td.h3 {
+	height: 1em;
+}
