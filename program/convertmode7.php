@@ -782,7 +782,12 @@
 				
 				$this->textcolours[$row][$column]=$forecolour;
 				$this->bkgdcolours[$row][$column]=$backcolour;
-				$this->textheights[$row][$column]=$currentheight;
+				
+				if($this->tokenised[$row][$column]=='CHAR_SPACE'):
+					$this->textheights[$row][$column]=convertmode7::TXHEIGHT_STD;
+				else:
+					$this->textheights[$row][$column]=$currentheight;
+				endif;
 				
 				$column++;
 				
@@ -810,19 +815,13 @@
 					if(substr($character, 0, 5)=='CHAR_'):
 						if($this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_DBL):
 							switch($character):
-								case 'CHAR_SPACE':
-									$cellcontents.='&nbsp;';
-									break;
-								default:
-									if($lnkey==0 || $this->textheights[$lnkey-1][$colkey]==convertmode7::TXHEIGHT_STD):
-										$dblpart=1;
-									else:
-										$dblpart=2;
-									endif;
-									
-									$cellcontents.='<img src="../../../common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
-									break;
-								endswitch;
+								if($lnkey==0 || $this->textheights[$lnkey-1][$colkey]==convertmode7::TXHEIGHT_STD):
+									$dblpart=1;
+								else:
+									$dblpart=2;
+								endif;
+								
+								$cellcontents.='<img src="../../../common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
 						else:
 							switch($character):
 								case 'CHAR_SPACE':
