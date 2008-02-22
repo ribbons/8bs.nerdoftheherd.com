@@ -33,13 +33,14 @@ td table {
 }
 
 td table td {
-	height: 0.33em;
+	height: 0.333em;
+	border: 0;
 }
 
 td table td.h2 {
-	height: 0.66em;
+	height: 0.666em;
 }
 
 td table td.h3 {
-	height: 1em;
+	height: 1.0em;
 }
