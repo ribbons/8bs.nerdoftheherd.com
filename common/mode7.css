@@ -76,3 +76,16 @@ td table td.h2 {
 td table td.h3 {
 	height: 1.0em;
 }
+
+td.flashoff {
+	color: black;
+	background-color: black;
+}
+
+td.flashoff td {
+	background-color: black;
+}
+
+td.flashoff img {
+	display: none;
+}

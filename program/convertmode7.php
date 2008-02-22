@@ -14,12 +14,15 @@
 		const COL_WHITE=7;
 		const MODE_CONTIG=1;
 		const MODE_SEPERA=2;
+		const FLASH_STATIC=1;
+		const FLASH_FLASH=2;
 		
+		private $flashs;
 		private $tokenised;
+		private $graphmodes;
 		private $textheights;
 		private $textcolours;
 		private $bkgdcolours;
-		private $graphmodes;
 		
 		public function convertmode7($filename, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
@@ -28,7 +31,7 @@
 				$this->html=str_replace('%title%', $title, $this->html);
 				$this->html=str_replace('%commonrel%', '../../', $this->html);
 				$this->html=str_replace('%stylesheetpath%', '../../../common/mode7.css', $this->html);
-				$this->html=str_replace('%includejs%', '', $this->html);
+				$this->html=str_replace('%includejs%', '<script src="../../../common/mode7.js" type="text/javascript"></script>', $this->html);
 			endif;
 			
 			$this->tokeniseinput($filename, $trimscroller);
@@ -49,10 +52,11 @@
 			$row=0;
 			$column=0;
 			$mode=convertmode7::MODE_TEXT;
+			$flash=convertmode7::FLASH_STATIC;
 			$forecolour=convertmode7::COL_WHITE;
 			$backcolour=convertmode7::COL_BLACK;
-			$currentheight=convertmode7::TXHEIGHT_STD;
 			$graphicsmode=convertmode7::MODE_CONTIG;
+			$currentheight=convertmode7::TXHEIGHT_STD;
 			
 			$file=implode('', file($filename));
 			
@@ -64,6 +68,7 @@
 							$this->bkgdcolours[$row][$fillcol]=$backcolour;
 							$this->tokenised[$row][$fillcol]='CHAR_SPACE';
 							$this->textheights[$row][$fillcol]=convertmode7::TXHEIGHT_STD;
+							$this->flashs[$row][$fillcol]=convertmode7::FLASH_STATIC;
 						endfor;
 						$column=39;
 						break;
@@ -420,7 +425,7 @@
 						$this->tokenised[$row][$column]='CHAR_X';
 						break;
 					case 89:
-					case 137:
+					case 217:
 						$this->tokenised[$row][$column]='CHAR_Y';
 						break;
 					case 90:
@@ -739,6 +744,14 @@
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_WHITE;
 						break;
+					case 136:
+						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$flash=convertmode7::FLASH_FLASH;
+						break;
+					case 137:
+						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$flash=convertmode7::FLASH_STATIC;
+						break;
 					case 141:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$currentheight=convertmode7::TXHEIGHT_DBL;
@@ -808,6 +821,7 @@
 				$this->textcolours[$row][$column]=$forecolour;
 				$this->bkgdcolours[$row][$column]=$backcolour;
 				$this->graphmodes[$row][$column]=$graphicsmode;
+				$this->flashs[$row][$column]=$flash;
 				
 				if($this->tokenised[$row][$column]=='CHAR_SPACE'):
 					$this->textheights[$row][$column]=convertmode7::TXHEIGHT_STD;
@@ -821,10 +835,11 @@
 					$column=0;
 					$row++;
 					$mode=convertmode7::MODE_TEXT;
+					$flash=convertmode7::FLASH_STATIC;
 					$forecolour=convertmode7::COL_WHITE;
 					$backcolour=convertmode7::COL_BLACK;
-					$currentheight=convertmode7::TXHEIGHT_STD;
 					$graphicsmode=convertmode7::MODE_CONTIG;
+					$currentheight=convertmode7::TXHEIGHT_STD;
 				endif;
 			endfor;
 		}
@@ -895,7 +910,7 @@
 						echo '<p>Unknown token '.$character.'</p>';
 					endif;
 					
-					if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1]):
+					if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
 						$colspan++;
 					else:
 						# Replace a cell full of only non-breaking spaces, with a single non-breaking space
@@ -909,25 +924,29 @@
 						# Alternate non-breaking and standard spaces
 						$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
 						
-						$setforecol=$this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;' && substr($character, 0, 5)!='GRAP_';
-						
+						$classes='';
 						$this->html.='<td';
-						if($setforecol || $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-							$this->html.=' class="';
-							if($setforecol):
-								$this->html.='t'.$this->textcolours[$lnkey][$colkey];
-							endif;
-							if($setforecol && $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$this->html.=' ';
-							endif;
-							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$this->html.='b'.$this->bkgdcolours[$lnkey][$colkey];
-							endif;
-							$this->html.='"';
+						
+						if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;' && substr($character, 0, 5)!='GRAP_'):
+							$classes.='t'.$this->textcolours[$lnkey][$colkey];
 						endif;
+						
+						if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+							$classes.=' b'.$this->bkgdcolours[$lnkey][$colkey];
+						endif;
+						
+						if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
+							$classes.=' flash';
+						endif;
+						
+						if($classes!=''):
+							$this->html.=' class="'.trim($classes).'"';
+						endif;
+						
 						if($colspan>1):
 							$this->html.=' colspan="'.$colspan.'"';
 						endif;
+						
 						$this->html.='>'.$cellcontents;
 						$this->html.='</td>';
 						
