@@ -1,23 +1,11 @@
-body img {
-	width: 16px;
-	height: 24px;
-	display: block;
-}
-
 table {
-	text-align: left;
-	border: 0px;
 	border-collapse: collapse;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 td {
 	margin: 0px;
 	padding: 0px;
-	letter-spacing: 2px;
 	width: 16px;
-	line-height: 24px;
 }
 
 td table {

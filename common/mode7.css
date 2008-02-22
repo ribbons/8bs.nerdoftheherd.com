@@ -1,15 +1,10 @@
 table {
-	text-align: left;
-	border: 0px;
 	border-collapse: collapse;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 td {
 	margin: 0px;
 	padding: 0px;
-	line-height: 1em;
 }
 
 td.t0 { color: black; }
