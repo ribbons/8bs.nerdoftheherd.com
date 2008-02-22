@@ -803,7 +803,7 @@
 		}
 		
 		private function generatehtml() {
-			$this->html.='<table class="mode7">';
+			$this->html.='<table class="mode7 centralcol">';
 			
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
