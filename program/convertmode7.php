@@ -18,18 +18,22 @@
 		private $textcolours;
 		private $bkgdcolours;
 		
-		public function convertmode7($filename, $title, $trimscroller) {
-			$this->html=implode('', file('temp/header.html'));
-			
-			$this->html=str_replace('%title%', $title, $this->html);
-			$this->html=str_replace('%commonrel%', '../../', $this->html);
-			$this->html=str_replace('%stylesheetpath%', '../../../common/mode7.css', $this->html);
-			$this->html=str_replace('%includejs%', '', $this->html);
+		public function convertmode7($filename, $title, $trimscroller, $headerandfooter) {
+			if($headerandfooter):
+				$this->html=implode('', file('temp/header.html'));
+				
+				$this->html=str_replace('%title%', $title, $this->html);
+				$this->html=str_replace('%commonrel%', '../../', $this->html);
+				$this->html=str_replace('%stylesheetpath%', '../../../common/mode7.css', $this->html);
+				$this->html=str_replace('%includejs%', '', $this->html);
+			endif;
 			
 			$this->tokeniseinput($filename, $trimscroller);
 			$this->generatehtml();
 			
-			$this->html.=implode('', file('pages/footer.html'));
+			if($headerandfooter):
+				$this->html.=implode('', file('pages/footer.html'));
+			endif;
 		}
 		
 		private function tokeniseinput($filename, $trimscroller) {
@@ -50,6 +54,15 @@
 			
 			for($filepos=$startpos; $filepos < strlen($file); $filepos++):
 				switch(ord($file[$filepos])):
+					case 13:
+						for($fillcol=$column; $fillcol<40; $fillcol++):
+							$this->textcolours[$row][$fillcol]=$forecolour;
+							$this->bkgdcolours[$row][$fillcol]=$backcolour;
+							$this->tokenised[$row][$fillcol]='CHAR_SPACE';
+							$this->textheights[$row][$fillcol]=convertmode7::TXHEIGHT_STD;
+						endfor;
+						$column=39;
+						break;
 					case 32:
 					case 160:
 						$this->tokenised[$row][$column]='CHAR_SPACE';

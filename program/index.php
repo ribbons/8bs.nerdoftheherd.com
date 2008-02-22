@@ -111,11 +111,11 @@
 					break;
 				case -2:
 					floutput('Converting Mode 7 text "'.substr($file,2).'"',2);
-					$convert=new convertmode7('temp//'.$file, $title, true);
+					$convert=new convertmode7('temp//'.$file, $title, true, true);
 					break;
 				case -4:
 					floutput('Converting basic file "'.substr($file,2).'"',2);
-					$convert=new convertbasic($file, $title);
+					$convert=new convertbasic('temp//'.$file, $title);
 					break;
 				case -8:
 					floutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
