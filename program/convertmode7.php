@@ -861,6 +861,15 @@
 								case 'CHAR_£':
 									$cellcontents.='&pound;';
 									break;
+								case 'CHAR_<':
+									$cellcontents.='&lt;';
+									break;
+								case 'CHAR_>':
+									$cellcontents.='&gt;';
+									break;
+								case 'CHAR_&':
+									$cellcontents.='&amp;';
+									break;
 								default:
 									$cellcontents.=substr($character, 5);
 							endswitch;
