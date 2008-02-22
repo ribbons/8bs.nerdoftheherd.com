@@ -23,6 +23,39 @@ td.b5 { background-color: magenta; }
 td.b6 { background-color: cyan; }
 td.b7 { background-color: white; }
 
+table.s0 td {
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+}
+table.s1 td {
+	border-bottom: 1px solid red;
+	border-right: 1px solid red;
+}
+table.s2 td {
+	border-bottom: 1px solid #00ff00;
+	border-right: 1px solid #00ff00;
+}
+table.s3 td {
+	border-bottom: 1px solid yellow;
+	border-right: 1px solid yellow;
+}
+table.s4 td {
+	border-bottom: 1px solid blue;
+	border-right: 1px solid blue;
+}
+table.s5 td {
+	border-bottom: 1px solid magenta;
+	border-right: 1px solid magenta;
+}
+table.s6 td {
+	border-bottom: 1px solid cyan;
+	border-right: 1px solid cyan;
+}
+table.s7 td {
+	border-bottom: 1px solid cyan;
+	border-right: 1px solid cyan;
+}
+
 td img {
 	display: block;
 	height: 1em;
@@ -34,7 +67,6 @@ td table {
 
 td table td {
 	height: 0.333em;
-	border: 0;
 }
 
 td table td.h2 {

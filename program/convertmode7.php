@@ -12,11 +12,14 @@
 		const COL_MAGENTA=5;
 		const COL_CYAN=6;
 		const COL_WHITE=7;
+		const MODE_CONTIG=1;
+		const MODE_SEPERA=2;
 		
 		private $tokenised;
 		private $textheights;
 		private $textcolours;
 		private $bkgdcolours;
+		private $graphmodes;
 		
 		public function convertmode7($filename, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
@@ -49,6 +52,7 @@
 			$forecolour=convertmode7::COL_WHITE;
 			$backcolour=convertmode7::COL_BLACK;
 			$currentheight=convertmode7::TXHEIGHT_STD;
+			$graphicsmode=convertmode7::MODE_CONTIG;
 			
 			$file=implode('', file($filename));
 			
@@ -780,6 +784,14 @@
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_WHITE;
 						break;
+					case 153:
+						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$graphicsmode=convertmode7::MODE_CONTIG;
+						break;
+					case 154:
+						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$graphicsmode=convertmode7::MODE_SEPERA;
+						break;
 					case 156:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$backcolour=convertmode7::COL_BLACK;
@@ -795,6 +807,7 @@
 				
 				$this->textcolours[$row][$column]=$forecolour;
 				$this->bkgdcolours[$row][$column]=$backcolour;
+				$this->graphmodes[$row][$column]=$graphicsmode;
 				
 				if($this->tokenised[$row][$column]=='CHAR_SPACE'):
 					$this->textheights[$row][$column]=convertmode7::TXHEIGHT_STD;
@@ -811,6 +824,7 @@
 					$forecolour=convertmode7::COL_WHITE;
 					$backcolour=convertmode7::COL_BLACK;
 					$currentheight=convertmode7::TXHEIGHT_STD;
+					$graphicsmode=convertmode7::MODE_CONTIG;
 				endif;
 			endfor;
 		}
@@ -821,8 +835,8 @@
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
 					# If a cell contains a 'fully on' graphics character, convert this to an empty cell
-					# with the character colour as the background colour
-					if($character=='GRAP_63'):
+					# with the character colour as the background colour (only for contiguous graphics)
+					if($character=='GRAP_63' && $this->graphmodes[$lnkey][$colkey]==convertmode7::MODE_CONTIG):
 						$this->tokenised[$lnkey][$colkey] = $line[$colkey] = $character = 'CHAR_SPACE';
 						$this->bkgdcolours[$lnkey][$colkey]=$this->textcolours[$lnkey][$colkey];
 					endif;
@@ -876,7 +890,7 @@
 						endif;
 					elseif(substr($character, 0, 5)=='GRAP_'):
 						$graphicid=substr($character, 5);
-						$cellcontents.=$this->makesymbol($graphicid, $this->textcolours[$lnkey][$colkey]);
+						$cellcontents.=$this->makesymbol($graphicid, $this->textcolours[$lnkey][$colkey], $this->bkgdcolours[$lnkey][$colkey], $this->graphmodes[$lnkey][$colkey]);
 					else:
 						echo '<p>Unknown token '.$character.'</p>';
 					endif;
@@ -928,9 +942,7 @@
 			$this->html.='</table>';
 		}
 		
-		private function makesymbol($symbol, $colour) {
-			$symboloutput='';
-			
+		private function makesymbol($symbol, $colour, $backcolour, $mode) {
 			$parts[1][2]=(($symbol-32)>=0);
 			if(($symbol-32)>=0) $symbol-=32;
 			
@@ -949,7 +961,13 @@
 			$parts[0][0]=(($symbol-1)>=0);
 			if(($symbol-1)>=0) $symbol-=1;
 			
-			$symboloutput.='<table><tr><td';
+			$symboloutput='<table';
+			
+			if($mode==convertmode7::MODE_SEPERA):
+				$symboloutput.=' class="s'.$backcolour.'"';
+			endif;
+			
+			$symboloutput.='><tr><td';
 			
 			if($parts[0][0]):
 				$symboloutput.=' class="b'.$colour.'"';
@@ -987,21 +1005,24 @@
 			
 			$symboloutput.='></td></tr></table>';
 			
-			# If there are two cells next to each other which are the same, then combine them.
-			$symboloutput=str_replace('<td class="b'.$colour.'"></td><td class="b'.$colour.'"></td>', '<td class="b'.$colour.'" colspan="2"></td>', $symboloutput);
-			$symboloutput=str_replace('<td></td><td></td>', '<td colspan="2"></td>', $symboloutput);
+			if($mode==convertmode7::MODE_CONTIG):
+				# If there are two cells next to each other which are the same, then combine them.
+				$symboloutput=str_replace('<td class="b'.$colour.'"></td><td class="b'.$colour.'"></td>', '<td class="b'.$colour.'" colspan="2"></td>', $symboloutput);
+				$symboloutput=str_replace('<td></td><td></td>', '<td colspan="2"></td>', $symboloutput);
+				
+				# If there are two rows of two cells, then combine them.
+				$symboloutput=str_replace('<tr><td class="b'.$colour.'" colspan="2"></td></tr><tr><td class="b'.$colour.'" colspan="2"></td></tr>', '<tr><td class="b'.$colour.' h2" colspan="2"></td></tr>', $symboloutput);
+				$symboloutput=str_replace('<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>', '<tr><td class="h2" colspan="2"></td></tr>', $symboloutput);
+				
+				# If there are three rows of cells then combine them
+				$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h3"></td><td class="h3"></td></tr>', $symboloutput);
+				$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h3"></td><td class="b'.$colour.' h3"></td></tr>', $symboloutput);
+				
+				# If there are two rows of cells then combine them
+				$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h2"></td><td class="h2"></td></tr>', $symboloutput);
+				$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h2"></td><td class="b'.$colour.' h2"></td></tr>', $symboloutput);
+			endif;
 			
-			# If there are two rows of two cells, then combine them.
-			$symboloutput=str_replace('<tr><td class="b'.$colour.'" colspan="2"></td></tr><tr><td class="b'.$colour.'" colspan="2"></td></tr>', '<tr><td class="b'.$colour.' h2" colspan="2"></td></tr>', $symboloutput);
-			$symboloutput=str_replace('<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>', '<tr><td class="h2" colspan="2"></td></tr>', $symboloutput);
-			
-			# If there are three rows of cells then combine them
-			$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h3"></td><td class="h3"></td></tr>', $symboloutput);
-			$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h3"></td><td class="b'.$colour.' h3"></td></tr>', $symboloutput);
-			
-			# If there are two rows of cells then combine them
-			$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h2"></td><td class="h2"></td></tr>', $symboloutput);
-			$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h2"></td><td class="b'.$colour.' h2"></td></tr>', $symboloutput);
 			return $symboloutput;
 		}
 	}
