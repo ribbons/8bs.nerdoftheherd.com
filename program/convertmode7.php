@@ -873,13 +873,15 @@
 						# Alternate non-breaking and standard spaces
 						$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
 						
+						$setforecol=$this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;' && substr($character, 0, 5)!='GRAP_';
+						
 						$this->html.='<td';
-						if(($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;') || $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+						if($setforecol || $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
 							$this->html.=' class="';
-							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;'):
+							if($setforecol):
 								$this->html.='t'.$this->textcolours[$lnkey][$colkey];
 							endif;
-							if(($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;') && $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+							if($setforecol && $this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
 								$this->html.=' ';
 							endif;
 							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
