@@ -1,7 +1,7 @@
 body {
 	color: white;
 	background-color: black;
-	margin: 2em 1em 1em 1em;
+	margin: 115px 1em 1em 1em;
 	padding: 0;
 	text-align: center;
 }
@@ -23,14 +23,39 @@ body {
 	width: 47em;
 }
 
-div.header {
+div#header {
 	position: fixed;
 	left: 0px;
 	top: 0px;
 	width: 100%;
-	
+	background-color: black;
+	border-bottom: 1px solid grey;
+}
+
+div#header div#innerhdr {
+	margin-left: auto;
+	margin-right: auto;
+	width: 610px;
 	text-align: left;
-	
-	color: black;
-	background-color: white;
+	height: 95px;
+}
+
+div#header div#innerhdr img#logo {
+	float: left;
+	color: white;
+	background-color: blue;
+}
+
+div#header div#innerhdr div#banner {
+	width: 468px;
+	height: 60px;
+	float: right;
+}
+
+div#header div#innerhdr div#nav {
+	font: 12pt Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	width: 468px;
+	float: right;
+	margin-top: 11px;
 }
