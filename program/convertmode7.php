@@ -29,9 +29,8 @@
 				$this->html=implode('', file('temp/header.html'));
 				
 				$this->html=str_replace('%title%', $title, $this->html);
-				$this->html=str_replace('%commonrel%', '../../', $this->html);
-				$this->html=str_replace('%stylesheetpath%', '../../../common/mode7.css', $this->html);
-				$this->html=str_replace('%includejs%', '<script src="../../../common/mode7.js" type="text/javascript"></script>', $this->html);
+				$this->html=str_replace('%stylesheetpath%', '/common/styles/mode7.css', $this->html);
+				$this->html=str_replace('%includejs%', '<script src="/common/script/mode7.js" type="text/javascript"></script>', $this->html);
 			endif;
 			
 			$this->tokeniseinput($filename, $trimscroller);
@@ -881,7 +880,7 @@
 								$dblpart=2;
 							endif;
 							
-							$cellcontents.='<img src="../../../common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
+							$cellcontents.='<img src="/common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
 						else:
 							switch($character):
 								case 'CHAR_SPACE':

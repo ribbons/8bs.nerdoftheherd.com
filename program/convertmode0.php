@@ -4,8 +4,7 @@
 			$this->html=implode('', file('temp/header.html'));
 			
 			$this->html=str_replace('%title%', $title, $this->html);
-			$this->html=str_replace('%commonrel%', '../../', $this->html);
-			$this->html=str_replace('%stylesheetpath%', '../../../common/mode0.css', $this->html);
+			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode0.css', $this->html);
 			$this->html=str_replace('%includejs%', '', $this->html);
 			
 			$text=implode('',file($filename));

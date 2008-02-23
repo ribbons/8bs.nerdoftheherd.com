@@ -190,9 +190,8 @@
 	$collook=TransCols($colours);
 	$menu=implode('', file('temp/header.html')).implode('', file('pages/menu.html')).implode('', file('pages/footer.html'));
 	
-	$menu=str_replace('%commonrel%', '', $menu);
 	$menu=str_replace('%stylesheetpath%', 'styles/menu.css', $menu);
-	$menu=str_replace('%includejs%', '<script src="../common/menu.js" type="text/javascript"></script>', $menu);
+	$menu=str_replace('%includejs%', '<script src="/common/script/menu.js" type="text/javascript"></script>', $menu);
 	$menu=str_replace('%iss%', $splitdata[0][0], $menu);
 	$menu=str_replace('%issdte%', $splitdata[0][1], $menu);
 	

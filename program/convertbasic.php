@@ -4,9 +4,8 @@
 			$this->html=implode('', file('temp/header.html'));
 			
 			$this->html=str_replace('%title%', $title, $this->html);
-			$this->html=str_replace('%commonrel%', '../../', $this->html);
-			$this->html=str_replace('%stylesheetpath%', '../../../common/mode7.css', $this->html);
-			$this->html=str_replace('%includejs%', '', $this->html);
+			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode7.css', $this->html);
+			$this->html=str_replace('%includejs%', '<script src="/common/script/mode7.js" type="text/javascript"></script>', $this->html);
 			
 			exec('bin\bas2txt.exe /i '.$filename, $output, $return);
 			
