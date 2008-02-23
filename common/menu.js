@@ -36,6 +36,8 @@ window.onload=function() {
 	}
 	
 	setselecteditem("line0");
+	
+	document.onkeypress = processkeys;
 }
 
 function setselecteditem(obj) {
@@ -49,6 +51,13 @@ function setselecteditem(obj) {
 	document.getElementById("descript").innerHTML = document.getElementById(obj).getElementsByTagName("a")[0].getAttribute("title");
 }
 
-function desctxt(newtext) {
-	document.getElementById("descript").innerHTML = newtext;
+function processkeys(event) {
+	if(!event) event=window.event;
+	key = event.keycode ? event.keycode : event.which;
+	
+	if(key > 96 && key < 111) {
+		setselecteditem("line"+(key-97));
+	} else if(key==13) {
+		document.location=getElementsByClassName(document, "td", "menulinehl")[0].getElementsByTagName("a")[0].getAttribute("href");
+	}
 }
