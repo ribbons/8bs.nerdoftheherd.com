@@ -101,6 +101,8 @@
 	}
 	
 	function LinkTo($id, $file, $thisissue, $title) {
+		$title = $thisissue.': '.$title;
+		
 		if($id > 0):
 			return str_replace('menu1','index','menu'.$id).'.html';
 		else:
@@ -218,7 +220,8 @@
 		
 		floutput('Generating menu "'.$splitdata[$curline][0].'"',1);
 		
-		$thismenu=str_replace('%title%', $splitdata[$curline][0], $menu);
+		$thismenu=str_replace('%title%', $thisissue.': '.$splitdata[$curline][0], $menu);
+		$thismenu=str_replace('%menutitle%', $splitdata[$curline][0], $thismenu);
 		$stopline=$curline+$splitdata[$curline][1];
 		$curline++;
 		
