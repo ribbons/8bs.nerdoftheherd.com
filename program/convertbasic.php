@@ -1,8 +1,9 @@
 <?php
 	class convertbasic extends convert {
-		public function convertbasic($filename, $title) {
+		public function convertbasic($filename, $issue, $title) {
 			$this->html=implode('', file('temp/header.html'));
 			
+			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
 			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode7.css', $this->html);
 			$this->html=str_replace('%includejs%', '<script src="/common/script/mode7.js" type="text/javascript"></script>', $this->html);
@@ -19,7 +20,7 @@
 				fputs($handle, $basicfile);
 				fclose($handle);
 				
-				$convert=new convertmode7($filename.'.txt', $title, false, false);
+				$convert=new convertmode7($filename.'.txt', $issue, $title, false, false);
 				$this->html.=$convert->gethtml();
 			endif;
 			

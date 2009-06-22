@@ -1,8 +1,9 @@
 <?php
 	class convertmode0 extends convert {
-		public function convertmode0($filename, $title) {
+		public function convertmode0($filename, $issue, $title) {
 			$this->html=implode('', file('temp/header.html'));
 			
+			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
 			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode0.css', $this->html);
 			$this->html=str_replace('%includejs%', '', $this->html);

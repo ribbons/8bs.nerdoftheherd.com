@@ -100,28 +100,26 @@
 		return $descript;
 	}
 	
-	function LinkTo($id, $file, $thisissue, $title) {
-		$title = $thisissue.': '.$title;
-		
+	function LinkTo($id, $file, $thisissue, $issuenum, $title) {
 		if($id > 0):
 			return str_replace('menu1','index','menu'.$id).'.html';
 		else:
 			switch($id):
 				case -1:
 					floutput('Converting Mode 0 text "'.substr($file,2).'"',2);
-					$convert=new convertmode0('temp//'.$file, $title);
+					$convert=new convertmode0('temp//'.$file, $issuenum, $title);
 					break;
 				case -2:
 					floutput('Converting Mode 7 text "'.substr($file,2).'"',2);
-					$convert=new convertmode7('temp//'.$file, $title, true, true);
+					$convert=new convertmode7('temp//'.$file, $issuenum, $title, true, true);
 					break;
 				case -4:
 					floutput('Converting basic file "'.substr($file,2).'"',2);
-					$convert=new convertbasic('temp//'.$file, $title);
+					$convert=new convertbasic('temp//'.$file, $issuenum, $title);
 					break;
 				case -8:
 					floutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
-					$convert=new convertrunnable($file, $title);
+					$convert=new convertrunnable($file, $issuenum, $title);
 					break;
 				default:
 					echo 'Action not defined for '.$id.' - Aborting.';
@@ -206,7 +204,7 @@
 	if(is_dir('../'.$thisissue)):
 		destroy('../'.$thisissue.'/');
 		rmdir('../'.$thisissue);
-	endif;	
+	endif;
 	
 	mkdir('../'.$thisissue);
 	mkdir('../'.$thisissue.'/styles');
@@ -220,13 +218,13 @@
 		
 		floutput('Generating menu "'.$splitdata[$curline][0].'"',1);
 		
-		$thismenu=str_replace('%title%', $thisissue.': '.$splitdata[$curline][0], $menu);
+		$thismenu=str_replace('%title%', $splitdata[$curline][0], $menu);
 		$thismenu=str_replace('%menutitle%', $splitdata[$curline][0], $thismenu);
 		$stopline=$curline+$splitdata[$curline][1];
 		$curline++;
 		
 		while($curline <= $stopline):
-			$menuitems.="\t".'<tr><td>&nbsp;</td><td class="bord">&nbsp;</td><td colspan="2">&nbsp;</td><td colspan="33" class="menuline" id="line'.$menuline.'"><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue, $splitdata[$curline][0]).'" title="'.GetDescript(trim($splitdata[$curline][3])).'">&nbsp;&nbsp;<span class="letters">'.$letters[$menuline].'</span><span class="gt">&gt;</span>'.$splitdata[$curline][0].'</a></td><td>&nbsp;</td><td class="fc">&nbsp;</td><td class="bord">&nbsp;</td></tr>'."\r\n";
+			$menuitems.="\t".'<tr><td>&nbsp;</td><td class="bord">&nbsp;</td><td colspan="2">&nbsp;</td><td colspan="33" class="menuline" id="line'.$menuline.'"><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue,$splitdata[0][0],$splitdata[$curline][0]).'" title="'.GetDescript(trim($splitdata[$curline][3])).'">&nbsp;&nbsp;<span class="letters">'.$letters[$menuline].'</span><span class="gt">&gt;</span>'.$splitdata[$curline][0].'</a></td><td>&nbsp;</td><td class="fc">&nbsp;</td><td class="bord">&nbsp;</td></tr>'."\r\n";
 			
 			$curline++;
 			$menuline++;

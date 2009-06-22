@@ -24,10 +24,11 @@
 		private $textcolours;
 		private $bkgdcolours;
 		
-		public function convertmode7($filename, $title, $trimscroller, $headerandfooter) {
+		public function convertmode7($filename, $issue, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
 				$this->html=implode('', file('temp/header.html'));
 				
+				$this->html=str_replace('%iss%', $issue, $this->html);
 				$this->html=str_replace('%title%', $title, $this->html);
 				$this->html=str_replace('%stylesheetpath%', '/common/styles/mode7.css', $this->html);
 				$this->html=str_replace('%includejs%', '<script src="/common/script/mode7.js" type="text/javascript"></script>', $this->html);
