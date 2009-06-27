@@ -888,12 +888,12 @@
 						do {
 							$rowokay = true;
 							
-							if($this->textonlylines[$lnkey + $grapheight]):
+							if(isset($this->textonlylines[$lnkey + $grapheight]) && $this->textonlylines[$lnkey + $grapheight]):
 								# End the block of graphics if a row of only text is found
 								$rowokay = false;
 							else:
 								for($testrow = 0; $testrow < $grapwidth; $testrow++):
-									if((substr($this->tokenised[$lnkey + $grapheight][$colkey + $testrow], 0, 5) != 'GRAP_' && $this->tokenised[$lnkey + $grapheight][$colkey + $testrow] != 'CHAR_SPACE') || $this->bkgdcolours[$lnkey + $grapheight][$colkey + $testrow] != $bgcolour || $this->flashs[$lnkey + $grapheight][$colkey + $testrow] != $flashmode):
+									if(!isset($this->tokenised[$lnkey + $grapheight][$colkey + $testrow]) || (substr($this->tokenised[$lnkey + $grapheight][$colkey + $testrow], 0, 5) != 'GRAP_' && $this->tokenised[$lnkey + $grapheight][$colkey + $testrow] != 'CHAR_SPACE') || $this->bkgdcolours[$lnkey + $grapheight][$colkey + $testrow] != $bgcolour || $this->flashs[$lnkey + $grapheight][$colkey + $testrow] != $flashmode):
 										$rowokay = false;
 									endif;
 								endfor;
@@ -1154,6 +1154,10 @@
 				foreach($symbrow as $col => $symbol):
 					$xoffset = $col * $charwidth;
 					$yoffset = $row * $charheight;
+					
+					if($symbol[0] == 'SPACE'):
+						$symbol[0] = 0;
+					endif;
 					
 					if($symbol[0] > 0):
 						$colused[$symbol[1]] = true;
