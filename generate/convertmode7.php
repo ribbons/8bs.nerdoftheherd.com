@@ -24,6 +24,7 @@
 		private $textcolours;
 		private $bkgdcolours;
 		private $images;
+		private $textonlylines;
 		
 		public function convertmode7($filename, $issue, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
@@ -36,6 +37,7 @@
 			endif;
 			
 			$this->tokeniseinput($filename, $trimscroller);
+			$this->findtextonlylines();
 			$this->buildgraphics();
 			$this->generatehtml();
 			
@@ -846,6 +848,21 @@
 			endfor;
 		}
 		
+		private function findtextonlylines() {
+			foreach($this->tokenised as $lnkey => $line):
+				$textonly = true;
+				
+				foreach($line as $colkey => $character):
+					if(substr($character, 0, 5) != 'CHAR_' || $this->textheights[$lnkey][$colkey] == convertmode7::TXHEIGHT_DBL):
+						$textonly = false;
+						break;
+					endif;
+				endforeach;
+				
+				$this->textonlylines[$lnkey] = $textonly;
+			endforeach;
+		}
+		
 		private function buildgraphics() {
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
@@ -857,9 +874,10 @@
 						$bgcolour = $this->bkgdcolours[$lnkey][$colkey];
 						$grapwidth = 1;
 						$grapheight = 1;
+						$trimmed = false;
 						
 						# First work out how wide the block is
-						while($colkey + $grapwidth < 40 && substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5) == 'GRAP_' && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
+						while($colkey + $grapwidth < 40 && (substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5) == 'GRAP_' || $this->tokenised[$lnkey][$colkey + $grapwidth] == 'CHAR_SPACE') && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
 							$convchars[0][$grapwidth][0] = substr($this->tokenised[$lnkey][$colkey + $grapwidth], 5);
 							$convchars[0][$grapwidth][1] = $this->textcolours[$lnkey][$colkey + $grapwidth];
 							$this->tokenised[$lnkey][$colkey + $grapwidth] = 'IMAGE';
@@ -870,20 +888,50 @@
 						do {
 							$rowokay = true;
 							
-							for($testrow = 0; $testrow < $grapwidth; $testrow++):
-								if(substr($this->tokenised[$lnkey + $grapheight][$colkey + $testrow], 0, 5) != 'GRAP_' || $this->bkgdcolours[$lnkey + $grapheight][$colkey + $testrow] != $bgcolour || $this->flashs[$lnkey + $grapheight][$colkey + $testrow] != $flashmode):
-									$rowokay = false;
-								endif;
-							endfor;
-							
-							if($rowokay):
-								for($addrow = 0; $addrow < $grapwidth; $addrow++):
-									$convchars[$grapheight][$addrow][0] = substr($this->tokenised[$lnkey + $grapheight][$colkey + $addrow], 5);
-									$convchars[$grapheight][$addrow][1] = $this->textcolours[$lnkey + $grapheight][$colkey + $addrow];
-									$this->tokenised[$lnkey + $grapheight][$colkey + $addrow] = 'IMAGE';
+							if($this->textonlylines[$lnkey + $grapheight]):
+								# End the block of graphics if a row of only text is found
+								$rowokay = false;
+							else:
+								for($testrow = 0; $testrow < $grapwidth; $testrow++):
+									if((substr($this->tokenised[$lnkey + $grapheight][$colkey + $testrow], 0, 5) != 'GRAP_' && $this->tokenised[$lnkey + $grapheight][$colkey + $testrow] != 'CHAR_SPACE') || $this->bkgdcolours[$lnkey + $grapheight][$colkey + $testrow] != $bgcolour || $this->flashs[$lnkey + $grapheight][$colkey + $testrow] != $flashmode):
+										$rowokay = false;
+									endif;
 								endfor;
 								
-								$grapheight++;
+								if($rowokay):
+									for($addrow = 0; $addrow < $grapwidth; $addrow++):
+										$convchars[$grapheight][$addrow][0] = substr($this->tokenised[$lnkey + $grapheight][$colkey + $addrow], 5);
+										$convchars[$grapheight][$addrow][1] = $this->textcolours[$lnkey + $grapheight][$colkey + $addrow];
+										$this->tokenised[$lnkey + $grapheight][$colkey + $addrow] = 'IMAGE';
+									endfor;
+									
+									$grapheight++;
+								endif;
+							endif;
+							
+							if(!$rowokay && !$trimmed):
+								# Chop off any columns of spaces from the right hand side of the
+								# block of graphics, the first time the next row doesn't fit.
+								$trimmed = true;
+								$colblank = true;
+								
+								while($colblank):
+									for($checkcol = 0; $checkcol < $grapheight; $checkcol++):
+										if($convchars[$checkcol][$grapwidth - 1][0] != 'SPACE'):
+											$colblank = false;
+											break;
+										endif;
+									endfor;
+									
+									if($colblank):
+										$rowokay = true;
+										$grapwidth--;
+										
+										for($revertcol = 0; $revertcol < $grapheight; $revertcol++):
+											$this->tokenised[$lnkey + $revertcol][$colkey + $grapwidth] = 'CHAR_SPACE';
+										endfor;
+									endif;
+								endwhile;
 							endif;
 						} while($rowokay);
 						
@@ -1186,6 +1234,9 @@
 			if(!$colused[convertmode7::COL_WHITE]):
 				imagecolordeallocate($imgsym, $colours[convertmode7::COL_WHITE]);
 			endif;
+			
+			$debugborder = ImageColorAllocate($imgsym, 255, 138, 0);
+			ImageRectangle($imgsym, 0, 0, $charwidth * $width - 1, $charheight * $height - 1, $debugborder);
 			
 			$savename = $this->findfreename('../common/mode7/graph', '.png');
 			
