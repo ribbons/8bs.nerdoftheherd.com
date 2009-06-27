@@ -856,17 +856,39 @@
 						$flashmode = $this->flashs[$lnkey][$colkey];
 						$bgcolour = $this->bkgdcolours[$lnkey][$colkey];
 						$grapwidth = 1;
+						$grapheight = 1;
 						
-						# First work out how wide this block is
-						while($colkey + ($grapwidth + 1) < 40 && substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5)=='GRAP_' && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
+						# First work out how wide the block is
+						while($colkey + $grapwidth < 40 && substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5) == 'GRAP_' && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
 							$convchars[0][$grapwidth][0] = substr($this->tokenised[$lnkey][$colkey + $grapwidth], 5);
 							$convchars[0][$grapwidth][1] = $this->textcolours[$lnkey][$colkey + $grapwidth];
 							$this->tokenised[$lnkey][$colkey + $grapwidth] = 'IMAGE';
 							$grapwidth++;
 						endwhile;
 						
+						# Now find if there are any more rows to be added on
+						do {
+							$rowokay = true;
+							
+							for($testrow = 0; $testrow < $grapwidth; $testrow++):
+								if(substr($this->tokenised[$lnkey + $grapheight][$colkey + $testrow], 0, 5) != 'GRAP_' || $this->bkgdcolours[$lnkey + $grapheight][$colkey + $testrow] != $bgcolour || $this->flashs[$lnkey + $grapheight][$colkey + $testrow] != $flashmode):
+									$rowokay = false;
+								endif;
+							endfor;
+							
+							if($rowokay):
+								for($addrow = 0; $addrow < $grapwidth; $addrow++):
+									$convchars[$grapheight][$addrow][0] = substr($this->tokenised[$lnkey + $grapheight][$colkey + $addrow], 5);
+									$convchars[$grapheight][$addrow][1] = $this->textcolours[$lnkey + $grapheight][$colkey + $addrow];
+									$this->tokenised[$lnkey + $grapheight][$colkey + $addrow] = 'IMAGE';
+								endfor;
+								
+								$grapheight++;
+							endif;
+						} while($rowokay);
+						
 						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
-						$this->images[$lnkey][$colkey] = array($this->buildsymbolblock($convchars, $grapwidth, 1, $bgcolour), $grapwidth, 1, '*');
+						$this->images[$lnkey][$colkey] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, '*');
 					endif;
 				endforeach;
 			endforeach;
@@ -1080,52 +1102,57 @@
 			$colused[convertmode7::COL_CYAN] = false;
 			$colused[convertmode7::COL_WHITE] = false;
 			
-			foreach($symbols[0] as $col => $symbol):
-				$xoffset = $col * $charwidth;
-				
-				if($symbol[0] > 0):
-					$colused[$symbol[1]] = true;
-				endif;
-				
-				$firstcolx1 = $xoffset;
-				$firstcolx2 = ($xoffset + $charwidth / 2) - 1;
-				$secondcolx1 = $xoffset + $charwidth / 2;
-				$secondcolx2 = ($xoffset + $charwidth) -1;
-				
-				$firstrowy1 = 0;
-				$firstrowy2 = $charheight / 3 -1;
-				$secondrowy1 = $charheight / 3;
-				$secondrowy2 = ($charheight / 3 ) * 2 - 1;
-				
-				if(($symbol[0]-32) >= 0):
-					ImageFilledRectangle($imgsym, $secondcolx1, ($charheight/3)*2, $secondcolx2, $charheight, $colours[$symbol[1]]);
-					$symbol[0]=$symbol[0]-32;
-				endif;
-				
-				if(($symbol[0]-16) >= 0):
-					ImageFilledRectangle($imgsym, $firstcolx1, ($charheight/3)*2, $firstcolx2, $charheight, $colours[$symbol[1]]);
-					$symbol[0]=$symbol[0]-16;
-				endif;
-				
-				if(($symbol[0]-8) >= 0):
-					ImageFilledRectangle($imgsym, $secondcolx1, $secondrowy1, $secondcolx2, $secondrowy2, $colours[$symbol[1]]);
-					$symbol[0]=$symbol[0]-8;
-				endif;
-				
-				if(($symbol[0]-4) >= 0):
-					ImageFilledRectangle($imgsym, $firstcolx1, $secondrowy1, $firstcolx2, $secondrowy2, $colours[$symbol[1]]);
-					$symbol[0]=$symbol[0]-4;
-				endif;
-				
-				if(($symbol[0]-2) >= 0):
-					ImageFilledRectangle($imgsym, $secondcolx1, $firstrowy1, $secondcolx2, $firstrowy2, $colours[$symbol[1]]);
-					$symbol[0]=$symbol[0]-2;
-				endif;
-				
-				if(($symbol[0]-1) >= 0):
-					ImageFilledRectangle($imgsym, $firstcolx1, $firstrowy1, $firstcolx2, $firstrowy2, $colours[$symbol[1]]);
-					$symbol[0]=$symbol[0]-1;
-				endif;
+			foreach($symbols as $row => $symbrow):
+				foreach($symbrow as $col => $symbol):
+					$xoffset = $col * $charwidth;
+					$yoffset = $row * $charheight;
+					
+					if($symbol[0] > 0):
+						$colused[$symbol[1]] = true;
+					endif;
+					
+					$firstcolx1 = $xoffset;
+					$firstcolx2 = ($xoffset + $charwidth / 2) - 1;
+					$secondcolx1 = $xoffset + $charwidth / 2;
+					$secondcolx2 = ($xoffset + $charwidth) -1;
+					
+					$firstrowy1 = $yoffset;
+					$firstrowy2 = ($yoffset + $charheight / 3) -1;
+					$secondrowy1 = $yoffset + $charheight / 3;
+					$secondrowy2 = ($yoffset + ($charheight / 3 ) * 2) - 1;
+					$thirdrowy1 = $yoffset + ($charheight / 3) * 2;
+					$thirdrowy2 = ($yoffset + $charheight) - 1;
+					
+					if(($symbol[0]-32) >= 0):
+						ImageFilledRectangle($imgsym, $secondcolx1, $thirdrowy1, $secondcolx2, $thirdrowy2, $colours[$symbol[1]]);
+						$symbol[0]=$symbol[0]-32;
+					endif;
+					
+					if(($symbol[0]-16) >= 0):
+						ImageFilledRectangle($imgsym, $firstcolx1, $thirdrowy1, $firstcolx2, $thirdrowy2, $colours[$symbol[1]]);
+						$symbol[0]=$symbol[0]-16;
+					endif;
+					
+					if(($symbol[0]-8) >= 0):
+						ImageFilledRectangle($imgsym, $secondcolx1, $secondrowy1, $secondcolx2, $secondrowy2, $colours[$symbol[1]]);
+						$symbol[0]=$symbol[0]-8;
+					endif;
+					
+					if(($symbol[0]-4) >= 0):
+						ImageFilledRectangle($imgsym, $firstcolx1, $secondrowy1, $firstcolx2, $secondrowy2, $colours[$symbol[1]]);
+						$symbol[0]=$symbol[0]-4;
+					endif;
+					
+					if(($symbol[0]-2) >= 0):
+						ImageFilledRectangle($imgsym, $secondcolx1, $firstrowy1, $secondcolx2, $firstrowy2, $colours[$symbol[1]]);
+						$symbol[0]=$symbol[0]-2;
+					endif;
+					
+					if(($symbol[0]-1) >= 0):
+						ImageFilledRectangle($imgsym, $firstcolx1, $firstrowy1, $firstcolx2, $firstrowy2, $colours[$symbol[1]]);
+						$symbol[0]=$symbol[0]-1;
+					endif;
+				endforeach;
 			endforeach;
 			
 			if(!$colused[convertmode7::COL_BLACK]):
