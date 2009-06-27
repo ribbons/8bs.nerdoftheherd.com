@@ -30,11 +30,30 @@ td img {
 
 td.flashoff {
 	color: black;
-	background-color: black;
 }
 
-td.flashoff td {
-	background-color: black;
+td.flashoff.b1 {
+	color: red;
+}
+
+td.flashoff.b2 {
+	color: #00ff00;
+}
+
+td.flashoff.b3 {
+	color: yellow;
+}
+
+td.flashoff.b4 {
+	color: blue;
+}
+
+td.flashoff.b5 {
+	color: magenta;
+}
+
+td.flashoff.b6 {
+	color: cyan;
 }
 
 td.flashoff img {
