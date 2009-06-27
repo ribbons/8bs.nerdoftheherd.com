@@ -23,6 +23,7 @@
 		private $textheights;
 		private $textcolours;
 		private $bkgdcolours;
+		private $images;
 		
 		public function convertmode7($filename, $issue, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
@@ -35,6 +36,7 @@
 			endif;
 			
 			$this->tokeniseinput($filename, $trimscroller);
+			$this->buildgraphics();
 			$this->generatehtml();
 			
 			if($headerandfooter):
@@ -844,6 +846,32 @@
 			endfor;
 		}
 		
+		private function buildgraphics() {
+			foreach($this->tokenised as $lnkey => $line):
+				foreach($line as $colkey => $character):
+					if(substr($this->tokenised[$lnkey][$colkey], 0, 5)=='GRAP_'):
+						unset($convchars);
+						$convchars[0][0][0] = substr($this->tokenised[$lnkey][$colkey], 5);
+						$convchars[0][0][1] = $this->textcolours[$lnkey][$colkey];
+						$flashmode = $this->flashs[$lnkey][$colkey];
+						$bgcolour = $this->bkgdcolours[$lnkey][$colkey];
+						$grapwidth = 1;
+						
+						# First work out how wide this block is
+						while($colkey + ($grapwidth + 1) < 40 && substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5)=='GRAP_' && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
+							$convchars[0][$grapwidth][0] = substr($this->tokenised[$lnkey][$colkey + $grapwidth], 5);
+							$convchars[0][$grapwidth][1] = $this->textcolours[$lnkey][$colkey + $grapwidth];
+							$this->tokenised[$lnkey][$colkey + $grapwidth] = 'IMAGE';
+							$grapwidth++;
+						endwhile;
+						
+						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
+						$this->images[$lnkey][$colkey] = array($this->buildsymbolblock($convchars, $grapwidth, 1, $bgcolour), $grapwidth, 1, '*');
+					endif;
+				endforeach;
+			endforeach;
+		}
+		
 		private function generatehtml() {
 			$this->html.='<table class="mode7 centralcol">';
 			
@@ -906,52 +934,82 @@
 					elseif(substr($character, 0, 5)=='GRAP_'):
 						$graphicid=substr($character, 5);
 						$cellcontents.=$this->makesymbol($graphicid, $this->textcolours[$lnkey][$colkey], $this->bkgdcolours[$lnkey][$colkey], $this->graphmodes[$lnkey][$colkey]);
+					elseif($character == 'IMAGE'):
+						if(isset($this->images[$lnkey][$colkey])):
+							$this->html.= '<td';
+							
+							if($this->images[$lnkey][$colkey][1] > 1):
+								$this->html.= ' colspan="'.$this->images[$lnkey][$colkey][1].'"';
+							endif;
+							
+							if($this->images[$lnkey][$colkey][2] > 1):
+								$this->html.= ' rowspan="'.$this->images[$lnkey][$colkey][2].'"';
+							endif;
+							
+							$classes='';
+							
+							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+								$classes.='b'.$this->bkgdcolours[$lnkey][$colkey];
+							endif;
+							
+							if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
+								$classes.=' flash';
+							endif;
+							
+							if($classes!=''):
+								$this->html.=' class="'.trim($classes).'"';
+							endif;
+							
+							$this->html.= '><img src="'.$this->images[$lnkey][$colkey][0].'" alt="'.$this->images[$lnkey][$colkey][3].'" /></td>';
+						endif;
 					else:
 						echo '<p>Unknown token '.$character.'</p>';
 					endif;
 					
-					if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
-						$colspan++;
-					else:
-						# Replace a cell full of only non-breaking spaces, with a single non-breaking space
-						if(str_replace('&nbsp;', '', $cellcontents)==''):
-							$cellcontents='&nbsp;';
+					if($character != 'IMAGE'):
+						if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
+							$colspan++;
+						else:
+							# Replace a cell full of only non-breaking spaces, with a single non-breaking space
+							if(str_replace('&nbsp;', '', $cellcontents)==''):
+								$cellcontents='&nbsp;';
+							endif;
+							# Replace non-breaking spaces between word with spaces
+							$cellcontents=preg_replace('/([^; ])&nbsp;([^& ])/', '\1 \2', $cellcontents);
+							# Remove multiple non breaking spaces from the ends of cells with other contents
+							$cellcontents=preg_replace('/\A(.+?)(?:&nbsp;)+\z/', '\1', $cellcontents);
+							# Alternate non-breaking and standard spaces
+							$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
+							
+							$classes='';
+							$this->html.='<td';
+							
+							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;' && substr($character, 0, 5)!='GRAP_'):
+								$classes.='t'.$this->textcolours[$lnkey][$colkey];
+							endif;
+							
+							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+								$classes.=' b'.$this->bkgdcolours[$lnkey][$colkey];
+							endif;
+							
+							if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
+								$classes.=' flash';
+							endif;
+							
+							if($classes!=''):
+								$this->html.=' class="'.trim($classes).'"';
+							endif;
+							
+							if($colspan>1):
+								$this->html.=' colspan="'.$colspan.'"';
+							endif;
+							
+							$this->html.='>'.$cellcontents;
+							$this->html.='</td>';
+							
+							$cellcontents='';
+							$colspan=1;
 						endif;
-						# Replace non-breaking spaces between word with spaces
-						$cellcontents=preg_replace('/([^; ])&nbsp;([^& ])/', '\1 \2', $cellcontents);
-						# Remove multiple non breaking spaces from the ends of cells with other contents
-						$cellcontents=preg_replace('/\A(.+?)(?:&nbsp;)+\z/', '\1', $cellcontents);
-						# Alternate non-breaking and standard spaces
-						$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
-						
-						$classes='';
-						$this->html.='<td';
-						
-						if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;' && substr($character, 0, 5)!='GRAP_'):
-							$classes.='t'.$this->textcolours[$lnkey][$colkey];
-						endif;
-						
-						if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-							$classes.=' b'.$this->bkgdcolours[$lnkey][$colkey];
-						endif;
-						
-						if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
-							$classes.=' flash';
-						endif;
-						
-						if($classes!=''):
-							$this->html.=' class="'.trim($classes).'"';
-						endif;
-						
-						if($colspan>1):
-							$this->html.=' colspan="'.$colspan.'"';
-						endif;
-						
-						$this->html.='>'.$cellcontents;
-						$this->html.='</td>';
-						
-						$cellcontents='';
-						$colspan=1;
 					endif;
 				endforeach;
 				
@@ -961,88 +1019,153 @@
 			$this->html.='</table>';
 		}
 		
-		private function makesymbol($symbol, $colour, $backcolour, $mode) {
-			$parts[1][2]=(($symbol-32)>=0);
-			if(($symbol-32)>=0) $symbol-=32;
+		private function findfreename($prefix, $suffix) {
+			static $filenum = 0;
 			
-			$parts[0][2]=(($symbol-16)>=0);
-			if(($symbol-16)>=0) $symbol-=16;
+			while(file_exists($prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix)):
+				$filenum++;
+			endwhile;
 			
-			$parts[1][1]=(($symbol-8)>=0);
-			if(($symbol-8)>=0) $symbol-=8;
+			return $prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix;
+		}
+		
+		private function buildsymbolblock($symbols, $width, $height, $bgcolour) {
+			$charwidth=16;
+			$charheight=24;
 			
-			$parts[0][1]=(($symbol-4)>=0);
-			if(($symbol-4)>=0) $symbol-=4;
+			$imgsym = ImageCreate($charwidth * $width, $charheight * $height);
 			
-			$parts[1][0]=(($symbol-2)>=0);
-			if(($symbol-2)>=0) $symbol-=2;
+			switch($bgcolour):
+				case convertmode7::COL_BLACK:
+					$bgcol = ImageColorAllocate($imgsym, 0, 0, 0);
+					break;
+				case convertmode7::COL_RED:
+					$bgcol = ImageColorAllocate($imgsym, 255, 0, 0);
+					break;
+				case convertmode7::COL_GREEN:
+					$bgcol = ImageColorAllocate($imgsym, 0, 255, 0);
+					break;
+				case convertmode7::COL_YELLOW:
+					$bgcol = ImageColorAllocate($imgsym, 255, 255, 0);
+					break;
+				case convertmode7::COL_BLUE:
+					$bgcol = ImageColorAllocate($imgsym, 0, 0, 255);
+					break;
+				case convertmode7::COL_MAGENTA:
+					$bgcol = ImageColorAllocate($imgsym, 255, 0, 255);
+					break;
+				case convertmode7::COL_CYAN:
+					$bgcol = ImageColorAllocate($imgsym, 0, 255, 255);
+					break;
+				case convertmode7::COL_WHITE:
+					$bgcol = ImageColorAllocate($imgsym, 255, 255, 255);
+					break;
+			endswitch;
 			
-			$parts[0][0]=(($symbol-1)>=0);
-			if(($symbol-1)>=0) $symbol-=1;
+			$colours[convertmode7::COL_BLACK] = ImageColorAllocate($imgsym, 0, 0, 0);
+			$colours[convertmode7::COL_RED] = ImageColorAllocate($imgsym, 255, 0, 0);
+			$colours[convertmode7::COL_GREEN] = ImageColorAllocate($imgsym, 0, 255, 0);
+			$colours[convertmode7::COL_YELLOW] = ImageColorAllocate($imgsym, 255, 255, 0);
+			$colours[convertmode7::COL_BLUE] = ImageColorAllocate($imgsym, 0, 0, 255);
+			$colours[convertmode7::COL_MAGENTA] = ImageColorAllocate($imgsym, 255, 0, 255);
+			$colours[convertmode7::COL_CYAN] = ImageColorAllocate($imgsym, 0, 255, 255);
+			$colours[convertmode7::COL_WHITE] = ImageColorAllocate($imgsym, 255, 255, 255);
 			
-			$symboloutput='<table';
+			$colused[convertmode7::COL_BLACK] = false;
+			$colused[convertmode7::COL_RED] = false;
+			$colused[convertmode7::COL_GREEN] = false;
+			$colused[convertmode7::COL_YELLOW] = false;
+			$colused[convertmode7::COL_BLUE] = false;
+			$colused[convertmode7::COL_MAGENTA] = false;
+			$colused[convertmode7::COL_CYAN] = false;
+			$colused[convertmode7::COL_WHITE] = false;
 			
-			if($mode==convertmode7::MODE_SEPERA):
-				$symboloutput.=' class="s'.$backcolour.'"';
-			endif;
-			
-			$symboloutput.='><tr><td';
-			
-			if($parts[0][0]):
-				$symboloutput.=' class="b'.$colour.'"';
-			endif;
-			
-			$symboloutput.='></td><td';
-			
-			if($parts[1][0]):
-				$symboloutput.=' class="b'.$colour.'"';
-			endif;
-			
-			$symboloutput.='></td></tr><tr><td';
-			
-			if($parts[0][1]):
-				$symboloutput.=' class="b'.$colour.'"';
-			endif;
-			
-			$symboloutput.='></td><td';
-			
-			if($parts[1][1]):
-				$symboloutput.=' class="b'.$colour.'"';
-			endif;
-			
-			$symboloutput.='></td></tr><tr><td';
-			
-			if($parts[0][2]):
-				$symboloutput.=' class="b'.$colour.'"';
-			endif;
-			
-			$symboloutput.='></td><td';
-			
-			if($parts[1][2]):
-				$symboloutput.=' class="b'.$colour.'"';
-			endif;
-			
-			$symboloutput.='></td></tr></table>';
-			
-			if($mode==convertmode7::MODE_CONTIG):
-				# If there are two cells next to each other which are the same, then combine them.
-				$symboloutput=str_replace('<td class="b'.$colour.'"></td><td class="b'.$colour.'"></td>', '<td class="b'.$colour.'" colspan="2"></td>', $symboloutput);
-				$symboloutput=str_replace('<td></td><td></td>', '<td colspan="2"></td>', $symboloutput);
+			foreach($symbols[0] as $col => $symbol):
+				$xoffset = $col * $charwidth;
 				
-				# If there are two rows of two cells, then combine them.
-				$symboloutput=str_replace('<tr><td class="b'.$colour.'" colspan="2"></td></tr><tr><td class="b'.$colour.'" colspan="2"></td></tr>', '<tr><td class="b'.$colour.' h2" colspan="2"></td></tr>', $symboloutput);
-				$symboloutput=str_replace('<tr><td colspan="2"></td></tr><tr><td colspan="2"></td></tr>', '<tr><td class="h2" colspan="2"></td></tr>', $symboloutput);
+				if($symbol[0] > 0):
+					$colused[$symbol[1]] = true;
+				endif;
 				
-				# If there are three rows of cells then combine them
-				$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h3"></td><td class="h3"></td></tr>', $symboloutput);
-				$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h3"></td><td class="b'.$colour.' h3"></td></tr>', $symboloutput);
+				$firstcolx1 = $xoffset;
+				$firstcolx2 = ($xoffset + $charwidth / 2) - 1;
+				$secondcolx1 = $xoffset + $charwidth / 2;
+				$secondcolx2 = ($xoffset + $charwidth) -1;
 				
-				# If there are two rows of cells then combine them
-				$symboloutput=str_replace('<tr><td class="b'.$colour.'"></td><td></td></tr><tr><td class="b'.$colour.'"></td><td></td></tr>', '<tr><td class="b'.$colour.' h2"></td><td class="h2"></td></tr>', $symboloutput);
-				$symboloutput=str_replace('<tr><td></td><td class="b'.$colour.'"></td></tr><tr><td></td><td class="b'.$colour.'"></td></tr>', '<tr><td class="h2"></td><td class="b'.$colour.' h2"></td></tr>', $symboloutput);
+				$firstrowy1 = 0;
+				$firstrowy2 = $charheight / 3 -1;
+				$secondrowy1 = $charheight / 3;
+				$secondrowy2 = ($charheight / 3 ) * 2 - 1;
+				
+				if(($symbol[0]-32) >= 0):
+					ImageFilledRectangle($imgsym, $secondcolx1, ($charheight/3)*2, $secondcolx2, $charheight, $colours[$symbol[1]]);
+					$symbol[0]=$symbol[0]-32;
+				endif;
+				
+				if(($symbol[0]-16) >= 0):
+					ImageFilledRectangle($imgsym, $firstcolx1, ($charheight/3)*2, $firstcolx2, $charheight, $colours[$symbol[1]]);
+					$symbol[0]=$symbol[0]-16;
+				endif;
+				
+				if(($symbol[0]-8) >= 0):
+					ImageFilledRectangle($imgsym, $secondcolx1, $secondrowy1, $secondcolx2, $secondrowy2, $colours[$symbol[1]]);
+					$symbol[0]=$symbol[0]-8;
+				endif;
+				
+				if(($symbol[0]-4) >= 0):
+					ImageFilledRectangle($imgsym, $firstcolx1, $secondrowy1, $firstcolx2, $secondrowy2, $colours[$symbol[1]]);
+					$symbol[0]=$symbol[0]-4;
+				endif;
+				
+				if(($symbol[0]-2) >= 0):
+					ImageFilledRectangle($imgsym, $secondcolx1, $firstrowy1, $secondcolx2, $firstrowy2, $colours[$symbol[1]]);
+					$symbol[0]=$symbol[0]-2;
+				endif;
+				
+				if(($symbol[0]-1) >= 0):
+					ImageFilledRectangle($imgsym, $firstcolx1, $firstrowy1, $firstcolx2, $firstrowy2, $colours[$symbol[1]]);
+					$symbol[0]=$symbol[0]-1;
+				endif;
+			endforeach;
+			
+			if(!$colused[convertmode7::COL_BLACK]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_BLACK]);
 			endif;
 			
-			return $symboloutput;
+			if(!$colused[convertmode7::COL_RED]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_RED]);
+			endif;
+			
+			if(!$colused[convertmode7::COL_GREEN]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_GREEN]);
+			endif;
+			
+			if(!$colused[convertmode7::COL_YELLOW]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_YELLOW]);
+			endif;
+			
+			if(!$colused[convertmode7::COL_BLUE]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_BLUE]);
+			endif;
+			
+			if(!$colused[convertmode7::COL_MAGENTA]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_MAGENTA]);
+			endif;
+			
+			if(!$colused[convertmode7::COL_CYAN]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_CYAN]);
+			endif;
+			
+			if(!$colused[convertmode7::COL_WHITE]):
+				imagecolordeallocate($imgsym, $colours[convertmode7::COL_WHITE]);
+			endif;
+			
+			$savename = $this->findfreename('../common/mode7/graph', '.png');
+			
+			ImagePNG($imgsym, $savename);
+			imagedestroy($imgsym);
+			
+			return substr($savename, 2);
 		}
 	}
 ?>
