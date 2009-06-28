@@ -1006,9 +1006,7 @@
 							$grapwidth = $grapwidth + $searchleft;
 						endif;
 						
-						$searchleft=0;
-						
-						$this->tokenised[$lnkey][$colkey - $searchleft] = 'IMAGE';
+						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
 						$this->images[$lnkey][$colkey - $searchleft] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, '*');
 					endif;
 				endforeach;
