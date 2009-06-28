@@ -997,13 +997,6 @@
 			
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
-					# If a cell contains a 'fully on' graphics character, convert this to an empty cell
-					# with the character colour as the background colour (only for contiguous graphics)
-					if($character=='GRAP_63' && $this->graphmodes[$lnkey][$colkey]==convertmode7::MODE_CONTIG):
-						$this->tokenised[$lnkey][$colkey] = $line[$colkey] = $character = 'CHAR_SPACE';
-						$this->bkgdcolours[$lnkey][$colkey]=$this->textcolours[$lnkey][$colkey];
-					endif;
-					
 					# Make the text colour of spaces the same as much as possible, to allow as much
 					# merging as possible
 					if($colkey > 0):
@@ -1051,9 +1044,6 @@
 									$cellcontents.=substr($character, 5);
 							endswitch;
 						endif;
-					elseif(substr($character, 0, 5)=='GRAP_'):
-						$graphicid=substr($character, 5);
-						$cellcontents.=$this->makesymbol($graphicid, $this->textcolours[$lnkey][$colkey], $this->bkgdcolours[$lnkey][$colkey], $this->graphmodes[$lnkey][$colkey]);
 					elseif($character == 'IMAGE'):
 						if(isset($this->images[$lnkey][$colkey])):
 							$this->html.= '<td';
