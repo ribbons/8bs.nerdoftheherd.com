@@ -1006,6 +1006,26 @@
 							$grapwidth = $grapwidth + $searchleft;
 						endif;
 						
+						# Remove any blank lines from the bottom of the graphics block
+						$blankrow = true;
+						
+						while($blankrow):
+							for($testrow = 0; $testrow < $grapwidth; $testrow ++):
+								if($convchars[$grapheight - 1][$testrow][0] != 'SPACE'):
+									$blankrow = false;
+									break;
+								endif;
+							endfor;
+							
+							if($blankrow):
+								for($revertrow = 0; $revertrow < $grapwidth; $revertrow ++):
+									$this->tokenised[$lnkey + ($grapheight - 1)][$colkey + $revertrow] = 'CHAR_SPACE';
+								endfor;
+								
+								$grapheight--;
+							endif;
+						endwhile;
+						
 						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
 						$this->images[$lnkey][$colkey - $searchleft] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, '*');
 					endif;
