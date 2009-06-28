@@ -935,8 +935,58 @@
 							endif;
 						} while($rowokay);
 						
-						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
-						$this->images[$lnkey][$colkey] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, '*');
+						# Now search across to the left to see if there are any more columns
+						# that should be included in this block, but start part way down.
+						$searchleft = 0;
+						$foundcol = true;
+						unset($leftconvchars);
+						
+						while($foundcol):
+							$sepcol = true;
+							
+							if($colkey - ($searchleft + 1) < 0):
+								$foundcol = false;
+							else:
+								for($testcol = 0; $testcol < $grapheight; $testcol++):
+									if((substr($this->tokenised[$lnkey + $testcol][$colkey - ($searchleft + 1)], 0, 5) != 'GRAP_' && $this->tokenised[$lnkey + $testcol][$colkey - ($searchleft + 1)] != 'CHAR_SPACE') || $this->bkgdcolours[$lnkey + $testcol][$colkey - ($searchleft + 1)] != $bgcolour || $this->flashs[$lnkey + $testcol][$colkey - ($searchleft + 1)] != $flashmode):
+										$foundcol = false;
+										break;
+									endif;
+									
+									if($sepcol && $this->tokenised[$lnkey + $testcol][$colkey - ($searchleft + 1)] != 'CHAR_SPACE'):
+										$sepcol = false;
+									endif;
+								endfor;
+							endif;
+							
+							if($sepcol):
+								$foundcol = false;
+							endif;
+							
+							if($foundcol):
+								for($fetchcol = 0; $fetchcol < $grapheight; $fetchcol++):
+									$leftconvchars[$fetchcol][$searchleft][0] = substr($this->tokenised[$lnkey + $fetchcol][$colkey - ($searchleft + 1)], 5);
+									$leftconvchars[$fetchcol][$searchleft][1] = $this->textcolours[$lnkey + $fetchcol][$colkey - ($searchleft + 1)];
+									$this->tokenised[$lnkey + $fetchcol][$colkey - ($searchleft + 1)] = 'IMAGE';
+								endfor;
+								
+								$searchleft++;
+							endif;
+						endwhile;
+						
+						if($searchleft > 0):
+							for($joinrows = 0; $joinrows < $grapheight; $joinrows++):
+								$leftconvchars[$joinrows] = array_reverse($leftconvchars[$joinrows]);
+								$convchars[$joinrows] = array_merge($leftconvchars[$joinrows], $convchars[$joinrows]);
+							endfor;
+							
+							$grapwidth = $grapwidth + $searchleft;
+						endif;
+						
+						$searchleft=0;
+						
+						$this->tokenised[$lnkey][$colkey - $searchleft] = 'IMAGE';
+						$this->images[$lnkey][$colkey - $searchleft] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, '*');
 					endif;
 				endforeach;
 			endforeach;
