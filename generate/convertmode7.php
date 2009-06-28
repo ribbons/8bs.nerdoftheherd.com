@@ -918,8 +918,18 @@
 								while($colblank):
 									for($checkcol = 0; $checkcol < $grapheight; $checkcol++):
 										if($convchars[$checkcol][$grapwidth - 1][0] != 'SPACE'):
-											$colblank = false;
-											break;
+											# Tuning of the algorithm for box shapes - if we are at the bottom of a 8 or more line
+											# block, allow it to ignore a 2 char border, or at the bottom of a 4 or more line block,
+											# then allow it to ignore a 1 char border.
+											if(($grapheight > 3 && $checkcol > $grapheight - 2) || ($grapheight > 7 && $checkcol > $grapheight - 3)):
+												if($colkey + $grapwidth > 39 || substr($this->tokenised[$lnkey + $checkcol][$colkey + $grapwidth], 0, 5) != 'GRAP_'):
+													$colblank = false;
+													break;
+												endif;
+											else:
+												$colblank = false;
+												break;
+											endif;
 										endif;
 									endfor;
 									
@@ -928,7 +938,11 @@
 										$grapwidth--;
 										
 										for($revertcol = 0; $revertcol < $grapheight; $revertcol++):
-											$this->tokenised[$lnkey + $revertcol][$colkey + $grapwidth] = 'CHAR_SPACE';
+											if($convchars[$revertcol][$grapwidth][0] == 'SPACE'):
+												$this->tokenised[$lnkey + $revertcol][$colkey + $grapwidth] = 'CHAR_SPACE';
+											else:
+												$this->tokenised[$lnkey + $revertcol][$colkey + $grapwidth] = 'GRAP_'.$convchars[$revertcol][$grapwidth][0];
+											endif;
 										endfor;
 									endif;
 								endwhile;
@@ -954,7 +968,16 @@
 									endif;
 									
 									if($sepcol && $this->tokenised[$lnkey + $testcol][$colkey - ($searchleft + 1)] != 'CHAR_SPACE'):
-										$sepcol = false;
+										# Tuning of the algorithm for box shapes - if we are at the bottom of a 8 or more line
+										# block, allow it to ignore a 2 char border, or at the bottom of a 4 or more line block,
+										# then allow it to ignore a 1 char border.
+										if(($grapheight > 3 && $testcol > $grapheight - 2) || ($grapheight > 7 && $testcol > $grapheight - 3)):
+											if($colkey - ($searchleft + 2) < 0 || substr($this->tokenised[$lnkey + $testcol][$colkey - ($searchleft + 2)], 0, 5) != 'GRAP_'):
+												$sepcol = false;
+											endif;
+										else:
+											$sepcol = false;
+										endif;
 									endif;
 								endfor;
 							endif;
