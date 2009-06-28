@@ -13,21 +13,15 @@
 	require 'convertrunnable.php';
 	
 	# Empty a directory
-	function destroy($dir) {
-	    $mydir = opendir($dir);
-	    while(false !== ($file = readdir($mydir))) {
-	        if($file != "." && $file != "..") {
-	            chmod($dir.$file, 0777);
-	            if(is_dir($dir.$file)) {
-	                chdir('.');
-	                destroy($dir.$file.'/');
-	                rmdir($dir.$file) or DIE("couldn't delete $dir$file<br />");
-	            }
-	            else
-	                unlink($dir.$file) or DIE("couldn't delete $dir$file<br />");
-	        }
-	    }
-	    closedir($mydir);
+	function emptydir($dir) {
+		foreach(glob($dir.'\*') as $foundfile) {
+			if(is_dir($foundfile)):
+				emptydir($foundfile);
+				rmdir($foundfile);
+			else:
+				unlink($foundfile);
+			endif;
+		}
 	}
 	
 	function fixfilepath($dir, $file) {
@@ -138,22 +132,33 @@
 		flush();
 	}
 	
-	# Set up the temp folders
-	if(is_dir('temp\0\\')):
-		destroy('temp\0\\');
-	else:
-		mkdir('temp\0');
-	endif;
+	# Remove the previously generated issues
+	foreach(glob('../8BS??') as $foundfolder) {
+		emptydir($foundfolder);
+		rmdir($foundfolder);
+	}
 	
-	if(is_dir('temp\2\\')):
-		destroy('temp\2\\');
-	else:
-		mkdir('temp\2');
-	endif;
+	# Remove the contents of the mode 7 graphics folder
+	foreach(glob('..\common\mode7\*.png') as $foundfile) {
+		unlink($foundfile);
+	}
 	
 	$thisissue='8BS64';
 	
 	floutput('Issue '.$thisissue,0);
+	
+	# Set up the temp folders
+	if(is_dir('temp\0')):
+		emptydir('temp\0');
+	else:
+		mkdir('temp\0');
+	endif;
+	
+	if(is_dir('temp\2')):
+		emptydir('temp\2');
+	else:
+		mkdir('temp\2');
+	endif;
 	
 	floutput('Extracting Side 0',1);
 	
@@ -200,11 +205,6 @@
 	$curline=1;
 	
 	floutput('Creating Structures',1);
-	
-	if(is_dir('../'.$thisissue)):
-		destroy('../'.$thisissue.'/');
-		rmdir('../'.$thisissue);
-	endif;
 	
 	mkdir('../'.$thisissue);
 	mkdir('../'.$thisissue.'/styles');
