@@ -1170,14 +1170,33 @@
 			$this->html.='</table>';
 		}
 		
-		private function findfreename($prefix, $suffix) {
+		private function saveimage($image, $prefix, $suffix) {
+			static $hashlookup;
 			static $filenum = 0;
+			
+			if(!isset($hashlookup)):
+				foreach(glob($prefix.'????'.$suffix) as $foundfile) {
+					$hashlookup[hash_file('sha1', $foundfile)] = $foundfile;
+				}
+			endif;
 			
 			while(file_exists($prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix)):
 				$filenum++;
 			endwhile;
 			
-			return $prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix;
+			$savename = $prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix;
+			
+			ImagePNG($image, $savename);
+			$imagehash = hash_file('sha1', $savename);
+			
+			if(isset($hashlookup[$imagehash])):
+				unlink($savename);
+				$savename = $hashlookup[$imagehash];
+			else:
+				$hashlookup[$imagehash] = $savename;
+			endif;
+			
+			return $savename;
 		}
 		
 		private function buildsymbolblock($symbols, $width, $height, $bgcolour) {
@@ -1320,9 +1339,7 @@
 				imagecolordeallocate($imgsym, $colours[convertmode7::COL_WHITE]);
 			endif;
 			
-			$savename = $this->findfreename('../common/mode7/graph', '.png');
-			
-			ImagePNG($imgsym, $savename);
+			$savename = $this->saveimage($imgsym, '../common/mode7/graph', '.png');
 			imagedestroy($imgsym);
 			
 			return substr($savename, 2);
