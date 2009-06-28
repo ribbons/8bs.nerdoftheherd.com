@@ -1320,9 +1320,6 @@
 				imagecolordeallocate($imgsym, $colours[convertmode7::COL_WHITE]);
 			endif;
 			
-			$debugborder = ImageColorAllocate($imgsym, 255, 138, 0);
-			ImageRectangle($imgsym, 0, 0, $charwidth * $width - 1, $charheight * $height - 1, $debugborder);
-			
 			$savename = $this->findfreename('../common/mode7/graph', '.png');
 			
 			ImagePNG($imgsym, $savename);
