@@ -858,6 +858,7 @@
 						unset($convchars);
 						$convchars[0][0][0] = substr($this->tokenised[$lnkey][$colkey], 5);
 						$convchars[0][0][1] = $this->textcolours[$lnkey][$colkey];
+						$convchars[0][0][2] = $this->graphmodes[$lnkey][$colkey];
 						$flashmode = $this->flashs[$lnkey][$colkey];
 						$bgcolour = $this->bkgdcolours[$lnkey][$colkey];
 						$grapwidth = 1;
@@ -868,6 +869,7 @@
 						while($colkey + $grapwidth < 40 && (substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5) == 'GRAP_' || $this->tokenised[$lnkey][$colkey + $grapwidth] == 'CHAR_SPACE') && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
 							$convchars[0][$grapwidth][0] = substr($this->tokenised[$lnkey][$colkey + $grapwidth], 5);
 							$convchars[0][$grapwidth][1] = $this->textcolours[$lnkey][$colkey + $grapwidth];
+							$convchars[0][$grapwidth][2] = $this->graphmodes[$lnkey][$colkey + $grapwidth];
 							$this->tokenised[$lnkey][$colkey + $grapwidth] = 'IMAGE';
 							$grapwidth++;
 						endwhile;
@@ -890,6 +892,7 @@
 									for($addrow = 0; $addrow < $grapwidth; $addrow++):
 										$convchars[$grapheight][$addrow][0] = substr($this->tokenised[$lnkey + $grapheight][$colkey + $addrow], 5);
 										$convchars[$grapheight][$addrow][1] = $this->textcolours[$lnkey + $grapheight][$colkey + $addrow];
+										$convchars[$grapheight][$addrow][2] = $this->graphmodes[$lnkey + $grapheight][$colkey + $addrow];
 										$this->tokenised[$lnkey + $grapheight][$colkey + $addrow] = 'IMAGE';
 									endfor;
 									
@@ -978,6 +981,7 @@
 								for($fetchcol = 0; $fetchcol < $grapheight; $fetchcol++):
 									$leftconvchars[$fetchcol][$searchleft][0] = substr($this->tokenised[$lnkey + $fetchcol][$colkey - ($searchleft + 1)], 5);
 									$leftconvchars[$fetchcol][$searchleft][1] = $this->textcolours[$lnkey + $fetchcol][$colkey - ($searchleft + 1)];
+									$leftconvchars[$fetchcol][$searchleft][2] = $this->graphmodes[$lnkey + $fetchcol][$colkey - ($searchleft + 1)];
 									$this->tokenised[$lnkey + $fetchcol][$colkey - ($searchleft + 1)] = 'IMAGE';
 								endfor;
 								
@@ -1262,6 +1266,14 @@
 					$secondrowy2 = ($yoffset + ($charheight / 3 ) * 2) - 1;
 					$thirdrowy1 = $yoffset + ($charheight / 3) * 2;
 					$thirdrowy2 = ($yoffset + $charheight) - 1;
+					
+					if($symbol[2] == convertmode7::MODE_SEPERA):
+						$firstcolx1 += 2;
+						$secondcolx1 += 2;
+						$firstrowy2 -= 2;
+						$secondrowy2 -= 2;
+						$thirdrowy2 -= 2;
+					endif;
 					
 					if(($symbol[0]-32) >= 0):
 						ImageFilledRectangle($imgsym, $secondcolx1, $thirdrowy1, $secondcolx2, $thirdrowy2, $colours[$symbol[1]]);
