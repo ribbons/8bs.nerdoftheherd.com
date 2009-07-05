@@ -712,37 +712,31 @@
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_RED;
 						break;
-					default:
 					case 130:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_GREEN;
 						break;
-					default:
 					case 131:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_YELLOW;
 						break;
-					default:
 					case 132:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_BLUE;
 						break;
-					default:
 					case 133:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_MAGENTA;
 						break;
-					default:
 					case 134:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_CYAN;
 						break;
-					default:
 					case 135:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_TEXT;
@@ -765,37 +759,31 @@
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_RED;
 						break;
-					default:
 					case 146:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_GREEN;
 						break;
-					default:
 					case 147:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_YELLOW;
 						break;
-					default:
 					case 148:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_BLUE;
 						break;
-					default:
 					case 149:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_MAGENTA;
 						break;
-					default:
 					case 150:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_CYAN;
 						break;
-					default:
 					case 151:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$mode=convertmode7::MODE_GRAPHICS;
