@@ -1018,8 +1018,14 @@
 							endif;
 						endwhile;
 						
+						if($grapwidth > 13):
+							$alttext = 'Block Graphics';
+						else:
+							$alttext = '*';
+						endif;
+						
 						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
-						$this->images[$lnkey][$colkey - $searchleft] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, '*');
+						$this->images[$lnkey][$colkey - $searchleft] = array($this->buildsymbolblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, $alttext);
 					endif;
 				endforeach;
 			endforeach;
