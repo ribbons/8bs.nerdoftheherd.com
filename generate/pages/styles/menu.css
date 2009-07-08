@@ -3,9 +3,8 @@ table {
 }
 
 td {
-	margin: 0px;
-	padding: 0px;
-	width: 16px;
+	margin: 0;
+	padding: 0;
 }
 
 td table {
