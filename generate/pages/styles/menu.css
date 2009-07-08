@@ -87,3 +87,8 @@ td table td {
 .bb {
 	background-color: #0000ff;
 }
+
+tr#bottomrow td {
+	padding-bottom: 0.33em;
+	border-bottom: 0.67em solid %border%;
+}

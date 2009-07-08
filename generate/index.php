@@ -224,14 +224,14 @@
 		$curline++;
 		
 		while($curline <= $stopline):
-			$menuitems.="\t".'<tr><td>&nbsp;</td><td class="bord">&nbsp;</td><td colspan="2">&nbsp;</td><td colspan="33" class="menuline" id="line'.$menuline.'"><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue,$splitdata[0][0],$splitdata[$curline][0]).'" title="'.GetDescript(trim($splitdata[$curline][3])).'">&nbsp;&nbsp;<span class="letters">'.$letters[$menuline].'</span><span class="gt">&gt;</span>'.$splitdata[$curline][0].'</a></td><td>&nbsp;</td><td class="fc">&nbsp;</td><td class="bord">&nbsp;</td></tr>'."\r\n";
+			$menuitems.="\t".'<tr><td class="bord">&nbsp;</td><td colspan="2">&nbsp;</td><td colspan="33" class="menuline" id="line'.$menuline.'"><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue,$splitdata[0][0],$splitdata[$curline][0]).'" title="'.GetDescript(trim($splitdata[$curline][3])).'">&nbsp;&nbsp;<span class="letters">'.$letters[$menuline].'</span><span class="gt">&gt;</span>'.$splitdata[$curline][0].'</a></td><td>&nbsp;</td><td class="fc">&nbsp;</td><td class="bord">&nbsp;</td></tr>'."\r\n";
 			
 			$curline++;
 			$menuline++;
 		endwhile;
 		
 		while($menuline < 15):
-			$menuitems.="	<tr><td>&nbsp;</td><td class=\"bord\">&nbsp;</td><td colspan=\"37\">&nbsp;</td><td class=\"bord\">&nbsp;</td></tr>\r\n";
+			$menuitems.="	<tr><td class=\"bord\">&nbsp;</td><td colspan=\"37\">&nbsp;</td><td class=\"bord\">&nbsp;</td></tr>\r\n";
 			$menuline++;
 		endwhile;
 		
