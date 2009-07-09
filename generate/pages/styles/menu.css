@@ -19,6 +19,22 @@ td table td {
 	background-color: %border%;
 }
 
+td.topbdr {
+	vertical-align: top;
+}
+
+td.topbdr div {
+	height: 0.67em;
+}
+
+td div.gapright {
+	margin-right: 0.33em;
+}
+
+td div.gapleft {
+	margin-left: 0.33em;
+}
+
 .id {
 	color: %id%;
 }
