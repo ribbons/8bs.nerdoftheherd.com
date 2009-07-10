@@ -29,7 +29,7 @@ function getElementsByClassName(oElm, strTagName, oClassNames){
 }
 
 window.onload=function() {
-	menuobjs=getElementsByClassName(document, "td", "menuline");
+	menuobjs=getElementsByClassName(document, "div", "menuline");
 	
 	for(var sethandlers=0; sethandlers < menuobjs.length; sethandlers++) {
 		menuobjs[sethandlers].getElementsByTagName("a")[0].onmouseover = new Function("setselecteditem(\""+menuobjs[sethandlers].id+"\");");
@@ -41,7 +41,7 @@ window.onload=function() {
 }
 
 function setselecteditem(obj) {
-	hlobjs=getElementsByClassName(document, "td", "menuline");
+	hlobjs=getElementsByClassName(document, "div", "menuline");
 	
 	for(var clearhl=0; clearhl < hlobjs.length; clearhl++) {
 		hlobjs[clearhl].className="menuline";
@@ -58,6 +58,6 @@ function processkeys(event) {
 	if(key > 96 && key < 111) {
 		setselecteditem("line"+(key-97));
 	} else if(key==13) {
-		document.location=getElementsByClassName(document, "td", "menulinehl")[0].getElementsByTagName("a")[0].getAttribute("href");
+		document.location=getElementsByClassName(document, "div", "menulinehl")[0].getElementsByTagName("a")[0].getAttribute("href");
 	}
 }

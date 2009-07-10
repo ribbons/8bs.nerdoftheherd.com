@@ -56,33 +56,37 @@ td.titlebottom {
 	text-align: center;
 }
 
-.menuline a {
+td.menulines {
+	vertical-align: top;
+}
+
+td.menulines div a {
 	display: block;
 	color: %items%;
 	text-decoration: none;
 }
 
-.menuline a:hover, .menulinehl a {
+div.menuline a:hover, div.menulinehl a {
 	background-color: %highlight%;
 }
 
-.menuline a .letters {
+div.menuline a .letters {
 	color: %letters%;
 }
 
-.menuline a:focus {
+div.menuline a:focus {
 	color: %letters%;
 }
 
-.menuline a .gt {
+div.menuline a .gt {
 	color: black;
 }
 
-.menuline a:hover .gt, .menulinehl a .gt {
+div.menuline a:hover .gt, div.menulinehl a .gt {
 	color: %highlight%;
 }
 
-.menuline a:focus .gt {
+div.menuline a:focus .gt {
 	color: %letters%;
 }
 
