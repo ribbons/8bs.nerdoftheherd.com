@@ -7,12 +7,8 @@ td {
 	padding: 0;
 }
 
-td table {
-	width: 100%;
-}
-
-td table td {
-	height: 0.33em;
+td img {
+	display: block;
 }
 
 .bord {
@@ -43,8 +39,16 @@ td div.gapleft {
 	color: %dteiss%;
 }
 
-.title {
-	background-color: %title%;
+td.titletop, td.titlebottom {
+	color: %title%;
+}
+
+td.titletop {
+	vertical-align: bottom;
+}
+
+td.titlebottom {
+	vertical-align: top;
 }
 
 .menutt {

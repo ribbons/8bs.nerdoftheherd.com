@@ -42,7 +42,7 @@
 		while($returned<>''):
 			# Menu Colour Data
 			if(substr($returned,4,5)==":REM "):
-				$colours[]=substr($returned,0,4);
+				$colours[substr($returned,0,1)]=substr($returned,3,1);
 			endif;
 			
 			# Menu Data
@@ -58,7 +58,7 @@
 		return $splitdata;
 	}
 	
-	function TransCols($colours) {
+	function transcols($colours) {
 		$coltr[1]='red';
 		$coltr[2]='lime';
 		$coltr[3]='yellow';
@@ -67,11 +67,11 @@
 		$coltr[6]='cyan';
 		$coltr[7]='white';
 		
-		foreach($colours as $colour):
-			$collook[substr($colour,0,1)]=$coltr[substr($colour,3,1)];
+		foreach($colours as $key => $colour):
+			$colstrans[$key]=$coltr[$colour];
 		endforeach;
 		
-		return $collook;
+		return $colstrans;
 	}
 	
 	function GetDescript($id) {
@@ -192,7 +192,7 @@
 	fputs($handle, $header);
 	fclose($handle);
 	
-	$collook=TransCols($colours);
+	$colstrans=transcols($colours);
 	$menu=implode('', file('temp/header.html')).implode('', file('pages/menu.html')).implode('', file('pages/footer.html'));
 	
 	$menu=str_replace('%stylesheetpath%', 'styles/menu.css', $menu);
@@ -218,7 +218,8 @@
 		
 		floutput('Generating menu "'.$splitdata[$curline][0].'"',1);
 		
-		$thismenu=str_replace('%title%', $splitdata[$curline][0], $menu);
+		$thismenu=str_replace('%titlecol%', $colours['q'], $menu);
+		$thismenu=str_replace('%title%', $splitdata[$curline][0], $thismenu);
 		$thismenu=str_replace('%menutitle%', $splitdata[$curline][0], $thismenu);
 		$stopline=$curline+$splitdata[$curline][1];
 		$curline++;
@@ -247,16 +248,16 @@
 	
 	$css=implode('', file('pages/styles/menu.css'));
 	
-	$css=str_replace('%id%', $collook['i'], $css);
-	$css=str_replace('%dteiss%', $collook['r'], $css);
-	$css=str_replace('%title%', $collook['q'], $css);
-	$css=str_replace('%menutt%', $collook['s'], $css);
-	$css=str_replace('%border%', $collook['p'], $css);
-	$css=str_replace('%letters%', $collook['t'], $css);
-	$css=str_replace('%highlight%', $collook['w'], $css);
-	$css=str_replace('%items%', $collook['u'], $css);
-	$css=str_replace('%descript%', $collook['d'], $css);
-	$css=str_replace('%helptxt%', $collook['v'], $css);
+	$css=str_replace('%id%', $colstrans['i'], $css);
+	$css=str_replace('%dteiss%', $colstrans['r'], $css);
+	$css=str_replace('%title%', $colstrans['q'], $css);
+	$css=str_replace('%menutt%', $colstrans['s'], $css);
+	$css=str_replace('%border%', $colstrans['p'], $css);
+	$css=str_replace('%letters%', $colstrans['t'], $css);
+	$css=str_replace('%highlight%', $colstrans['w'], $css);
+	$css=str_replace('%items%', $colstrans['u'], $css);
+	$css=str_replace('%descript%', $colstrans['d'], $css);
+	$css=str_replace('%helptxt%', $colstrans['v'], $css);
 	
 	$handle=fopen('../'.$thisissue.'/styles/menu.css','w');
 	fputs($handle, $css);
