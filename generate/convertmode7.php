@@ -17,6 +17,9 @@
 		const FLASH_STATIC=1;
 		const FLASH_FLASH=2;
 		
+		const CHAR_WIDTH=16;
+		const CHAR_HEIGHT=24;
+		
 		private $flashs;
 		private $tokenised;
 		private $graphmodes;
@@ -1259,10 +1262,7 @@
 		}
 		
 		private function buildsymbolblock($symbols, $width, $height, $bgcolour) {
-			$charwidth=16;
-			$charheight=24;
-			
-			$imgsym = ImageCreate($charwidth * $width, $charheight * $height);
+			$imgsym = ImageCreate(convertmode7::CHAR_WIDTH * $width, convertmode7::CHAR_HEIGHT * $height);
 			
 			switch($bgcolour):
 				case convertmode7::COL_BLACK:
@@ -1310,10 +1310,10 @@
 			$colused[convertmode7::COL_WHITE] = false;
 			
 			foreach($symbols as $row => $symbrow):
-				$yoffset = $row * $charheight;
+				$yoffset = $row * convertmode7::CHAR_HEIGHT;
 				
 				foreach($symbrow as $col => $symbol):
-					$xoffset = $col * $charwidth;
+					$xoffset = $col * convertmode7::CHAR_WIDTH;
 					
 					if($symbol[0] == 'SPACE'):
 						$symbol[0] = 0;
@@ -1324,16 +1324,16 @@
 					endif;
 					
 					$firstcolx1 = $xoffset;
-					$firstcolx2 = ($xoffset + $charwidth / 2) - 1;
-					$secondcolx1 = $xoffset + $charwidth / 2;
-					$secondcolx2 = ($xoffset + $charwidth) -1;
+					$firstcolx2 = ($xoffset + convertmode7::CHAR_WIDTH / 2) - 1;
+					$secondcolx1 = $xoffset + convertmode7::CHAR_WIDTH / 2;
+					$secondcolx2 = ($xoffset + convertmode7::CHAR_WIDTH) -1;
 					
 					$firstrowy1 = $yoffset;
-					$firstrowy2 = ($yoffset + $charheight / 3) -1;
-					$secondrowy1 = $yoffset + $charheight / 3;
-					$secondrowy2 = ($yoffset + ($charheight / 3 ) * 2) - 1;
-					$thirdrowy1 = $yoffset + ($charheight / 3) * 2;
-					$thirdrowy2 = ($yoffset + $charheight) - 1;
+					$firstrowy2 = ($yoffset + convertmode7::CHAR_HEIGHT / 3) -1;
+					$secondrowy1 = $yoffset + convertmode7::CHAR_HEIGHT / 3;
+					$secondrowy2 = ($yoffset + (convertmode7::CHAR_HEIGHT / 3 ) * 2) - 1;
+					$thirdrowy1 = $yoffset + (convertmode7::CHAR_HEIGHT / 3) * 2;
+					$thirdrowy2 = ($yoffset + convertmode7::CHAR_HEIGHT) - 1;
 					
 					if($symbol[2] == convertmode7::MODE_SEPERA):
 						$firstcolx1 += 2;
@@ -1443,17 +1443,14 @@
 		}
 		
 		private function builddbltextblock($characters, $width, $height, $bgcolour) {
-			$charwidth=16;
-			$charheight=24;
-			
-			$imgchars = ImageCreateTrueColor($charwidth * $width, $charheight * $height);
+			$imgchars = ImageCreateTrueColor(convertmode7::CHAR_WIDTH * $width, convertmode7::CHAR_HEIGHT * $height);
 			
 			foreach($characters as $row => $charrow):
-				$yoffset = $row * $charheight;
+				$yoffset = $row * convertmode7::CHAR_HEIGHT;
 				$rowtype = $row % 2;
 				
 				foreach($charrow as $col => $character):
-					$xoffset = $col * $charwidth;
+					$xoffset = $col * convertmode7::CHAR_WIDTH;
 					
 					if($character[0] == 'CHAR_SPACE'):
 						$charcode = 32;
@@ -1466,7 +1463,7 @@
 					$this->setimagecolour($srcimg, 0, $character[2]);
 					$this->setimagecolour($srcimg, 1, $character[1]);
 					
-					ImageCopyResampled($imgchars, $srcimg, $xoffset, $yoffset, 0, $rowtype * (ImageSy($srcimg) / 2), $charwidth, $charheight, ImageSx($srcimg) - 1, (ImageSy($srcimg) / 2) - 1);
+					ImageCopyResampled($imgchars, $srcimg, $xoffset, $yoffset, 0, $rowtype * (ImageSy($srcimg) / 2), convertmode7::CHAR_WIDTH, convertmode7::CHAR_HEIGHT, ImageSx($srcimg) - 1, (ImageSy($srcimg) / 2) - 1);
 					
 					imagedestroy($srcimg);
 				endforeach;
