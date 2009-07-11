@@ -1,7 +1,22 @@
 /* IE7 Specific fixes for any part of the conversion */
 
+/* COMMON */
+
+/* letter-spacing doesn't seem to be applied to the last character in an
+   element, so correct for this with padding */
+.mode7 td {
+	padding-right: 2px;
+}
+/* Remove the padding again for colspanned cells, so this doesn't interfere
+   with images or divs contained within them */
+.mode7 td[colspan] {
+	padding-right: 0;
+}
+
 /* MENU */
 
+/* Odd 1px left overhang of the bottom border can be fixed by removing the
+   border from the first cell */
 tr#bottomrow td:first-child {
 	border: 0;
 }
