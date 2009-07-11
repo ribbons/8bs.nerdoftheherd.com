@@ -63,8 +63,8 @@
 		$coltr[2]='lime';
 		$coltr[3]='yellow';
 		$coltr[4]='blue';
-		$coltr[5]='magenta';
-		$coltr[6]='cyan';
+		$coltr[5]='fuchsia';
+		$coltr[6]='aqua';
 		$coltr[7]='white';
 		
 		foreach($colours as $key => $colour):

@@ -3,57 +3,38 @@ table {
 }
 
 td {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 td.t0 { color: black; }
 td.t1 { color: red; }
-td.t2 { color: #00ff00; }
+td.t2 { color: lime; }
 td.t3 { color: yellow; }
 td.t4 { color: blue; }
-td.t5 { color: magenta; }
-td.t6 { color: cyan; }
+td.t5 { color: fuchsia; }
+td.t6 { color: aqua; }
 
 td.b1 { background-color: red; }
-td.b2 { background-color: #00ff00; }
+td.b2 { background-color: lime; }
 td.b3 { background-color: yellow; }
 td.b4 { background-color: blue; }
-td.b5 { background-color: magenta; }
-td.b6 { background-color: cyan; }
+td.b5 { background-color: fuchsia; }
+td.b6 { background-color: aqua; }
 td.b7 { background-color: white; }
 
 td img {
 	display: block;
 }
 
-td.flashoff {
-	color: black;
-}
-
-td.flashoff.b1 {
-	color: red;
-}
-
-td.flashoff.b2 {
-	color: #00ff00;
-}
-
-td.flashoff.b3 {
-	color: yellow;
-}
-
-td.flashoff.b4 {
-	color: blue;
-}
-
-td.flashoff.b5 {
-	color: magenta;
-}
-
-td.flashoff.b6 {
-	color: cyan;
-}
+td.flashoff { color: black; }
+td.flashoff.b1 { color: red; }
+td.flashoff.b2 { color: lime; }
+td.flashoff.b3 { color: yellow; }
+td.flashoff.b4 { color: blue; }
+td.flashoff.b5 { color: fuchsia; }
+td.flashoff.b6 { color: aqua; }
+td.flashoff.b7 { color: white; }
 
 td.flashoff img {
 	display: none;
