@@ -39,6 +39,7 @@
 			$this->tokeniseinput($filename, $trimscroller);
 			$this->findtextonlylines();
 			$this->buildgraphics();
+			$this->builddbltext();
 			$this->generatehtml();
 			
 			if($headerandfooter):
@@ -1031,8 +1032,76 @@
 			endforeach;
 		}
 		
+		private function builddbltext() {
+			foreach($this->tokenised as $lnkey => $line):
+				foreach($line as $colkey => $character):
+					if(substr($this->tokenised[$lnkey][$colkey], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_DBL):
+						unset($convchars);
+						$convchars[0][0][0] = $this->tokenised[$lnkey][$colkey];
+						$convchars[0][0][1] = $this->textcolours[$lnkey][$colkey];
+						$convchars[0][0][2] = $this->bkgdcolours[$lnkey][$colkey];
+						$alttext = substr($this->tokenised[$lnkey][$colkey], 5);
+						$flashmode = $this->flashs[$lnkey][$colkey];
+						$bgcolour = $this->bkgdcolours[$lnkey][$colkey];
+						$grapwidth = 1;
+						$grapheight = 1;
+						
+						# Work out how wide the row of text is
+						while($colkey + $grapwidth < 40 && ((substr($this->tokenised[$lnkey][$colkey + $grapwidth], 0, 5) == 'CHAR_' && $this->textheights[$lnkey][$colkey + $grapwidth]==convertmode7::TXHEIGHT_DBL) || $this->tokenised[$lnkey][$colkey + $grapwidth] == 'CHAR_SPACE') && $this->bkgdcolours[$lnkey][$colkey + $grapwidth] == $bgcolour && $this->flashs[$lnkey][$colkey + $grapwidth] == $flashmode):
+							$convchars[0][$grapwidth][0] = $this->tokenised[$lnkey][$colkey + $grapwidth];
+							$convchars[0][$grapwidth][1] = $this->textcolours[$lnkey][$colkey + $grapwidth];
+							$convchars[0][$grapwidth][2] = $this->bkgdcolours[$lnkey][$colkey + $grapwidth];
+							
+							if($this->tokenised[$lnkey][$colkey + $grapwidth] == 'CHAR_SPACE'):
+								$alttext.= ' ';
+							else:
+								$alttext.= substr($this->tokenised[$lnkey][$colkey + $grapwidth], 5);
+							endif;
+							
+							$this->tokenised[$lnkey][$colkey + $grapwidth] = 'IMAGE';
+							$grapwidth++;
+						endwhile;
+						
+						# Trim any trailing spaces from the end of the row
+						while($convchars[0][$grapwidth - 1][0] == 'CHAR_SPACE'):
+							$grapwidth--;
+							$this->tokenised[$lnkey][$colkey + $grapwidth] = $convchars[0][$grapwidth][0];
+						endwhile;
+						
+						$alttext = rtrim($alttext);
+						
+						# See if the row below is double height text too
+						$addnext = true;
+						
+						for($checknext = 0; $checknext < $grapwidth; $checknext++):
+							if((substr($this->tokenised[$lnkey + 1][$colkey + $checknext], 0, 5) != 'CHAR_' || $this->textheights[$lnkey + 1][$colkey + $checknext]!=convertmode7::TXHEIGHT_DBL) && $this->tokenised[$lnkey + 1][$colkey + $checknext] != 'CHAR_SPACE'):
+								$addnext = false;
+								break;
+							endif;
+						endfor;
+						
+						if($addnext):
+							for($addrow = 0; $addrow < $grapwidth; $addrow++):
+								$convchars[1][$addrow][0] = $this->tokenised[$lnkey + 1][$colkey + $addrow];
+								$convchars[1][$addrow][1] = $this->textcolours[$lnkey + 1][$colkey + $addrow];
+								$convchars[1][$addrow][2] = $this->bkgdcolours[$lnkey + 1][$colkey + $addrow];
+								$this->tokenised[$lnkey + 1][$colkey + $addrow] = 'IMAGE';
+							endfor;
+							
+							$grapheight++;
+						endif;
+						
+						$this->tokenised[$lnkey][$colkey] = 'IMAGE';
+						$this->images[$lnkey][$colkey] = array($this->builddbltextblock($convchars, $grapwidth, $grapheight, $bgcolour), $grapwidth, $grapheight, $alttext);
+					endif;
+				endforeach;
+			endforeach;
+		}
+		
 		private function generatehtml() {
 			$this->html.='<table class="mode7 centralcol">';
+			
+			$anchoringrow = true;
 			
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
@@ -1116,7 +1185,7 @@
 					endif;
 					
 					if($character != 'IMAGE'):
-						if($lnkey > 0 && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
+						if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
 							$colspan++;
 						else:
 							# Replace a cell full of only non-breaking spaces, with a single non-breaking space
@@ -1163,6 +1232,10 @@
 				endforeach;
 				
 				$this->html.="</tr>\n";
+				
+				if($anchoringrow && $this->textonlylines[$lnkey]):
+					$anchoringrow = false;
+				endif;
 			endforeach;
 			
 			$this->html.='</table>';
@@ -1249,9 +1322,10 @@
 			$colused[convertmode7::COL_WHITE] = false;
 			
 			foreach($symbols as $row => $symbrow):
+				$yoffset = $row * $charheight;
+				
 				foreach($symbrow as $col => $symbol):
 					$xoffset = $col * $charwidth;
-					$yoffset = $row * $charheight;
 					
 					if($symbol[0] == 'SPACE'):
 						$symbol[0] = 0;
@@ -1347,6 +1421,71 @@
 			
 			$savename = $this->saveimage($imgsym, '../common/mode7/graph', '.png');
 			imagedestroy($imgsym);
+			
+			return substr($savename, 2);
+		}
+		
+		private function setimagecolour($image, $index, $colour) {
+			switch($colour) {
+				case convertmode7::COL_BLACK:
+					ImageColorSet($image, $index, 0, 0, 0);
+					break;
+				case convertmode7::COL_RED:
+					ImageColorSet($image, $index, 255, 0, 0);
+					break;
+				case convertmode7::COL_GREEN:
+					ImageColorSet($image, $index, 0, 255, 0);
+					break;
+				case convertmode7::COL_YELLOW:
+					ImageColorSet($image, $index, 255, 255, 0);
+					break;
+				case convertmode7::COL_BLUE:
+					ImageColorSet($image, $index, 0, 0, 255);
+					break;
+				case convertmode7::COL_MAGENTA:
+					ImageColorSet($image, $index, 255, 0, 255);
+					break;
+				case convertmode7::COL_CYAN:
+					ImageColorSet($image, $index, 0, 255, 255);
+					break;
+				case convertmode7::COL_WHITE:
+					ImageColorSet($image, $index, 255, 255, 255);
+					break;
+			}
+		}
+		
+		private function builddbltextblock($characters, $width, $height, $bgcolour) {
+			$charwidth=16;
+			$charheight=24;
+			
+			$imgchars = ImageCreateTrueColor($charwidth * $width, $charheight * $height);
+			
+			foreach($characters as $row => $charrow):
+				$yoffset = $row * $charheight;
+				$rowtype = $row % 2;
+				
+				foreach($charrow as $col => $character):
+					$xoffset = $col * $charwidth;
+					
+					if($character[0] == 'CHAR_SPACE'):
+						$charcode = 32;
+					else:
+						$charcode = ord(substr($character[0], 5));
+					endif;
+					
+					$srcimg = ImageCreateFromGIF('font/'.$charcode.'.gif');
+					
+					$this->setimagecolour($srcimg, 0, $character[2]);
+					$this->setimagecolour($srcimg, 1, $character[1]);
+					
+					ImageCopyResampled($imgchars, $srcimg, $xoffset, $yoffset, 0, $rowtype * (ImageSy($srcimg) / 2), $charwidth, $charheight, ImageSx($srcimg) - 1, (ImageSy($srcimg) / 2) - 1);
+					
+					imagedestroy($srcimg);
+				endforeach;
+			endforeach;
+			
+			$savename = $this->saveimage($imgchars, '../common/mode7/dbltxt', '.png');
+			imagedestroy($imgchars);
 			
 			return substr($savename, 2);
 		}
