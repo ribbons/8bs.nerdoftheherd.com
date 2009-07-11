@@ -1123,69 +1123,27 @@
 				
 				foreach($line as $colkey => $character):
 					if(substr($character, 0, 5)=='CHAR_'):
-						if($this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_DBL):
-							if($lnkey==0 || $this->textheights[$lnkey-1][$colkey]==convertmode7::TXHEIGHT_STD):
-								$dblpart=1;
-							else:
-								$dblpart=2;
-							endif;
-							
-							$cellcontents.='<img src="/common/chars/'.ord(substr($character, 5)).'_'.$this->bkgdcolours[$lnkey][$colkey].'_'.$this->textcolours[$lnkey][$colkey].'_'.$dblpart.'.png" alt="'.substr($character, 5).'" />';
-						else:
-							switch($character):
-								case 'CHAR_SPACE':
-									$cellcontents.='&nbsp;';
-									break;
-								case 'CHAR_£':
-									$cellcontents.='&pound;';
-									break;
-								case 'CHAR_<':
-									$cellcontents.='&lt;';
-									break;
-								case 'CHAR_>':
-									$cellcontents.='&gt;';
-									break;
-								case 'CHAR_&':
-									$cellcontents.='&amp;';
-									break;
-								default:
-									$cellcontents.=substr($character, 5);
-							endswitch;
-						endif;
-					elseif($character == 'IMAGE'):
-						if(isset($this->images[$lnkey][$colkey])):
-							$this->html.= '<td';
-							
-							if($this->images[$lnkey][$colkey][1] > 1):
-								$this->html.= ' colspan="'.$this->images[$lnkey][$colkey][1].'"';
-							endif;
-							
-							if($this->images[$lnkey][$colkey][2] > 1):
-								$this->html.= ' rowspan="'.$this->images[$lnkey][$colkey][2].'"';
-							endif;
-							
-							$classes='';
-							
-							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$classes.='b'.$this->bkgdcolours[$lnkey][$colkey];
-							endif;
-							
-							if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
-								$classes.=' flash';
-							endif;
-							
-							if($classes!=''):
-								$this->html.=' class="'.trim($classes).'"';
-							endif;
-							
-							$this->html.= '><img src="'.$this->images[$lnkey][$colkey][0].'" alt="'.$this->images[$lnkey][$colkey][3].'" /></td>';
-						endif;
-					else:
-						echo '<p>Unknown token '.$character.'</p>';
-					endif;
-					
-					if($character != 'IMAGE'):
-						if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textheights[$lnkey][$colkey]==convertmode7::TXHEIGHT_STD && $this->textheights[$lnkey][$colkey+1]==convertmode7::TXHEIGHT_STD && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
+						switch($character):
+							case 'CHAR_SPACE':
+								$cellcontents.='&nbsp;';
+								break;
+							case 'CHAR_£':
+								$cellcontents.='&pound;';
+								break;
+							case 'CHAR_<':
+								$cellcontents.='&lt;';
+								break;
+							case 'CHAR_>':
+								$cellcontents.='&gt;';
+								break;
+							case 'CHAR_&':
+								$cellcontents.='&amp;';
+								break;
+							default:
+								$cellcontents.=substr($character, 5);
+						endswitch;
+						
+						if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
 							$colspan++;
 						else:
 							# Replace a cell full of only non-breaking spaces, with a single non-breaking space
@@ -1228,6 +1186,36 @@
 							$cellcontents='';
 							$colspan=1;
 						endif;
+					elseif($character == 'IMAGE'):
+						if(isset($this->images[$lnkey][$colkey])):
+							$this->html.= '<td';
+							
+							if($this->images[$lnkey][$colkey][1] > 1):
+								$this->html.= ' colspan="'.$this->images[$lnkey][$colkey][1].'"';
+							endif;
+							
+							if($this->images[$lnkey][$colkey][2] > 1):
+								$this->html.= ' rowspan="'.$this->images[$lnkey][$colkey][2].'"';
+							endif;
+							
+							$classes='';
+							
+							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+								$classes.='b'.$this->bkgdcolours[$lnkey][$colkey];
+							endif;
+							
+							if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
+								$classes.=' flash';
+							endif;
+							
+							if($classes!=''):
+								$this->html.=' class="'.trim($classes).'"';
+							endif;
+							
+							$this->html.= '><img src="'.$this->images[$lnkey][$colkey][0].'" alt="'.$this->images[$lnkey][$colkey][3].'" /></td>';
+						endif;
+					else:
+						echo '<p>Unknown token '.$character.'</p>';
 					endif;
 				endforeach;
 				
