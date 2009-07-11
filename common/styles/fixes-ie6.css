@@ -1,0 +1,11 @@
+/* IE6 Specific fixes for any part of the conversion */
+
+/* MENU */
+
+td.topbdr div {
+	overflow: hidden;
+}
+
+tr#bottomrow td:first-child {
+	border: 0;
+}

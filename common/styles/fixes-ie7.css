@@ -1,0 +1,7 @@
+/* IE7 Specific fixes for any part of the conversion */
+
+/* MENU */
+
+tr#bottomrow td:first-child {
+	border: 0;
+}
