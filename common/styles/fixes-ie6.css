@@ -7,10 +7,19 @@
 .mode7 td {
 	padding-right: 2px;
 }
-/* Remove the padding again for colspanned cells, so this doesn't interfere
-   with images or divs contained within them */
-.mode7 td[colspan] {
+/* 'Remove' the padding again with a negative margin for images, so the padding
+   doesn't break the layout of cells just containing images */
+.mode7 td img {
+	margin-right: -2px;
+}
+/* Unset the padding again for colspanned or rowspanned cells, so this doesn't
+   interfere with images or divs contained within them */
+.mode7 td[colspan], .mode7 td[rowspan] {
 	padding-right: 0;
+}
+/* Unset the margin for images in colspanned or rowspanned cells to match */
+.mode7 td[colspan] img, .mode7 td[rowspan] img {
+	margin-right: 0;
 }
 
 /* MENU */
