@@ -1238,28 +1238,32 @@
 		
 		private function saveimage($image, $prefix, $suffix) {
 			static $hashlookup;
-			static $filenum = 0;
+			static $filenum;
 			
-			if(!isset($hashlookup)):
+			if(!isset($filenum[$prefix.$suffix])):
+				$filenum[$prefix.$suffix] = 0;
+			endif;
+			
+			if(!isset($hashlookup[$prefix.$suffix])):
 				foreach(glob($prefix.'????'.$suffix) as $foundfile) {
-					$hashlookup[hash_file('sha1', $foundfile)] = $foundfile;
+					$hashlookup[$prefix.$suffix][hash_file('sha1', $foundfile)] = $foundfile;
 				}
 			endif;
 			
-			while(file_exists($prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix)):
-				$filenum++;
+			while(file_exists($prefix.str_pad($filenum[$prefix.$suffix], 4, '0', STR_PAD_LEFT).$suffix)):
+				$filenum[$prefix.$suffix]++;
 			endwhile;
 			
-			$savename = $prefix.str_pad($filenum, 4, '0', STR_PAD_LEFT).$suffix;
+			$savename = $prefix.str_pad($filenum[$prefix.$suffix], 4, '0', STR_PAD_LEFT).$suffix;
 			
 			ImagePNG($image, $savename);
 			$imagehash = hash_file('sha1', $savename);
 			
-			if(isset($hashlookup[$imagehash])):
+			if(isset($hashlookup[$prefix.$suffix][$imagehash])):
 				unlink($savename);
-				$savename = $hashlookup[$imagehash];
+				$savename = $hashlookup[$prefix.$suffix][$imagehash];
 			else:
-				$hashlookup[$imagehash] = $savename;
+				$hashlookup[$prefix.$suffix][$imagehash] = $savename;
 			endif;
 			
 			return $savename;
