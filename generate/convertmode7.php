@@ -1163,7 +1163,7 @@
 							$classes='';
 							$this->html.='<td';
 							
-							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;' && substr($character, 0, 5)!='GRAP_'):
+							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;'):
 								$classes.='t'.$this->textcolours[$lnkey][$colkey];
 							endif;
 							
@@ -1203,8 +1203,12 @@
 							
 							$classes='';
 							
+							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE):
+								$classes.='t'.$this->textcolours[$lnkey][$colkey];
+							endif;
+							
 							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$classes.='b'.$this->bkgdcolours[$lnkey][$colkey];
+								$classes.=' b'.$this->bkgdcolours[$lnkey][$colkey];
 							endif;
 							
 							if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
