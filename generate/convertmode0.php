@@ -11,7 +11,7 @@
 			$text=implode('',file($filename));
 			
 			$text=str_replace('&','&amp;',$text);
-			$text=str_replace('  ','&nbsp;&nbsp;',$text);
+			$text=str_replace('  ','  ',$text);
 			$text=str_replace("\r","<br>\r",$text);
 			
 			$this->html.='<div class="centralcol mode0">';

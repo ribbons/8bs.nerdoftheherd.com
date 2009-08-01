@@ -1128,7 +1128,7 @@
 					if(substr($character, 0, 5)=='CHAR_'):
 						switch($character):
 							case 'CHAR_SPACE':
-								$cellcontents.='&nbsp;';
+								$cellcontents.=' ';
 								break;
 							case 'CHAR_£':
 								$cellcontents.='&pound;';
@@ -1149,21 +1149,24 @@
 						if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
 							$colspan++;
 						else:
-							# Replace a cell full of only non-breaking spaces, with a single non-breaking space
-							if(str_replace('&nbsp;', '', $cellcontents)==''):
-								$cellcontents='&nbsp;';
+							# Replace a cell just full of spaces with a single non-breaking space
+							if(trim($cellcontents) == ''):
+								$cellcontents = ' ';
+							else:
+								# Remove multiple spaces from the ends of cells
+								$cellcontents=rtrim($cellcontents);
+								# Replace a space at the start of a cell with a non-breaking space
+								if(substr($cellcontents, 0, 1) == ' '):
+									$cellcontents = ' '.substr($cellcontents, 1);
+								endif;
+								# Alternate standard and non-breaking spaces
+								$cellcontents=str_replace('  ', '  ', $cellcontents);
 							endif;
-							# Replace non-breaking spaces between word with spaces
-							$cellcontents=preg_replace('/([^; ])&nbsp;([^& ])/', '\1 \2', $cellcontents);
-							# Remove multiple non breaking spaces from the ends of cells with other contents
-							$cellcontents=preg_replace('/\A(.+?)(?:&nbsp;)+\z/', '\1', $cellcontents);
-							# Alternate non-breaking and standard spaces
-							$cellcontents=str_replace('&nbsp;&nbsp;', '&nbsp; ', $cellcontents);
 							
 							$classes='';
 							$this->html.='<td';
 							
-							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!='&nbsp;'):
+							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!=' '):
 								$classes.='t'.$this->textcolours[$lnkey][$colkey];
 							endif;
 							
