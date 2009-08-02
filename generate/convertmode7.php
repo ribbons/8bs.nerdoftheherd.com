@@ -28,6 +28,7 @@
 		private $bkgdcolours;
 		private $images;
 		private $textonlylines;
+		private $colspans;
 		
 		public function convertmode7($filename, $issue, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
@@ -43,6 +44,7 @@
 			$this->findtextonlylines();
 			$this->buildgraphics();
 			$this->builddbltext();
+			$this->findcolspans();
 			$this->generatehtml();
 			
 			if($headerandfooter):
@@ -1101,54 +1103,81 @@
 			endforeach;
 		}
 		
-		private function generatehtml() {
-			$this->html.='<table class="mode7 centralcol">';
-			
+		private function findcolspans() {
 			$anchoringrow = true;
 			
 			foreach($this->tokenised as $lnkey => $line):
 				foreach($line as $colkey => $character):
-					# Make the text colour of spaces the same as much as possible, to allow as much
+					# Make the text colour of spaces the same if possible, to allow as much
 					# merging as possible
 					if($colkey > 0):
-						if($this->textcolours[$lnkey][$colkey]!=$lastcolour && $character=='CHAR_SPACE'):
-							$this->textcolours[$lnkey][$colkey]=$lastcolour;
+						if($this->textcolours[$lnkey][$colkey] != $lastcolour && $character=='CHAR_SPACE'):
+							$this->textcolours[$lnkey][$colkey] = $lastcolour;
 						endif;
 					endif;
 					
 					$lastcolour=$this->textcolours[$lnkey][$colkey];
 				endforeach;
 				
-				$this->html.='<tr>';
+				$colspan = 1;
+				$startcell = 0;
 				
-				$cellcontents='';
-				$colspan=1;
+				foreach($line as $colkey => $character):
+					if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
+						$colspan++;
+					else:
+						$this->colspans[$lnkey][$startcell] = $colspan;
+						
+						$colspan = 1;
+						$startcell = $colkey + 1;
+					endif;
+				endforeach;
+				
+				$this->colspans[$lnkey][$startcell] = $colspan;
+				
+				if($anchoringrow && $this->textonlylines[$lnkey]):
+					$anchoringrow = false;
+				endif;
+			endforeach;
+		}
+		
+		private function generatehtml() {
+			$this->html.='<table class="mode7 centralcol">';
+			
+			$mergerows = false;
+			
+			foreach($this->tokenised as $lnkey => $line):
+				if(!$mergerows):
+					$this->html.='<tr>';
+				endif;
 				
 				foreach($line as $colkey => $character):
 					if(substr($character, 0, 5)=='CHAR_'):
-						switch($character):
-							case 'CHAR_SPACE':
-								$cellcontents.=' ';
-								break;
-							case 'CHAR_£':
-								$cellcontents.='&pound;';
-								break;
-							case 'CHAR_<':
-								$cellcontents.='&lt;';
-								break;
-							case 'CHAR_>':
-								$cellcontents.='&gt;';
-								break;
-							case 'CHAR_&':
-								$cellcontents.='&amp;';
-								break;
-							default:
-								$cellcontents.=substr($character, 5);
-						endswitch;
-						
-						if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
-							$colspan++;
-						else:
+						if(isset($this->colspans[$lnkey][$colkey])):
+							$cellcontents = '';
+							
+							for($fetchchars = 0; $fetchchars < ($this->colspans[$lnkey][$colkey]); $fetchchars++):
+								switch($this->tokenised[$lnkey][$colkey + $fetchchars]):
+									case 'CHAR_SPACE':
+										$cellcontents.=' ';
+										break;
+									case 'CHAR_£':
+										$cellcontents.='&pound;';
+										break;
+									case 'CHAR_<':
+										$cellcontents.='&lt;';
+										break;
+									case 'CHAR_>':
+										$cellcontents.='&gt;';
+										break;
+									case 'CHAR_&':
+										$cellcontents.='&amp;';
+										break;
+									default:
+										$cellcontents.=substr($this->tokenised[$lnkey][$colkey + $fetchchars], 5);
+								endswitch;
+							endfor;
+							
 							# Replace a cell just full of spaces with a single non-breaking space
 							if(trim($cellcontents) == ''):
 								$cellcontents = ' ';
@@ -1163,34 +1192,46 @@
 								$cellcontents=str_replace('  ', '  ', $cellcontents);
 							endif;
 							
-							$classes='';
-							$this->html.='<td';
-							
-							if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!=' '):
-								$classes.='t'.$this->textcolours[$lnkey][$colkey];
+							if(!$mergerows):
+								$classes='';
+								$this->html.='<td';
+								
+								if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!=' '):
+									$classes.='t'.$this->textcolours[$lnkey][$colkey];
+								endif;
+								
+								if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
+									$classes.=' b'.$this->bkgdcolours[$lnkey][$colkey];
+								endif;
+								
+								if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
+									$classes.=' flash';
+								endif;
+								
+								if($classes != ''):
+									$this->html.=' class="'.trim($classes).'"';
+								endif;
+								
+								if($this->colspans[$lnkey][$colkey] > 1):
+									$this->html.=' colspan="'.$this->colspans[$lnkey][$colkey].'"';
+								endif;
+								
+								$this->html.='>';
 							endif;
 							
-							if($this->bkgdcolours[$lnkey][$colkey]!=convertmode7::COL_BLACK):
-								$classes.=' b'.$this->bkgdcolours[$lnkey][$colkey];
+							if($colkey == 0 && isset($this->tokenised[$lnkey + 1]) && $this->textonlylines[$lnkey] && $this->textonlylines[$lnkey + 1] && $this->colspans[$lnkey][0] == 40 && $this->colspans[$lnkey + 1][0] == 40 && $this->textcolours[$lnkey][0] == $this->textcolours[$lnkey + 1][0] && $this->bkgdcolours[$lnkey][0] == $this->bkgdcolours[$lnkey + 1][0] && $this->flashs[$lnkey][0] == $this->flashs[$lnkey + 1][0]):
+								$mergerows = true;
+							else:
+								$mergerows = false;
 							endif;
 							
-							if($this->flashs[$lnkey][$colkey]==convertmode7::FLASH_FLASH):
-								$classes.=' flash';
+							$this->html.=$cellcontents;
+							
+							if($mergerows):
+								$this->html.="<br>\n";
+							else:
+								$this->html.='</td>';
 							endif;
-							
-							if($classes!=''):
-								$this->html.=' class="'.trim($classes).'"';
-							endif;
-							
-							if($colspan>1):
-								$this->html.=' colspan="'.$colspan.'"';
-							endif;
-							
-							$this->html.='>'.$cellcontents;
-							$this->html.='</td>';
-							
-							$cellcontents='';
-							$colspan=1;
 						endif;
 					elseif($character == 'IMAGE'):
 						if(isset($this->images[$lnkey][$colkey])):
@@ -1229,10 +1270,8 @@
 					endif;
 				endforeach;
 				
-				$this->html.="</tr>\n";
-				
-				if($anchoringrow && $this->textonlylines[$lnkey]):
-					$anchoringrow = false;
+				if(!$mergerows):
+					$this->html.="</tr>\n";
 				endif;
 			endforeach;
 			
