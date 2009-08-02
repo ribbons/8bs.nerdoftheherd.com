@@ -1192,11 +1192,13 @@
 								$cellcontents=str_replace('  ', '  ', $cellcontents);
 							endif;
 							
+							$willmergerows = ($colkey == 0 && isset($this->tokenised[$lnkey + 1]) && $this->textonlylines[$lnkey] && $this->textonlylines[$lnkey + 1] && $this->colspans[$lnkey][0] == 40 && $this->colspans[$lnkey + 1][0] == 40 && $this->textcolours[$lnkey][0] == $this->textcolours[$lnkey + 1][0] && $this->bkgdcolours[$lnkey][0] == $this->bkgdcolours[$lnkey + 1][0] && $this->flashs[$lnkey][0] == $this->flashs[$lnkey + 1][0]);
+							
 							if(!$mergerows):
 								$classes='';
 								$this->html.='<td';
 								
-								if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && $cellcontents!=' '):
+								if($this->textcolours[$lnkey][$colkey]!=convertmode7::COL_WHITE && ($cellcontents!=' ' || $willmergerows)):
 									$classes.='t'.$this->textcolours[$lnkey][$colkey];
 								endif;
 								
@@ -1219,11 +1221,7 @@
 								$this->html.='>';
 							endif;
 							
-							if($colkey == 0 && isset($this->tokenised[$lnkey + 1]) && $this->textonlylines[$lnkey] && $this->textonlylines[$lnkey + 1] && $this->colspans[$lnkey][0] == 40 && $this->colspans[$lnkey + 1][0] == 40 && $this->textcolours[$lnkey][0] == $this->textcolours[$lnkey + 1][0] && $this->bkgdcolours[$lnkey][0] == $this->bkgdcolours[$lnkey + 1][0] && $this->flashs[$lnkey][0] == $this->flashs[$lnkey + 1][0]):
-								$mergerows = true;
-							else:
-								$mergerows = false;
-							endif;
+							$mergerows = $willmergerows;
 							
 							$this->html.=$cellcontents;
 							
