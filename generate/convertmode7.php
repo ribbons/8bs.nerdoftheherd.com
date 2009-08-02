@@ -1107,16 +1107,27 @@
 			$anchoringrow = true;
 			
 			foreach($this->tokenised as $lnkey => $line):
+				# Make the text colour of spaces the same if possible, to allow the most merging
+				for($colkey = 39; $colkey >= 0; $colkey--):
+					if($colkey < 39):
+						if($this->textcolours[$lnkey][$colkey] != $lastcolour && $this->tokenised[$lnkey][$colkey] == 'CHAR_SPACE' && $this->bkgdcolours[$lnkey][$colkey] == $lastbgcolour):
+							$this->textcolours[$lnkey][$colkey] = $lastcolour;
+						endif;
+					endif;
+					
+					$lastcolour = $this->textcolours[$lnkey][$colkey];
+					$lastbgcolour = $this->bkgdcolours[$lnkey][$colkey];
+				endfor;
+				
 				foreach($line as $colkey => $character):
-					# Make the text colour of spaces the same if possible, to allow as much
-					# merging as possible
 					if($colkey > 0):
-						if($this->textcolours[$lnkey][$colkey] != $lastcolour && $character=='CHAR_SPACE'):
+						if($this->textcolours[$lnkey][$colkey] != $lastcolour && $character=='CHAR_SPACE' && $this->bkgdcolours[$lnkey][$colkey] == $lastbgcolour):
 							$this->textcolours[$lnkey][$colkey] = $lastcolour;
 						endif;
 					endif;
 					
 					$lastcolour=$this->textcolours[$lnkey][$colkey];
+					$lastbgcolour = $this->bkgdcolours[$lnkey][$colkey];
 				endforeach;
 				
 				$colspan = 1;
