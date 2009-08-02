@@ -29,6 +29,7 @@
 		private $images;
 		private $textonlylines;
 		private $colspans;
+		private $blanklines;
 		
 		public function convertmode7($filename, $issue, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
@@ -44,6 +45,7 @@
 			$this->findtextonlylines();
 			$this->buildgraphics();
 			$this->builddbltext();
+			$this->findblanklines();
 			$this->findcolspans();
 			$this->generatehtml();
 			
@@ -1103,11 +1105,26 @@
 			endforeach;
 		}
 		
+		private function findblanklines() {
+			foreach($this->tokenised as $lnkey => $line):
+				$blankline = true;
+				
+				foreach($line as $colkey => $character):
+					if($character != 'CHAR_SPACE'):
+						$blankline = false;
+						break;
+					endif;
+				endforeach;
+				
+				$this->blanklines[$lnkey] = $blankline;
+			endforeach;
+		}
+		
 		private function findcolspans() {
 			$anchoringrow = true;
 			
+			# Make the text colour of spaces the same if possible, to allow the most merging
 			foreach($this->tokenised as $lnkey => $line):
-				# Make the text colour of spaces the same if possible, to allow the most merging
 				for($colkey = 39; $colkey >= 0; $colkey--):
 					if($colkey < 39):
 						if($this->textcolours[$lnkey][$colkey] != $lastcolour && $this->tokenised[$lnkey][$colkey] == 'CHAR_SPACE' && $this->bkgdcolours[$lnkey][$colkey] == $lastbgcolour):
@@ -1129,12 +1146,15 @@
 					$lastcolour=$this->textcolours[$lnkey][$colkey];
 					$lastbgcolour = $this->bkgdcolours[$lnkey][$colkey];
 				endforeach;
-				
+			endforeach;
+			
+			# Calculate the column sizes
+			foreach($this->tokenised as $lnkey => $line):
 				$colspan = 1;
 				$startcell = 0;
 				
 				foreach($line as $colkey => $character):
-					if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey<count($line)-1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
+					if((!$anchoringrow || !$this->textonlylines[$lnkey]) && $colkey < count($line) - 1 && substr($character, 0, 5)=='CHAR_' && substr($this->tokenised[$lnkey][$colkey+1], 0, 5)=='CHAR_' && $this->textcolours[$lnkey][$colkey]==$this->textcolours[$lnkey][$colkey+1] && $this->bkgdcolours[$lnkey][$colkey]==$this->bkgdcolours[$lnkey][$colkey+1] && $this->flashs[$lnkey][$colkey]==$this->flashs[$lnkey][$colkey+1]):
 						$colspan++;
 					else:
 						$this->colspans[$lnkey][$startcell] = $colspan;
@@ -1150,6 +1170,23 @@
 					$anchoringrow = false;
 				endif;
 			endforeach;
+			
+			# Change the text colour of blank rows to allow the most merging
+			for($lnkey = count($this->tokenised) - 2; $lnkey >= 0; $lnkey--):
+				if($this->textonlylines[$lnkey] && $this->textonlylines[$lnkey + 1] && $this->colspans[$lnkey][0] == 40 && $this->colspans[$lnkey + 1][0] == 40 && $this->blanklines[$lnkey]):
+					for($changecol = 0; $changecol < 40; $changecol++):
+						$this->textcolours[$lnkey][$changecol] = $this->textcolours[$lnkey + 1][0];
+					endfor;
+				endif;
+			endfor;
+			
+			for($lnkey = 1; $lnkey < count($this->tokenised); $lnkey++):
+				if($this->textonlylines[$lnkey] && $this->textonlylines[$lnkey - 1] && $this->colspans[$lnkey][0] == 40 && $this->colspans[$lnkey - 1][0] == 40 && $this->blanklines[$lnkey]):
+					for($changecol = 0; $changecol < 40; $changecol++):
+						$this->textcolours[$lnkey][$changecol] = $this->textcolours[$lnkey - 1][0];
+					endfor;
+				endif;
+			endfor;
 		}
 		
 		private function generatehtml() {
