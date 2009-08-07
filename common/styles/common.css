@@ -12,6 +12,16 @@ body {
 	margin-right: auto;
 }
 
+@font-face {
+	font-family: "ModeSeven";
+	src: url("../fonts/modeseven.eot");
+}
+
+@font-face {
+	font-family: "ModeSeven";
+	src: url("../fonts/modeseven.ttf");
+}
+
 .mode7 {
 	font: 24px "ModeSeven", "Courier New", "Courier", monospace;
 	letter-spacing: 2px;
