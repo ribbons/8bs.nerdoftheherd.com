@@ -143,6 +143,7 @@
 		unlink($foundfile);
 	}
 	
+	$issuesindexlist = '';
 	$thisissue='8BS64';
 	
 	floutput('Issue '.$thisissue,0);
@@ -188,6 +189,7 @@
 	$splitdata=GetData();
 	
 	$header=implode('', file('pages/header.html'));
+	$header=str_replace('%title%', '8BS%iss%: %title%', $header);
 	$handle=fopen('temp/header.html','w');
 	fputs($handle, $header);
 	fclose($handle);
@@ -256,6 +258,32 @@
 	
 	$handle=fopen('../'.$thisissue.'/styles/menu.css','w');
 	fputs($handle, $css);
+	fclose($handle);
+	
+	$issuesindexlist.= '<li><a href="/'.$thisissue.'/">Issue '.substr($thisissue, 3).'</a></li>';
+	
+	floutput('Generating site level pages', 0);
+	floutput('About page', 1);
+	
+	$aboutpage = file_get_contents('pages/header.html').file_get_contents('pages/about.html').file_get_contents('pages/footer.html');
+	$aboutpage = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $aboutpage);
+	$aboutpage = str_replace('%includejs%', '', $aboutpage);
+	$aboutpage = str_replace('%title%', 'About this conversion', $aboutpage);
+	
+	$handle = fopen('../about.html', 'w');
+	fputs($handle, $aboutpage);
+	fclose($handle);
+	
+	floutput('Magazines index', 1);
+	
+	$mainindex = file_get_contents('pages/header.html').file_get_contents('pages/index.html').file_get_contents('pages/footer.html');
+	$mainindex = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $mainindex);
+	$mainindex = str_replace('%includejs%', '', $mainindex);
+	$mainindex = str_replace('%title%', '8-Bit Software Magazines Index', $mainindex);
+	$mainindex = str_replace('%issueslist%', $issuesindexlist, $mainindex);
+	
+	$handle = fopen('../index.html', 'w');
+	fputs($handle, $mainindex);
 	fclose($handle);
 	
 	echo '<p>Finished</p>';
