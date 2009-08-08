@@ -188,14 +188,14 @@
 	
 	$splitdata=GetData();
 	
-	$header=implode('', file('pages/header.html'));
+	$header=file_get_contents('pages/header.html');
 	$header=str_replace('%title%', '8BS%iss%: %title%', $header);
 	$handle=fopen('temp/header.html','w');
 	fputs($handle, $header);
 	fclose($handle);
 	
 	$colstrans=transcols($colours);
-	$menu=implode('', file('temp/header.html')).implode('', file('pages/menu.html')).implode('', file('pages/footer.html'));
+	$menu=file_get_contents('temp/header.html').file_get_contents('pages/menu.html').file_get_contents('pages/footer.html');
 	
 	$menu=str_replace('%stylesheetpath%', 'styles/menu.css', $menu);
 	$menu=str_replace('%includejs%', '<script src="/common/script/menu.js" type="text/javascript"></script>', $menu);
@@ -243,7 +243,7 @@
 	
 	floutput('Creating CSS',1);
 	
-	$css=implode('', file('pages/styles/menu.css'));
+	$css=file_get_contents('pages/styles/menu.css');
 	
 	$css=str_replace('%id%', $colstrans['i'], $css);
 	$css=str_replace('%dteiss%', $colstrans['r'], $css);

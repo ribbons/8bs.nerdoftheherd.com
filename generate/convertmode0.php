@@ -1,14 +1,14 @@
 <?php
 	class convertmode0 extends convert {
 		public function convertmode0($filename, $issue, $title) {
-			$this->html=implode('', file('temp/header.html'));
+			$this->html=file_get_contents('temp/header.html');
 			
 			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
 			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode0.css', $this->html);
 			$this->html=str_replace('%includejs%', '', $this->html);
 			
-			$text=implode('',file($filename));
+			$text=file_get_contents($filename);
 			$disptext='';
 			
 			for($convert = 0; $convert < strlen($text); $convert++):
@@ -33,7 +33,7 @@
 			$this->html.=$disptext;
 			$this->html.='</div>';
 			
-			$this->html.=implode('', file('pages/footer.html'));
+			$this->html.=file_get_contents('pages/footer.html');
 		}
 	}
 ?>

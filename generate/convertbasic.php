@@ -1,7 +1,7 @@
 <?php
 	class convertbasic extends convert {
 		public function convertbasic($filename, $issue, $title) {
-			$this->html=implode('', file('temp/header.html'));
+			$this->html=file_get_contents('temp/header.html');
 			
 			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
@@ -14,7 +14,7 @@
 				echo 'Problem converting basic file to text';
 			else:
 				# Strip ascii character 10s from the file, as these aren't used on the BBC.
-				$basicfile=implode('', file($filename.'.txt'));
+				$basicfile=file_get_contents($filename.'.txt');
 				$basicfile=str_replace("\n", '', $basicfile);
 				$handle=fopen($filename.'.txt','w');
 				fputs($handle, $basicfile);
@@ -24,7 +24,7 @@
 				$this->html.=$convert->gethtml();
 			endif;
 			
-			$this->html.=implode('', file('pages/footer.html'));
+			$this->html.=file_get_contents('pages/footer.html');
 		}
 	}
 ?>

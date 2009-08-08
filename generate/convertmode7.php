@@ -33,7 +33,7 @@
 		
 		public function convertmode7($filename, $issue, $title, $trimscroller, $headerandfooter) {
 			if($headerandfooter):
-				$this->html=implode('', file('temp/header.html'));
+				$this->html=file_get_contents('temp/header.html');
 				
 				$this->html=str_replace('%iss%', $issue, $this->html);
 				$this->html=str_replace('%title%', $title, $this->html);
@@ -50,7 +50,7 @@
 			$this->generatehtml();
 			
 			if($headerandfooter):
-				$this->html.=implode('', file('pages/footer.html'));
+				$this->html.=file_get_contents('pages/footer.html');
 			endif;
 		}
 		
@@ -70,7 +70,7 @@
 			$graphicsmode=convertmode7::MODE_CONTIG;
 			$currentheight=convertmode7::TXHEIGHT_STD;
 			
-			$file=implode('', file($filename));
+			$file=file_get_contents($filename);
 			
 			for($filepos=$startpos; $filepos < strlen($file); $filepos++):
 				switch(ord($file[$filepos])):
