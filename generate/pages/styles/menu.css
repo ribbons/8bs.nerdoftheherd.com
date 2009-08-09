@@ -56,37 +56,37 @@ td.titlebottom {
 	text-align: center;
 }
 
-td.menulines {
+td#menulines {
 	vertical-align: top;
 }
 
-td.menulines div a {
+td#menulines div a {
 	display: block;
 	color: %items%;
 	text-decoration: none;
 }
 
-div.menuline a:hover, div.menulinehl a {
+td#menulines div a:hover, td#menulines div.selectedline a {
 	background-color: %highlight%;
 }
 
-div.menuline a .letters {
+td#menulines div a .letters {
 	color: %letters%;
 }
 
-div.menuline a:focus {
+td#menulines div a:focus {
 	color: %letters%;
 }
 
-div.menuline a .gt {
+td#menulines div a .gt {
 	color: black;
 }
 
-div.menuline a:hover .gt, div.menulinehl a .gt {
+td#menulines div a:hover .gt, td#menulines div.selectedline a .gt {
 	color: %highlight%;
 }
 
-div.menuline a:focus .gt {
+td#menulines div a:focus .gt {
 	color: %letters%;
 }
 

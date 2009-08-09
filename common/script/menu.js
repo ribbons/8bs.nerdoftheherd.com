@@ -1,63 +1,36 @@
-function getElementsByClassName(oElm, strTagName, oClassNames){
-	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
-	var arrReturnElements = new Array();
-	var arrRegExpClassNames = new Array();
-	if(typeof oClassNames == "object"){
-		for(var i=0; i<oClassNames.length; i++){
-			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
-		}
-	}
-	else{
-		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
-	}
-	var oElement;
-	var bMatchesAll;
-	for(var j=0; j<arrElements.length; j++){
-		oElement = arrElements[j];
-		bMatchesAll = true;
-		for(var k=0; k<arrRegExpClassNames.length; k++){
-			if(!arrRegExpClassNames[k].test(oElement.className)){
-				bMatchesAll = false;
-				break;
-			}
-		}
-		if(bMatchesAll){
-			arrReturnElements.push(oElement);
-		}
-	}
-	return (arrReturnElements)
+function setselecteditem(item) {
+	// Remove the selection from the currently selected line
+	$("#menulines div.selectedline").removeClass("selectedline");
+	
+	// Select the new line and update the description text to show the link title
+	item.addClass("selectedline");
+	$("#descript").text(item.find("a").attr("title"));
 }
 
-window.onload=function() {
-	menuobjs=getElementsByClassName(document, "div", "menuline");
-	
-	for(var sethandlers=0; sethandlers < menuobjs.length; sethandlers++) {
-		menuobjs[sethandlers].getElementsByTagName("a")[0].onmouseover = new Function("setselecteditem(\""+menuobjs[sethandlers].id+"\");");
+function processkey(event) {
+	if(event.which > 96 && event.which < 111) {
+		// Find the menu item for the key that was pressed
+		var keyitem = $("#menulines div:eq(" + (event.which - 97) + ")");
+		
+		// If the item exists, set it as selected
+		if(keyitem.length > 0) {
+			setselecteditem(keyitem);
+		}
+	} else if(event.which == 13) {
+		// Navigate to the value of the href of the link for the selected item
+		document.location = $("#menulines div.selectedline:first a").attr("href");
 	}
-	
-	setselecteditem("line0");
-	
-	document.onkeypress = processkeys;
 }
 
-function setselecteditem(obj) {
-	hlobjs=getElementsByClassName(document, "div", "menuline");
+$(document).ready(function() {
+	// Select the first item in the menu
+	setselecteditem($("#menulines div:first"));
 	
-	for(var clearhl=0; clearhl < hlobjs.length; clearhl++) {
-		hlobjs[clearhl].className="menuline";
-	}
+	// Add a mouseover event to call setselecteditem to each of the menu links
+	$("#menulines div a").mouseover(function() {
+		setselecteditem($(this).parent());
+	});
 	
-	document.getElementById(obj).className = "menuline menulinehl";
-	document.getElementById("descript").innerHTML = document.getElementById(obj).getElementsByTagName("a")[0].getAttribute("title");
-}
-
-function processkeys(event) {
-	if(!event) event=window.event;
-	key = event.keycode ? event.keycode : event.which;
-	
-	if(key > 96 && key < 111) {
-		setselecteditem("line"+(key-97));
-	} else if(key==13) {
-		document.location=getElementsByClassName(document, "div", "menulinehl")[0].getElementsByTagName("a")[0].getAttribute("href");
-	}
-}
+	// Add the processkey handler to document keypress for keyboard navigation
+	$(document).keypress(processkey);
+});
