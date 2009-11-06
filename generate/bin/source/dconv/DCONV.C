@@ -4,19 +4,18 @@
    If dest directory is not specified then CWD will be used.
 
 */
+#define STRICT                  // Enable strict type checking
+#define WIN32_LEAN_AND_MEAN     // Exclude rarely-used stuff from Windows headers
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
-#include <dir.h>
-#include <dos.h>
+#include <windows.h>
 #include <stdarg.h>
+#include <direct.h>
 
-#ifdef GNUC
-#define INLINE inline
-#else
 #define INLINE
-#endif
 
 /* These are used for the decoding of the disk image */
 typedef unsigned char byte;
@@ -52,7 +51,7 @@ char *OutputPath=NULL;
 #define SIDE 2
 
 /* Details about the disk */
-int NumTracks=0;				/* # tracks on the disk, if specified */
+unsigned int NumTracks=0;		/* # tracks on the disk, if specified */
 int InterleaveMode=-1;	 		/* Interleave mode for double-sided disks */
 int Side=-1;					/* Side to convert */
 int DoubleSided=0;				/* Flag: double-sided or not */
@@ -81,9 +80,9 @@ void err(int errcode,char *fmt,...) {
 }
 
 struct _BBCfile *FindFilename(char *file2find) {
-	int j;
+	int j = 0;
 
-	while(j<Nextfile && stricmp(files[j].PCfilename,file2find)!=0) {
+	while(j<Nextfile && _stricmp(files[j].PCfilename,file2find)!=0) {
 		j++;
 	}
 	if(j>=Nextfile) {
@@ -104,22 +103,6 @@ INLINE void *xmalloc(size_t s) {
 	return(tmp);
 }
 
-/* 0=doesn't exist, 1=file exists, 2=dir exists */
-int exist(char *name) {
-	struct ffblk fi; int i;
-
-	i=findfirst(name,&fi,FA_DIREC|FA_HIDDEN|FA_SYSTEM|FA_RDONLY|FA_ARCH);
-	if(i==0) {
-		if(fi.ff_attrib & FA_DIREC) {
-			return(2);
-		} else {
-			return(1);
-		}
-	} else {
-		return(0);
-	}
-}
-
 /* Returns 1 if the character 'c' is invalid in MS-DOS names. */
 int isinvalid(char c) {
     return(strchr(InvalidCharacters,c)!=NULL);
@@ -128,7 +111,7 @@ int isinvalid(char c) {
 /* PC files are one character dir+seven character filename, with any invalid
    MS-DOS characters turned into '_'. */
 void ConverttoPC(char *destPC,char BBCdir,char *BBCname) {
-	int j;
+	unsigned int j;
 
 	destPC[0]=BBCdir;
 	strcpy(destPC+1,BBCname);
@@ -188,9 +171,8 @@ INLINE byte GetDiskByte(int side,int track,int sector,int offset) {
 }
 
 int Convert(void) {
-	size_t r; FILE *h;
-	int cat,j,j2,ko,t;
-	FILE *oh; dword fptr;
+	int cat,j,j2;
+	FILE *oh;
     int NumCatalogues;
 	char AutoDetectBuf[8],CompareBuf[8]={0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA};
 
@@ -315,14 +297,22 @@ int Convert(void) {
 	}
 	/* Now write out the files */
 	for(j=0;j<Nextfile;j++) {
-		char tfilename[9];
-		char tmp[3];
-		int lastpos,byt;
-		char INFfile[MAXPATH],DATfile[MAXPATH];
-		int CurrentTrack,CurrentSector,sector;
+		unsigned int byt;
+		char INFfile[MAX_PATH],DATfile[MAX_PATH];
+		unsigned int CurrentTrack,CurrentSector,sector;
 
-		fnmerge(INFfile,NULL,OutputPath,files[j].PCfilename,".INF");
-		fnmerge(DATfile,NULL,OutputPath,files[j].PCfilename,NULL);
+		INFfile[0] = 0;
+		DATfile[0] = 0;
+
+		strcpy(INFfile,OutputPath);
+		strcat(INFfile, "\\");
+		strcat(INFfile,files[j].PCfilename);
+		strcat(INFfile,".inf");
+
+		strcpy(DATfile,OutputPath);
+		strcat(DATfile, "\\");
+		strcat(DATfile,files[j].PCfilename);
+
 		/* Print out some information to keep the user happy */
 		printf("%c.%-8s %c %08lX %08lX %08lX %03X -> %s\n",files[j].dir,files[j].name,files[j].locked?'L':' ',files[j].load,
 			files[j].exec,files[j].length,files[j].startsector,files[j].PCfilename);
@@ -393,7 +383,7 @@ void ProcessCommandline(int argc,char *argv[]) {
 	int j=1;
 
 	while(j<argc) {
-		if(stricmp(argv[j],"-side")==0) {
+		if(_stricmp(argv[j],"-side")==0) {
 			j++;
 			if(j<argc) {
 				if((argv[j][0]=='0' || argv[j][0]=='1') && argv[j][1]==0) {
@@ -405,7 +395,7 @@ void ProcessCommandline(int argc,char *argv[]) {
 			} else {
 				err(1,"Error in -side parameter");
 			}
-		} else if(stricmp(argv[j],"-d")==0 || stricmp(argv[j],"-disk")==0) {
+		} else if(_stricmp(argv[j],"-d")==0 || _stricmp(argv[j],"-disk")==0) {
 			j++;
 			if(j<argc) {
 				InputFilename=xmalloc(strlen(argv[j])+1);
@@ -413,7 +403,7 @@ void ProcessCommandline(int argc,char *argv[]) {
 			} else {
 				err(1,"Error in -disk parameter");
 			}
-		} else if(stricmp(argv[j],"-o")==0) {
+		} else if(_stricmp(argv[j],"-o")==0) {
 			j++;
 			if(j<argc) {
 				OutputPath=xmalloc(strlen(argv[j])+1);
@@ -421,27 +411,27 @@ void ProcessCommandline(int argc,char *argv[]) {
 			} else {
 				err(1,"Error in -o parameter");
 			}
-		} else if(stricmp(argv[j],"-interleave")==0) {
+		} else if(_stricmp(argv[j],"-interleave")==0) {
 			j++;
 			if(j<argc) {
-				if(stricmp(argv[j],"track")==0) {
+				if(_stricmp(argv[j],"track")==0) {
 					InterleaveMode=TRACK;
-				} else if(stricmp(argv[j],"sector")==0) {
+				} else if(_stricmp(argv[j],"sector")==0) {
 					InterleaveMode=SECTOR;
-				} else if(stricmp(argv[j],"side")==0) {
+				} else if(_stricmp(argv[j],"side")==0) {
 					InterleaveMode=SIDE;
 				} else {
 					err(1,"Unrecognised type in -interleave parameter");
 				}
-			} else if(stricmp(argv[j],"-help")==0 || stricmp(argv[j],"-h")==0) {
+			} else if(_stricmp(argv[j],"-help")==0 || _stricmp(argv[j],"-h")==0) {
 				DoHelp=1;
 			} else {
 				err(1,"Error in -interleave parameter");
 			}
-		} else if(stricmp(argv[j],"-31")==0 || stricmp(argv[j],"-62")==0) {
-            NumFiles=(stricmp(argv[j],"-31")==0)?31:62;
-        } else if(stricmp(argv[j],"-40")==0 || stricmp(argv[j],"-80")==0) {
-            NumTracks=(stricmp(argv[j],"-40")==0)?40:80;
+		} else if(_stricmp(argv[j],"-31")==0 || _stricmp(argv[j],"-62")==0) {
+            NumFiles=(_stricmp(argv[j],"-31")==0)?31:62;
+        } else if(_stricmp(argv[j],"-40")==0 || _stricmp(argv[j],"-80")==0) {
+            NumTracks=(_stricmp(argv[j],"-40")==0)?40:80;
         } else {
             err(1,"Unrecognised parameter %s",argv[j]);
         }
@@ -464,8 +454,9 @@ void ProcessCommandline(int argc,char *argv[]) {
 					(Default: track)
 */
 int main(int argc,char *argv[]) {
-	int r,done;
-	struct ffblk fi;
+	int r;
+	HANDLE hFind;
+	WIN32_FIND_DATA fi;
 
 	printf("Disk Image Converter, v2.0\n");
 	ProcessCommandline(argc,argv);
@@ -520,37 +511,58 @@ int main(int argc,char *argv[]) {
 			InterleaveMode=TRACK;
 		}
 	}
+
 	/* Now do everything */
 	if(OutputPath==NULL) {
-		OutputPath=xmalloc(MAXDIR+1);
-		getcwd(OutputPath,MAXDIR);
+		OutputPath=xmalloc(MAX_PATH+1);
+		_getcwd(OutputPath,MAX_PATH);
 	} else {
-		if(stricmp(OutputPath,"*")==0) {
+		if(_stricmp(OutputPath,"*")==0) {
 			/* Dest. dir is filename w/o extension */
-			char wp[MAXFILE];
+			if(strlen(InputFilename) > 0) {
+				char *pPos = "";
 
-			fnsplit(InputFilename,NULL,NULL,wp,NULL);
-			free(OutputPath);
-			OutputPath=xmalloc(strlen(wp)+1);
-			strcpy(OutputPath,wp);
+				// Check if the input filename contains a slash
+				if (strchr(InputFilename, '\\') == NULL)
+				{
+					// Copy the whole input filename
+					strcpy(OutputPath, InputFilename);
+				}
+				else
+				{
+					// Copy just the filename
+					char *tempTitle = strrchr(InputFilename, '\\') + 1;
+					strcpy(OutputPath, tempTitle);
+				}
+
+				// Get a pointer to the dot
+				pPos = strrchr(OutputPath, '.');
+
+				if(pPos != NULL) {
+					// Trim off the extension by setting the dot to null
+					*pPos = '\0';
+				}
+			}
 		}
 	}
-	/* check for existence of destination directory */
-	done=findfirst(OutputPath,&fi,FA_DIREC|FA_HIDDEN|FA_SYSTEM|FA_ARCH);
-	if(done) {
-		int r;
-		/* not found */
-        r=mkdir(OutputPath);
-		if(r<0) {
+
+	// check for existence of destination directory
+	hFind = FindFirstFile(OutputPath, &fi);
+	if(hFind == INVALID_HANDLE_VALUE) {
+		// Folder does not exist, so create it
+		int r = _mkdir(OutputPath);
+
+		if(r < 0) {
 			perror("mkdir error:");
 			return(1);
 		}
 	} else {
-		if(!(fi.ff_attrib & FA_DIREC)) {
-			/* dest exists but is a file */
+		if(!(fi.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+			// dest exists but is a file 
             err(1,"Destination is a file!");
 		}
 	}
+
 	/* Everything should be hunkydory now */
 	r=Convert();
 	printf("Result: %s\n",ConvertResults[r]);

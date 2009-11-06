@@ -163,7 +163,7 @@
 	
 	floutput('Extracting Side 0',1);
 	
-	exec('bin\dconv.com -d source\\'.$thisissue.'.dsd -o temp\0 -side 0 -interleave track', $output, $return);
+	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\0 -side 0 -interleave track', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem extracting files from DFS disk image (side 0)';
@@ -172,7 +172,7 @@
 	
 	floutput('Extracting Side 2',1);
 	
-	exec('bin\dconv.com -d source\\'.$thisissue.'.dsd -o temp\2 -side 1 -interleave track', $output, $return);
+	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\2 -side 1 -interleave track', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem extracting files from DFS disk image (side 2)';
