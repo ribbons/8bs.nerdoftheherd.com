@@ -1,10 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
-	<head>
-		<title>8BS to HTML conversion</title>
-	</head>
-	
-	<body>
 <?php
 	require 'convert.php';
 	require 'convertmode0.php';
@@ -35,7 +28,7 @@
 	function GetData() {
 		global $colours;
 		
-		$handle=fopen('temp\0\$!Boot.txt','r');
+		$handle=fopen('temp\extracted\0\$!Boot.txt','r');
 
 		$returned=fgets($handle,5000);
 
@@ -100,102 +93,78 @@
 		else:
 			switch($id):
 				case -1:
-					floutput('Converting Mode 0 text "'.substr($file,2).'"',2);
-					$convert=new convertmode0('temp//'.$file, $issuenum, $title);
+					indentecho('Converting Mode 0 text "'.substr($file,2).'"',2);
+					$convert=new convertmode0('temp/extracted/'.$file, $issuenum, $title);
 					break;
 				case -2:
-					floutput('Converting Mode 7 text "'.substr($file,2).'"',2);
-					$convert=new convertmode7('temp//'.$file, $issuenum, $title, true, true);
+					indentecho('Converting Mode 7 text "'.substr($file,2).'"',2);
+					$convert=new convertmode7('temp/extracted/'.$file, $issuenum, $title, true, true);
 					break;
 				case -4:
-					floutput('Converting basic file "'.substr($file,2).'"',2);
-					$convert=new convertbasic('temp//'.$file, $issuenum, $title);
+					indentecho('Converting basic file "'.substr($file,2).'"',2);
+					$convert=new convertbasic('temp/extracted/'.$file, $issuenum, $title);
 					break;
 				case -8:
-					floutput('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
+					indentecho('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
 					$convert=new convertrunnable($file, $issuenum, $title);
 					break;
 				default:
 					echo 'Action not defined for '.$id.' - Aborting.';
-					exit;
+					exit(1);
 					break;
 			endswitch;
 			
-			$convert->savehtml('../'.$thisissue.'/content/'.$file.'.html');
+			$convert->savehtml('temp/web/'.$thisissue.'/content/'.$file.'.html');
 			return 'content/'.$file.'.html';
 		endif;
 	}
 	
-	function floutput($text,$indent) {
-		echo '<div style="margin-left: '.$indent.'em">'.$text.'</div>';
-		ob_flush( );
+	function indentecho($text,$indent) {
+		echo str_repeat("\t", $indent).$text."\n";
 		flush();
-	}
-	
-	# Remove the previously generated issues
-	foreach(glob('../8BS??') as $foundfolder) {
-		emptydir($foundfolder);
-		rmdir($foundfolder);
-	}
-	
-	# Remove the contents of the mode 7 graphics folder
-	foreach(glob('..\common\mode7\*.png') as $foundfile) {
-		unlink($foundfile);
 	}
 	
 	$issuesindexlist = '';
 	$thisissue='8BS64';
 	
-	floutput('Issue '.$thisissue,0);
+	indentecho('Issue '.$thisissue,0);
+	indentecho('Extracting Side 0',1);
 	
-	# Set up the temp folders
-	if(is_dir('temp\0')):
-		emptydir('temp\0');
-	else:
-		mkdir('temp\0');
-	endif;
-	
-	if(is_dir('temp\2')):
-		emptydir('temp\2');
-	else:
-		mkdir('temp\2');
-	endif;
-	
-	floutput('Extracting Side 0',1);
-	
-	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\0 -side 0 -interleave track', $output, $return);
+	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\extracted\0 -side 0 -interleave track', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem extracting files from DFS disk image (side 0)';
-		exit;
+		exit($return);
 	endif;
 	
-	floutput('Extracting Side 2',1);
+	indentecho('Extracting Side 2',1);
 	
-	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\2 -side 1 -interleave track', $output, $return);
+	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\extracted\2 -side 1 -interleave track', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem extracting files from DFS disk image (side 2)';
-		exit;
+		exit($return);
 	endif;
 	
-	exec('bin\bas2txt.exe /n temp\0\$!Boot', $output, $return);
+	indentecho('Fetching menu data',1);
+	
+	exec('bin\bas2txt.exe /n temp\extracted\0\$!Boot', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem converting !boot file to text';
-		exit;
+		exit($return);
 	endif;
 	
 	$splitdata=GetData();
 	
-	$header=file_get_contents('pages/header.html');
+	$header=file_get_contents('templates/header.html');
 	$header=str_replace('%title%', '8BS%iss%: %title%', $header);
 	$handle=fopen('temp/header.html','w');
 	fputs($handle, $header);
 	fclose($handle);
 	
 	$colstrans=transcols($colours);
-	$menu=file_get_contents('temp/header.html').file_get_contents('pages/menu.html').file_get_contents('pages/footer.html');
+	$menu=file_get_contents('temp/header.html').file_get_contents('templates/menu.html').file_get_contents('templates/footer.html');
 	
 	$menu=str_replace('%stylesheetpath%', 'styles/menu.css', $menu);
 	$menu=str_replace('%includejs%', '<script src="/common/script/menu.js" type="text/javascript"></script>', $menu);
@@ -206,19 +175,25 @@
 	$menupagenum=1;
 	$curline=1;
 	
-	floutput('Creating Structures',1);
+	indentecho('Creating Structures',1);
 	
-	mkdir('../'.$thisissue);
-	mkdir('../'.$thisissue.'/styles');
-	mkdir('../'.$thisissue.'/content');
-	mkdir('../'.$thisissue.'/content/0');
-	mkdir('../'.$thisissue.'/content/2');
+	if(!is_dir('temp/web/'.$thisissue.'/content/0')):
+		mkdir('temp/web/'.$thisissue.'/content/0', 0777, true);
+	endif;
+	
+	if(!is_dir('temp/web/'.$thisissue.'/content/2')):
+		mkdir('temp/web/'.$thisissue.'/content/2');
+	endif;
+	
+	if(!is_dir('temp/web/'.$thisissue.'/styles')):
+		mkdir('temp/web/'.$thisissue.'/styles');
+	endif;
 	
 	while($curline < count($splitdata)):
 		$menuitems='';
 		$menuline=0;
 		
-		floutput('Generating menu "'.$splitdata[$curline][0].'"',1);
+		indentecho('Generating menu "'.$splitdata[$curline][0].'"',1);
 		
 		$thismenu=str_replace('%titlecol%', $colours['q'], $menu);
 		$thismenu=str_replace('%title%', $splitdata[$curline][0], $thismenu);
@@ -235,15 +210,15 @@
 		
 		$thismenu=str_replace('%menuitems%', $menuitems, $thismenu);
 		
-		$handle=fopen('../'.$thisissue.str_replace('menu1','index','/menu'.$menupagenum).'.html','w');
+		$handle=fopen('temp/web/'.$thisissue.str_replace('menu1','index','/menu'.$menupagenum).'.html','w');
 		fputs($handle, $thismenu);
 		fclose($handle);
 		$menupagenum++;
 	endwhile;
 	
-	floutput('Creating CSS',1);
+	indentecho('Creating CSS',1);
 	
-	$css=file_get_contents('pages/styles/menu.css');
+	$css=file_get_contents('templates/styles/menu.css');
 	
 	$css=str_replace('%id%', $colstrans['i'], $css);
 	$css=str_replace('%dteiss%', $colstrans['r'], $css);
@@ -256,37 +231,33 @@
 	$css=str_replace('%descript%', $colstrans['d'], $css);
 	$css=str_replace('%helptxt%', $colstrans['v'], $css);
 	
-	$handle=fopen('../'.$thisissue.'/styles/menu.css','w');
+	$handle=fopen('temp/web/'.$thisissue.'/styles/menu.css','w');
 	fputs($handle, $css);
 	fclose($handle);
 	
 	$issuesindexlist.= '<li><a href="/'.$thisissue.'/">Issue '.substr($thisissue, 3).'</a></li>';
 	
-	floutput('Generating site level pages', 0);
-	floutput('About page', 1);
+	indentecho('Generating site level pages', 0);
+	indentecho('About page', 1);
 	
-	$aboutpage = file_get_contents('pages/header.html').file_get_contents('pages/about.html').file_get_contents('pages/footer.html');
+	$aboutpage = file_get_contents('templates/header.html').file_get_contents('templates/about.html').file_get_contents('templates/footer.html');
 	$aboutpage = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $aboutpage);
 	$aboutpage = str_replace('%includejs%', '', $aboutpage);
 	$aboutpage = str_replace('%title%', 'About this conversion', $aboutpage);
 	
-	$handle = fopen('../about.html', 'w');
+	$handle = fopen('temp/web/about.html', 'w');
 	fputs($handle, $aboutpage);
 	fclose($handle);
 	
-	floutput('Magazines index', 1);
+	indentecho('Magazines index', 1);
 	
-	$mainindex = file_get_contents('pages/header.html').file_get_contents('pages/index.html').file_get_contents('pages/footer.html');
+	$mainindex = file_get_contents('templates/header.html').file_get_contents('templates/index.html').file_get_contents('templates/footer.html');
 	$mainindex = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $mainindex);
 	$mainindex = str_replace('%includejs%', '', $mainindex);
 	$mainindex = str_replace('%title%', '8-Bit Software Magazines Index', $mainindex);
 	$mainindex = str_replace('%issueslist%', $issuesindexlist, $mainindex);
 	
-	$handle = fopen('../index.html', 'w');
+	$handle = fopen('temp/web/index.html', 'w');
 	fputs($handle, $mainindex);
 	fclose($handle);
-	
-	echo '<p>Finished</p>';
 ?>
-	</body>
-</html>

@@ -50,7 +50,7 @@
 			$this->generatehtml();
 			
 			if($headerandfooter):
-				$this->html.=file_get_contents('pages/footer.html');
+				$this->html.=file_get_contents('templates/footer.html');
 			endif;
 		}
 		
@@ -1503,10 +1503,10 @@
 				imagecolordeallocate($imgsym, $colours[convertmode7::COL_WHITE]);
 			endif;
 			
-			$savename = $this->saveimage($imgsym, '../common/mode7/graph', '.png');
+			$savename = $this->saveimage($imgsym, 'temp/web/common/mode7/graph', '.png');
 			imagedestroy($imgsym);
 			
-			return substr($savename, 2);
+			return substr($savename, 8);
 		}
 		
 		private function setimagecolour($image, $index, $colour) {
@@ -1565,10 +1565,10 @@
 				endforeach;
 			endforeach;
 			
-			$savename = $this->saveimage($imgchars, '../common/mode7/dbltxt', '.png');
+			$savename = $this->saveimage($imgchars, 'temp/web/common/mode7/dbltxt', '.png');
 			imagedestroy($imgchars);
 			
-			return substr($savename, 2);
+			return substr($savename, 8);
 		}
 	}
 ?>

@@ -1,0 +1,46 @@
+<project default="dev" name="8bs.nerdoftheherd.com">
+	<property environment="env" />
+	
+	<property name="dev-dir" value="${env.dev-root}/${ant.project.name}" />
+	<property name="staging-dir" value="${env.staging-root}/${ant.project.name}" />
+	
+	<target name="touch">
+		<touch>
+			<fileset dir="web" />
+		</touch>
+	</target>
+	
+	<target name="clean-common">
+		<delete dir="temp" />
+		<delete dir="${dest-dir}" />
+	</target>
+	
+	<target name="dist-common">
+		<mkdir dir="temp/extracted/0" />
+		<mkdir dir="temp/extracted/2" />
+		<mkdir dir="temp/web/common/mode7" />
+		
+		<exec executable="php" failonerror="true">
+			<arg value="generate.php" />
+		</exec>
+		
+		<copy todir="${dest-dir}">
+			<fileset dir="web" />
+			<fileset dir="temp/web" />
+		</copy>
+	</target>
+	
+	<target name="dev-settings">
+		<property name="dest-dir" value="${dev-dir}" />
+	</target>
+	
+	<target name="clean" depends="dev-settings,clean-common" />
+	<target name="dev" depends="dev-settings,dist-common" />
+	
+	<target name="staging-settings">
+		<property name="dest-dir" value="${staging-dir}" />
+	</target>
+	
+	<target name="clean-staging" depends="staging-settings,clean-common" />
+	<target name="staging" depends="staging-settings,dist-common" />
+</project>

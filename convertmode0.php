@@ -33,7 +33,7 @@
 			$this->html.=$disptext;
 			$this->html.='</div>';
 			
-			$this->html.=file_get_contents('pages/footer.html');
+			$this->html.=file_get_contents('templates/footer.html');
 		}
 	}
 ?>
