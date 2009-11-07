@@ -1,4 +1,6 @@
 <?php
+	require_once 'convert.php';
+	
 	class convertbasic extends convert {
 		public function convertbasic($filename, $issue, $title) {
 			$this->html=file_get_contents('temp/header.html');

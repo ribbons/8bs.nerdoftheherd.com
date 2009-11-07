@@ -1,4 +1,6 @@
 <?php
+	require_once 'convert.php';
+	
 	class convertmode7 extends convert {
 		const MODE_TEXT=1;
 		const MODE_GRAPHICS=2;

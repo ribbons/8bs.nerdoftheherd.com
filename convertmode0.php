@@ -1,4 +1,6 @@
 <?php
+	require_once 'convert.php';
+	
 	class convertmode0 extends convert {
 		public function convertmode0($filename, $issue, $title) {
 			$this->html=file_get_contents('temp/header.html');

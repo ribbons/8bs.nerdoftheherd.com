@@ -1,5 +1,4 @@
 <?php
-	require 'convert.php';
 	require 'convertmode0.php';
 	require 'convertmode7.php';
 	require 'convertbasic.php';
