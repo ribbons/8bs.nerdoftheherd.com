@@ -5,18 +5,6 @@
 	require 'convertbasic.php';
 	require 'convertrunnable.php';
 	
-	# Empty a directory
-	function emptydir($dir) {
-		foreach(glob($dir.'\*') as $foundfile) {
-			if(is_dir($foundfile)):
-				emptydir($foundfile);
-				rmdir($foundfile);
-			else:
-				unlink($foundfile);
-			endif;
-		}
-	}
-	
 	function fixfilepath($dir, $file) {
 		if (substr($dir,1,1)=='.'):
 			return substr($dir,0,1).'/'.substr($dir,2,1).$file;
@@ -25,10 +13,10 @@
 		endif;
 	}
 	
-	function GetData() {
+	function GetData($thisissue) {
 		global $colours;
 		
-		$handle=fopen('temp\extracted\0\$!Boot.txt','r');
+		$handle=fopen('temp\extracted\\'.$thisissue.'\0\$!Boot.txt','r');
 
 		$returned=fgets($handle,5000);
 
@@ -94,15 +82,15 @@
 			switch($id):
 				case -1:
 					indentecho('Converting Mode 0 text "'.substr($file,2).'"',2);
-					$convert=new convertmode0('temp/extracted/'.$file, $issuenum, $title);
+					$convert=new convertmode0('temp/extracted/'.$thisissue.'/'.$file, $issuenum, $title);
 					break;
 				case -2:
 					indentecho('Converting Mode 7 text "'.substr($file,2).'"',2);
-					$convert=new convertmode7('temp/extracted/'.$file, $issuenum, $title, true, true);
+					$convert=new convertmode7('temp/extracted/'.$thisissue.'/'.$file, $issuenum, $title, true, true);
 					break;
 				case -4:
 					indentecho('Converting basic file "'.substr($file,2).'"',2);
-					$convert=new convertbasic('temp/extracted/'.$file, $issuenum, $title);
+					$convert=new convertbasic('temp/extracted/'.$thisissue.'/'.$file, $issuenum, $title);
 					break;
 				case -8:
 					indentecho('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
@@ -130,7 +118,11 @@
 	indentecho('Issue '.$thisissue,0);
 	indentecho('Extracting Side 0',1);
 	
-	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\extracted\0 -side 0 -interleave track', $output, $return);
+	if(!is_dir('temp/extracted/'.$thisissue.'/0')):
+		mkdir('temp/extracted/'.$thisissue.'/0', 0777, true);
+	endif;
+	
+	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\extracted\\'.$thisissue.'\0 -side 0 -interleave track', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem extracting files from DFS disk image (side 0)';
@@ -139,7 +131,11 @@
 	
 	indentecho('Extracting Side 2',1);
 	
-	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\extracted\2 -side 1 -interleave track', $output, $return);
+	if(!is_dir('temp/extracted/'.$thisissue.'/2')):
+		mkdir('temp/extracted/'.$thisissue.'/2');
+	endif;
+	
+	exec('bin\dconv -d source\\'.$thisissue.'.dsd -o temp\extracted\\'.$thisissue.'\2 -side 1 -interleave track', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem extracting files from DFS disk image (side 2)';
@@ -148,14 +144,14 @@
 	
 	indentecho('Fetching menu data',1);
 	
-	exec('bin\bas2txt.exe /n temp\extracted\0\$!Boot', $output, $return);
+	exec('bin\bas2txt.exe /n temp\extracted\\'.$thisissue.'\0\$!Boot', $output, $return);
 	
 	if($return<>0):
 		echo 'Problem converting !boot file to text';
 		exit($return);
 	endif;
 	
-	$splitdata=GetData();
+	$splitdata=GetData($thisissue);
 	
 	$header=file_get_contents('templates/header.html');
 	$header=str_replace('%title%', '8BS%iss%: %title%', $header);

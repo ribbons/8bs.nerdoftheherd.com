@@ -16,8 +16,7 @@
 	</target>
 	
 	<target name="dist-common">
-		<mkdir dir="temp/extracted/0" />
-		<mkdir dir="temp/extracted/2" />
+		<mkdir dir="temp/extracted" />
 		<mkdir dir="temp/web/common/mode7" />
 		
 		<exec executable="php" failonerror="true">
