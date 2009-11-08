@@ -1,110 +1,9 @@
 <?php
+	require 'menu.php';
 	require 'convertmode0.php';
 	require 'convertmode7.php';
 	require 'convertbasic.php';
 	require 'convertrunnable.php';
-	
-	function fixfilepath($dir, $file) {
-		if (substr($dir,1,1)=='.'):
-			return substr($dir,0,1).'/'.substr($dir,2,1).$file;
-		else:
-			return $dir.'/$'.$file;
-		endif;
-	}
-	
-	function GetData($thisissue) {
-		global $colours;
-		
-		$handle=fopen('temp\extracted\\'.$thisissue.'\0\$!Boot.txt','r');
-
-		$returned=fgets($handle,5000);
-
-		while($returned<>''):
-			# Menu Colour Data
-			if(substr($returned,4,5)==":REM "):
-				$colours[substr($returned,0,1)]=substr($returned,3,1);
-			endif;
-			
-			# Menu Data
-			if(substr($returned,0,5)=="DATA "):
-				$splitdata[]=split(',',substr($returned, 5));
-			endif;
-
-			$returned=fgets($handle,5000);
-		endwhile;
-
-		fclose($handle);
-		
-		return $splitdata;
-	}
-	
-	function transcols($colours) {
-		$coltr[1]='red';
-		$coltr[2]='lime';
-		$coltr[3]='yellow';
-		$coltr[4]='blue';
-		$coltr[5]='fuchsia';
-		$coltr[6]='aqua';
-		$coltr[7]='white';
-		
-		foreach($colours as $key => $colour):
-			$colstrans[$key]=$coltr[$colour];
-		endforeach;
-		
-		return $colstrans;
-	}
-	
-	function GetDescript($id) {
-		$descriptions[0]='Runs Code'; # Guess
-		$descriptions[-1]='80 Column Text';
-		$descriptions[-2]='40 Column Text';
-		$descriptions[-3]='Archive'; # Guess
-		$descriptions[-4]='Basic Program';
-		$descriptions[-5]='Loads BASIC'; # Guess
-		$descriptions[-6]='Lists Basic'; # Guess
-		$descriptions[-7]='Uses LDPIC'; # Guess
-		$descriptions[-8]='*RUN';
-		
-		if(isset($descriptions[$id])):
-			$descript=$descriptions[$id];
-		else:
-			$descript='Another menu';
-		endif;
-		
-		return $descript;
-	}
-	
-	function LinkTo($id, $file, $thisissue, $issuenum, $title) {
-		if($id > 0):
-			return str_replace('menu1','index','menu'.$id).'.html';
-		else:
-			switch($id):
-				case -1:
-					indentecho('Converting Mode 0 text "'.substr($file,2).'"',2);
-					$convert=new convertmode0('temp/extracted/'.$thisissue.'/'.$file, $issuenum, $title);
-					break;
-				case -2:
-					indentecho('Converting Mode 7 text "'.substr($file,2).'"',2);
-					$convert=new convertmode7('temp/extracted/'.$thisissue.'/'.$file, $issuenum, $title, true, true);
-					break;
-				case -4:
-					indentecho('Converting basic file "'.substr($file,2).'"',2);
-					$convert=new convertbasic('temp/extracted/'.$thisissue.'/'.$file, $issuenum, $title);
-					break;
-				case -8:
-					indentecho('Adding placeholder for *RUNnable file "'.substr($file,2).'"', 2);
-					$convert=new convertrunnable($file, $issuenum, $title);
-					break;
-				default:
-					echo 'Action not defined for '.$id.' - Aborting.';
-					exit(1);
-					break;
-			endswitch;
-			
-			$convert->savehtml('temp/web/'.$thisissue.'/content/'.$file.'.html');
-			return 'content/'.$file.'.html';
-		endif;
-	}
 	
 	function indentecho($text,$indent) {
 		echo str_repeat("\t", $indent).$text."\n";
@@ -141,16 +40,7 @@
 		exit($return);
 	endif;
 	
-	indentecho('Fetching menu data',1);
-	
-	exec('bin\bas2txt.exe /n temp\extracted\\'.$thisissue.'\0\$!Boot', $output, $return);
-	
-	if($return<>0):
-		echo 'Problem converting !boot file to text';
-		exit($return);
-	endif;
-	
-	$splitdata=GetData($thisissue);
+	indentecho('Preparing templates', 1);
 	
 	$header=file_get_contents('templates/header.html');
 	$header=str_replace('%title%', '8BS%iss%: %title%', $header);
@@ -158,17 +48,10 @@
 	fputs($handle, $header);
 	fclose($handle);
 	
-	$colstrans=transcols($colours);
-	$menu=file_get_contents('temp/header.html').file_get_contents('templates/menu.html').file_get_contents('templates/footer.html');
+	$menu=new menu($thisissue);
 	
-	$menu=str_replace('%stylesheetpath%', 'styles/menu.css', $menu);
-	$menu=str_replace('%includejs%', '<script src="/common/script/menu.js" type="text/javascript"></script>', $menu);
-	$menu=str_replace('%iss%', $splitdata[0][0], $menu);
-	$menu=str_replace('%issdte%', $splitdata[0][1], $menu);
-	
-	$letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	$menupagenum=1;
-	$curline=1;
+	indentecho('Fetching menu data',1);
+	$convertitems = $menu->fetchmenudata();
 	
 	indentecho('Creating Structures',1);
 	
@@ -184,51 +67,36 @@
 		mkdir('temp/web/'.$thisissue.'/styles');
 	endif;
 	
-	while($curline < count($splitdata)):
-		$menuitems='';
-		$menuline=0;
+	foreach($convertitems as $convitem):
+		switch($convitem->itemtype):
+			case itemdata::MODE0:
+				indentecho('Converting Mode 0 text "'.$convitem->title.'"',1);
+				$convert=new convertmode0('temp/extracted/'.$thisissue.'/'.$convitem->path, $menu->issuenum, $convitem->title);
+				break;
+			case itemdata::MODE7:
+				indentecho('Converting Mode 7 text "'.$convitem->title.'"',1);
+				$convert=new convertmode7('temp/extracted/'.$thisissue.'/'.$convitem->path, $menu->issuenum, $convitem->title, true, true);
+				break;
+			case itemdata::BASIC:
+				indentecho('Converting basic file "'.$convitem->title.'"',1);
+				$convert=new convertbasic('temp/extracted/'.$thisissue.'/'.$convitem->path, $menu->issuenum, $convitem->title);
+				break;
+			case itemdata::STARRUN:
+				indentecho('Adding placeholder for *RUNnable file "'.$convitem->title.'"',1);
+				$convert=new convertrunnable($convitem->path, $menu->issuenum, $convitem->title);
+				break;
+			default:
+				echo 'Unknown item type of '.$convitem->itemtype.' - aborting.';
+				exit(1);
+				break;
+		endswitch;
 		
-		indentecho('Generating menu "'.$splitdata[$curline][0].'"',1);
-		
-		$thismenu=str_replace('%titlecol%', $colours['q'], $menu);
-		$thismenu=str_replace('%title%', $splitdata[$curline][0], $thismenu);
-		$thismenu=str_replace('%menutitle%', $splitdata[$curline][0], $thismenu);
-		$stopline=$curline+$splitdata[$curline][1];
-		$curline++;
-		
-		while($curline <= $stopline):
-			$menuitems.= '<div><a href="'.LinkTo(trim($splitdata[$curline][3]),fixfilepath(substr($splitdata[$curline][1],1),$splitdata[$curline][2]),$thisissue,$splitdata[0][0],$splitdata[$curline][0]).'" title="'.GetDescript(trim($splitdata[$curline][3])).'">  <span class="letters">'.$letters[$menuline].'</span><span class="gt">&gt;</span>'.$splitdata[$curline][0].'</a></div>';
-			
-			$curline++;
-			$menuline++;
-		endwhile;
-		
-		$thismenu=str_replace('%menuitems%', $menuitems, $thismenu);
-		
-		$handle=fopen('temp/web/'.$thisissue.str_replace('menu1','index','/menu'.$menupagenum).'.html','w');
-		fputs($handle, $thismenu);
-		fclose($handle);
-		$menupagenum++;
-	endwhile;
+		$convert->savehtml('temp/web/'.$thisissue.'/content/'.$convitem->path.'.html');
+		$convitem->convpath='content/'.$convitem->path.'.html';
+	endforeach;
 	
-	indentecho('Creating CSS',1);
-	
-	$css=file_get_contents('templates/styles/menu.css');
-	
-	$css=str_replace('%id%', $colstrans['i'], $css);
-	$css=str_replace('%dteiss%', $colstrans['r'], $css);
-	$css=str_replace('%title%', $colstrans['q'], $css);
-	$css=str_replace('%menutt%', $colstrans['s'], $css);
-	$css=str_replace('%border%', $colstrans['p'], $css);
-	$css=str_replace('%letters%', $colstrans['t'], $css);
-	$css=str_replace('%highlight%', $colstrans['w'], $css);
-	$css=str_replace('%items%', $colstrans['u'], $css);
-	$css=str_replace('%descript%', $colstrans['d'], $css);
-	$css=str_replace('%helptxt%', $colstrans['v'], $css);
-	
-	$handle=fopen('temp/web/'.$thisissue.'/styles/menu.css','w');
-	fputs($handle, $css);
-	fclose($handle);
+	indentecho('Generating menus',1);
+	$menu->generatemenus();
 	
 	$issuesindexlist.= '<li><a href="/'.$thisissue.'/">Issue '.substr($thisissue, 3).'</a></li>';
 	
