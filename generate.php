@@ -7,7 +7,6 @@
 	
 	function indentecho($text,$indent) {
 		echo str_repeat("\t", $indent).$text."\n";
-		flush();
 	}
 	
 	$issuesindexlist = '';
