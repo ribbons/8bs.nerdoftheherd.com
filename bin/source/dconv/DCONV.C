@@ -28,7 +28,7 @@ typedef signed long int int32;
 
 /* Characters which can't be used in MS-DOS filenames. They will be replaced
    with '_'. */
-char *InvalidCharacters={"%\"*?^+:;/<>.[],`="};
+char *InvalidCharacters={"\"*?:\\/<>|"};
 
 char *ConvertResults[]={"OK","Image open error","Image read error"};
 
