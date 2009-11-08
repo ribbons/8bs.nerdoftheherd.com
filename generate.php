@@ -67,18 +67,25 @@
 	endif;
 	
 	foreach($convertitems as $convitem):
+		$filepath='temp/extracted/'.$thisissue.'/'.$convitem->path;
+		
+		if(!file_exists($filepath)):
+			echo 'File "'.$filepath.'" does not exist - aborting.';
+			exit(1);
+		endif;
+		
 		switch($convitem->itemtype):
 			case itemdata::MODE0:
 				indentecho('Converting Mode 0 text "'.$convitem->title.'"',1);
-				$convert=new convertmode0('temp/extracted/'.$thisissue.'/'.$convitem->path, $menu->issuenum, $convitem->title);
+				$convert=new convertmode0($filepath, $menu->issuenum, $convitem->title);
 				break;
 			case itemdata::MODE7:
 				indentecho('Converting Mode 7 text "'.$convitem->title.'"',1);
-				$convert=new convertmode7('temp/extracted/'.$thisissue.'/'.$convitem->path, $menu->issuenum, $convitem->title, true, true);
+				$convert=new convertmode7($filepath, $menu->issuenum, $convitem->title, true, true);
 				break;
 			case itemdata::BASIC:
 				indentecho('Converting basic file "'.$convitem->title.'"',1);
-				$convert=new convertbasic('temp/extracted/'.$thisissue.'/'.$convitem->path, $menu->issuenum, $convitem->title);
+				$convert=new convertbasic($filepath, $menu->issuenum, $convitem->title);
 				break;
 			case itemdata::STARRUN:
 				indentecho('Adding placeholder for *RUNnable file "'.$convitem->title.'"',1);
