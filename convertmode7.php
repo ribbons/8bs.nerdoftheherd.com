@@ -80,6 +80,7 @@
 						for($fillcol=$column; $fillcol<40; $fillcol++):
 							$this->textcolours[$row][$fillcol]=$forecolour;
 							$this->bkgdcolours[$row][$fillcol]=$backcolour;
+							$this->graphmodes[$row][$fillcol]=$mode;
 							$this->tokenised[$row][$fillcol]='CHAR_SPACE';
 							$this->textheights[$row][$fillcol]=convertmode7::TXHEIGHT_STD;
 							$this->flashs[$row][$fillcol]=convertmode7::FLASH_STATIC;
