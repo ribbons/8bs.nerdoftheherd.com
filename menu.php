@@ -36,11 +36,21 @@
 		private $colours;
 		
 		function convertfilepath($dir, $file) {
-			if (substr($dir,2,1)=='.'):
-				return substr($dir,1,1).'/'.substr($dir,3,1).$file;
+			if(preg_match('/^:([02]).([A-Z%])$/',$dir,$matches)): #eg :0.S
+				$drive=$matches[1];
+				$dir=$matches[2];
+			elseif(preg_match('/^:([02])$/',$dir,$matches)): #eg :0
+				$drive=$matches[1];
+				$dir='$';
+			elseif(preg_match('/^([[A-Z%])$/',$dir,$matches)): #eg S
+				$drive=0;
+				$dir=$matches[1];
 			else:
-				return substr($dir,1,1).'/$'.$file;
+				echo 'Unexpected directory format: "'.$dir.'" - aborting';
+				exit(1);
 			endif;
+			
+			return $drive.'/'.$dir.$file;
 		}
 		
 		function colnumtoname($colour) {
