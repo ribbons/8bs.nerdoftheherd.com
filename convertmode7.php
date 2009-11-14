@@ -87,6 +87,9 @@
 			
 			for($filepos=$startpos; $filepos < strlen($file); $filepos++):
 				switch(ord($file[$filepos])):
+					case 0:
+						# Null byte - assume that the end of the file has been reached
+						break 2;
 					case 13:
 						$this->fillrestofrow($row, $column, $forecolour, $backcolour, $mode);
 						$column=39;
