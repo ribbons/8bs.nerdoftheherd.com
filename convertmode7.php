@@ -56,6 +56,17 @@
 			endif;
 		}
 		
+		private function fillrestofrow($row, $column, $forecolour, $backcolour, $mode) {
+			for($fillcol=$column; $fillcol<40; $fillcol++):
+				$this->textcolours[$row][$fillcol]=$forecolour;
+				$this->bkgdcolours[$row][$fillcol]=$backcolour;
+				$this->graphmodes[$row][$fillcol]=$mode;
+				$this->tokenised[$row][$fillcol]='CHAR_SPACE';
+				$this->textheights[$row][$fillcol]=convertmode7::TXHEIGHT_STD;
+				$this->flashs[$row][$fillcol]=convertmode7::FLASH_STATIC;
+			endfor;
+		}
+		
 		private function tokeniseinput($filename, $trimscroller) {
 			if($trimscroller):
 				$startpos=256;
@@ -77,14 +88,7 @@
 			for($filepos=$startpos; $filepos < strlen($file); $filepos++):
 				switch(ord($file[$filepos])):
 					case 13:
-						for($fillcol=$column; $fillcol<40; $fillcol++):
-							$this->textcolours[$row][$fillcol]=$forecolour;
-							$this->bkgdcolours[$row][$fillcol]=$backcolour;
-							$this->graphmodes[$row][$fillcol]=$mode;
-							$this->tokenised[$row][$fillcol]='CHAR_SPACE';
-							$this->textheights[$row][$fillcol]=convertmode7::TXHEIGHT_STD;
-							$this->flashs[$row][$fillcol]=convertmode7::FLASH_STATIC;
-						endfor;
+						$this->fillrestofrow($row, $column, $forecolour, $backcolour, $mode);
 						$column=39;
 						break;
 					case 32:
@@ -845,6 +849,10 @@
 					$currentheight=convertmode7::TXHEIGHT_STD;
 				endif;
 			endfor;
+			
+			if($column > 0):
+				$this->fillrestofrow($row, $column, $forecolour, $backcolour, $mode);
+			endif;
 		}
 		
 		private function findtextonlylines() {
