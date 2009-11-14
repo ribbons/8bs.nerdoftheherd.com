@@ -817,8 +817,8 @@
 						$backcolour=$forecolour;
 						break;
 					default:
-						echo '<p>Unknown character value '.ord($file[$filepos]).' - unable to tokenise.</p>';
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						echo 'Unknown character value '.ord($file[$filepos]).' at line '.$row.' column '.$column." - aborting\n";
+						exit(1);
 				endswitch;
 				
 				$this->textcolours[$row][$column]=$forecolour;
