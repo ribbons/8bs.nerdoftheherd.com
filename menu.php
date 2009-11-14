@@ -105,30 +105,49 @@
 							$thisitem->convpath='/'.$this->thisissue.'/'.str_replace('menu1.html','','menu'.$splitdata[3].'.html');
 						else:
 							switch($splitdata[3]):
-								# 0 = 'Runs Code' ?
 								case -1:
+								#case 'MODE3':
+								#case 'TEXT':
 									$itemtype=itemdata::MODE0;
 									$itemdesc='80 Column Text';
 									break;
 								case -2:
+								#case 'MODE7':
+								#case 'TTXT':
 									$itemtype=itemdata::MODE7;
 									$itemdesc='40 Column Text';
 									break;
-								# -3 = 'Archive' ?
+								#case -3:
+								#case 'ARCHI':
+									# 'Archive' ?
 								case -4:
+								#case 'CHAIN':
+								#case 'BASIC':
 									$itemtype=itemdata::BASIC;
 									$itemdesc='Basic Program';
 									break;
-								# -5 = 'Loads BASIC' ?
-								# -6 = 'Lists Basic' ?
-								# -7 = 'Uses LDPIC' ?
+								#case -5:
+								#case 'LOAD':
+									# 'Loads BASIC' ?
+								#case -6:
+								#case 'LIST':
+									# 'Lists Basic' ?
+								#case -7:
+									# 'Uses LDPIC' ?
 								case -8:
 									$itemtype=itemdata::STARRUN;
 									$itemdesc='*RUN';
 									break;
 								default:
-									echo 'Unknown action \''.$splitdata[3].'\' - aborting.';
-									exit(1);
+									$itemdesc='Runs Code';
+									
+									if(strtoupper($splitdata[3]) == '*RUN'):
+										$itemtype=itemdata::STARRUN;
+									else:
+										echo 'Unknown action \''.$splitdata[3].'\' - aborting.';
+										exit(1);
+									endif;
+									
 									break;
 							endswitch;
 							

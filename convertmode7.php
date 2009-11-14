@@ -823,6 +823,10 @@
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						$backcolour=$forecolour;
 						break;
+					case 159:
+						$this->tokenised[$row][$column]='CHAR_SPACE';
+						# Placeholder for 'release graphics' until a char 158 (hold graphics) is found in use
+						break;
 					default:
 						echo 'Unknown character value '.ord($file[$filepos]).' at line '.$row.' column '.$column." - aborting\n";
 						exit(1);
