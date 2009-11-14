@@ -98,7 +98,7 @@
 		endswitch;
 		
 		$convert->savehtml('temp/web/'.$thisissue.'/content/'.$convitem->path.'.html');
-		$convitem->convpath='content/'.$convitem->path.'.html';
+		$convitem->convpath='content/'.str_replace('%2F', '/', rawurlencode($convitem->path)).'.html';
 	endforeach;
 	
 	indentecho('Generating menus',1);
