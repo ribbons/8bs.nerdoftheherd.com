@@ -460,7 +460,7 @@
 						break;
 					case 92:
 					case 220:
-						$this->tokenised[$row][$column]='CHAR_\\';
+						$this->tokenised[$row][$column]='CHAR_½';
 						break;
 					case 93:
 					case 221:
@@ -693,7 +693,7 @@
 					case 123:
 					case 251:
 						if($mode==convertmode7::MODE_TEXT):
-							$this->tokenised[$row][$column]='CHAR_{';
+							$this->tokenised[$row][$column]='CHAR_¼';
 						else:
 							$this->tokenised[$row][$column]='GRAP_59';
 						endif;
@@ -701,7 +701,7 @@
 					case 124:
 					case 252:
 						if($mode==convertmode7::MODE_TEXT):
-							$this->tokenised[$row][$column]='CHAR_:';
+							$this->tokenised[$row][$column]='CHAR_|';
 						else:
 							$this->tokenised[$row][$column]='GRAP_60';
 						endif;
@@ -709,7 +709,7 @@
 					case 125:
 					case 253:
 						if($mode==convertmode7::MODE_TEXT):
-							$this->tokenised[$row][$column]='CHAR_}';
+							$this->tokenised[$row][$column]='CHAR_¾';
 						else:
 							$this->tokenised[$row][$column]='GRAP_61';
 						endif;
