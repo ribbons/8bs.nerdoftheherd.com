@@ -12,6 +12,7 @@
 			
 			$text=file_get_contents($filename);
 			$disptext='';
+			$thisline='';
 			$row=0;
 			$column=0;
 			
@@ -23,12 +24,13 @@
 						# Tab - conv to spaces in the same way as the 80 col scroller
 						do {
 							if($column > 79):
-								$disptext.= "<br>\r";
+								$disptext.= rtrim($thisline)."<br>\r";
+								$thisline='';
 								$row++;
 								$column=0;
 							endif;
 							
-							$disptext.=' ';
+							$thisline.=' ';
 							$column++;
 						} while(($column + 1) % 8 != 0);
 						
@@ -40,75 +42,76 @@
 						break;
 					case 28:
 						echo "Control character? 28\n";
-						$disptext.= ' ';
+						$thisline.= ' ';
 						break;
 					case 29:
 						echo "Control character? 29\n";
-						$disptext.= ' ';
+						$thisline.= ' ';
 						break;
 					case ($charcode >= 32 && $charcode <= 37):
 						# {space}!"#$%
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 38:
-						$disptext.= '&amp;';
+						$thisline.= '&amp;';
 						break;
 					case ($charcode >= 39 && $charcode <= 59):
 						# '()*+,-./0-9:;
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 60:
-						$disptext.= '&lt;';
+						$thisline.= '&lt;';
 						break;
 					case 61:
 						# =
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 62:
-						$disptext.= '&gt;';
+						$thisline.= '&gt;';
 						break;
 					case ($charcode >= 63 && $charcode <= 91):
 						# ?@A-Z[
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 93:
 						# ]
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 95:
 						# _
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 96:
-						$disptext.= '£';
+						$thisline.= '£';
 						break;
 					case ($charcode >= 97 && $charcode <= 122):
 						# a-z
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 124:
 						# |
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					case 126:
 						# ~
-						$disptext.= $text[$convert];
+						$thisline.= $text[$convert];
 						break;
 					default:
 						echo 'Unknown character value '.$charcode.' at line '.$row.' column '.$column." - aborting\n";
-						#$disptext.= ' ';
 						exit(1);
 				endswitch;
 				
 				$column++;
 				
 				if($column > 79):
-					$disptext.= "<br>\r";
+					$disptext.= rtrim($thisline)."<br>\r";
+					$thisline='';
 					$row++;
 					$column=0;
 				endif;
 			endfor;
 			
+			$disptext.= rtrim($thisline);
 			$disptext=str_replace("\r ","\r ",$disptext);
 			$disptext=str_replace('  ','  ',$disptext);
 			
