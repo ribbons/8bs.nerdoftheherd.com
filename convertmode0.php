@@ -109,6 +109,7 @@
 				endif;
 			endfor;
 			
+			$disptext=str_replace("\r ","\r ",$disptext);
 			$disptext=str_replace('  ','  ',$disptext);
 			
 			$this->html.='<div class="centralcol mode0">';
