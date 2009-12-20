@@ -20,8 +20,19 @@
 				
 				switch($charcode):
 					case 9:
-						echo "Control character? 9\n";
-						$disptext.= ' ';
+						# Tab - conv to spaces in the same way as the 80 col scroller
+						do {
+							if($column > 79):
+								$disptext.= "<br>\r";
+								$row++;
+								$column=0;
+							endif;
+							
+							$disptext.=' ';
+							$column++;
+						} while(($column + 1) % 8 != 0);
+						
+						$column--;
 						break;
 					case 13:
 						# Line break
