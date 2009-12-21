@@ -4,6 +4,8 @@
 	<property name="dev-dir" value="${env.dev-root}/${ant.project.name}" />
 	<property name="staging-dir" value="${env.staging-root}/${ant.project.name}" />
 	
+	<property name="opensp" value="${env.web-common}/opensp" />
+	
 	<target name="touch">
 		<touch>
 			<fileset dir="web" />
@@ -29,17 +31,30 @@
 		</copy>
 	</target>
 	
+	<target name="validate-common">
+		<!-- Validate the HTML -->
+		<apply executable="${opensp}/bin/onsgmls" failonerror="true" parallel="true" maxparallel="250">
+			<arg line="-c &quot;${opensp}/sgml-lib/sgml.soc&quot;" />
+			<arg value="-B" />
+			<arg value="-s" />
+			<arg value="-E50" />
+			<fileset dir="${dest-dir}">
+				<include name="**/*.html" />
+			</fileset>
+		</apply>
+	</target>
+	
 	<target name="dev-settings">
 		<property name="dest-dir" value="${dev-dir}" />
 	</target>
 	
 	<target name="clean" depends="dev-settings,clean-common" />
-	<target name="dev" depends="dev-settings,dist-common" />
+	<target name="dev" depends="dev-settings,dist-common,validate-common" />
 	
 	<target name="staging-settings">
 		<property name="dest-dir" value="${staging-dir}" />
 	</target>
 	
 	<target name="clean-staging" depends="staging-settings,clean-common" />
-	<target name="staging" depends="staging-settings,dist-common" />
+	<target name="staging" depends="staging-settings,dist-common,validate-common" />
 </project>
