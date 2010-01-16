@@ -131,16 +131,8 @@
 					case 96:
 						$thisline.= '£';
 						break;
-					case ($charcode >= 97 && $charcode <= 122):
-						# a-z
-						$thisline.= $text[$convert];
-						break;
-					case 124:
-						# |
-						$thisline.= $text[$convert];
-						break;
-					case 126:
-						# ~
+					case ($charcode >= 97 && $charcode <= 126):
+						# a-z{|}~
 						$thisline.= $text[$convert];
 						break;
 					default:
