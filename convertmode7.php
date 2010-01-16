@@ -18,6 +18,8 @@
 		const MODE_SEPERA=2;
 		const FLASH_STATIC=1;
 		const FLASH_FLASH=2;
+		const GRHOLD_RELEASE=0;
+		const GRHOLD_HOLD=1;
 		
 		const CHAR_WIDTH=16;
 		const CHAR_HEIGHT=24;
@@ -68,6 +70,16 @@
 			endfor;
 		}
 		
+		private function controlchar($row, $column, $graphicshold) {
+			if($graphicshold == convertmode7::GRHOLD_RELEASE):
+				$this->tokenised[$row][$column] = 'CHAR_SPACE';
+			else:
+				$this->tokenised[$row][$column] = $this->tokenised[$row][$column - 1];
+				echo 'Held graphics mode would have affected ouput at line '.$row.' column '.$column.".\nPlease remove this message and validate that it works.\n";
+				exit(1);
+			endif;
+		}
+		
 		private function tokeniseinput($filename, $trimscroller) {
 			if($trimscroller):
 				$startpos=256;
@@ -83,6 +95,7 @@
 			$backcolour=convertmode7::COL_BLACK;
 			$graphicsmode=convertmode7::MODE_CONTIG;
 			$currentheight=convertmode7::TXHEIGHT_STD;
+			$graphicshold=convertmode7::GRHOLD_RELEASE;
 			
 			$file=file_get_contents($filename);
 			
@@ -727,106 +740,110 @@
 						$this->tokenised[$row][$column]='GRAP_63';
 						break;
 					case 129:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_RED;
 						break;
 					case 130:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_GREEN;
 						break;
 					case 131:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_YELLOW;
 						break;
 					case 132:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_BLUE;
 						break;
 					case 133:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_MAGENTA;
 						break;
 					case 134:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_CYAN;
 						break;
 					case 135:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_WHITE;
 						break;
 					case 136:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$flash=convertmode7::FLASH_FLASH;
 						break;
 					case 137:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$flash=convertmode7::FLASH_STATIC;
 						break;
 					case 141:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$currentheight=convertmode7::TXHEIGHT_DBL;
 						break;
 					case 145:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_RED;
 						break;
 					case 146:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_GREEN;
 						break;
 					case 147:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_YELLOW;
 						break;
 					case 148:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_BLUE;
 						break;
 					case 149:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_MAGENTA;
 						break;
 					case 150:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_CYAN;
 						break;
 					case 151:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_WHITE;
 						break;
 					case 153:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$graphicsmode=convertmode7::MODE_CONTIG;
 						break;
 					case 154:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$graphicsmode=convertmode7::MODE_SEPERA;
 						break;
 					case 156:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$backcolour=convertmode7::COL_BLACK;
 						break;
 					case 157:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
+						$this->controlchar($row, $column, $graphicshold);
 						$backcolour=$forecolour;
 						break;
+					case 158:
+						$this->controlchar($row, $column, $graphicshold);
+						$graphicshold=convertmode7::GRHOLD_HOLD;
+						break;
 					case 159:
-						$this->tokenised[$row][$column]='CHAR_SPACE';
-						# Placeholder for 'release graphics' until a char 158 (hold graphics) is found in use
+						$this->controlchar($row, $column, $graphicshold);
+						$graphicshold=convertmode7::GRHOLD_RELEASE;
 						break;
 					default:
 						echo 'Unknown character value '.ord($file[$filepos]).' at line '.$row.' column '.$column." - aborting\n";
@@ -855,6 +872,7 @@
 					$backcolour=convertmode7::COL_BLACK;
 					$graphicsmode=convertmode7::MODE_CONTIG;
 					$currentheight=convertmode7::TXHEIGHT_STD;
+					$graphicshold=convertmode7::GRHOLD_RELEASE;
 				endif;
 			endfor;
 			
