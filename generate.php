@@ -9,6 +9,62 @@
 		echo str_repeat("\t", $indent).$text."\n";
 	}
 	
+	function generatenav($page = '') {
+		$navhtml = '<div id="about">';
+		
+		if($page == 'about'):
+			$navhtml.= '<span class="current">';
+		else:
+			$navhtml.= '<a href="/about.html" title="About This Conversion">';
+		endif;
+		
+		$navhtml.= 'About';
+		
+		if($page == 'about'):
+			$navhtml.= '</span>';
+		else:
+			$navhtml.= '</a>';
+		endif;
+		
+		$navhtml.= '</div><div id="crumb">';
+		
+		if($page == 'index'):
+			$navhtml.= '<span class="current">';
+		else:
+			$navhtml.= '<a href="/" title="8BS Magazines Index">';
+		endif;
+		
+		$navhtml.='Index';
+		
+		if($page == 'index'):
+			$navhtml.= '</span>';
+		else:
+			$navhtml.='</a>';
+		endif;
+		
+		if($page == '' || $page == 'discmenu'):
+			$navhtml.=' &gt; ';
+			
+			if($page == 'discmenu'):
+				$navhtml.= '<span class="current">';
+			else:
+				$navhtml.='<a href="/8BS%iss%/">';
+			endif;
+			
+			$navhtml.='8BS%iss%';
+			
+			if($page == 'discmenu'):
+				$navhtml.= '</span>';
+			else:
+				$navhtml.='</a> &gt; <span class="current">%title%</span>';
+			endif;
+		endif;
+		
+		$navhtml.= '</div>';
+		
+		return $navhtml;
+	}
+	
 	$issuesindexlist = '';
 	
 	$convertissues=array('8BS64', '8BS65');
@@ -116,6 +172,7 @@
 	$aboutpage = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $aboutpage);
 	$aboutpage = str_replace('%includejs%', '', $aboutpage);
 	$aboutpage = str_replace('%title%', 'About this conversion', $aboutpage);
+	$aboutpage = str_replace('%navcontent%', generatenav('about'), $aboutpage);
 	
 	$handle = fopen('temp/web/about.html', 'w');
 	fputs($handle, $aboutpage);
@@ -127,6 +184,7 @@
 	$mainindex = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $mainindex);
 	$mainindex = str_replace('%includejs%', '', $mainindex);
 	$mainindex = str_replace('%title%', '8-Bit Software Magazines Index', $mainindex);
+	$mainindex = str_replace('%navcontent%', generatenav('index'), $mainindex);
 	$mainindex = str_replace('%issueslist%', $issuesindexlist, $mainindex);
 	
 	$handle = fopen('temp/web/index.html', 'w');

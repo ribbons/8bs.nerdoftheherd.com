@@ -65,24 +65,23 @@ div#header div#innerhdr div#banner {
 
 div#header div#innerhdr div#nav {
 	font: 12pt Arial, Helvetica, sans-serif;
-	font-weight: bold;
 	width: 468px;
 	float: right;
 	margin-top: 11px;
 }
 
-div#header div#innerhdr div#nav ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-div#header div#innerhdr div#nav ul li {
-	display: inline;
-	margin-right: 2em;
-}
-
-div#header div#innerhdr div#nav ul li a {
+div#header div#innerhdr div#nav a {
 	color: white;
-	text-decoration: none;
+}
+
+div#header div#innerhdr div#nav a:hover {
+	color: silver;
+}
+
+div#header div#innerhdr div#nav #about {
+	float: right;
+}
+
+div#header div#innerhdr div#nav .current {
+	font-weight: bold;
 }

@@ -5,6 +5,7 @@
 		public function convertmode0($filename, $issue, $title) {
 			$this->html=file_get_contents('temp/header.html');
 			
+			$this->html=str_replace('%navcontent%', generatenav(), $this->html);
 			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
 			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode0.css', $this->html);

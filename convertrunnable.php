@@ -7,6 +7,7 @@
 			$this->html.=file_get_contents('templates/runnable.html');
 			$this->html.=file_get_contents('templates/footer.html');
 			
+			$this->html=str_replace('%navcontent%', generatenav(), $this->html);
 			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
 			$this->html=str_replace('%stylesheetpath%', '/common/styles/runnable.css', $this->html);

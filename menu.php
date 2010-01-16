@@ -185,13 +185,14 @@
 			
 			$menuhtml=str_replace('%stylesheetpath%', 'styles/menu.css', $menuhtml);
 			$menuhtml=str_replace('%includejs%', '<script src="/common/script/menu.js" type="text/javascript"></script>', $menuhtml);
-			$menuhtml=str_replace('%iss%', $this->issuenum, $menuhtml);
 			$menuhtml=str_replace('%issdte%', $this->issuedate, $menuhtml);
+			$menuhtml=str_replace('%titlecol%', $this->colours['q'], $menuhtml);
 			
 			$letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			
 			foreach($this->menus as $menunum => $menu):
-				$thismenuhtml=str_replace('%titlecol%', $this->colours['q'], $menuhtml);
+				$thismenuhtml=str_replace('%navcontent%', generatenav($menunum == 0 ? 'discmenu' : ''), $menuhtml);
+				$thismenuhtml=str_replace('%iss%', $this->issuenum, $thismenuhtml);
 				$thismenuhtml=str_replace(array('%title%', '%menutitle%'), $menu->title, $thismenuhtml);
 				
 				$menuitemshtml='';
