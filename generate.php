@@ -67,7 +67,7 @@
 	
 	$issuesindexlist = '';
 	
-	$convertissues=array('8BS64', '8BS65');
+	$convertissues=array('8BS66', '8BS65', '8BS64');
 	
 	foreach($convertissues as $thisissue):
 		indentecho('Issue '.$thisissue,0);
@@ -162,7 +162,7 @@
 		indentecho('Generating menus',1);
 		$menu->generatemenus();
 		
-		$issuesindexlist.= '<li><a href="/'.$thisissue.'/">Issue '.substr($thisissue, 3).'</a></li>';
+		$issuesindexlist = '<li><a href="/'.$thisissue.'/">Issue '.substr($thisissue, 3).'</a></li>'.$issuesindexlist;
 	endforeach;
 	
 	indentecho('Generating site level pages', 0);
