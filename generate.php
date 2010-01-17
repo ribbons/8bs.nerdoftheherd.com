@@ -162,7 +162,7 @@
 		indentecho('Generating menus',1);
 		$menu->generatemenus();
 		
-		$issuesindexlist = '<li><a href="/'.$thisissue.'/">Issue '.substr($thisissue, 3).'</a></li>'.$issuesindexlist;
+		$issuesindexlist = '<li><a href="/'.$thisissue.'/">Issue '.$menu->issuenum.'</a> - '.$menu->issuedate.'</li>'.$issuesindexlist;
 	endforeach;
 	
 	indentecho('Generating site level pages', 0);
