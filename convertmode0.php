@@ -135,6 +135,12 @@
 						# a-z{|}~
 						$thisline.= $text[$convert];
 						break;
+					# Chars 128-254 display as spaces in the Micro, but are populated
+					# with special characters by default in the Master.
+					# As the Micro was more popular, display these as spaces.
+					case ($charcode >= 128 && $charcode <= 254):
+						$thisline.= ' ';
+						break;
 					default:
 						echo 'Unknown character value '.$charcode.' at line '.$row.' column '.$column." - aborting\n";
 						exit(1);
