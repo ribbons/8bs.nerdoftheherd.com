@@ -41,9 +41,24 @@
 						
 						$column--;
 						break;
+					case 10:
+						# Line feed
+						if($column == 0):
+							$column=79;
+						else:
+							echo "Implement line feeds not at the start of a line\n";
+							exit(1);
+						endif;
+						break;
 					case 13:
-						# Line break
-						$column=79;
+						# Carriage return
+						# This displays as a line feed as well unless there has just
+						# been one, in which case it has no effect
+						if($convert == 0 || ord($text[$convert - 1]) != 10):
+							$column=79;
+						else:
+							$column--;
+						endif;
 						break;
 					case 28:
 						if($underline):
