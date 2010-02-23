@@ -135,12 +135,8 @@
 						# ?@A-Z[
 						$thisline.= $text[$convert];
 						break;
-					case 93:
-						# ]
-						$thisline.= $text[$convert];
-						break;
-					case 95:
-						# _
+					case ($charcode >= 93 && $charcode <= 95):
+						# ]^_
 						$thisline.= $text[$convert];
 						break;
 					case 96:
