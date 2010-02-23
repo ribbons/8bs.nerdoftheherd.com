@@ -108,8 +108,12 @@
 						$this->fillrestofrow($row, $column, $forecolour, $backcolour, $mode);
 						$column=39;
 						break;
+					case 138:
+					case 139:
+					case 142:
+					case 143:
+						# 'Nothing' in the user guide - displays as a space
 					case 32:
-					case 138: # 'Nothing' in the user guide - displays as a space
 					case 160:
 						$this->tokenised[$row][$column]='CHAR_SPACE';
 						break;
