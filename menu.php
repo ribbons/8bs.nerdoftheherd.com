@@ -163,7 +163,7 @@
 						$readitems=$splitdata[1];
 						$this->menus[]=$thismenu;
 					endif;
-				elseif(preg_match('/^([a-z])%=([0-9]):REM /', $dataline, $matches)): # Colour Data
+				elseif(preg_match('/^([a-z])%=([0-9])/', $dataline, $matches)): # Colour Data
 					$this->colours[$matches[1]]=$matches[2];
 				endif;
 			endforeach;
