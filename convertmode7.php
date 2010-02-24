@@ -787,6 +787,10 @@
 						$this->controlchar($row, $column, $graphicshold);
 						$flash=convertmode7::FLASH_STATIC;
 						break;
+					case 140:
+						$this->controlchar($row, $column, $graphicshold);
+						$currentheight=convertmode7::TXHEIGHT_STD;
+						break;
 					case 141:
 						$this->controlchar($row, $column, $graphicshold);
 						$currentheight=convertmode7::TXHEIGHT_DBL;
