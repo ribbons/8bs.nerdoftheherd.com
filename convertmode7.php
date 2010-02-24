@@ -75,11 +75,6 @@
 				$this->tokenised[$row][$column] = 'CHAR_SPACE';
 			else:
 				$this->tokenised[$row][$column] = $this->tokenised[$row][$column - 1];
-				
-				if($this->tokenised[$row][$column] != 'CHAR_SPACE'):
-					echo 'Held graphics mode would have affected ouput at line '.$row.' column '.$column.".\nPlease remove this message and validate that it works.\n";
-					exit(1);
-				endif;
 			endif;
 		}
 		
