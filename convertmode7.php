@@ -1355,7 +1355,7 @@
 								$this->html.=' class="'.trim($classes).'"';
 							endif;
 							
-							$this->html.= '><img src="'.$this->images[$lnkey][$colkey][0].'" alt="'.$this->images[$lnkey][$colkey][3].'"></td>';
+							$this->html.= '><img src="'.$this->images[$lnkey][$colkey][0].'" alt="'.htmlspecialchars($this->images[$lnkey][$colkey][3]).'"></td>';
 						endif;
 					else:
 						echo '<p>Unknown token '.$character.'</p>';
