@@ -131,12 +131,8 @@
 					case 62:
 						$thisline.= '&gt;';
 						break;
-					case ($charcode >= 63 && $charcode <= 91):
-						# ?@A-Z[
-						$thisline.= $text[$convert];
-						break;
-					case ($charcode >= 93 && $charcode <= 95):
-						# ]^_
+					case ($charcode >= 63 && $charcode <= 95):
+						# ?@A-Z[\# ]^_
 						$thisline.= $text[$convert];
 						break;
 					case 96:
