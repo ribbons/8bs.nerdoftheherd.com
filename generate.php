@@ -141,9 +141,13 @@
 					indentecho('Converting Mode 7 text "'.$convitem->title.'"',1);
 					$convert=new convertmode7($filepath, $menu->issuenum, $convitem->title, true, true);
 					break;
-				case itemdata::BASIC:
+				case itemdata::RUNBASIC:
 					indentecho('Converting basic file "'.$convitem->title.'"',1);
-					$convert=new convertbasic($filepath, $menu->issuenum, $convitem->title);
+					$convert=new convertbasic($filepath, $menu->issuenum, $convitem->title, false);
+					break;
+				case itemdata::LISTBASIC:
+					indentecho('Converting basic file "'.$convitem->title.'"',1);
+					$convert=new convertbasic($filepath, $menu->issuenum, $convitem->title, true);
 					break;
 				case itemdata::STARRUN:
 					indentecho('Adding placeholder for *RUNnable file "'.$convitem->title.'"',1);

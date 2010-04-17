@@ -12,8 +12,9 @@
 		const MENU = 0;
 		const MODE0 = 1;
 		const MODE7 = 2;
-		const BASIC = 3;
-		const STARRUN = 4;
+		const RUNBASIC = 3;
+		const LISTBASIC = 4;
+		const STARRUN = 5;
 		
 		public $itemtype;
 		public $title;
@@ -123,15 +124,17 @@
 								case -4:
 								#case 'CHAIN':
 								#case 'BASIC':
-									$itemtype=itemdata::BASIC;
+									$itemtype=itemdata::RUNBASIC;
 									$itemdesc='Basic Program';
 									break;
 								#case -5:
 								#case 'LOAD':
 									# 'Loads BASIC' ?
-								#case -6:
+								case -6:
 								#case 'LIST':
-									# 'Lists Basic' ?
+									$itemtype=itemdata::LISTBASIC;
+									$itemdesc='Lists Basic';
+									break;
 								#case -7:
 									# 'Uses LDPIC' ?
 								case -8:
