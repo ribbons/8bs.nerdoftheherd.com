@@ -155,8 +155,8 @@
 					break;
 			endswitch;
 			
-			$convert->savehtml('temp/web/'.$thisissue.'/content/'.$convitem->path.'.html');
-			$convitem->convpath='content/'.str_replace('%2F', '/', rawurlencode($convitem->path)).'.html';
+			$linkext = $convert->savehtml('temp/web/'.$thisissue.'/content/'.$convitem->path);
+			$convitem->convpath='content/'.str_replace('%2F', '/', rawurlencode($convitem->path)).$linkext;
 		endforeach;
 		
 		indentecho('Generating menus',1);

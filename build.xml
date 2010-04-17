@@ -29,6 +29,10 @@
 			<fileset dir="web" />
 			<fileset dir="temp/web" />
 		</copy>
+		
+		<copy todir="${dest-dir}/discimgs">
+			<fileset dir="source" />
+		</copy>
 	</target>
 	
 	<target name="validate-common">

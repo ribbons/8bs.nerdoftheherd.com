@@ -10,7 +10,7 @@
 			$this->html=str_replace('%navcontent%', generatenav(), $this->html);
 			$this->html=str_replace('%iss%', $issue, $this->html);
 			$this->html=str_replace('%title%', $title, $this->html);
-			$this->html=str_replace('%stylesheetpath%', '/common/styles/runnable.css', $this->html);
+			$this->html=str_replace('%stylesheetpath%', '/common/styles/infopage.css', $this->html);
 			$this->html=str_replace('%includejs%', '', $this->html);
 		}
 	}
