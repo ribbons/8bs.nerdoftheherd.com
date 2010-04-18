@@ -3,6 +3,7 @@
 	require 'convertmode0.php';
 	require 'convertmode7.php';
 	require 'convertbasic.php';
+	require 'convertldpic.php';
 	require 'convertrunnable.php';
 	
 	function indentecho($text,$indent) {
@@ -148,6 +149,10 @@
 				case itemdata::LISTBASIC:
 					indentecho('Converting basic file "'.$convitem->title.'"',1);
 					$convert=new convertbasic($filepath, $menu->issuenum, $convitem->title, true);
+					break;
+				case itemdata::LDPIC:
+					indentecho('Converting LdPic image "'.$convitem->title.'"',1);
+					$convert=new convertldpic($filepath, $menu->issuenum, $convitem->title);
 					break;
 				case itemdata::STARRUN:
 					indentecho('Adding placeholder for *RUNnable file "'.$convitem->title.'"',1);

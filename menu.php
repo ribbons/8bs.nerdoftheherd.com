@@ -14,7 +14,8 @@
 		const MODE7 = 2;
 		const RUNBASIC = 3;
 		const LISTBASIC = 4;
-		const STARRUN = 5;
+		const LDPIC = 5;
+		const STARRUN = 6;
 		
 		public $itemtype;
 		public $title;
@@ -135,8 +136,10 @@
 									$itemtype=itemdata::LISTBASIC;
 									$itemdesc='Lists Basic';
 									break;
-								#case -7:
-									# 'Uses LDPIC' ?
+								case -7:
+									$itemtype=itemdata::LDPIC;
+									$itemdesc='Uses LDPIC';
+									break;
 								case -8:
 									$itemtype=itemdata::STARRUN;
 									$itemdesc='*RUN';
