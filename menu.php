@@ -99,6 +99,11 @@
 					if(!isset($this->issuenum)):
 						$this->issuenum = $splitdata[0];
 						$this->issuedate = $splitdata[1];
+						
+						# Add the disk number to the issue number if this issue has multiple disks
+						if(substr_compare($this->thisissue, '-', -2, 1) == 0):
+							$this->issuenum .= substr($this->thisissue, -2);
+						endif;
 					elseif($readitems > 0):
 						if($splitdata[3] > 0):
 							$thisitem=new itemdata(itemdata::MENU, $splitdata[0]);
