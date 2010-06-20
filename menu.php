@@ -52,6 +52,9 @@
 				exit(1);
 			endif;
 			
+			# Convert illegal characters to underscores
+			$file = str_replace('/', '_', $file);
+			
 			return $drive.'/'.$dir.$file;
 		}
 		
