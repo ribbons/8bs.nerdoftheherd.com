@@ -111,6 +111,7 @@
 					case 139:
 					case 142:
 					case 143:
+					case 144:
 						# 'Nothing' in the user guide - displays as a space
 					case 32:
 					case 160:
