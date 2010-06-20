@@ -740,6 +740,16 @@
 							$this->tokenised[$row][$column]='GRAP_62';
 						endif;
 						break;
+					case 127:
+						# Backspace and delete - remove the previous character
+						if($column == 0):
+							echo "Implement handling deletes at the start of a row";
+							exit(1);
+						endif;
+						
+						unset($this->tokenised[$row][$column - 1]);
+						$column -= 2;
+						break;
 					case 255:
 						$this->tokenised[$row][$column]='GRAP_63';
 						break;
