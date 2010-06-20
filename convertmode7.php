@@ -106,6 +106,7 @@
 						$this->fillrestofrow($row, $column, $forecolour, $backcolour, $mode);
 						$column=39;
 						break;
+					case 128:
 					case 138:
 					case 139:
 					case 142:
