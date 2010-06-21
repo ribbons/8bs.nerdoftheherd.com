@@ -20,6 +20,8 @@
 		const FLASH_FLASH=2;
 		const GRHOLD_RELEASE=0;
 		const GRHOLD_HOLD=1;
+		const CNCL_REVEAL=0;
+		const CNCL_CONCEAL=1;
 		
 		const CHAR_WIDTH=16;
 		const CHAR_HEIGHT=24;
@@ -94,6 +96,7 @@
 			$graphicsmode=convertmode7::MODE_CONTIG;
 			$currentheight=convertmode7::TXHEIGHT_STD;
 			$graphicshold=convertmode7::GRHOLD_RELEASE;
+			$concealed=convertmode7::CNCL_REVEAL;
 			
 			$file=file_get_contents($filename);
 			
@@ -758,36 +761,43 @@
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_RED;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 130:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_GREEN;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 131:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_YELLOW;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 132:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_BLUE;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 133:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_MAGENTA;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 134:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_CYAN;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 135:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_TEXT;
 						$forecolour=convertmode7::COL_WHITE;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 136:
 						$this->controlchar($row, $column, $graphicshold);
@@ -809,36 +819,47 @@
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_RED;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 146:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_GREEN;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 147:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_YELLOW;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 148:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_BLUE;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 149:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_MAGENTA;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 150:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_CYAN;
+						$concealed=convertmode7::CNCL_REVEAL;
 						break;
 					case 151:
 						$this->controlchar($row, $column, $graphicshold);
 						$mode=convertmode7::MODE_GRAPHICS;
 						$forecolour=convertmode7::COL_WHITE;
+						$concealed=convertmode7::CNCL_REVEAL;
+						break;
+					case 152:
+						$this->controlchar($row, $column, $graphicshold);
+						$concealed=convertmode7::CNCL_CONCEAL;
 						break;
 					case 153:
 						$this->controlchar($row, $column, $graphicshold);
@@ -868,6 +889,16 @@
 						echo 'Unknown character value '.ord($file[$filepos]).' at line '.$row.' column '.$column." - aborting\n";
 						exit(1);
 				endswitch;
+				
+				if($concealed == convertmode7::CNCL_CONCEAL && substr($this->tokenised[$row][$column], 0, 5) == 'CHAR_'):
+					if($this->tokenised[$row][$column] != 'CHAR_SPACE'):
+						echo 'Concealed graphics would have affected output at line '.$row.' column '.$column."\n";
+						echo "Remove this message and check the results\n";
+						exit(1);
+					endif;
+					
+					$this->tokenised[$row][$column] = 'CHAR_SPACE';
+				endif;
 				
 				$this->textcolours[$row][$column]=$forecolour;
 				$this->bkgdcolours[$row][$column]=$backcolour;
