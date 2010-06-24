@@ -105,7 +105,7 @@
 								$thisline.= '<span class="inv">*</span>';
 								break;
 							default:
-								echo 'Unknown control character: '.$text[$convert]."\n";
+								echo 'Unknown control character: "'.$text[$convert]. '" (ascii '.ord($text[$convert]).') at line '.$row.' column '.$column."\n";
 								exit(1);
 						endswitch;
 						
