@@ -53,7 +53,7 @@
 			endif;
 			
 			# Convert illegal characters to underscores
-			$file = str_replace('/', '_', $file);
+			$file = str_replace(array('/', '?', '>'), '_', $file);
 			
 			return $drive.'/'.$dir.$file;
 		}
