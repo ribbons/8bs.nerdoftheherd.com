@@ -68,7 +68,8 @@
 	
 	$issuesindexlist = '';
 	
-	$convertissues=array('8BS66', '8BS65', '8BS64', '8BS63', '8BS62', '8BS61', '8BS60', '8BS59','8BS58','8BS57-2','8BS57-1', '8BS56-2', '8BS56-1', '8BS55-2', '8BS55-1');
+	$convertissues=array('8BS66', '8BS65', '8BS64', '8BS63', '8BS62', '8BS61', '8BS60', '8BS59','8BS58','8BS57-2','8BS57-1',
+	                     '8BS56-2', '8BS56-1', '8BS55-2', '8BS55-1', '8BS54-2', '8BS54-1', '8BS53-2', '8BS53-1');
 	
 	foreach($convertissues as $thisissue):
 		indentecho('Issue '.$thisissue,0);
