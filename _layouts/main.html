@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>%title%</title>
+		<title>{{ page.title }}</title>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="/common/styles/common.css">
-		<link rel="stylesheet" type="text/css" href="%stylesheetpath%">
+		<link rel="stylesheet" type="text/css" href="{{ page.stylesheet }}">
 		<!--[if IE 6]>
 			<link rel="stylesheet" type="text/css" href="/common/styles/fixes-ie6.css">
 			<script src="/common/script/IE7.js" type="text/javascript"></script>
@@ -14,7 +14,10 @@
 			<link rel="stylesheet" type="text/css" href="/common/styles/fixes-ie7.css">
 		<![endif]-->
 		<script src="/common/script/jquery.js" type="text/javascript"></script>
-		%includejs%
+		
+		{% if page.includejs %}
+			{{ page.includejs }}
+		{% endif %}
 		
 		<script type="text/javascript">
 			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -45,7 +48,25 @@
 					</script>
 				</div>
 				<div id="nav">
-					%navcontent%
+					<div id="about">
+						{% if page.page == 'about' %}
+							<span class="current">About</span>
+						{% else %}
+							<a href="/about.html" title="About This Conversion">About</a>
+						{% endif %}
+					</div>
+					
+					<div id="crumb">
+						{% if page.page == 'index' %}
+							<span class="current">Index</span>
+						{% else %}
+							<a href="/" title="8BS Magazines Index">Index</a>
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		</div>
+		
+		{{ content }}
+	</body>
+</html>
