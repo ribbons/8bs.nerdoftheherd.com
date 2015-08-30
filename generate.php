@@ -32,8 +32,6 @@
 		return $navhtml;
 	}
 	
-	$issuesindexlist = '';
-	
 	$convertissues=array('8BS66', '8BS65', '8BS64', '8BS63', '8BS62', '8BS61', '8BS60', '8BS59','8BS58','8BS57-2','8BS57-1',
 	                     '8BS56-2', '8BS56-1', '8BS55-2', '8BS55-1', '8BS54-2', '8BS54-1', '8BS53-2', '8BS53-1', '8BS52-2',
 	                     '8BS52-1', '8BS51-2', '8BS51-1');
@@ -138,21 +136,5 @@
 		
 		indentecho('Generating menus',1);
 		$menu->generatemenus();
-		
-		$issuesindexlist = '<li><a href="/'.$thisissue.'/">Issue '.$menu->issuenum.'</a> - '.$menu->issuedate.'</li>'.$issuesindexlist;
 	endforeach;
-	
-	indentecho('Generating site level pages', 0);
-	indentecho('Magazines index', 1);
-	
-	$mainindex = file_get_contents('templates/header.html').file_get_contents('templates/index.html').file_get_contents('templates/footer.html');
-	$mainindex = str_replace('%stylesheetpath%', '/common/styles/infopage.css', $mainindex);
-	$mainindex = str_replace('%includejs%', '', $mainindex);
-	$mainindex = str_replace('%title%', '8-Bit Software Magazines Index', $mainindex);
-	$mainindex = str_replace('%navcontent%', generatenav('index'), $mainindex);
-	$mainindex = str_replace('%issueslist%', $issuesindexlist, $mainindex);
-	
-	$handle = fopen('temp/web/index.html', 'w');
-	fputs($handle, $mainindex);
-	fclose($handle);
 ?>

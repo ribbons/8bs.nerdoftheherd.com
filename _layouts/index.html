@@ -1,7 +1,16 @@
+---
+layout:     main
+stylesheet: '/common/styles/infopage.css'
+page:       index
+title:      8-Bit Software Magazines Index
+---
+
 <div id="content">
 	<h1>Available Issues</h1>
 	
 	<ul>
-		%issueslist%
+		{% for issue in page.issues %}
+			<li><a href="{{issue.path}}">Issue {{issue.number}}</a></li>
+		{% endfor %}
 	</ul>
 </div>
