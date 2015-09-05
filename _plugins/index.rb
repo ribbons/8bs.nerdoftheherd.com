@@ -26,10 +26,14 @@ module Jekyll
       issues = []
 
       Dir['discimgs/*'].each do |discimg|
+        disc = BBC::DfsDisc.new(discimg)
+        menu = EBS::Menu.new(disc)
+
         issue = {}
 
         issue['imagepath'] = '/' + discimg
         issue['number'] = discimg[%r{/(8BS[0-9-]+)\.dsd}, 1]
+        issue['date'] = menu.issue_date
 
         issues << issue
 
