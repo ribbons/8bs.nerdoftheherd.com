@@ -1,15 +1,20 @@
 module Jekyll
-  class IssuePage < Page
-    def initialize(site, base, dir, issue)
+  class EmulateDiscPage < Page
+    def initialize(site, base, dir, disc)
       @site = site
       @base = base
       @dir = dir
       @name = 'index.html'
 
       process(@name)
-      read_yaml(File.join(base, '_layouts'), 'issue.html')
-      data['issue'] = issue
-      data['title'] += issue['number']
+      read_yaml(File.join(base, '_layouts'), 'emulate_disc.html')
+
+      issue = disc.issue
+
+      data['title'] += issue.number
+      data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
+
+      data['disc'] = disc
     end
   end
 
@@ -23,24 +28,15 @@ module Jekyll
       process(@name)
       read_yaml(File.join(base, '_layouts'), 'index.html')
 
-      issues = []
+      issues = EBS::Issue.all_issues
 
-      Dir['discimgs/*'].each do |discimg|
-        disc = BBC::DfsDisc.new(discimg)
-        menu = EBS::Menu.new(disc)
-
-        issue = {}
-
-        issue['imagepath'] = '/' + discimg
-        issue['number'] = discimg[%r{/(8BS[0-9-]+)\.dsd}, 1]
-        issue['date'] = menu.issue_date
-
-        issues << issue
-
-        site.pages << IssuePage.new(site, site.source, issue['number'], issue)
+      issues.each do |issue|
+        issue.discs.each do |disc|
+          site.pages << EmulateDiscPage.new(site, site.source, disc.path, disc)
+        end
       end
 
-      data['issues'] = issues.sort_by { |i| i['number'] }
+      data['issues'] = issues
     end
   end
 

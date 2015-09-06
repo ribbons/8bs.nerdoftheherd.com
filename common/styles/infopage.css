@@ -13,3 +13,9 @@ div#content a {
 div#content a:hover {
 	color: silver;
 }
+
+.issuedate {
+	font-size: 12pt;
+	font-weight: normal;
+	margin-left: 0.5em;
+}

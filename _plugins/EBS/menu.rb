@@ -1,13 +1,16 @@
 module EBS
   class Menu
-    def initialize(disc)
+    def initialize(discimg)
+      disc = BBC::DfsDisc.new(discimg)
       data = disc.file('$.!BOOT')
 
-      line = read_data_line(data)
-      @issue_date = line.split(',')[1]
+      vals = read_data_line(data).split(',')
+
+      @issuenum = vals[0]
+      @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
     end
 
-    attr_reader :issue_date
+    attr_reader :issuenum, :date
 
     def read_data_line(data)
       loop do

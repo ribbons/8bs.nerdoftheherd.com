@@ -6,11 +6,19 @@ title:      8-Bit Software Magazines Index
 ---
 
 <div id="content">
-	<h1>Available Issues</h1>
+	<h1>8BS Issues</h1>
 	
-	<ul>
-		{% for issue in page.issues %}
-			<li><a href="{{issue.number}}/">Issue {{issue.number}}</a> - {{issue.date}}</li>
+	{% for issue in page.issues %}
+		<h2>Issue {{issue.number}} <span class="issuedate">{{issue.date | date: '%d/%m/%Y'}}</span></h2>
+
+		{% for disc in issue.discs %}
+			{% if issue.discs.size > 1 %}
+				<h3>Disc {{ disc.number }}</h3>
+			{% endif %}
+
+			<ul>
+				<li><a href="{{disc.path}}/">Run in jsbeeb emulator</a></li>
+			</ul>
 		{% endfor %}
-	</ul>
+	{% endfor %}
 </div>
