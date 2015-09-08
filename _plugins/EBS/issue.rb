@@ -7,7 +7,6 @@ module EBS
     end
 
     def add_disc(disc)
-      disc.issue = self
       @discs << disc
       discs.sort_by!(&:number)
     end
@@ -20,15 +19,12 @@ module EBS
       Dir['discimgs/*'].each do |discimg|
         menu = EBS::MenuGroup.new(discimg)
 
-        disc = Disc.new(discimg, menu)
-
-        if issues.key?(menu.issuenum)
-          issues[menu.issuenum].add_disc(disc)
-        else
-          issue = Issue.new(menu.issuenum, menu.date)
-          issue.add_disc(disc)
-          issues[issue.number] = issue
+        unless issues.key?(menu.issuenum)
+          issues[menu.issuenum] = Issue.new(menu.issuenum, menu.date)
         end
+
+        disc = Disc.new(discimg, issues[menu.issuenum], menu)
+        issues[menu.issuenum].add_disc(disc)
       end
 
       issues.values.sort_by(&:number)
