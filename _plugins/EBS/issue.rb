@@ -18,9 +18,9 @@ module EBS
       issues = {}
 
       Dir['discimgs/*'].each do |discimg|
-        menu = EBS::Menu.new(discimg)
+        menu = EBS::MenuGroup.new(discimg)
 
-        disc = Disc.new(discimg)
+        disc = Disc.new(discimg, menu)
 
         if issues.key?(menu.issuenum)
           issues[menu.issuenum].add_disc(disc)

@@ -1,4 +1,24 @@
 module Jekyll
+  class DiscIndexPage < Page
+    def initialize(site, base, dir, disc, menu)
+      @site = site
+      @base = base
+      @dir = dir
+      @name = 'index.html'
+
+      process(@name)
+      read_yaml(File.join(base, '_layouts'), 'disc_index.html')
+
+      issue = disc.issue
+
+      data['title'] += issue.number
+      data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
+
+      data['disc'] = disc
+      data['menu'] = menu
+    end
+  end
+
   class EmulateDiscPage < Page
     def initialize(site, base, dir, disc)
       @site = site
@@ -32,7 +52,8 @@ module Jekyll
 
       issues.each do |issue|
         issue.discs.each do |disc|
-          site.pages << EmulateDiscPage.new(site, site.source, disc.path, disc)
+          site.pages << DiscIndexPage.new(site, site.source, disc.path, disc, disc.menu)
+          site.pages << EmulateDiscPage.new(site, site.source, disc.path + '/emulate', disc)
         end
       end
 

@@ -1,5 +1,5 @@
 module EBS
-  class Menu
+  class MenuGroup < Liquid::Drop
     def initialize(discimg)
       disc = BBC::DfsDisc.new(discimg)
       data = disc.file('$.!BOOT')
@@ -8,9 +8,13 @@ module EBS
 
       @issuenum = vals[0]
       @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
+      @menus = []
+      @menuid = 1
+
+      while read_menu_data(data); end
     end
 
-    attr_reader :issuenum, :date
+    attr_reader :issuenum, :date, :menus
 
     def read_data_line(data)
       loop do
@@ -40,6 +44,103 @@ module EBS
 
         # Read and discard the rest of the line
         (linelen - 1).times { data.readbyte }
+      end
+    end
+
+    def read_menu_data(data)
+      line = read_data_line(data)
+      return false if line.nil?
+
+      menu = Menu.new
+      vals = line.split(',')
+
+      menu.title = vals[0]
+      entries = Integer(vals[1])
+
+      menu.id = @menuid
+      @menuid += 1
+
+      entries.times do
+        vals = read_data_line(data).split(',')
+
+        entry = MenuEntry.new(data.disc)
+        entry.title = vals[0]
+        entry.path = vals[1] + '.' + vals[2] if vals[1] != ''
+
+        action = vals[3]
+
+        case action.to_i
+        when 1..10
+          # Another menu
+          entry.type = :menu
+          entry.id = action
+        when -1
+          # 80 Column Text
+          entry.type = :mode0
+        when -2
+          # 40 Column Text
+          entry.type = :mode7
+        when -3
+          # Archive
+          throw 'Unimplemented type: Archive'
+        when -4
+          # Basic Program
+          entry.type = :runbasic
+        when -5
+          # Loads BASIC
+          throw 'Unimplemented type: Loads BASIC'
+        when -6
+          # Lists BASIC
+          entry.type = :listbasic
+        when -7
+          # Uses LDPIC
+          entry.type = :ldpic
+        when -8
+          # *RUN
+          entry.type = :run
+        else
+          case action.upcase
+          when '*RUN'
+            entry.type = :run
+          else
+            throw 'Unknown action type: ' + vals[3]
+          end
+        end
+
+        menu.entries << entry
+      end
+
+      @menus << menu
+
+      true
+    end
+  end
+
+  class Menu < Liquid::Drop
+    def initialize
+      @entries = []
+    end
+
+    attr_accessor :title, :id, :entries
+  end
+
+  class MenuEntry < Liquid::Drop
+    def initialize(disc)
+      @disc = disc
+    end
+
+    attr_accessor :title, :type, :id
+    attr_reader :path
+
+    def path=(path)
+      @path = @disc.canonicalise_path(path)
+    end
+
+    def linkpath
+      if @type == :menu
+        return '#menu' + @id
+      else
+        return 'content/' + Jekyll::Utils.slugify(@path) + '/'
       end
     end
   end

@@ -11,7 +11,7 @@ module BBC
       @lastlen = (length % DfsDisc::SECTOR_SIZE) + 1
     end
 
-    attr_reader :dir, :name
+    attr_reader :dir, :name, :disc
 
     def getbyte
       if @buffer.empty?

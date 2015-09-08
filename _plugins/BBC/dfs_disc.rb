@@ -67,5 +67,15 @@ module BBC
 
       buffer
     end
+
+    def canonicalise_path(path)
+      split = path.upcase.split('.', 3)
+
+      drive = split[0][0] == ':' ? split.shift : ':0'
+      dir = split.size == 2 ? split.shift : '$'
+      file = split.shift
+
+      drive + '.' + dir + '.' + file
+    end
   end
 end

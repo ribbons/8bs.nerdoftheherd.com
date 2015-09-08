@@ -1,0 +1,20 @@
+---
+layout:     main
+stylesheet: '/common/styles/infopage.css'
+page:       disc_index
+title:      '8-Bit Software Issue '
+---
+
+<div id="content">
+	<h1>{{ page.title }}</h1>
+	
+	{% for menu in page.menu.menus %}
+		<h2 id="menu{{ menu.id }}">{{ menu.title }}</h2>
+		
+		<ul>
+			{% for entry in menu.entries %}
+				<li><a href="{{ entry.linkpath }}">{{ entry.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endfor %}
+</div>
