@@ -1,13 +1,13 @@
 module Jekyll
   class EmulateDiscPage < Page
-    def initialize(site, base, dir, disc)
+    def initialize(site, dir, disc)
       @site = site
-      @base = base
+      @base = site.source
       @dir = dir
       @name = 'index.html'
 
       process(@name)
-      read_yaml(File.join(base, '_layouts'), 'emulate_disc.html')
+      read_yaml(File.join(@base, '_layouts'), 'emulate_disc.html')
 
       issue = disc.issue
 
