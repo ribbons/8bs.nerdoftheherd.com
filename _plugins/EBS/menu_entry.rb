@@ -18,5 +18,9 @@ module EBS
         return 'content/' + Jekyll::Utils.slugify(@path) + '/'
       end
     end
+
+    def content
+      @disc.file(@path).read
+    end
   end
 end

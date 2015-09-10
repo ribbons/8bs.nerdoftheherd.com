@@ -1,7 +1,8 @@
 module BBC
   class BBCFile
-    def initialize(disc, dir, name, startsector, length)
+    def initialize(disc, side, dir, name, startsector, length)
       @disc = disc
+      @side = side
       @dir = dir
       @name = name
 
@@ -11,13 +12,13 @@ module BBC
       @lastlen = (length % DfsDisc::SECTOR_SIZE) + 1
     end
 
-    attr_reader :dir, :name, :disc
+    attr_reader :side, :dir, :name, :disc
 
     def getbyte
       if @buffer.empty?
         return nil if @remaining == 0
 
-        @buffer = @disc.read_sector(0, @sector)
+        @buffer = @disc.read_sector(@side, @sector)
         @sector += 1
         @remaining -= 1
 
@@ -32,6 +33,16 @@ module BBC
       byte = getbyte
       fail EOFError, 'end of file reached' if byte.nil?
       byte
+    end
+
+    def read
+      data = ''
+
+      until (byte = getbyte).nil?
+        data << byte.chr
+      end
+
+      data
     end
   end
 end

@@ -10,6 +10,7 @@ module EBS
       @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
       @menus = []
       @menuid = 1
+      @linkpaths = {}
 
       while read_menu_data(data); end
     end
@@ -104,6 +105,16 @@ module EBS
             entry.type = :run
           else
             throw 'Unknown action type: ' + vals[3]
+          end
+        end
+
+        if entry.type != :menu
+          if @linkpaths.key?(entry.linkpath)
+            if @linkpaths[entry.linkpath].path != entry.path
+              throw 'Duplicate entry link path: ' + entry.linkpath
+            end
+          else
+            @linkpaths[entry.linkpath] = entry
           end
         end
 

@@ -1,9 +1,14 @@
+---
+layout:     main
+stylesheet: '/common/styles/infopage.css'
+---
+
 <div id="content">
-	<h1>%title%</h1>
+	<h1>{{ page.entry.title }}</h1>
 	
 	<p>This file is binary machine code compiled to be run on a BBC.</p>
 	
-	<p>To view it, you can download the <a href="/discimgs/8BS%iss%.dsd">disc
+	<p>To view it, you can download the <a href="{{page.disc.imagepath}}">disc
 	image of this issue</a>, and either view it on a BBC or with a BBC emulator
 	such as <a href="http://www.mkw.me.uk/beebem/">BeebEm</a>.</p>
 </div>

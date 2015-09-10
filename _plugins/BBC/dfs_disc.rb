@@ -11,18 +11,23 @@ module BBC
       @path = path
       @file = File.new(@path, 'rb')
 
+      @files = {}
+
+      read_catalogue(0)
+      read_catalogue(2)
+    end
+
+    private def read_catalogue(side)
       cat = []
 
       # Catalogue is in the first two sectors (0 & 1)
       2.times do |sector|
-        cat += read_sector(0, sector)
+        cat += read_sector(side, sector)
       end
 
       # Sector 1, byte 5: Offset to the last valid file entry in the cat
       # Dividing by FILEREC_SIZE gives us the number of files on the disc
       numfiles = cat[SECTOR_SIZE + 5] / FILEREC_SIZE
-
-      @files = {}
 
       # Build a list of files on this disc
       numfiles.times do |filenum|
@@ -45,13 +50,13 @@ module BBC
         # Byte 8 and a couple of bits of 7 are the sector where the file starts
         startsector = ((cat[SECTOR_SIZE + offset + 6] & 0x03) << 8) | cat[SECTOR_SIZE + offset + 7]
 
-        file = BBCFile.new(self, dir, name, startsector, length)
-        @files[file.dir.upcase + '.' + file.name.upcase] = file
+        file = BBCFile.new(self, side, dir, name, startsector, length)
+        @files[':' + file.side.to_s + '.' + file.dir.upcase + '.' + file.name.upcase] = file
       end
     end
 
     def file(path)
-      @files[path.upcase]
+      @files[canonicalise_path(path)]
     end
 
     def read_sector(side, sector)
@@ -59,7 +64,7 @@ module BBC
       track = sector / TRACK_SECTORS
       tracksector = sector % TRACK_SECTORS
 
-      @file.seek(((track * 2 + side) * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
+      @file.seek(((track * 2 + (side / 2)) * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
 
       SECTOR_SIZE.times do
         buffer.push(@file.readbyte)
