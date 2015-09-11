@@ -2,15 +2,7 @@
 	require_once 'convert.php';
 	
 	class convertmode0 extends convert {
-		public function convertmode0($filename, $issue, $title) {
-			$this->html=file_get_contents('temp/header.html');
-			
-			$this->html=str_replace('%navcontent%', generatenav(), $this->html);
-			$this->html=str_replace('%iss%', $issue, $this->html);
-			$this->html=str_replace('%title%', $title, $this->html);
-			$this->html=str_replace('%stylesheetpath%', '/common/styles/mode0.css', $this->html);
-			$this->html=str_replace('%includejs%', '', $this->html);
-			
+		public function convertmode0($filename) {
 			$text=file_get_contents($filename);
 			
 			$disptext='';
@@ -46,7 +38,7 @@
 						if($column == 0):
 							$column=79;
 						else:
-							echo "Implement line feeds not at the start of a line\n";
+							error_log("Implement line feeds not at the start of a line\n");
 							exit(1);
 						endif;
 						break;
@@ -105,7 +97,7 @@
 								$thisline.= '<span class="inv">*</span>';
 								break;
 							default:
-								echo 'Unknown control character: "'.$text[$convert]. '" (ascii '.ord($text[$convert]).') at line '.$row.' column '.$column."\n";
+								error_log('Unknown control character: "'.$text[$convert]. '" (ascii '.ord($text[$convert]).') at line '.$row.' column '.$column."\n");
 								exit(1);
 						endswitch;
 						
@@ -149,7 +141,7 @@
 						$thisline.= ' ';
 						break;
 					default:
-						echo 'Unknown character value '.$charcode.' at line '.$row.' column '.$column." - aborting\n";
+						error_log('Unknown character value '.$charcode.' at line '.$row.' column '.$column." - aborting\n");
 						exit(1);
 				endswitch;
 				
@@ -167,11 +159,9 @@
 			$disptext=str_replace("\r ","\r ",$disptext);
 			$disptext=str_replace('  ','  ',$disptext);
 			
-			$this->html.='<div class="centralcol mode0">';
 			$this->html.=$disptext;
-			$this->html.='</div>';
-			
-			$this->html.=file_get_contents('templates/footer.html');
 		}
 	}
-?>
+
+	$convert = new convertmode0('temp.txt');
+	$convert->showhtml();
