@@ -1,41 +1,24 @@
-table {
-	border-collapse: collapse;
-}
+.t0 { color: black; }
+.t1 { color: red; }
+.t2 { color: lime; }
+.t3 { color: yellow; }
+.t4 { color: blue; }
+.t5 { color: fuchsia; }
+.t6 { color: aqua; }
 
-td {
-	margin: 0;
-	padding: 0;
-}
+.b1 { background-color: red; }
+.b2 { background-color: lime; }
+.b3 { background-color: yellow; }
+.b4 { background-color: blue; }
+.b5 { background-color: fuchsia; }
+.b6 { background-color: aqua; }
+.b7 { background-color: white; }
 
-td.t0 { color: black; }
-td.t1 { color: red; }
-td.t2 { color: lime; }
-td.t3 { color: yellow; }
-td.t4 { color: blue; }
-td.t5 { color: fuchsia; }
-td.t6 { color: aqua; }
-
-td.b1 { background-color: red; }
-td.b2 { background-color: lime; }
-td.b3 { background-color: yellow; }
-td.b4 { background-color: blue; }
-td.b5 { background-color: fuchsia; }
-td.b6 { background-color: aqua; }
-td.b7 { background-color: white; }
-
-td img {
-	display: block;
-}
-
-td.flashoff { color: black; }
-td.flashoff.b1 { color: red; }
-td.flashoff.b2 { color: lime; }
-td.flashoff.b3 { color: yellow; }
-td.flashoff.b4 { color: blue; }
-td.flashoff.b5 { color: fuchsia; }
-td.flashoff.b6 { color: aqua; }
-td.flashoff.b7 { color: white; }
-
-td.flashoff img {
-	display: none;
-}
+.flashoff { color: black; }
+.flashoff.b1 { color: red; }
+.flashoff.b2 { color: lime; }
+.flashoff.b3 { color: yellow; }
+.flashoff.b4 { color: blue; }
+.flashoff.b5 { color: fuchsia; }
+.flashoff.b6 { color: aqua; }
+.flashoff.b7 { color: white; }

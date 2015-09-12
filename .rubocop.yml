@@ -10,6 +10,9 @@ Metrics/AbcSize:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
+Metrics/ModuleLength:
+  Enabled: false
+
 Metrics/ParameterLists:
   Enabled: false
 
@@ -17,4 +20,7 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Style/Next:
   Enabled: false

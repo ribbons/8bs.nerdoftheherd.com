@@ -1,5 +1,5 @@
 function toggletags(togglestate) {
-	$("td.flash").toggleClass("flashoff", togglestate);
+	$(".flash").toggleClass("flashoff", togglestate);
 	
 	if(togglestate) {
 		window.setTimeout('toggletags(false);', 300);
@@ -9,7 +9,7 @@ function toggletags(togglestate) {
 }
 
 $(document).ready(function() {
-	if($("td.flash").length > 0) {
+	if($(".flash").length > 0) {
 		toggletags(true);
 	}
 });

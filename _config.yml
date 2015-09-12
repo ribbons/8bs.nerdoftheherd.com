@@ -1,1 +1,1 @@
-exclude: [ bin, font, 'image source', Gemfile, Gemfile.lock, '*.php' ]
+exclude: [ bin, 'image source', Gemfile, Gemfile.lock, '*.php' ]

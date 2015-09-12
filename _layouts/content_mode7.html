@@ -1,10 +1,9 @@
 ---
 layout:     main
-stylesheet: '/common/styles/infopage.css'
+stylesheet: '/common/styles/mode7.css'
+includejs:  '/common/script/mode7.js'
 ---
 
-<div id="content">
-	<h1>{{ page.entry.title }}</h1>
-
-	{{ page.entry.content }}
+<div class="centralcol mode7">
+	{{ page.entry.content | mode7_to_html }}
 </div>

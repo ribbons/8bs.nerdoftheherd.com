@@ -14,18 +14,18 @@ body {
 
 @font-face {
 	font-family: "ModeSeven";
-	src: url("../fonts/modeseven.eot");
+	src: url("../fonts/mode7gx3.eot");
 }
 
 @font-face {
 	font-family: "ModeSeven";
-	src: url("../fonts/modeseven.ttf");
+	src: url("../fonts/mode7gx3.ttf");
 }
 
 .mode7 {
 	font: 24px "ModeSeven", "Courier New", "Courier", monospace;
-	letter-spacing: 2px;
 	line-height: 1em;
+	display: inline-block;
 }
 
 .mode0 {
