@@ -308,10 +308,10 @@ module BBC
         when 94, 222
           charline << textval('^', height, charlines, column)
         when 95, 223
-          charline << textval('_', height, charlines, column)
+          charline << textval('#', height, charlines, column)
         when 96, 224
           if mode == :text
-            charline << textval('#', height, charlines, column)
+            charline << textval('_', height, charlines, column)
           else
             charline << graphval(32, graphicsmode)
           end
@@ -495,10 +495,7 @@ module BBC
           else
             charline << graphval(62, graphicsmode)
           end
-        when 127
-          # Backspace and delete - remove the previous character?
-          throw 'Implement handling backspace and delete'
-        when 255
+        when 127, 255
           charline << graphval(63, graphicsmode)
         when 129
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
