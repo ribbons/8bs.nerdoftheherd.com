@@ -19,3 +19,7 @@ div#content a:hover {
 	font-weight: normal;
 	margin-left: 0.5em;
 }
+
+#emulate-issue {
+	float: right;
+}
