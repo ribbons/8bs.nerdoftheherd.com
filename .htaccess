@@ -1,7 +1,7 @@
 # Set the character set to serve the site contents with
 AddDefaultCharset UTF-8
 
-# Make sure IE8 uses standards mode, and hide the compatibility mode button
+# Make sure IE uses latest standards mode, and hide the compatibility mode button
 <FilesMatch "\.html$">
-	Header set X-UA-Compatible "IE=8"
+	Header set X-UA-Compatible "IE=Edge"
 </FilesMatch>
