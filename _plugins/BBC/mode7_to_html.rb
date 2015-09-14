@@ -90,8 +90,7 @@ module BBC
           end
         when 38, 166
           if mode == :text
-            result = textval('&', height, charlines, column)
-            charline << result == '&' ? '&amp;' : result
+            charline << textval('&', height, charlines, column)
           else
             charline << graphval(6, graphicsmode)
           end
@@ -787,7 +786,18 @@ module BBC
     end
 
     private def textval(char, height, charlines, column)
-      return char if height == :standard
+      if height == :standard
+        case char
+        when '<'
+          return '&lt;'
+        when '>'
+          return '&gt;'
+        when '&'
+          return '&amp;'
+        else
+          return char
+        end
+      end
 
       unless charlines.last.nil? || charlines.last[column].nil?
         if charlines.last[column][0].ord.between?(Offsets::TXT_DBL_UPPER, Offsets::TXT_DBL_LOWER - 1)
