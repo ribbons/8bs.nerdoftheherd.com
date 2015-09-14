@@ -310,7 +310,7 @@ module BBC
           charline << textval('#', height, charlines, column)
         when 96, 224
           if mode == :text
-            charline << textval('_', height, charlines, column)
+            charline << textval('`', height, charlines, column)
           else
             charline << graphval(32, graphicsmode)
           end
