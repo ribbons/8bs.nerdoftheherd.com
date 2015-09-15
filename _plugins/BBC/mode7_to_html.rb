@@ -24,6 +24,8 @@ module BBC
 
       row = 0
       column = 0
+      spanopen = false
+
       mode = :text
       flash = :steady
       forecolour = nextfore = Colour::WHITE
@@ -721,12 +723,20 @@ module BBC
         html = ''
 
         if stylechange
+          if spanopen
+            html << '</span>'
+            spanopen = false
+          end
+
           classes = []
           classes << 't' + forecolour.to_s if forecolour != Colour::WHITE
           classes << 'b' + backcolour.to_s if backcolour != Colour::BLACK
           classes << 'flash' if flash == :flash
 
-          html << '</span><span class="' + classes.join(' ') + '">'
+          if classes.size > 0
+            html << '<span class=' + (classes.size == 1 ? classes[0] : '"' + classes.join(' ') + '"') + '>'
+            spanopen = true
+          end
         end
 
         charline << thischar
@@ -750,13 +760,17 @@ module BBC
           prevline = charline
           charline = []
 
-          htmlline << "\n"
+          if spanopen
+            htmlline << '</span>'
+            spanopen = false
+          end
+
           htmllines << htmlline.join('')
           htmlline = []
         end
       end
 
-      '<span>' + htmllines.join('</span><span>') + '</span>'
+      htmllines.join("\n")
     end
 
     private def graphval(value, mode)
