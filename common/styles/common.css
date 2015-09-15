@@ -26,6 +26,7 @@ body {
 	font: 24px "ModeSeven", "Courier New", "Courier", monospace;
 	line-height: 1em;
 	display: inline-block;
+	white-space: pre;
 }
 
 .mode0 {

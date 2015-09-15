@@ -55,9 +55,9 @@ module BBC
           column = 39
         when 128, 138, 139, 142, 143, 144
           # 'Nothing' in the user guide - displays as a space
-          thischar = '&nbsp;'
+          thischar = ' '
         when 32, 160
-          thischar = '&nbsp;'
+          thischar = ' '
         when 33, 161
           if mode == :text
             thischar = textval('!', height, prevline, column)
@@ -501,7 +501,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::RED
           concealed = :reveal
@@ -510,7 +510,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::GREEN
           concealed = :reveal
@@ -519,7 +519,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::YELLOW
           concealed = :reveal
@@ -528,7 +528,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::BLUE
           concealed = :reveal
@@ -537,7 +537,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::MAGENTA
           concealed = :reveal
@@ -546,7 +546,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::CYAN
           concealed = :reveal
@@ -555,7 +555,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           mode = :text
           nextfore = Colour::WHITE
           concealed = :reveal
@@ -564,7 +564,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           flash = :flash
           stylechange = true
         when 137
@@ -572,7 +572,7 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           flash = :steady
           stylechange = true
         when 140
@@ -580,20 +580,20 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           height = :standard
         when 141
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           height = :double
         when 145
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -603,7 +603,7 @@ module BBC
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -613,7 +613,7 @@ module BBC
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -623,7 +623,7 @@ module BBC
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -633,7 +633,7 @@ module BBC
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -643,7 +643,7 @@ module BBC
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -653,7 +653,7 @@ module BBC
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           mode = :graphics
@@ -664,28 +664,28 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           concealed = :conceal
         when 153
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           graphicsmode = :contig
         when 154
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           graphicsmode = :separa
         when 156
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           backcolour = Colour::BLACK
           stylechange = true
         when 157
@@ -693,14 +693,14 @@ module BBC
             throw 'Check if held graphics would be valid here'
           end
 
-          thischar = '&nbsp;'
+          thischar = ' '
           backcolour = forecolour
           stylechange = true
         when 158
           if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
             thischar = charline.last
           else
-            thischar = '&nbsp;'
+            thischar = ' '
           end
 
           graphicshold = :hold if mode == :graphics
@@ -714,7 +714,7 @@ module BBC
           throw 'Unknown character value ' + c.to_s + ' at line ' + row.to_s + ' column ' + column.to_s
         end
 
-        if concealed == :conceal && thischar != '&nbsp;'
+        if concealed == :conceal && thischar != ' '
           throw 'Concealed graphics would have affected output at line ' + row.to_s + ' column ' + column.to_s
         end
 
@@ -750,7 +750,7 @@ module BBC
           prevline = charline
           charline = []
 
-          htmlline << '<br>'
+          htmlline << "\n"
           htmllines << htmlline.join('')
           htmlline = []
         end
