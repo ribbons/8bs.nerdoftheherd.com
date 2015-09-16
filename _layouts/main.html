@@ -60,6 +60,26 @@
 						{% else %}
 							<a href="/" title="8BS Magazines Index">Index</a>
 						{% endif %}
+
+						{% if page.disc %}
+							{% if page.disc.issue.discs.size > 1 %}
+								{% capture discnumtext %} Disc {{page.disc.number}}{% endcapture %}
+							{% endif %}
+
+							{% if page.page == 'disc_index' %}
+								&gt; <span class="current">8BS{{ page.disc.issue.number }}{{ discnumtext }}</span>
+							{% else %}
+								&gt; <a href="/{{ page.disc.path }}/">8BS{{ page.disc.issue.number }}{{ discnumtext }}</a>
+							{% endif %}
+
+							{% if page.page == 'emulate_disc' %}
+								&gt; <span class="current">Emulate</span>
+							{% endif %}
+						{% endif %}
+
+						{% if page.entry %}
+							&gt; <span class="current">{{ page.entry.title }}</span>
+						{% endif %}
 					</div>
 				</div>
 			</div>
