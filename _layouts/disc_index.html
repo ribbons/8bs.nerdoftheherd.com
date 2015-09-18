@@ -1,6 +1,7 @@
 ---
 layout:     main
 stylesheet: '/common/styles/infopage.css'
+includejs:  '/common/script/menu.js'
 page:       disc_index
 title:      '8-Bit Software Issue '
 ---
@@ -13,12 +14,14 @@ title:      '8-Bit Software Issue '
 	</div>
 
 	{% for menu in page.menugroup.menus %}
-		<h2 id="menu{{ menu.id }}">{{ menu.title }}</h2>
-		
-		<ul>
-			{% for entry in menu.entries %}
-				<li><a href="{{ entry.linkpath }}">{{ entry.title }}</a></li>
-			{% endfor %}
-		</ul>
+		<div class="menu" id="menu{{ menu.id }}">
+			<h2>{{ menu.title }}</h2>
+
+			<ul>
+				{% for entry in menu.entries %}
+					<li><a href="{{ entry.linkpath }}">{{ entry.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	{% endfor %}
 </div>
