@@ -2,7 +2,7 @@ module EBS
   class MenuGroup < Liquid::Drop
     def initialize(discimg)
       disc = BBC::DfsDisc.new(discimg)
-      data = disc.file('$.!BOOT')
+      data = disc.file('$.!BOOT').reader
 
       vals = read_data_line(data).split(',')
 

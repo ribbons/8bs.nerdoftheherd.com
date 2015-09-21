@@ -20,7 +20,7 @@ module EBS
     end
 
     def content
-      @disc.file(@path).read
+      @disc.file(@path).reader.read
     end
   end
 end
