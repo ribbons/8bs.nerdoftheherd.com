@@ -1,6 +1,6 @@
 module Jekyll
   class ContentPage < Page
-    def initialize(site, dir, disc, entry)
+    def initialize(site, dir, disc, entry, action)
       @site = site
       @base = site.source
       @dir = dir
@@ -12,7 +12,11 @@ module Jekyll
       when :mode7
         template = 'content_mode7'
       when :runbasic, :listbasic
-        template = 'content_basic'
+        if action == :list
+          template = 'content_basic_list'
+        else
+          template = 'content_basic'
+        end
       when :run, :ldpic
         template = 'content_runnable'
       else

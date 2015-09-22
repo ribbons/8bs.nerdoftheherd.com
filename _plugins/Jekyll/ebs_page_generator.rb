@@ -15,7 +15,11 @@ module Jekyll
           disc.menugroup.menus.each do |menu|
             menu.entries.each do |entry|
               if entry.type != :menu
-                site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry)
+                site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :default)
+              end
+
+              if entry.type == :runbasic
+                site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath, 'list'), disc, entry, :list)
               end
             end
           end
