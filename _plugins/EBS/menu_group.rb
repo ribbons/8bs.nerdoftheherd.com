@@ -84,15 +84,12 @@ module EBS
         when -3
           # Archive
           throw 'Unimplemented type: Archive'
-        when -4
-          # Basic Program
-          entry.type = :runbasic
+        when -4, -6
+          # Basic Program / Lists BASIC
+          entry.type = :basic
         when -5
           # Loads BASIC
           throw 'Unimplemented type: Loads BASIC'
-        when -6
-          # Lists BASIC
-          entry.type = :listbasic
         when -7
           # Uses LDPIC
           entry.type = :ldpic

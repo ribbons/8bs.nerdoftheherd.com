@@ -11,7 +11,7 @@ module Jekyll
         template = 'content_mode0'
       when :mode7
         template = 'content_mode7'
-      when :runbasic, :listbasic
+      when :basic
         if action == :list
           template = 'content_basic_list'
         else
