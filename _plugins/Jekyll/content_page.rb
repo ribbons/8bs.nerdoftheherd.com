@@ -26,7 +26,12 @@ module Jekyll
       process(@name)
       read_yaml(File.join(@base, '_layouts'), template + '.html')
 
-      data['title'] = entry.title
+      if data['title']
+        data['title'].sub!('$title', entry.title)
+      else
+        data['title'] = entry.title
+      end
+
       data['disc'] = disc
       data['entry'] = entry
     end
