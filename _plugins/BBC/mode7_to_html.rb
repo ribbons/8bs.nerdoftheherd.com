@@ -19,9 +19,6 @@ module BBC
     end
 
     def mode7_to_html(input)
-      # Chop off scroller code
-      input = input[256..-1]
-
       row = 0
       column = 0
       spanopen = false

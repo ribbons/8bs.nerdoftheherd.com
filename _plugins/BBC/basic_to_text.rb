@@ -57,6 +57,20 @@ module BBC
         value = data.shift
         linelen -= 1
 
+        # Ignore listing tricks which only work on a BBC
+        case value
+        when 0x07 # Beep
+          next
+        when 0x08 # Back
+          # Probably hiding line numbers or code
+          next
+        when 0x16 # Set Mode
+          # Also uses the value of the next byte
+          data.shift
+          linelen -= 1
+          next
+        end
+
         in_quotes = !in_quotes if value == 0x22
 
         if (value > 0x7f) && (!in_quotes)
@@ -73,7 +87,7 @@ module BBC
         end
       end
 
-      line + "\n"
+      line + "\r"
     end
 
     private def inline_line_num(data)

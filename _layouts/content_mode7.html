@@ -3,4 +3,4 @@ layout:     main
 includejs:  '/common/script/mode7.js'
 ---
 
-<div class="centralcol mode7">{{ page.entry.content | mode7_to_html }}</div>
+<div class="centralcol mode7">{{ page.entry.content | trim_scroller | mode7_to_html }}</div>
