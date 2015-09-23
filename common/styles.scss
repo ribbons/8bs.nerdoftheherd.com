@@ -7,6 +7,15 @@ body {
 	margin: 115px 1em 1em 1em;
 	padding: 0;
 	text-align: center;
+	font: 12pt Arial, Helvetica, sans-serif;
+}
+
+a {
+	color: white;
+}
+
+a:hover {
+	color: silver;
 }
 
 .centralcol {
@@ -45,18 +54,9 @@ body {
 	}
 
 	#nav {
-		font: 12pt Arial, Helvetica, sans-serif;
 		width: 468px;
 		float: right;
 		margin-top: 11px;
-	}
-
-	#nav a {
-		color: white;
-	}
-
-	#nav a:hover {
-		color: silver;
 	}
 
 	#nav #about {
@@ -69,19 +69,10 @@ body {
 }
 
 div#content {
-	font: 12pt Arial, Helvetica, sans-serif;
 	width: 38em;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
-
-	a {
-		color: white;
-	}
-
-	a:hover {
-		color: silver;
-	}
 
 	.issuedate {
 		font-size: 12pt;
