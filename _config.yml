@@ -1,1 +1,9 @@
-exclude: [ 'image source', Gemfile, Gemfile.lock, '*.php' ]
+exclude:
+  - image source
+  - Gemfile
+  - Gemfile.lock
+  - '**/Thumbs.db'
+  - '*.php'
+  - jsbeeb/tests
+  - 'jsbeeb/**README*'
+  - 'jsbeeb/*.txt'
