@@ -1,7 +1,15 @@
 ---
 layout:     main
 page:       emulate_disc
+includejs:  '/common/script/emulate.js'
 title:      '8-Bit Software Issue '
 ---
 
-<iframe src="/jsbeeb/?embed&disc=../../{{page.disc.imagepath}}&autoboot" width=921 height=733 frameborder=0></iframe>
+<div id="emulator" data-image-path="{{page.disc.imagepath}}"></div>
+
+<div id="content">
+	<h1>{{ page.title }}</h1>
+
+	To view an emulation of this disc, you need to have
+	<span id="need-to-have"><a href="http://enable-javascript.com/">JavaScript enabled</a></span>.
+</div>
