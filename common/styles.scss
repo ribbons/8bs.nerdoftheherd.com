@@ -95,11 +95,14 @@ div#content {
 	src: url("fonts/mode7gx3.ttf");
 }
 
+.mode0, .mode7 {
+	display: inline-block;
+	white-space: pre;
+}
+
 .mode7 {
 	font: 20px "ModeSeven", "Courier New", "Courier", monospace;
 	line-height: 1em;
-	display: inline-block;
-	white-space: pre;
 
 	.t1 { color: red; }
 	.t2 { color: lime; }
@@ -128,7 +131,6 @@ div#content {
 
 .mode0 {
 	font: 14px "Courier New", "Courier", monospace;
-	width: 48em;
 
 	.uline {
 		text-decoration: underline;
