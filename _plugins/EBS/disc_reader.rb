@@ -1,12 +1,13 @@
 module EBS
-  class MenuGroup < Liquid::Drop
-    def initialize(discimg)
-      disc = BBC::DfsDisc.new(discimg)
+  class DiscReader < Disc
+    def initialize(issue, imagepath)
+      super(issue, imagepath)
+
+      disc = BBC::DfsDisc.new(imagepath)
       data = disc.file('$.!BOOT').reader
 
       vals = read_data_line(data).split(',')
 
-      @issuenum = vals[0]
       @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
       @menus = []
       @menuid = 1
@@ -14,8 +15,6 @@ module EBS
 
       while read_menu_data(data); end
     end
-
-    attr_reader :issuenum, :date, :menus
 
     def read_data_line(data)
       loop do

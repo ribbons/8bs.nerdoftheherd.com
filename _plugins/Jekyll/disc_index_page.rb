@@ -1,6 +1,6 @@
 module Jekyll
   class DiscIndexPage < Page
-    def initialize(site, dir, disc, menugroup)
+    def initialize(site, dir, disc)
       @site = site
       @base = site.source
       @dir = dir
@@ -15,7 +15,6 @@ module Jekyll
       data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
 
       data['disc'] = disc
-      data['menugroup'] = menugroup
     end
   end
 end
