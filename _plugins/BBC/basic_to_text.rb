@@ -52,6 +52,7 @@ module BBC
 
       line = line_num.to_s.rjust(5)
       in_quotes = false
+      in_remark = false
 
       while linelen > 0
         value = data.shift
@@ -71,6 +72,11 @@ module BBC
           next
         end
 
+        if in_remark
+          line << value.chr
+          next
+        end
+
         in_quotes = !in_quotes if value == 0x22
 
         if (value > 0x7f) && (!in_quotes)
@@ -79,6 +85,7 @@ module BBC
             linelen -= 3
           elsif TOKENS.key?(value)
             line << TOKENS[value]
+            in_remark = true if value == 0xf4
           else
             throw 'Unknown token value: ' + value.to_s
           end

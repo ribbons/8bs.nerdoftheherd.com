@@ -7,6 +7,9 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockNesting:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
