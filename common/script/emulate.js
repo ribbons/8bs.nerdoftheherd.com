@@ -14,6 +14,10 @@
 		container.html('<iframe src="/jsbeeb/?embed&disc=../../' + imagePath +
 		               '&autoboot" width=921 height=733 frameborder=0></iframe>');
 
+		$('#emulator > iframe').load(function() {
+			this.contentWindow.focus();
+		});
+
 		$('#content').hide();
 	});
 
