@@ -2,6 +2,7 @@ exclude:
   - image source
   - Gemfile
   - Gemfile.lock
+  - Rakefile
   - '**/Thumbs.db'
   - jsbeeb/tests
   - 'jsbeeb/**README*'
