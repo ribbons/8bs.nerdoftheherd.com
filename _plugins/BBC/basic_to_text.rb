@@ -98,23 +98,14 @@ module BBC
     end
 
     private def inline_line_num(data)
-      bytes = data.shift(3)
-      result = bytes[1] - 0x40
+      bits = data.shift << 2   # Shift the top two bits of LSB to top of byte
+      top = bits & 0xc0        # Isolate top two bits
+      lsb = top ^ data.shift   # EOR with next byte to form the LSB
 
-      case bytes[0]
-      when 0x54
-        # Nothing to add
-      when 0x44
-        result += 64
-      when 0x74
-        result += 128
-      when 0x64
-        result += 192
-      else
-        throw 'Unexpected value ' + bytes[0].to_s + ' for byte 1 of inline number'
-      end
+      top = (bits << 2) & 0xc0 # Isolate top two bits of MSB at top of byte
+      msb = top ^ data.shift   # Calculate the value of the MSB
 
-      result + ((bytes[2] - 0x40) << 8)
+      lsb | (msb << 8)
     end
   end
 
