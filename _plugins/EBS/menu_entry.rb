@@ -24,7 +24,7 @@ module EBS
 
     def linkpath
       if @type == :menu
-        return '#menu' + @id
+        return '#menu' + @id.to_s
       else
         return 'content/' + @linkpath + '/'
       end

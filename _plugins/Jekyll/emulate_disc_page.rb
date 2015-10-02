@@ -11,7 +11,7 @@ module Jekyll
 
       issue = disc.issue
 
-      data['title'] += issue.number
+      data['title'] += issue.number.to_s
       data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
 
       data['disc'] = disc

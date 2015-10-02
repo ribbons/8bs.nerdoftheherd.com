@@ -20,10 +20,16 @@ module EBS
       issues = {}
 
       Dir['discimgs/*'].each do |discimg|
-        issuenum = discimg[%r{/8BS([0-9]+)(?:-[0-9])?\.dsd$}, 1]
+        issuenum = discimg[%r{/8BS([0-9]+)(?:-[0-9])?\.dsd$}, 1].to_i
         issues[issuenum] = Issue.new(issuenum) unless issues.key?(issuenum)
 
-        disc = EBS::DiscReader.new(issues[issuenum], discimg)
+        case issuenum
+        when 0..49
+          disc = EBS::Disc0To49.new(issues[issuenum], discimg)
+        when 50..66
+          disc = EBS::Disc50To66.new(issues[issuenum], discimg)
+        end
+
         issues[issuenum].add_disc(disc)
       end
 
