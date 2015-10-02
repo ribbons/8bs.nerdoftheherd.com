@@ -11,8 +11,25 @@ module BBC
 
     attr_reader :side, :dir, :name, :disc
 
-    def reader
-      BBCFileReader.new(@disc, @side, @startsector, @length)
+    def content
+      data = ''
+      sector = @startsector
+      remaining = (@length / DfsDisc::SECTOR_SIZE) + 1
+      lastlen = (@length % DfsDisc::SECTOR_SIZE)
+
+      loop do
+        buffer = @disc.read_sector(@side, sector)
+        sector += 1
+        remaining -= 1
+
+        if remaining == 0
+          # Only include the sector data up to EOF
+          data << buffer[0..lastlen]
+          return data
+        end
+
+        data << buffer
+      end
     end
   end
 end

@@ -4,56 +4,57 @@ module EBS
       super(issue, imagepath)
 
       disc = BBC::DfsDisc.new(imagepath)
-      data = disc.file('$.!BOOT').reader
+      data = disc.file('$.!BOOT')
 
-      vals = read_data_line(data).split(',')
+      lines = read_data_lines(data.content)
+      vals = lines.shift
 
       @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
       @menus = []
       @menuid = 1
       @linkpaths = {}
 
-      while read_menu_data(data); end
+      while read_menu_data(lines, data.disc); end
     end
 
-    def read_data_line(data)
+    def read_data_lines(data)
+      lines = []
+      pos = 0
+
       loop do
-        fail 'Malformed BBC BASIC file' if data.readbyte != 0x0d
+        fail 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
+        pos += 1
 
         # End of file marker
-        return nil if data.readbyte == 0xff
+        break if data.getbyte(pos) == 0xff
 
         # Skip second byte of line number
-        data.readbyte
+        pos += 2
 
         # Entire length of line, so subtract bytes already read
-        linelen = data.readbyte - 4
+        linelen = data.getbyte(pos) - 4
+        pos += 1
 
         # Only a valid data line if first byte is the DATA token
-        is_data_line = data.readbyte == 0xdc
+        is_data_line = data.getbyte(pos) == 0xdc
+        pos += 1
 
         if is_data_line
-          line = ''
-
-          (linelen - 1).times do
-            line += data.readbyte.chr
-          end
-
-          return line.strip
+          line = data[pos..(pos + linelen - 1)]
+          lines << line.strip.split(',')
         end
 
-        # Read and discard the rest of the line
-        (linelen - 1).times { data.readbyte }
+        pos += linelen - 1
       end
+
+      lines
     end
 
-    def read_menu_data(data)
-      line = read_data_line(data)
-      return false if line.nil?
+    def read_menu_data(lines, disc)
+      vals = lines.shift
+      return false if vals.nil?
 
       menu = Menu.new
-      vals = line.split(',')
-
       menu.title = vals[0]
       entries = Integer(vals[1])
 
@@ -61,9 +62,9 @@ module EBS
       @menuid += 1
 
       entries.times do
-        vals = read_data_line(data).split(',')
+        vals = lines.shift
 
-        entry = MenuEntry.new(data.disc, @linkpaths)
+        entry = MenuEntry.new(disc, @linkpaths)
         entry.title = vals[0]
         entry.path = vals[1] + '.' + vals[2] if vals[1] != ''
 

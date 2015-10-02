@@ -22,7 +22,7 @@ module BBC
 
       # Catalogue is in the first two sectors (0 & 1)
       2.times do |sector|
-        cat += read_sector(side, sector)
+        cat += read_sector(side, sector).each_byte.to_a
       end
 
       # Sector 1, byte 5: Offset to the last valid file entry in the cat
@@ -60,17 +60,11 @@ module BBC
     end
 
     def read_sector(side, sector)
-      buffer = []
       track = sector / TRACK_SECTORS
       tracksector = sector % TRACK_SECTORS
 
       @file.seek(((track * 2 + (side / 2)) * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
-
-      SECTOR_SIZE.times do
-        buffer.push(@file.readbyte)
-      end
-
-      buffer
+      @file.sysread(SECTOR_SIZE)
     end
 
     def canonicalise_path(path)
