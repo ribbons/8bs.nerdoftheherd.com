@@ -22,20 +22,20 @@ module BBC
       row = 0
       column = 0
       spanopen = false
+      lastchar = ''
 
       mode = :text
       flash = :steady
       forecolour = nextfore = Colour::WHITE
       backcolour = Colour::BLACK
       graphicsmode = :contig
-      height = :standard
+      height = heighttype = :standard
       graphicshold = :release
       concealed = :reveal
 
       htmllines = []
 
-      prevline = []
-      charline = []
+      prevheights = Array.new(40) { :standard }
       htmlline = []
 
       input.each_byte do |c|
@@ -51,7 +51,10 @@ module BBC
           # Null byte - assume that the end of the file has been reached
           break
         when 13
-          column = 39
+          while column < 39
+            prevheights[column] = heighttype
+            column += 1
+          end
         when 128, 138, 139, 142, 143, 144
           # 'Nothing' in the user guide - displays as a space
           thischar = ' '
@@ -59,13 +62,13 @@ module BBC
           thischar = ' '
         when 33, 161
           if mode == :text
-            thischar = textval('!', height, prevline, column)
+            thischar = textval('!', heighttype)
           else
             thischar = graphval(1, graphicsmode)
           end
         when 34, 162
           if mode == :text
-            thischar = textval('"', height, prevline, column)
+            thischar = textval('"', heighttype)
           else
             thischar = graphval(2, graphicsmode)
           end
@@ -77,426 +80,426 @@ module BBC
           end
         when 36, 164
           if mode == :text
-            thischar = textval('$', height, prevline, column)
+            thischar = textval('$', heighttype)
           else
             thischar = graphval(4, graphicsmode)
           end
         when 37, 165
           if mode == :text
-            thischar = textval('%', height, prevline, column)
+            thischar = textval('%', heighttype)
           else
             thischar = graphval(5, graphicsmode)
           end
         when 38, 166
           if mode == :text
-            thischar = textval('&', height, prevline, column)
+            thischar = textval('&', heighttype)
           else
             thischar = graphval(6, graphicsmode)
           end
         when 39, 167
           if mode == :text
-            thischar = textval('\'', height, prevline, column)
+            thischar = textval('\'', heighttype)
           else
             thischar = graphval(7, graphicsmode)
           end
         when 40, 168
           if mode == :text
-            thischar = textval('(', height, prevline, column)
+            thischar = textval('(', heighttype)
           else
             thischar = graphval(8, graphicsmode)
           end
         when 41, 169
           if mode == :text
-            thischar = textval(')', height, prevline, column)
+            thischar = textval(')', heighttype)
           else
             thischar = graphval(9, graphicsmode)
           end
         when 42, 170
           if mode == :text
-            thischar = textval('*', height, prevline, column)
+            thischar = textval('*', heighttype)
           else
             thischar = graphval(10, graphicsmode)
           end
         when 43, 171
           if mode == :text
-            thischar = textval('+', height, prevline, column)
+            thischar = textval('+', heighttype)
           else
             thischar = graphval(11, graphicsmode)
           end
         when 44, 172
           if mode == :text
-            thischar = textval(',', height, prevline, column)
+            thischar = textval(',', heighttype)
           else
             thischar = graphval(12, graphicsmode)
           end
         when 45, 173
           if mode == :text
-            thischar = textval('-', height, prevline, column)
+            thischar = textval('-', heighttype)
           else
             thischar = graphval(13, graphicsmode)
           end
         when 46, 174
           if mode == :text
-            thischar = textval('.', height, prevline, column)
+            thischar = textval('.', heighttype)
           else
             thischar = graphval(14, graphicsmode)
           end
         when 47, 175
           if mode == :text
-            thischar = textval('/', height, prevline, column)
+            thischar = textval('/', heighttype)
           else
             thischar = graphval(15, graphicsmode)
           end
         when 48, 176
           if mode == :text
-            thischar = textval('0', height, prevline, column)
+            thischar = textval('0', heighttype)
           else
             thischar = graphval(16, graphicsmode)
           end
         when 49, 177
           if mode == :text
-            thischar = textval('1', height, prevline, column)
+            thischar = textval('1', heighttype)
           else
             thischar = graphval(17, graphicsmode)
           end
         when 50, 178
           if mode == :text
-            thischar = textval('2', height, prevline, column)
+            thischar = textval('2', heighttype)
           else
             thischar = graphval(18, graphicsmode)
           end
         when 51, 179
           if mode == :text
-            thischar = textval('3', height, prevline, column)
+            thischar = textval('3', heighttype)
           else
             thischar = graphval(19, graphicsmode)
           end
         when 52, 180
           if mode == :text
-            thischar = textval('4', height, prevline, column)
+            thischar = textval('4', heighttype)
           else
             thischar = graphval(20, graphicsmode)
           end
         when 53, 181
           if mode == :text
-            thischar = textval('5', height, prevline, column)
+            thischar = textval('5', heighttype)
           else
             thischar = graphval(21, graphicsmode)
           end
         when 54, 182
           if mode == :text
-            thischar = textval('6', height, prevline, column)
+            thischar = textval('6', heighttype)
           else
             thischar = graphval(22, graphicsmode)
           end
         when 55, 183
           if mode == :text
-            thischar = textval('7', height, prevline, column)
+            thischar = textval('7', heighttype)
           else
             thischar = graphval(23, graphicsmode)
           end
         when 56, 184
           if mode == :text
-            thischar = textval('8', height, prevline, column)
+            thischar = textval('8', heighttype)
           else
             thischar = graphval(24, graphicsmode)
           end
         when 57, 185
           if mode == :text
-            thischar = textval('9', height, prevline, column)
+            thischar = textval('9', heighttype)
           else
             thischar = graphval(25, graphicsmode)
           end
         when 58, 186
           if mode == :text
-            thischar = textval(':', height, prevline, column)
+            thischar = textval(':', heighttype)
           else
             thischar = graphval(26, graphicsmode)
           end
         when 59, 187
           if mode == :text
-            thischar = textval(';', height, prevline, column)
+            thischar = textval(';', heighttype)
           else
             thischar = graphval(27, graphicsmode)
           end
         when 60, 188
           if mode == :text
-            thischar = textval('<', height, prevline, column)
+            thischar = textval('<', heighttype)
           else
             thischar = graphval(28, graphicsmode)
           end
         when 61, 189
           if mode == :text
-            thischar = textval('=', height, prevline, column)
+            thischar = textval('=', heighttype)
           else
             thischar = graphval(29, graphicsmode)
           end
         when 62, 190
           if mode == :text
-            thischar = textval('>', height, prevline, column)
+            thischar = textval('>', heighttype)
           else
             thischar = graphval(30, graphicsmode)
           end
         when 63, 191
           if mode == :text
-            thischar = textval('?', height, prevline, column)
+            thischar = textval('?', heighttype)
           else
             thischar = graphval(31, graphicsmode)
           end
         when 64, 192
-          thischar = textval('@', height, prevline, column)
+          thischar = textval('@', heighttype)
         when 65, 193
-          thischar = textval('A', height, prevline, column)
+          thischar = textval('A', heighttype)
         when 66, 194
-          thischar = textval('B', height, prevline, column)
+          thischar = textval('B', heighttype)
         when 67, 195
-          thischar = textval('C', height, prevline, column)
+          thischar = textval('C', heighttype)
         when 68, 196
-          thischar = textval('D', height, prevline, column)
+          thischar = textval('D', heighttype)
         when 69, 197
-          thischar = textval('E', height, prevline, column)
+          thischar = textval('E', heighttype)
         when 70, 198
-          thischar = textval('F', height, prevline, column)
+          thischar = textval('F', heighttype)
         when 71, 199
-          thischar = textval('G', height, prevline, column)
+          thischar = textval('G', heighttype)
         when 72, 200
-          thischar = textval('H', height, prevline, column)
+          thischar = textval('H', heighttype)
         when 73, 201
-          thischar = textval('I', height, prevline, column)
+          thischar = textval('I', heighttype)
         when 74, 202
-          thischar = textval('J', height, prevline, column)
+          thischar = textval('J', heighttype)
         when 75, 203
-          thischar = textval('K', height, prevline, column)
+          thischar = textval('K', heighttype)
         when 76, 204
-          thischar = textval('L', height, prevline, column)
+          thischar = textval('L', heighttype)
         when 77, 205
-          thischar = textval('M', height, prevline, column)
+          thischar = textval('M', heighttype)
         when 78, 206
-          thischar = textval('N', height, prevline, column)
+          thischar = textval('N', heighttype)
         when 79, 207
-          thischar = textval('O', height, prevline, column)
+          thischar = textval('O', heighttype)
         when 80, 208
-          thischar = textval('P', height, prevline, column)
+          thischar = textval('P', heighttype)
         when 81, 209
-          thischar = textval('Q', height, prevline, column)
+          thischar = textval('Q', heighttype)
         when 82, 210
-          thischar = textval('R', height, prevline, column)
+          thischar = textval('R', heighttype)
         when 83, 211
-          thischar = textval('S', height, prevline, column)
+          thischar = textval('S', heighttype)
         when 84, 212
-          thischar = textval('T', height, prevline, column)
+          thischar = textval('T', heighttype)
         when 85, 213
-          thischar = textval('U', height, prevline, column)
+          thischar = textval('U', heighttype)
         when 86, 214
-          thischar = textval('V', height, prevline, column)
+          thischar = textval('V', heighttype)
         when 87, 215
-          thischar = textval('W', height, prevline, column)
+          thischar = textval('W', heighttype)
         when 88, 216
-          thischar = textval('X', height, prevline, column)
+          thischar = textval('X', heighttype)
         when 89, 217
-          thischar = textval('Y', height, prevline, column)
+          thischar = textval('Y', heighttype)
         when 90, 218
-          thischar = textval('Z', height, prevline, column)
+          thischar = textval('Z', heighttype)
         when 91, 219
-          thischar = textval('[', height, prevline, column)
+          thischar = textval('[', heighttype)
         when 92, 220
-          thischar = textval('½', height, prevline, column)
+          thischar = textval('½', heighttype)
         when 93, 221
-          thischar = textval(']', height, prevline, column)
+          thischar = textval(']', heighttype)
         when 94, 222
-          thischar = textval('^', height, prevline, column)
+          thischar = textval('^', heighttype)
         when 95, 223
-          thischar = textval('#', height, prevline, column)
+          thischar = textval('#', heighttype)
         when 96, 224
           if mode == :text
-            thischar = textval('`', height, prevline, column)
+            thischar = textval('`', heighttype)
           else
             thischar = graphval(32, graphicsmode)
           end
         when 97, 225
           if mode == :text
-            thischar = textval('a', height, prevline, column)
+            thischar = textval('a', heighttype)
           else
             thischar = graphval(33, graphicsmode)
           end
         when 98, 226
           if mode == :text
-            thischar = textval('b', height, prevline, column)
+            thischar = textval('b', heighttype)
           else
             thischar = graphval(34, graphicsmode)
           end
         when 99, 227
           if mode == :text
-            thischar = textval('c', height, prevline, column)
+            thischar = textval('c', heighttype)
           else
             thischar = graphval(35, graphicsmode)
           end
         when 100, 228
           if mode == :text
-            thischar = textval('d', height, prevline, column)
+            thischar = textval('d', heighttype)
           else
             thischar = graphval(36, graphicsmode)
           end
         when 101, 229
           if mode == :text
-            thischar = textval('e', height, prevline, column)
+            thischar = textval('e', heighttype)
           else
             thischar = graphval(37, graphicsmode)
           end
         when 102, 230
           if mode == :text
-            thischar = textval('f', height, prevline, column)
+            thischar = textval('f', heighttype)
           else
             thischar = graphval(38, graphicsmode)
           end
         when 103, 231
           if mode == :text
-            thischar = textval('g', height, prevline, column)
+            thischar = textval('g', heighttype)
           else
             thischar = graphval(39, graphicsmode)
           end
         when 104, 232
           if mode == :text
-            thischar = textval('h', height, prevline, column)
+            thischar = textval('h', heighttype)
           else
             thischar = graphval(40, graphicsmode)
           end
         when 105, 233
           if mode == :text
-            thischar = textval('i', height, prevline, column)
+            thischar = textval('i', heighttype)
           else
             thischar = graphval(41, graphicsmode)
           end
         when 106, 234
           if mode == :text
-            thischar = textval('j', height, prevline, column)
+            thischar = textval('j', heighttype)
           else
             thischar = graphval(42, graphicsmode)
           end
         when 107, 235
           if mode == :text
-            thischar = textval('k', height, prevline, column)
+            thischar = textval('k', heighttype)
           else
             thischar = graphval(43, graphicsmode)
           end
         when 108, 236
           if mode == :text
-            thischar = textval('l', height, prevline, column)
+            thischar = textval('l', heighttype)
           else
             thischar = graphval(44, graphicsmode)
           end
         when 109, 237
           if mode == :text
-            thischar = textval('m', height, prevline, column)
+            thischar = textval('m', heighttype)
           else
             thischar = graphval(45, graphicsmode)
           end
         when 110, 238
           if mode == :text
-            thischar = textval('n', height, prevline, column)
+            thischar = textval('n', heighttype)
           else
             thischar = graphval(46, graphicsmode)
           end
         when 111, 239
           if mode == :text
-            thischar = textval('o', height, prevline, column)
+            thischar = textval('o', heighttype)
           else
             thischar = graphval(47, graphicsmode)
           end
         when 112, 240
           if mode == :text
-            thischar = textval('p', height, prevline, column)
+            thischar = textval('p', heighttype)
           else
             thischar = graphval(48, graphicsmode)
           end
         when 113, 241
           if mode == :text
-            thischar = textval('q', height, prevline, column)
+            thischar = textval('q', heighttype)
           else
             thischar = graphval(49, graphicsmode)
           end
         when 114, 242
           if mode == :text
-            thischar = textval('r', height, prevline, column)
+            thischar = textval('r', heighttype)
           else
             thischar = graphval(50, graphicsmode)
           end
         when 115, 243
           if mode == :text
-            thischar = textval('s', height, prevline, column)
+            thischar = textval('s', heighttype)
           else
             thischar = graphval(51, graphicsmode)
           end
         when 116, 244
           if mode == :text
-            thischar = textval('t', height, prevline, column)
+            thischar = textval('t', heighttype)
           else
             thischar = graphval(52, graphicsmode)
           end
         when 117, 245
           if mode == :text
-            thischar = textval('u', height, prevline, column)
+            thischar = textval('u', heighttype)
           else
             thischar = graphval(53, graphicsmode)
           end
         when 118, 246
           if mode == :text
-            thischar = textval('v', height, prevline, column)
+            thischar = textval('v', heighttype)
           else
             thischar = graphval(54, graphicsmode)
           end
         when 119, 247
           if mode == :text
-            thischar = textval('w', height, prevline, column)
+            thischar = textval('w', heighttype)
           else
             thischar = graphval(55, graphicsmode)
           end
         when 120, 248
           if mode == :text
-            thischar = textval('x', height, prevline, column)
+            thischar = textval('x', heighttype)
           else
             thischar = graphval(56, graphicsmode)
           end
         when 121, 249
           if mode == :text
-            thischar = textval('y', height, prevline, column)
+            thischar = textval('y', heighttype)
           else
             thischar = graphval(57, graphicsmode)
           end
         when 122, 250
           if mode == :text
-            thischar = textval('z', height, prevline, column)
+            thischar = textval('z', heighttype)
           else
             thischar = graphval(58, graphicsmode)
           end
         when 123, 251
           if mode == :text
-            thischar = textval('¼', height, prevline, column)
+            thischar = textval('¼', heighttype)
           else
             thischar = graphval(59, graphicsmode)
           end
         when 124, 252
           if mode == :text
-            thischar = textval('|', height, prevline, column)
+            thischar = textval('|', heighttype)
           else
             thischar = graphval(60, graphicsmode)
           end
         when 125, 253
           if mode == :text
-            thischar = textval('¾', height, prevline, column)
+            thischar = textval('¾', heighttype)
           else
             thischar = graphval(61, graphicsmode)
           end
         when 126, 254
           if mode == :text
-            thischar = textval('~', height, prevline, column)
+            thischar = textval('~', heighttype)
           else
             thischar = graphval(62, graphicsmode)
           end
         when 127, 255
           thischar = graphval(63, graphicsmode)
         when 129
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -505,7 +508,7 @@ module BBC
           nextfore = Colour::RED
           concealed = :reveal
         when 130
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -514,7 +517,7 @@ module BBC
           nextfore = Colour::GREEN
           concealed = :reveal
         when 131
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -523,7 +526,7 @@ module BBC
           nextfore = Colour::YELLOW
           concealed = :reveal
         when 132
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -532,7 +535,7 @@ module BBC
           nextfore = Colour::BLUE
           concealed = :reveal
         when 133
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -541,7 +544,7 @@ module BBC
           nextfore = Colour::MAGENTA
           concealed = :reveal
         when 134
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -550,7 +553,7 @@ module BBC
           nextfore = Colour::CYAN
           concealed = :reveal
         when 135
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -559,7 +562,7 @@ module BBC
           nextfore = Colour::WHITE
           concealed = :reveal
         when 136
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -567,7 +570,7 @@ module BBC
           flash = :flash
           stylechange = true
         when 137
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -575,22 +578,28 @@ module BBC
           flash = :steady
           stylechange = true
         when 140
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
           thischar = ' '
-          height = :standard
+          height = heighttype = :standard
         when 141
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
           thischar = ' '
           height = :double
+
+          if prevheights[column] == :dbl_upper
+            heighttype = :dbl_lower
+          else
+            heighttype = :dbl_upper
+          end
         when 145
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -599,8 +608,8 @@ module BBC
           nextfore = Colour::RED
           concealed = :reveal
         when 146
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -609,8 +618,8 @@ module BBC
           nextfore = Colour::GREEN
           concealed = :reveal
         when 147
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -619,8 +628,8 @@ module BBC
           nextfore = Colour::YELLOW
           concealed = :reveal
         when 148
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -629,8 +638,8 @@ module BBC
           nextfore = Colour::BLUE
           concealed = :reveal
         when 149
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -639,8 +648,8 @@ module BBC
           nextfore = Colour::MAGENTA
           concealed = :reveal
         when 150
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -649,8 +658,8 @@ module BBC
           nextfore = Colour::CYAN
           concealed = :reveal
         when 151
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
@@ -659,28 +668,28 @@ module BBC
           nextfore = Colour::WHITE
           concealed = :reveal
         when 152
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
           thischar = ' '
           concealed = :conceal
         when 153
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
           thischar = ' '
           graphicsmode = :contig
         when 154
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
           thischar = ' '
           graphicsmode = :separa
         when 156
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -688,7 +697,7 @@ module BBC
           backcolour = Colour::BLACK
           stylechange = true
         when 157
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -696,15 +705,15 @@ module BBC
           backcolour = forecolour
           stylechange = true
         when 158
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
-            thischar = charline.last
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
+            thischar = lastchar
           else
             thischar = ' '
           end
 
           graphicshold = :hold if mode == :graphics
         when 159
-          if graphicshold == :hold && charline.last.ord > Offsets::GFX_CONTIG
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_CONTIG
             throw 'Check if held graphics would be valid here'
           end
 
@@ -736,7 +745,7 @@ module BBC
           end
         end
 
-        charline << thischar
+        prevheights[column] = heighttype
 
         htmlline << html
         htmlline << thischar
@@ -751,11 +760,10 @@ module BBC
           forecolour = nextfore = Colour::WHITE
           backcolour = Colour::BLACK
           graphicsmode = :contig
-          height = :standard
+          height = heighttype = :standard
           graphicshold = :release
 
-          prevline = charline
-          charline = []
+          lastchar = ''
 
           if spanopen
             htmlline << '</span>'
@@ -764,6 +772,16 @@ module BBC
 
           htmllines << htmlline.join('')
           htmlline = []
+        else
+          if height == :double
+            if prevheights[column] == :dbl_upper
+              heighttype = :dbl_lower
+            else
+              heighttype = :dbl_upper
+            end
+          end
+
+          lastchar = thischar
         end
       end
 
@@ -780,8 +798,9 @@ module BBC
       [charval].pack('U')
     end
 
-    private def textval(char, height, prevline, column)
-      if height == :standard
+    private def textval(char, heighttype)
+      case heighttype
+      when :standard
         case char
         when '<'
           return '&lt;'
@@ -792,15 +811,11 @@ module BBC
         else
           return char
         end
+      when :dbl_lower
+        return [Offsets::TXT_DBL_LOWER + char.ord].pack('U')
+      else
+        return [Offsets::TXT_DBL_UPPER + char.ord].pack('U')
       end
-
-      unless prevline[column].nil?
-        if prevline[column][0].ord.between?(Offsets::TXT_DBL_UPPER, Offsets::TXT_DBL_LOWER - 1)
-          return [Offsets::TXT_DBL_LOWER + char.ord].pack('U')
-        end
-      end
-
-      [Offsets::TXT_DBL_UPPER + char.ord].pack('U')
     end
   end
 
