@@ -9,10 +9,10 @@
 		}
 
 		var container = $('#emulator');
-		var imagePath = container.data('imagePath');
+		var imagePath = location.protocol + location.hostname + container.data('imagePath');
 
-		container.html('<iframe src="/jsbeeb/?embed&disc=../../' + imagePath +
-		               '&autoboot" width=921 height=733 frameborder=0></iframe>');
+		container.html('<iframe src="' + location.protocol + '//bbc.godbolt.org/?embed&disc=' + imagePath +
+		               '&autoboot" width=896 height=698 frameborder=0></iframe>');
 
 		$('#emulator > iframe').load(function() {
 			this.contentWindow.focus();

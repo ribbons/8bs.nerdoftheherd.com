@@ -4,6 +4,3 @@ exclude:
   - Gemfile.lock
   - Rakefile
   - '**/Thumbs.db'
-  - jsbeeb/tests
-  - 'jsbeeb/**README*'
-  - 'jsbeeb/*.txt'

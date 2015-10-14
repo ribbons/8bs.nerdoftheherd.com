@@ -1,0 +1,2 @@
+# Allow externally hosted JSBeeb to access disc images on this site
+Header set Access-Control-Allow-Origin "*"
