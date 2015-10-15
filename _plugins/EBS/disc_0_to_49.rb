@@ -46,10 +46,12 @@ module EBS
             entry.type = :mode7
           else
             case command.upcase
+            when '*RUN'
+              entry.type = :run
             when 'CHAIN'
               entry.type = :basic
             else
-              throw 'Unknown command: ' + vals[3]
+              throw 'Unknown command \'' + command + '\' for \'' + entry.title + '\''
             end
           end
 
