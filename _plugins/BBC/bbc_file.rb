@@ -14,8 +14,9 @@ module BBC
     def content
       data = ''
       sector = @startsector
-      remaining = (@length / DfsDisc::SECTOR_SIZE) + 1
+      remaining = @length.fdiv(DfsDisc::SECTOR_SIZE).ceil
       lastlen = (@length % DfsDisc::SECTOR_SIZE)
+      lastlen = DfsDisc::SECTOR_SIZE - 1 if lastlen == 0
 
       loop do
         buffer = @disc.read_sector(@side, sector)
