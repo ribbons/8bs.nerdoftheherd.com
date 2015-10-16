@@ -24,8 +24,8 @@ module EBS
         issues[issuenum] = Issue.new(issuenum) unless issues.key?(issuenum)
 
         case issuenum
-        when 0..49
-          disc = EBS::Disc0To49.new(issues[issuenum], discimg)
+        when 28..49
+          disc = EBS::Disc28To49.new(issues[issuenum], discimg)
         when 50..66
           disc = EBS::Disc50To66.new(issues[issuenum], discimg)
         end

@@ -1,5 +1,5 @@
 module EBS
-  class Disc0To49 < Disc
+  class Disc28To49 < Disc
     def initialize(issue, imagepath)
       super(issue, imagepath)
 
