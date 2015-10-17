@@ -81,7 +81,7 @@ module BBC
 
         if (value > 0x7f) && (!in_quotes)
           if value == 0x8d # In-line line number
-            line << inline_line_num(data).to_s
+            line << BasicFilter.inline_line_num(data).to_s
             linelen -= 3
           elsif TOKENS.key?(value)
             line << TOKENS[value]
@@ -97,7 +97,7 @@ module BBC
       line + "\r"
     end
 
-    private def inline_line_num(data)
+    def self.inline_line_num(data)
       bits = data.shift << 2   # Shift the top two bits of LSB to top of byte
       top = bits & 0xc0        # Isolate top two bits
       lsb = top ^ data.shift   # EOR with next byte to form the LSB

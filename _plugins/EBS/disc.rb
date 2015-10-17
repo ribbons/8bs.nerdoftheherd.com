@@ -13,18 +13,19 @@ module EBS
     attr_reader :imagepath, :issue, :path, :number, :date, :menus
 
     private def read_data_lines(data)
-      lines = []
+      lines = {}
       pos = 0
 
       loop do
         fail 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
         pos += 1
 
-        # End of file marker
-        break if data.getbyte(pos) == 0xff
+        # End of file marker is 0xff
+        break if (byte1 = data.getbyte(pos)) == 0xff
+        pos += 1
 
-        # Skip second byte of line number
-        pos += 2
+        line_num = (byte1 << 8) | data.getbyte(pos)
+        pos += 1
 
         # Entire length of line, so subtract bytes already read
         linelen = data.getbyte(pos) - 4
@@ -36,7 +37,7 @@ module EBS
 
         if is_data_line
           line = data[pos..(pos + linelen - 1)]
-          lines << line.strip.split(',')
+          lines[line_num] = line.strip.split(',')
         end
 
         pos += linelen - 1

@@ -10,24 +10,84 @@ module EBS
       dateval = read_str_var('m', data).strip
       @date = Date.strptime(dateval, '%d.%m.%y')
 
-      @menuid = 1
-
+      id_mapping = read_id_map(data)
       lines = read_data_lines(data)
-      convert_menu_data(lines, file.disc)
+      convert_menu_data(lines, id_mapping, file.disc)
     end
 
-    def convert_menu_data(lines, disc)
-      until (vals = lines.shift).nil?
-        menu = Menu.new
-        menu.title = vals[0]
-        entries = Integer(vals[1])
+    # The first version of the menu by S.Flintham includes 'PROCla' which takes
+    # a menu number and then RESTOREs to the relevant data line.
+    # Read these values and build a reverse lookup hash to convert line numbers
+    # into menu numbers.
+    private def read_id_map(data)
+      map = {}
+      pos = 0
+      inproc = false
 
-        menu.id = @menuid
-        @menuid += 1
+      loop do
+        fail 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
+        pos += 1
 
-        entries.times do
-          vals = lines.shift
+        # End of file marker
+        break if data.getbyte(pos) == 0xff
 
+        # Skip second byte of line number
+        pos += 2
+
+        # Entire length of line, so subtract bytes already read
+        linelen = data.getbyte(pos) - 4
+        pos += 1
+
+        if inproc
+          if linelen == 1 && data.getbyte(pos) == 0xe1
+            # ENDPROC
+            break
+          end
+
+          if linelen < 7 || data[pos..pos + 3] != "\xe7f%=".b || data[pos + 5..pos + 6] != "\x8c\xf7".b
+            fail 'Unexpected line in PROC la'
+          end
+
+          pos += 4
+          linelen -= 4
+
+          menuid = data.getbyte(pos).chr
+
+          if linelen == 3
+            map[:first] = menuid
+          else
+            linenum = BBC::BasicFilter.inline_line_num(data[pos + 5..pos + 7].each_byte.to_a)
+            map[linenum] = menuid
+          end
+        elsif linelen == 8 && data[pos..pos + 7] == "\xdd\xf2la(f%)".b
+          # Found DEFPROCla(f%)
+          inproc = true
+        end
+
+        pos += linelen
+      end
+
+      map
+    end
+
+    private def convert_menu_data(lines, id_mapping, disc)
+      entries = 0
+      menu = nil
+
+      lines.each do |linenum, vals|
+        if entries == 0
+          if menu.nil?
+            menuid = id_mapping[:first]
+          else
+            @menus << menu
+            menuid = id_mapping[linenum]
+          end
+
+          menu = Menu.new
+          menu.title = vals[0]
+          menu.id = menuid
+          entries = vals[1].to_i
+        else
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = vals[0]
           entry.path = vals[2] + '.' + vals[3] if vals[2] != ''
@@ -56,10 +116,11 @@ module EBS
           end
 
           menu.entries << entry
+          entries -= 1
         end
-
-        @menus << menu
       end
+
+      @menus << menu
     end
   end
 end

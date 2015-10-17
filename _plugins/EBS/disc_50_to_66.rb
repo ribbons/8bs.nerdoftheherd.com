@@ -6,7 +6,7 @@ module EBS
       disc = BBC::DfsDisc.new(imagepath)
       file = disc.file('$.!BOOT')
 
-      lines = read_data_lines(file.content)
+      lines = read_data_lines(file.content).values
       vals = lines.shift
 
       @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
