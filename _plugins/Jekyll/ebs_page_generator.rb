@@ -18,7 +18,7 @@ module Jekyll
                 site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :default)
               end
 
-              if entry.type == :basic
+              if entry.type == :basic || entry.type == :exec
                 site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath, 'list'), disc, entry, :list)
               end
             end

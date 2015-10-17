@@ -19,6 +19,12 @@ module Jekyll
         end
       when :run, :ldpic
         template = 'content_runnable'
+      when :exec
+        if action == :list
+          template = 'content_exec_list'
+        else
+          template = 'content_exec'
+        end
       else
         throw 'Unknown entry type: ' + entry.type.to_s
       end

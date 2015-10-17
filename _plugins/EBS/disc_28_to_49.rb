@@ -124,6 +124,8 @@ module EBS
               entry.type = :run
             when 'CHAIN'
               entry.type = :basic
+            when '*EX.'
+              entry.type = :exec
             else
               throw 'Unknown command \'' + command + '\' for \'' + entry.title + '\''
             end
