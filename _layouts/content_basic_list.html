@@ -9,4 +9,7 @@ action:     Listing
 	<h1>{{ page.title }}</h1>
 </div>
 
-<div class="centralcol mode7">{{ page.entry.content | basic_to_text | mode7_to_html }}</div>
+{% for item in page.entry.content %}
+	{% if forloop.index > 1 %}<hr>{% endif %}
+	<div class="centralcol mode7">{{ item | basic_to_text | mode7_to_html }}</div>
+{% endfor %}

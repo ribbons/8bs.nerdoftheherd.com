@@ -6,11 +6,16 @@ module EBS
     end
 
     attr_accessor :title, :type, :id
-    attr_reader :path
+    attr_reader :paths
 
-    def path=(path)
-      @path = @disc.canonicalise_path(path)
-      @linkpath = Jekyll::Utils.slugify(@path)
+    def paths=(paths)
+      @paths = []
+
+      paths.each do |path|
+        @paths << @disc.canonicalise_path(path)
+      end
+
+      @linkpath = Jekyll::Utils.slugify(@paths[0])
 
       # Make the path unique if it collides with an existing one
       if @linkpaths.key?(@linkpath)
@@ -31,7 +36,13 @@ module EBS
     end
 
     def content
-      @disc.file(@path).content
+      content = []
+
+      @paths.each do |path|
+        content << @disc.file(path).content
+      end
+
+      content
     end
   end
 end

@@ -3,4 +3,7 @@ layout:     main
 includejs:  '/common/script/mode7.js'
 ---
 
-<div class="centralcol mode7">{{ page.entry.content | trim_scroller | mode7_to_html }}</div>
+{% for item in page.entry.content %}
+	{% if forloop.index > 1 %}<hr>{% endif %}
+	<div class="centralcol mode7">{{ item | trim_scroller | mode7_to_html }}</div>
+{% endfor %}

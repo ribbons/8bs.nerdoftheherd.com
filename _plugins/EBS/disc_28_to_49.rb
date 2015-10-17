@@ -73,6 +73,7 @@ module EBS
     private def convert_menu_data(lines, id_mapping, disc)
       entries = 0
       menu = nil
+      first_paths = nil
 
       lines.each do |linenum, vals|
         if entries == 0
@@ -81,16 +82,29 @@ module EBS
           else
             @menus << menu
             menuid = id_mapping[linenum]
+
+            # Remove second+ paths which are the first path on another entry
+            menu.entries.each do |entry|
+              unless entry.paths.nil? || entry.paths.size == 1
+                entry.paths.delete_if.with_index { |path, i| i > 0 && first_paths.include?(path) }
+              end
+            end
           end
 
           menu = Menu.new
           menu.title = vals[0]
           menu.id = menuid
+
           entries = vals[1].to_i
+          first_paths = []
         else
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = vals[0]
-          entry.path = vals[2] + '.' + vals[3] if vals[2] != ''
+
+          unless vals[2] == ''
+            entry.paths = vals[3].split('@').each.map { |file| vals[2] + '.' + file }
+            first_paths << entry.paths.first
+          end
 
           command = vals[1]
           is_text = vals[4].to_i == -1

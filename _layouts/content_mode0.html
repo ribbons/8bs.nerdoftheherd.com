@@ -2,4 +2,7 @@
 layout:     main
 ---
 
-<div class="centralcol mode0">{{ page.entry.content | mode0_to_html }}</div>
+{% for item in page.entry.content %}
+	{% if forloop.index > 1 %}<hr>{% endif %}
+	<div class="centralcol mode0">{{ item | mode0_to_html }}</div>
+{% endfor %}

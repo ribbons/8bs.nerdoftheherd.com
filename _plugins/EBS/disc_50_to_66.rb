@@ -29,7 +29,7 @@ module EBS
 
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = vals[0]
-          entry.path = vals[1] + '.' + vals[2] if vals[1] != ''
+          entry.paths = [vals[1] + '.' + vals[2]] if vals[1] != ''
 
           action = vals[3]
 
