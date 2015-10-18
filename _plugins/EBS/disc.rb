@@ -59,41 +59,5 @@ module EBS
 
       lines
     end
-
-    private def read_str_var(varname, data)
-      pos = 0
-
-      loop do
-        fail 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
-        pos += 1
-
-        # End of file marker
-        if data.getbyte(pos) == 0xff
-          throw 'String variable ' + varname + '$ not found'
-        end
-
-        # Skip second byte of line number
-        pos += 2
-
-        # Entire length of line, so subtract bytes already read
-        linelen = data.getbyte(pos) - 4
-        pos += 1
-
-        if data[pos..(pos + varname.length + 2)] == varname + '$="'
-          pos += varname.length + 3
-          value = ''
-
-          # Read value until the matching quote is found
-          while data.getbyte(pos) != 0x22
-            value << data.getbyte(pos).chr
-            pos += 1
-          end
-
-          return value
-        end
-
-        pos += linelen
-      end
-    end
   end
 end

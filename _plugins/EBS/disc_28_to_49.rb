@@ -18,15 +18,15 @@ module EBS
       super(issue, imagepath)
 
       disc = BBC::DfsDisc.new(imagepath)
-      file = disc.file('$.Menu')
-      data = file.content
 
-      dateval = read_str_var('m', data).strip
-      @date = Date.strptime(dateval, '%d.%m.%y')
+      bootlines = disc.file('$.!Boot').content.split("\r")
+      dateval = bootlines[6].match(/([0-9]+)[A-Z]{2} ([A-Z]+ [0-9]{4})/i).captures.join(' ')
+      @date = Date.strptime(dateval, '%d %b %Y')
 
+      data = disc.file('$.Menu').content
       id_mapping = read_id_map(data)
       lines = read_data_lines(data)
-      convert_menu_data(lines, id_mapping, file.disc)
+      convert_menu_data(lines, id_mapping, disc)
     end
 
     # The first version of the menu by S.Flintham includes 'PROCla' which takes
