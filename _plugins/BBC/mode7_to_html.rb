@@ -513,67 +513,81 @@ module BBC
           thischar = graphval(63, heighttype, graphicsmode)
         when 129
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::RED
           concealed = :reveal
+          graphicshold = :release
         when 130
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::GREEN
           concealed = :reveal
-        when 131
+          graphicshold = :release
+        when 3, 131
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::YELLOW
           concealed = :reveal
+          graphicshold = :release
         when 132
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::BLUE
           concealed = :reveal
+          graphicshold = :release
         when 133
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::MAGENTA
           concealed = :reveal
+          graphicshold = :release
         when 134
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::CYAN
           concealed = :reveal
+          graphicshold = :release
         when 135
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           mode = :text
           nextfore = Colour::WHITE
           concealed = :reveal
+          graphicshold = :release
         when 136
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             throw 'Check if held graphics would be valid here'
@@ -689,45 +703,51 @@ module BBC
           concealed = :conceal
         when 153
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           graphicsmode = :contig
         when 154
-          if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
-          end
-
-          thischar = ' '
-          graphicsmode = :separa
-        when 156
-          if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
-          end
-
-          thischar = ' '
-          backcolour = Colour::BLACK
-          stylechange = true
-        when 157
-          if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
-          end
-
-          thischar = ' '
-          backcolour = forecolour
-          stylechange = true
-        when 158
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
             thischar = ' '
           end
 
-          graphicshold = :hold if mode == :graphics
+          graphicsmode = :separa
+        when 156
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
+            thischar = lastchar
+          else
+            thischar = ' '
+          end
+
+          backcolour = Colour::BLACK
+          stylechange = true
+        when 157
+          if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
+            thischar = lastchar
+          else
+            thischar = ' '
+          end
+
+          backcolour = forecolour
+          stylechange = true
+        when 158
+          if lastchar != '' && lastchar.ord > Offsets::GFX_STANDARD
+            thischar = lastchar
+          else
+            thischar = ' '
+          end
+
+          graphicshold = :hold
         when 159
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
           graphicshold = :release
@@ -735,9 +755,7 @@ module BBC
           throw 'Unknown character value ' + c.to_s + ' at line ' + row.to_s + ' column ' + column.to_s
         end
 
-        if concealed == :conceal && thischar != ' '
-          throw 'Concealed graphics would have affected output at line ' + row.to_s + ' column ' + column.to_s
-        end
+        thischar = ' ' if concealed == :conceal
 
         html = ''
 
@@ -775,6 +793,7 @@ module BBC
           graphicsmode = :contig
           height = heighttype = :standard
           graphicshold = :release
+          concealed = :reveal
 
           lastchar = ''
 
