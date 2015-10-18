@@ -101,7 +101,7 @@ module EBS
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = vals[0]
 
-          unless vals[2] == ''
+          unless vals[3] == ''
             entry.paths = vals[3].split('@').each.map { |file| vals[2] + '.' + file }
             first_paths << entry.paths.first
           end
