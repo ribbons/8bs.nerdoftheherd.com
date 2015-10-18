@@ -4,3 +4,5 @@ exclude:
   - Gemfile.lock
   - Rakefile
   - '**/Thumbs.db'
+  - AUTHORS.md
+  - LICENSE.txt

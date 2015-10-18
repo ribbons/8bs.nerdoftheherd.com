@@ -30,3 +30,6 @@ Style/Documentation:
 
 Style/Next:
   Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
