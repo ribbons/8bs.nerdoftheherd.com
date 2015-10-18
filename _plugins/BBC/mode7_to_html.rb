@@ -49,15 +49,12 @@ module BBC
         end
 
         case c
-        when 0
-          # Null byte - assume that the end of the file has been reached
-          break
         when 13
           while column < 39
             prevheights[column] = heighttype
             column += 1
           end
-        when 128, 138, 139, 142, 143, 144
+        when 0, 128, 138, 139, 142, 143, 144
           # 'Nothing' in the user guide - displays as a space
           thischar = ' '
         when 32, 160
