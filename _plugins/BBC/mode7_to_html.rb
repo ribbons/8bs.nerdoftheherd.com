@@ -590,18 +590,20 @@ module BBC
           graphicshold = :release
         when 136
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           flash = :flash
           stylechange = true
         when 137
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
-            throw 'Check if held graphics would be valid here'
+            thischar = lastchar
+          else
+            thischar = ' '
           end
 
-          thischar = ' '
           flash = :steady
           stylechange = true
         when 140
