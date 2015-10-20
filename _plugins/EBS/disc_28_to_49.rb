@@ -20,8 +20,10 @@ module EBS
       disc = BBC::DfsDisc.new(imagepath)
 
       bootlines = disc.file('$.!Boot').content.split("\r")
-      dateval = bootlines[6].match(/([0-9]+)[A-Z]{2} ([A-Z]+ [0-9]{4})/i).captures.join(' ')
-      @date = Date.strptime(dateval, '%d %b %Y')
+      datevals = bootlines[6].match(/(?:([0-9]+)[A-Z]{2} )?([A-Z]{3})[A-Z]* ([0-9]{4})/i).captures
+
+      @date = datevals[1..2].join('/')
+      @date = datevals[0].rjust(2, '0') + '/' + @date unless datevals[0].nil?
 
       data = disc.file('$.Menu').content
       id_mapping = read_id_map(data)

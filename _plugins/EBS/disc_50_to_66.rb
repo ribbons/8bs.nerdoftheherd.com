@@ -23,7 +23,7 @@ module EBS
       lines = read_data_lines(file.content).values
       vals = lines.shift
 
-      @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
+      @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y').strftime('%d/%b/%Y')
       @menuid = 1
 
       convert_menu_data(lines, file.disc)

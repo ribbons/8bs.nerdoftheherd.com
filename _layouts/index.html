@@ -8,7 +8,7 @@ title:      8-Bit Software Magazines Index
 	<h1>8BS Issues</h1>
 	
 	{% for issue in page.issues %}
-		<h2>Issue {{issue.number}} <span class="issuedate">{{issue.date | date: '%d/%m/%Y'}}</span></h2>
+		<h2>Issue {{ issue.number }} <span class="issuedate">{{ issue.date }}</span></h2>
 
 		<ul>
 			{% for disc in issue.discs %}
