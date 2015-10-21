@@ -70,9 +70,10 @@ module EBS
           menuid = data.getbyte(pos).chr
 
           if linelen == 3
-            map[:first] = menuid
+            map[:first] = menuid unless map.key?(:first)
           else
-            linenum = BBC::BasicFilter.inline_line_num(data[pos + 5..pos + 7].each_byte.to_a)
+            numpos = data.getbyte(pos + 4) == 0x8d ? pos + 5 : pos + 4
+            linenum = BBC::BasicFilter.inline_line_num(data[numpos..numpos + 2].each_byte.to_a)
             map[linenum] = menuid
           end
         elsif linelen == 8 && data[pos..pos + 7] == "\xdd\xf2la(f%)".b

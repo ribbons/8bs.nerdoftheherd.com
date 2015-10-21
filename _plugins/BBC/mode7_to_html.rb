@@ -68,7 +68,7 @@ module BBC
             prevheights[column] = heighttype
             column += 1
           end
-        when 0, 128, 138, 139, 142, 143, 144
+        when 0, 128, 138, 139, 142, 143, 144, 155
           # 'Nothing' in the user guide - displays as a space
           thischar = ' '
         when 32, 160
