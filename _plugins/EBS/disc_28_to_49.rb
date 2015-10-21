@@ -94,11 +94,12 @@ module EBS
 
       lines.each do |linenum, vals|
         if entries == 0
+          menuid = id_mapping[linenum]
+
           if menu.nil?
-            menuid = id_mapping[:first]
+            menuid = id_mapping[:first] if menuid.nil?
           else
             @menus << menu
-            menuid = id_mapping[linenum]
 
             # Remove second+ paths which are the first path on another entry
             menu.entries.each do |entry|
