@@ -38,6 +38,8 @@ module EBS
         issues[issuenum] = Issue.new(issuenum) unless issues.key?(issuenum)
 
         case issuenum
+        when 1..27
+          disc = EBS::Disc1To27.new(issues[issuenum], discimg)
         when 28..49
           disc = EBS::Disc28To49.new(issues[issuenum], discimg)
         when 50..66
