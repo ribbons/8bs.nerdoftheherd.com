@@ -1,0 +1,146 @@
+:date: Apr/1993
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Editorial
+        :type: :mode7
+        :paths: [ Editorl ]
+      - :title: User Response
+        :type: :mode7
+        :paths: [ Cmments ]
+      - :title: Questionnaire Instructions
+        :type: :mode7
+        :paths: [ QuInstr ]
+      - :title: FILL IN QUESTIONNAIRE
+        :type: :basic
+        :paths: [ QuFill ]
+      - :title: Archimedes Debate pt.3
+        :type: :mode7
+        :paths: [ ArchDbt ]
+      - :title: ADFS Debate
+        :type: :mode7
+        :paths: [ ADFSDbt ]
+      - :title: About this Issue
+        :type: :mode7
+        :paths: [ About26 ]
+      - :title: Humour pt.1
+        :type: :mode7
+        :paths: [ Humour ]
+      - :title: Humour pt.2
+        :type: :mode7
+        :paths: [ HP ]
+      - :title: Humour pt.3
+        :type: :mode0
+        :paths: [ ClMths0 ]
+      - :title: Mailbox part 1
+        :type: :mode7
+        :paths: [ MailBx1 ]
+      - :title: Mailbox part 2
+        :type: :mode7
+        :paths: [ MailBx2 ]
+      - :title: Sound Envelopes explained
+        :type: :mode7
+        :paths: [ Envelps ]
+      - :title: Program Documentation
+        :type: :mode7
+        :paths: [ Dcumnts ]
+      - :title: Guess Who Info
+        :type: :mode7
+        :paths: [ GessInf ]
+      - :title: Green Suggestions
+        :type: :mode7
+        :paths: [ Envrnmt ]
+      - :title: Technological progress?
+        :type: :mode7
+        :paths: [ Tchnlgy ]
+      - :title: Issue 26 Software Menu
+        :type: :menu
+        :id: 999
+  - :title: Software Menu
+    :id: 999
+    :entries:
+      - :title: Games
+        :type: :menu
+        :id: 2
+      - :title: Applications
+        :type: :menu
+        :id: 3
+      - :title: Other items
+        :type: :menu
+        :id: 4
+      - :title: BACK TO MAGAZINE
+        :type: :menu
+        :id: 1
+  - :title: Games
+    :id: 2
+    :entries:
+      - :title: Guess Who
+        :type: :basic
+        :paths: [ ':2.GessWho' ]
+      - :title: Short Game
+        :type: :basic
+        :paths: [ ':2.Short' ]
+      - :title: Star Commander
+        :type: :basic
+        :paths: [ ':2.STAR' ]
+      - :title: Paras
+        :type: :basic
+        :paths: [ ':2.Paras4' ]
+      - :title: Battleships
+        :type: :basic
+        :paths: [ ':2.BShips4' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Applications
+    :id: 3
+    :entries:
+      - :title: Game Cheats Database
+        :type: :basic
+        :paths: [ ':2.A-ZDISP' ]
+      - :title: Mortgage calculator
+        :type: :basic
+        :paths: [ ':2.Mgage' ]
+      - :title: Envelope Editor
+        :type: :basic
+        :paths: [ ':2.EnvEdit' ]
+      - :title: Football pools
+        :type: :basic
+        :paths: [ ':2.FtblPls' ]
+      - :title: Catalogue printer
+        :type: :basic
+        :paths: [ ':2.PRINTv9' ]
+      - :title: Banners
+        :type: :basic
+        :paths: [ ':2.Banners' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Other items
+    :id: 4
+    :entries:
+      - :title: ADFS Textfile Reader
+        :type: :basic
+        :paths: [ ':2.Reader' ]
+      - :title: Joker 1.10
+        :type: :basic
+        :paths: [ ':2.Joker' ]
+      - :title: Function key utilities
+        :type: :basic
+        :paths: [ ':2.Util-fK' ]
+      - :title: Wordsearch Solver 1
+        :type: :basic
+        :paths: [ ':2.WSSolv1' ]
+      - :title: Wordsearch Solver 2
+        :type: :basic
+        :paths: [ ':2.WSSolv4' ]
+      - :title: Zarch
+        :type: :basic
+        :paths: [ ':2.Zarch' ]
+      - :title: Arch filetypes
+        :type: :basic
+        :paths: [ ':2.SetType' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
