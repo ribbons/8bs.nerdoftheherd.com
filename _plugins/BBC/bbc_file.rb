@@ -14,16 +14,17 @@
 
 module BBC
   class BBCFile
-    def initialize(disc, side, dir, name, startsector, length)
+    def initialize(disc, side, dir, name, startsector, length, loadaddr)
       @disc = disc
       @side = side
       @dir = dir
       @name = name
       @startsector = startsector
       @length = length
+      @loadaddr = loadaddr
     end
 
-    attr_reader :side, :dir, :name, :disc
+    attr_reader :side, :dir, :name, :loadaddr, :disc
 
     def content
       data = ''

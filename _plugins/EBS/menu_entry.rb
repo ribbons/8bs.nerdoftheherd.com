@@ -53,10 +53,27 @@ module EBS
       content = []
 
       @paths.each do |path|
-        content << @disc.file(path).content
+        file = @disc.file(path)
+
+        if @type == :mode7
+          content << trim_scroller(file.content, file.loadaddr)
+        else
+          content << file.content
+        end
       end
 
       content
+    end
+
+    MODE7_SCREEN_SIZE = 25 * 40
+
+    private def trim_scroller(content, loadaddr)
+      # The first four bytes are the start and end locations of the text data
+      textstart = (content.getbyte(1) << 8 | content.getbyte(0)) - loadaddr
+      textend = (content.getbyte(3) << 8 | content.getbyte(2)) - loadaddr + MODE7_SCREEN_SIZE
+
+      # Chop off scroller code
+      content[textstart..textend]
     end
   end
 end

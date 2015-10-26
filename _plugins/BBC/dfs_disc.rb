@@ -59,12 +59,15 @@ module BBC
         # Bits 1-7 of Byte 8 is the directory
         dir = (cat[offset + 7] & 0x7F).chr
 
-        # Sector 2: Bytes 5 & 6 and a couple of bits of 7 are the length
+        # Sector 2: Bytes 1 & 2 are the load address
+        loadaddr = (cat[SECTOR_SIZE + offset + 1] << 8) | cat[SECTOR_SIZE + offset]
+
+        # Bytes 5 & 6 and a couple of bits of 7 are the length
         length = ((cat[SECTOR_SIZE + offset + 6] & 0x30) << 12) | (cat[SECTOR_SIZE + offset + 5] << 8) | cat[SECTOR_SIZE + offset + 4]
         # Byte 8 and a couple of bits of 7 are the sector where the file starts
         startsector = ((cat[SECTOR_SIZE + offset + 6] & 0x03) << 8) | cat[SECTOR_SIZE + offset + 7]
 
-        file = BBCFile.new(self, side, dir, name, startsector, length)
+        file = BBCFile.new(self, side, dir, name, startsector, length, loadaddr)
         @files[':' + file.side.to_s + '.' + file.dir.upcase + '.' + file.name.upcase] = file
       end
     end
