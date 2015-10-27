@@ -1,0 +1,125 @@
+:date: Feb/1993
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: About this issue
+        :type: :mode7
+        :paths: [ this, thi2 ]
+      - :title: News and views
+        :type: :mode7
+        :paths: [ news ]
+      - :title: Messages and ads
+        :type: :mode7
+        :paths: [ mess ]
+      - :title: Messages to you
+        :type: :mode7
+        :paths: [ uu ]
+      - :title: Tonkins computer dictionary
+        :type: :mode7
+        :paths: [ tonk ]
+      - :title: Please recycle
+        :type: :mode7
+        :paths: [ wesabin ]
+      - :title: Presenting programs part 4
+        :type: :mode7
+        :paths: [ Pres4 ]
+      - :title: DBase, Selftes, Copy Info
+        :type: :mode7
+        :paths: [ utilinf ]
+      - :title: Info on SOLINET
+        :type: :mode7
+        :paths: [ soliad ]
+      - :title: Info for AMX viewer
+        :type: :mode7
+        :paths: [ amxtext ]
+      - :title: Late submissions
+        :type: :mode7
+        :paths: [ late ]
+      - :title: Joker info
+        :type: :mode0
+        :paths: [ JokerD ]
+      - :title: Weight training
+        :type: :mode0
+        :paths: [ Muscles ]
+      - :title: Games and demos
+        :type: :menu
+        :id: 888
+      - :title: Utilities
+        :type: :menu
+        :id: 999
+  - :title: GameNdemo
+    :id: 888
+    :entries:
+      - :title: Return to main menu.
+        :type: :menu
+        :id: 1
+      - :title: All Fall Down Game.
+        :type: :basic
+        :paths: [ ':2.fall' ]
+      - :title: Joker.
+        :type: :basic
+        :paths: [ ':2.joker' ]
+      - :title: Animation demo.
+        :type: :basic
+        :paths: [ ':2.anim' ]
+      - :title: Shapes demo.
+        :type: :basic
+        :paths: [ ':2.shapes' ]
+      - :title: Life.
+        :type: :basic
+        :paths: [ ':2.hexlife' ]
+      - :title: Cosine graph 1.
+        :type: :basic
+        :paths: [ ':2.trig1' ]
+      - :title: Cosine graph 2.
+        :type: :basic
+        :paths: [ ':2.trig2' ]
+      - :title: Sample.
+        :type: :basic
+        :paths: [ ':2.rh1run' ]
+      - :title: Wordsearch.
+        :type: :basic
+        :paths: [ ':2.pr600-2' ]
+  - :title: Utilities
+    :id: 999
+    :entries:
+      - :title: Return to main menu.
+        :type: :menu
+        :id: 1
+      - :title: Database.
+        :type: :basic
+        :paths: [ ':2.DBase' ]
+      - :title: Test/revision database.
+        :type: :basic
+        :paths: [ ':2.selftes' ]
+      - :title: Basic program reader.
+        :type: :basic
+        :paths: [ ':2.listbas' ]
+      - :title: Press the spacebar.
+        :type: :basic
+        :paths: [ ':2.space' ]
+      - :title: Program presentation example1
+        :type: :basic
+        :paths: [ ':2.dirctc1' ]
+      - :title: Program presentation example2
+        :type: :basic
+        :paths: [ ':2.dirctc2' ]
+      - :title: Program presentation example3
+        :type: :basic
+        :paths: [ ':2.dirctc3' ]
+      - :title: Program presentation example4
+        :type: :basic
+        :paths: [ ':2.dirctc4' ]
+      - :title: Big Ben.
+        :type: :basic
+        :paths: [ ':2.bigben' ]
+      - :title: AMX view.
+        :type: :basic
+        :paths: [ ':2.amxview' ]
+      - :title: Tape backup.
+        :type: :basic
+        :paths: [ ':2.Tcopy' ]
+      - :title: Catalogues.
+        :type: :basic
+        :paths: [ ':2.ofcats' ]

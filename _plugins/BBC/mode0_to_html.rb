@@ -72,11 +72,7 @@ module BBC
           end
         when 10
           # Line feed
-          if column == 0
-            column = 79
-          else
-            throw 'Implement line feeds not at the start of a line'
-          end
+          column = 79
         when 13
           # Carriage return
           # This displays as a line feed as well unless there has just
@@ -120,10 +116,10 @@ module BBC
         when 97..126
           # a-z{|}~
           output << c.chr
-        # Chars 128-254 display as spaces in the Micro, but are populated
+        # Chars 128-255 display as spaces in the Micro, but are populated
         # with special characters by default in the Master.
         # As the Micro was more popular, display these as spaces.
-        when 128..254
+        when 128..255
           output << ' '
         else
           output << '?'
