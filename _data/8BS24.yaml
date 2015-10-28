@@ -1,0 +1,143 @@
+:date: Jan/1993
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Introduction / News
+        :type: :mode7
+        :paths: [ IntNews ]
+      - :title: Questionnaire Results
+        :type: :mode7
+        :paths: [ Results ]
+      - :title: User Response
+        :type: :mode7
+        :paths: [ Cmments ]
+      - :title: C Sourcecode
+        :type: :mode0
+        :paths: [ CSource ]
+      - :title: About this Issue
+        :type: :mode7
+        :paths: [ About24 ]
+      - :title: Presenting Programs 3
+        :type: :mode7
+        :paths: [ Present ]
+      - :title: Freeze your 6502
+        :type: :basic
+        :paths: [ Freeze ]
+      - :title: Book Review
+        :type: :mode7
+        :paths: [ EpsonBk ]
+      - :title: Messages Section
+        :type: :mode7
+        :paths: [ MailBox ]
+      - :title: Program Documentation
+        :type: :mode7
+        :paths: [ Dcumnts ]
+      - :title: Archimedes Debate
+        :type: :mode7
+        :paths: [ ArchDbt ]
+      - :title: Puzzle Info
+        :type: :mode7
+        :paths: [ PuzInfo ]
+      - :title: Christmas Wordpuzzle
+        :type: :mode0
+        :paths: [ Puzl92 ]
+      - :title: 32016 Section
+        :type: :mode7
+        :paths: [ NS32016 ]
+      - :title: TBI pool update
+        :type: :mode7
+        :paths: [ TBIupdt ]
+      - :title: Issue 24 Software Menu
+        :type: :menu
+        :id: 999
+  - :title: Software Menu
+    :id: 999
+    :entries:
+      - :title: Games, Demos etc.
+        :type: :menu
+        :id: 2
+      - :title: Applications
+        :type: :menu
+        :id: 3
+      - :title: Utilities
+        :type: :menu
+        :id: 4
+      - :title: Repton Passwords
+        :type: :basic
+        :paths: [ ':2.RepPass' ]
+#      - :title: De-archive Software
+#        :type: :menu
+#        :id: 5
+      - :title: BACK TO MAGAZINE
+        :type: :menu
+        :id: 1
+  - :title: Games, Demos etc.
+    :id: 2
+    :entries:
+      - :title: Patience
+        :type: :basic
+        :paths: [ ':2.PATNCE' ]
+      - :title: Intellectual Hangman
+        :type: :basic
+        :paths: [ ':2.Execute' ]
+      - :title: Christmas Cracker
+        :type: :basic
+        :paths: [ ':2.CRACKER' ]
+      - :title: 12 Days of Xmas
+        :type: :basic
+        :paths: [ ':2.12Days' ]
+      - :title: Graph14
+        :type: :basic
+        :paths: [ ':2.GRAPH14' ]
+      - :title: 3D Demo
+        :type: :basic
+        :paths: [ ':2.3DDemo' ]
+      - :title: 3D Demo (B)
+        :type: :basic
+        :paths: [ ':2.3DDemoS' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Applications
+    :id: 3
+    :entries:
+      - :title: Bank Manager
+        :type: :basic
+        :paths: [ ':2.BankMan' ]
+      - :title: Disk Envelope Creator
+        :type: :basic
+        :paths: [ ':2.ENVCRE' ]
+      - :title: Fahrenheit to Celsius
+        :type: :run
+        :paths: [ ':2.FAHR' ]
+      - :title: Form Master
+        :type: :basic
+        :paths: [ ':2.FormMas' ]
+      - :title: Sim City Cheat
+        :type: :basic
+        :paths: [ ':2.SimCht' ]
+      - :title: Picture Gallery V2
+        :type: :basic
+        :paths: [ ':2.PicDis3' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Utilities
+    :id: 4
+    :entries:
+      - :title: Econet Tree
+        :type: :basic
+        :paths: [ ':2.ETREE' ]
+      - :title: RAMdisk
+        :type: :basic
+        :paths: [ ':2.RAMdisk' ]
+      - :title: Multiple Accesser
+        :type: :basic
+        :paths: [ ':2.Accessr' ]
+      - :title: Bulk Delete
+        :type: :basic
+        :paths: [ ':2.BulkDel' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999

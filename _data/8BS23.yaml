@@ -1,0 +1,116 @@
+:date: Nov/1992
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: About this issue
+        :type: :mode7
+        :paths: [ This ]
+      - :title: News and views
+        :type: :mode7
+        :paths: [ News ]
+      - :title: Messages and ads
+        :type: :mode7
+        :paths: [ Mess ]
+      - :title: More about cheats
+        :type: :mode7
+        :paths: [ Cheats ]
+      - :title: Issue 23 accounts
+        :type: :mode7
+        :paths: [ Account ]
+      - :title: Was that you?
+        :type: :mode7
+        :paths: [ wasityu ]
+      - :title: Hardwire ROM/RAM
+        :type: :mode7
+        :paths: [ hrdwire ]
+      - :title: Back to re-inking
+        :type: :mode7
+        :paths: [ re-ink ]
+      - :title: Spirals info
+        :type: :mode7
+        :paths: [ sprinst ]
+      - :title: Messages to you
+        :type: :mode7
+        :paths: [ uu ]
+      - :title: Tiles and Plot 133
+        :type: :mode7
+        :paths: [ tilexp ]
+      - :title: Utilities program info
+        :type: :mode7
+        :paths: [ utilinf ]
+      - :title: Graphics/sound
+        :type: :menu
+        :id: 888
+      - :title: Utilities
+        :type: :menu
+        :id: 999
+  - :title: Pics+sound
+    :id: 888
+    :entries:
+      - :title: Return to main menu.
+        :type: :menu
+        :id: 1
+      - :title: Presenting Poland. Part 2.
+        :type: :basic
+        :paths: [ ':2.P.Poland2' ]
+      - :title: Christmas carols from Poland.
+        :type: :basic
+        :paths: [ ':2.M.koledy' ]
+      - :title: The Union Jack. Not Model B.
+        :type: :basic
+        :paths: [ ':2.u-jack' ]
+      - :title: The Union Jack. Screen.
+        :type: :basic
+        :paths: [ ':2.S.u-jscr' ]
+      - :title: Fancy letters and boxes.
+        :type: :basic
+        :paths: [ ':2.lettbox' ]
+      - :title: Spirals. Graphics.
+        :type: :basic
+        :paths: [ ':2.spiral' ]
+      - :title: Laugh. Sound sample.
+        :type: :basic
+        :paths: [ ':2.S.samp' ]
+      - :title: Satellite picture.
+        :type: :basic
+        :paths: [ ':2.S.scr1' ]
+  - :title: Utilities
+    :id: 999
+    :entries:
+      - :title: Return to main menu.
+        :type: :menu
+        :id: 1
+      - :title: Short utilities.
+        :type: :basic
+        :paths: [ ':2.utils' ]
+      - :title: Calendar printer.
+        :type: :basic
+        :paths: [ ':2.monthpl' ]
+      - :title: Interword converter.
+        :type: :basic
+        :paths: [ ':2.InterRd' ]
+      - :title: Tax and insurance info.
+        :type: :basic
+        :paths: [ ':2.tax+ins' ]
+      - :title: Basic program reader.
+        :type: :basic
+        :paths: [ ':2.basread' ]
+      - :title: Rolling cursor.
+        :type: :basic
+        :paths: [ ':2.cursor' ]
+      - :title: Weights and measures convert.
+        :type: :basic
+        :paths: [ ':2.convrs2' ]
+      - :title: ADFS menu system.
+        :type: :basic
+        :paths: [ ':2.adfsmen' ]
+      - :title: Disassembler.
+        :type: :basic
+        :paths: [ ':2.dism' ]
+      - :title: Convert a file to ASCII.
+        :type: :basic
+        :paths: [ ':2.7to3' ]
+      - :title: List variables.
+        :type: :basic
+        :paths: [ ':2.vlistex' ]
