@@ -81,6 +81,8 @@ module BBC
           next
         when 0x0e # Paged mode
           next
+        when 0x15 # Disable VDU
+          next
         when 0x16 # Set Mode
           # Also uses the value of the next byte
           data.shift
