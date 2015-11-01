@@ -1,0 +1,137 @@
+:date: Sep/1992
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Introduction / News
+        :type: :mode0
+        :paths: [ Intrdux ]
+      - :title: Results / Discussion
+        :type: :mode0
+        :paths: [ ResDisc ]
+      - :title: User Response / Accounts
+        :type: :mode0
+        :paths: [ Rsp/Acc ]
+      - :title: About This Issue
+        :type: :mode0
+        :paths: [ About21 ]
+      - :title: How to Present Programs
+        :type: :mode0
+        :paths: [ Present ]
+      - :title: Finding Cheats
+        :type: :mode0
+        :paths: [ ChtFind ]
+      - :title: Introduction to C
+        :type: :mode0
+        :paths: [ C-Intro ]
+      - :title: Hardware Review
+        :type: :mode0
+        :paths: [ Hrdware ]
+      - :title: Messages section
+        :type: :mode0
+        :paths: [ Mailbox ]
+      - :title: Sprite Handler Instructions
+        :type: :mode0
+        :paths: [ SprInst ]
+      - :title: DIRlock Instructions
+        :type: :mode0
+        :paths: [ DIRinst ]
+      - :title: Letterhead Designer Instrux
+        :type: :mode0
+        :paths: [ LettrHd ]
+      - :title: Welsh Boys PD Catalogue
+        :type: :mode0
+        :paths: [ TWB-Cat ]
+      - :title: Issue 21 Software Menu
+        :type: :menu
+        :id: 999
+  - :title: Software Menu
+    :id: 999
+    :entries:
+      - :title: Games
+        :type: :menu
+        :id: 2
+      - :title: Music
+        :type: :menu
+        :id: 3
+      - :title: Letterhead Printer
+        :type: :menu
+        :id: 4
+      - :title: Other Items
+        :type: :menu
+        :id: 5
+      - :title: De-archive Software
+        :type: :basic
+        :paths: [ ':2.ARCER18' ]
+      - :title: BACK TO MAGAZINE
+        :type: :menu
+        :id: 1
+  - :title: Games
+    :id: 2
+    :entries:
+      - :title: Satellite Havoc II
+        :type: :basic
+        :paths: [ ':2.FIRST' ]
+      - :title: Loopy Loop II
+        :type: :basic
+        :paths: [ ':2.CRAZE3' ]
+      - :title: Jackpot
+        :type: :basic
+        :paths: [ ':2.JACKPOT' ]
+      - :title: Guess the Letter
+        :type: :basic
+        :paths: [ ':2.LtGuess' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Music
+    :id: 3
+    :entries:
+      - :title: 'Bach : Little Prelude'
+        :type: :basic
+        :paths: [ ':2.LitPrel' ]
+      - :title: Ghostbusters
+        :type: :basic
+        :paths: [ ':2.Ghost-B' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Letterhead Printer
+    :id: 4
+    :entries:
+      - :title: 'PRINT   : Print prepared L-head'
+        :type: :basic
+        :paths: [ ':2.PRINT' ]
+      - :title: 'SFGEN1  : Create L-head screen'
+        :type: :basic
+        :paths: [ ':2.SFGEN1' ]
+      - :title: 'SCRGEN  : Convert screen'
+        :type: :basic
+        :paths: [ ':2.SCRGEN' ]
+      - :title: 'PTODISC : Create print file'
+        :type: :basic
+        :paths: [ ':2.PTODISC' ]
+      - :title: 'SFGEN2  : Other S.F. screen'
+        :type: :basic
+        :paths: [ ':2.SFGEN2' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Other Items
+    :id: 5
+    :entries:
+      - :title: Presentation Example #1
+        :type: :basic
+        :paths: [ ':2.Example' ]
+      - :title: Presentation Example #2
+        :type: :basic
+        :paths: [ ':2.Exampl2' ]
+      - :title: DIRlock Utility
+        :type: :run
+        :paths: [ ':2.DIRlock ']
+      - :title: Number Converter
+        :type: :basic
+        :paths: [ ':2.NumConv' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999

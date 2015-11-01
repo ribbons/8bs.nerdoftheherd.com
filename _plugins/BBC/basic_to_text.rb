@@ -61,8 +61,11 @@ module BBC
 
       line_num = (byte1 << 8) | data.shift
 
+      linelen = data.shift
+      return nil if linelen.nil?
+
       # Entire length of line, so subtract bytes already read
-      linelen = data.shift - 4
+      linelen -= 4
 
       line = line_num.to_s.rjust(5)
       in_quotes = false
