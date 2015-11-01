@@ -82,6 +82,8 @@ module BBC
         when 0x08 # Back
           # Probably hiding line numbers or code
           next
+        when 0x0c # Clear screen
+          next
         when 0x0e # Paged mode
           next
         when 0x15 # Disable VDU

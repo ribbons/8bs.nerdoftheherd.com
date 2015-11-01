@@ -1,0 +1,170 @@
+:date: Aug/1992
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: What is 8-Bit Software ?
+        :type: :mode0
+        :paths: [ 8BS ]
+      - :title: Changes to 8-Bit Software
+        :type: :mode0
+        :paths: [ CHANGES ]
+      - :title: Questionnaire instructions
+        :type: :mode0
+        :paths: [ QuInstr ]
+      - :title: FILL IN QUESTIONNAIRE
+        :type: :basic
+        :paths: [ QuFill ]
+      - :title: About This Issue
+        :type: :mode0
+        :paths: [ About20 ]
+      - :title: BASIC Program Protection
+        :type: :mode0
+        :paths: [ ProtArt ]
+      - :title: Teletext-format Articles
+        :type: :menu
+        :id: 2
+      - :title: Messages section
+        :type: :mode0
+        :paths: [ Mailbox ]
+      - :title: New TBI Arrangements
+        :type: :mode0
+        :paths: [ NewTBI ]
+      - :title: GLM PD Catalogue
+        :type: :mode0
+        :paths: [ GLM_CAT ]
+      - :title: BBC PD Catalogue Notes
+        :type: :mode0
+        :paths: [ B_NOTES ]
+      - :title: Optimising 6502 code
+        :type: :mode0
+        :paths: [ Opt6502 ]
+      - :title: Conclusion
+        :type: :mode0
+        :paths: [ Conclsn ]
+      - :title: Issue 20 Software Menu
+        :type: :menu
+        :id: 999
+  - :title: Teletext-format Articles
+    :id: 2
+    :entries:
+      - :title: Wordsearch Creator Instrux
+        :type: :mode7
+        :paths: [ WRDINFO ]
+      - :title: ECG Simulator Instructions
+        :type: :mode7
+        :paths: [ ECGINFO ]
+      - :title: 'Cheats #1'
+        :type: :mode7
+        :paths: [ CHEATS ]
+      - :title: 'Cheats #2'
+        :type: :mode7
+        :paths: [ CHEATS2 ]
+      - :title: Rom-builder Instructions
+        :type: :mode7
+        :paths: [ ROMinfo ]
+      - :title: Return to Main Magazine Menu
+        :type: :menu
+        :id: 1
+  - :title: Software Menu
+    :id: 999
+    :entries:
+      - :title: Games & Demos
+        :type: :menu
+        :id: 2
+      - :title: Music (from Mad Rabbit PD)
+        :type: :menu
+        :id: 3
+      - :title: Text/Printer Utilities
+        :type: :menu
+        :id: 4
+      - :title: Other Items
+        :type: :menu
+        :id: 5
+      - :title: BBC PD Catalogue
+        :type: :basic
+        :paths: [ ':2.B.CatLoad' ]
+      - :title: RETURN TO MAGAZINE
+        :type: :menu
+        :id: 1
+  - :title: Games & Demos
+    :id: 2
+    :entries:
+      - :title: Power Raider Game
+        :type: :run
+        :paths: [ ':2.POWER' ]
+      - :title: Loopy Loop Game
+        :type: :basic
+        :paths: [ ':2.CRAZE1' ]
+      - :title: SWAT demo
+        :type: :run
+        :paths: [ ':2.SWAT' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Music
+    :id: 3
+    :entries:
+      - :title: Pride
+        :type: :basic
+        :paths: [ ':2.PRIDE' ]
+      - :title: Bad
+        :type: :basic
+        :paths: [ ':2.BAD' ]
+      - :title: 13 Amps
+        :type: :basic
+        :paths: [ ':2.13AMPS' ]
+      - :title: A-Level Project
+        :type: :basic
+        :paths: [ ':2.ALevel' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Text/Printer Utilities
+    :id: 4
+    :entries:
+      - :title: View to ASCII Converter
+        :type: :run
+        :paths: [ ':2.ViewASC' ]
+      - :title: ASCII Unformatter
+        :type: :basic
+        :paths: [ ':2.Unform' ]
+      - :title: Display Unformatted ASCII
+        :type: :run
+        :paths: [ ':2.SPECIAL' ]
+      - :title: Printer Output to Disk
+        :type: :run
+        :paths: [ ':2.PRINTTO' ]
+      - :title: Teletext Article Printer
+        :type: :basic
+        :paths: [ ':2.TelPrnt' ]
+      - :title: Printout Corrector
+        :type: :run
+        :paths: [ ':2.SUBS1' ]
+      - :title: Printout Corrector Generator
+        :type: :basic
+        :paths: [ ':2.SUBSGEN' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Other Items
+    :id: 5
+    :entries:
+      - :title: Presenting Poland Pt.1
+        :type: :basic
+        :paths: [ ':2.POLAND' ]
+      - :title: ECG Simulator V.3
+        :type: :basic
+        :paths: [ ':2.ECGSim3' ]
+      - :title: Rom Header Creator
+        :type: :basic
+        :paths: [ ':2.BldROM' ]
+      - :title: Auto Data Scrambler
+        :type: :basic
+        :paths: [ ':2.SCRAM' ]
+      - :title: Wordsearch Creator
+        :type: :basic
+        :paths: [ ':2.WrdSrch' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
