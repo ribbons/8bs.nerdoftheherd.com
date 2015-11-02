@@ -1,0 +1,95 @@
+:date: Feb/1992
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Introduction/News
+        :type: :mode0
+        :paths: [ ':0./NEWS' ]
+      - :title: HADFS Review
+        :type: :mode0
+        :paths: [ ':0./HADF' ]
+      - :title: Members Mailbox
+        :type: :mode0
+        :paths: [ ':0./MBOX' ]
+      - :title: Repton Reportage
+        :type: :mode0
+        :paths: [ ':0./REPT' ]
+      - :title: Programmers Return
+        :type: :mode0
+        :paths: [ ':0./PRET' ]
+      - :title: Tech Tips Issue 5
+        :type: :mode0
+        :paths: [ ':2./TECH' ]
+      - :title: Begin Machine Code
+        :type: :mode0
+        :paths: [ ':0./MART' ]
+      - :title: Program Documentation
+        :type: :mode0
+        :paths: [ ':2./DOC1' ]
+      - :title: Address DBase Guide
+        :type: :mode0
+        :paths: [ ':2./DBSE' ]
+      - :title: Chopper Instructions
+        :type: :mode0
+        :paths: [ ':2./CHPR' ]
+      - :title: Archimedes Review Pt2
+        :type: :mode0
+        :paths: [ ':0./UPGR' ]
+      - :title: Issue 18 Program Menu
+        :type: :menu
+        :id: 999
+  - :title: Program Menu
+    :id: 999
+    :entries:
+#      - :title: Issue 18 Archived Programs
+#        :type: :menu
+#        :id: 2
+      - :title: Issue 18 Non-Archived Programs
+        :type: :menu
+        :id: 3
+      - :title: HADFS Text Files Display
+        :type: :mode0
+        :paths: [ T.HADFS ]
+      - :title: Return to Issue 17 Magazine
+        :type: :menu
+        :id: 1
+      - :title: Run Archiver Program v3.0
+        :type: :basic
+        :paths: [ ':2.ARC3.0' ]
+  - :title: Non-Archived Programs
+    :id: 3
+    :entries:
+      - :title: Escape from Jail Game
+        :type: :run
+        :paths: [ Escape ]
+      - :title: ADFS Sector Rescue
+        :type: :basic
+        :paths: [ Rescue ]
+      - :title: 80 Col 16 Colour Modes
+        :type: :basic
+        :paths: [ ModeDem ]
+      - :title: Program Chopper/Joiner
+        :type: :basic
+        :paths: [ chopper ]
+      - :title: Screen Load/Save Utility
+        :type: :run
+        :paths: [ scrload ]
+      - :title: Tree Rename (Revised)
+        :type: :basic
+        :paths: [ TreeRen ]
+      - :title: Address Database
+        :type: :basic
+        :paths: [ DBase ]
+      - :title: Assembler Tutorial Example
+        :type: :basic
+        :paths: [ Ass1 ]
+      - :title: Character Set Exploder
+        :type: :run
+        :paths: [ explode ]
+      - :title: VLIST Utility Command
+        :type: :run
+        :paths: [ vlist ]
+      - :title: Return to Main Menu
+        :type: :menu
+        :id: 999

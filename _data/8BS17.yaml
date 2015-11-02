@@ -1,0 +1,128 @@
+:date: Dec/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Introduction/News
+        :type: :mode0
+        :paths: [ ':2./NEWS' ]
+      - :title: MixEd Instructions
+        :type: :mode0
+        :paths: [ ':2./MXED' ]
+      - :title: Hints and Tips
+        :type: :mode0
+        :paths: [ ':2./HINT' ]
+      - :title: Repton Reportage
+        :type: :mode0
+        :paths: [ ':2./REPT' ]
+      - :title: Programmers Return
+        :type: :mode0
+        :paths: [ ':2./PRET' ]
+      - :title: Tech Tips Issue 4
+        :type: :mode0
+        :paths: [ ':2./TECH' ]
+      - :title: SYSTEMS Shares Info
+        :type: :mode0
+        :paths: [ ':2./SHRS' ]
+      - :title: On This Months Disc
+        :type: :mode0
+        :paths: [ ':2./PROG' ]
+      - :title: PD Libraries Review
+        :type: :mode0
+        :paths: [ ':2./PDRV' ]
+      - :title: Watford DDFS Report
+        :type: :mode0
+        :paths: [ ':2./DDFS' ]
+      - :title: Messages/Help Wanted
+        :type: :mode0
+        :paths: [ ':2./HELP' ]
+      - :title: Coming Next Month
+        :type: :mode0
+        :paths: [ ':2./NMON' ]
+      - :title: Archimedes Review Pt1
+        :type: :mode0
+        :paths: [ ':2./ARCH' ]
+      - :title: View Filter Guide
+        :type: :mode0
+        :paths: [ ':2./FLTR' ]
+      - :title: CHECKLIST FOR RETURNS
+        :type: :mode0
+        :paths: [ ':2./CHCK' ]
+      - :title: Issue 17 Program Menu
+        :type: :menu
+        :id: 999
+  - :title: Program Menu
+    :id: 999
+    :entries:
+      - :title: Issue 17 Archived Programs
+        :type: :mode0
+        :paths: [ T.ArcTxt ]
+      - :title: Issue 17 Non-Archived Programs
+        :type: :menu
+        :id: 3
+      - :title: Issue 17 Magazine Information
+        :type: :mode0
+        :paths: [ T.MagINS ]
+      - :title: Return to Issue 17 Magazine
+        :type: :menu
+        :id: 1
+      - :title: Archiver Instructions
+        :type: :mode0
+        :paths: [ T.ARCINS ]
+  - :title: Non-Archived Programs
+    :id: 3
+    :entries:
+      - :title: Polish Christmas
+        :type: :basic
+        :paths: [ POLXMAS ]
+      - :title: Search for Sanity
+        :type: :basic
+        :paths: [ SEARCH ]
+      - :title: Sound Mix Editor
+        :type: :basic
+        :paths: [ MIXED ]
+      - :title: Run-Build Mix-Ed
+        :type: :basic
+        :paths: [ RUNBLD ]
+      - :title: Miles Per Gallon
+        :type: :basic
+        :paths: [ MILESPG ]
+      - :title: Heart-and-Soul (Music)
+        :type: :basic
+        :paths: [ HEART ]
+      - :title: Memory Map Display
+        :type: :basic
+        :paths: [ MEMORY ]
+      - :title: Flying Bird Animation
+        :type: :basic
+        :paths: [ BIRDIE ]
+      - :title: View Filter Utility
+        :type: :basic
+        :paths: [ FILTER ]
+      - :title: AMX Discussion (348)
+        :type: :menu
+        :id: 4
+      - :title: Sattelite Havac Game
+        :type: :basic
+        :paths: [ ':2.SATLITE' ]
+      - :title: Textfile Viewer
+        :type: :basic
+        :paths: [ ':2.TEXTVW' ]
+      - :title: Catalogue Saver
+        :type: :basic
+        :paths: [ ':2.CATSAVE' ]
+      - :title: Return to Main Menu
+        :type: :menu
+        :id: 999
+  - :title: AMX Discussion
+    :id: 4
+    :entries:
+      - :title: BF_AMX converter
+        :type: :basic
+        :paths: [ ':2.M.BF_AMX' ]
+      - :title: BF_PM  converter
+        :type: :basic
+        :paths: [ ':2.M.BF_PM' ]
+      - :title: Return to Non-Archived Programs
+        :type: :menu
+        :id: 3
