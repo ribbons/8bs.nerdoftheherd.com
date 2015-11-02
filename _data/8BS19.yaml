@@ -1,0 +1,95 @@
+:date: Apr/1992
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Introduction/News
+        :type: :mode0
+        :paths: [ ':2./NEWS' ]
+      - :title: HashGen Userguide
+        :type: :mode0
+        :paths: [ ':2./HSGN' ]
+      - :title: Re-Inking Ribbons
+        :type: :mode0
+        :paths: [ ':2./INTX' ]
+      - :title: Repton Reportage
+        :type: :mode0
+        :paths: [ ':2./REPT' ]
+      - :title: Pantheon Game Guide
+        :type: :mode0
+        :paths: [ ':2./PDOC' ]
+      - :title: Sound Sampling Text
+        :type: :mode0
+        :paths: [ ':2./STXT' ]
+      - :title: View/Ascii Guide
+        :type: :mode0
+        :paths: [ ':2./VWAS' ]
+      - :title: Program Documentation
+        :type: :mode0
+        :paths: [ ':2./DOCU' ]
+      - :title: Issue 19 Program Menu
+        :type: :menu
+        :id: 999
+  - :title: Program Menu
+    :id: 999
+    :entries:
+#      - :title: Issue 19 Archived Programs
+#        :type: :menu
+#        :id: 2
+      - :title: Issue 19 Non-Archived Programs
+        :type: :menu
+        :id: 3
+      - :title: Return to Issue 19 Magazine
+        :type: :menu
+        :id: 1
+#      - :title: Extra Repton 3 Screens
+#        :type: :menu
+#        :id: 4
+      - :title: Run Archiver Program v3.0
+        :type: :basic
+        :paths: [ ARC3.0 ]
+      - :title: 8BS Catalogue (issue 4-18)
+        :type: :mode7
+        :paths: [ 8BS ]
+  - :title: Non-Archived Programs
+    :id: 3
+    :entries:
+      - :title: Pantheon Game (see Mag)
+        :type: :run
+        :paths: [ ':2.OMCL' ]
+      - :title: Oil Rig Drilling Game
+        :type: :basic
+        :paths: [ ':2.OILRIG' ]
+      - :title: Bazzasoft BASIC II ROM
+        :type: :basic
+        :paths: [ BASICII ]
+      - :title: Hash (#) Generator
+        :type: :basic
+        :paths: [ HASHGEN ]
+      - :title: View-ASCII Converter
+        :type: :run
+        :paths: [ VIEWASC ]
+      - :title: Mix-Editor User Guide
+        :type: :mode7
+        :paths: [ MIXINF ]
+      - :title: Noughts & Crosses
+        :type: :basic
+        :paths: [ Noughts ]
+      - :title: Simon Copycat Game
+        :type: :basic
+        :paths: [ SIMON ]
+      - :title: Catch'em / Prikkomani Games
+        :type: :basic
+        :paths: [ TwoGame ]
+      - :title: Klax Game Cheat
+        :type: :basic
+        :paths: [ ':2.KlaxHax' ]
+      - :title: Greek Learning Program
+        :type: :basic
+        :paths: [ ':2.!Loader' ]
+      - :title: 8BS Allpurpose Database
+        :type: :basic
+        :paths: [ ':2.Intro' ]
+      - :title: Return to Main Menu
+        :type: :menu
+        :id: 999

@@ -88,8 +88,8 @@ module BBC
       split = path.sub(/^\.+/, '').upcase.split('.', 3)
 
       drive = split[0][0] == ':' ? split.shift : ':0'
-      dir = split.size == 2 ? split.shift : '$'
-      file = split.shift
+      dir = split.size == 2 && split[0].size == 1 ? split.shift : '$'
+      file = split.join('.')
 
       drive + '.' + dir + '.' + file
     end

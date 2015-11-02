@@ -511,7 +511,7 @@ module BBC
           end
         when 127, 255
           thischar = graphval(63, heighttype, graphicsmode)
-        when 129
+        when 1, 129
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
@@ -522,7 +522,7 @@ module BBC
           nextfore = Colour::RED
           concealed = :reveal
           graphicshold = :release
-        when 130
+        when 2, 130
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
@@ -544,7 +544,7 @@ module BBC
           nextfore = Colour::YELLOW
           concealed = :reveal
           graphicshold = :release
-        when 132
+        when 4, 132
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
@@ -555,7 +555,7 @@ module BBC
           nextfore = Colour::BLUE
           concealed = :reveal
           graphicshold = :release
-        when 133
+        when 5, 133
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
@@ -566,7 +566,7 @@ module BBC
           nextfore = Colour::MAGENTA
           concealed = :reveal
           graphicshold = :release
-        when 134
+        when 6, 134
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
@@ -588,7 +588,7 @@ module BBC
           nextfore = Colour::WHITE
           concealed = :reveal
           graphicshold = :release
-        when 136
+        when 8, 136
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
@@ -613,7 +613,7 @@ module BBC
 
           thischar = ' '
           height = heighttype = :standard
-        when 141
+        when 10, 141
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             throw 'Check if held graphics would be valid here'
           end
@@ -666,7 +666,7 @@ module BBC
           mode = :graphics
           nextfore = Colour::BLUE
           concealed = :reveal
-        when 149
+        when 21, 149
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             thischar = lastchar
           else
