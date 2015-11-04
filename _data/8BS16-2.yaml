@@ -1,0 +1,74 @@
+:date: Nov/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Issue 16 Archived Programs
+        :type: :mode0
+        :paths: [ T.ArcTxt ]
+      - :title: Issue 16 Non-Archived Programs
+        :type: :menu
+        :id: 2
+      - :title: Issue 16 Magazine Information
+        :type: :mode0
+        :paths: [ T.MagINS ]
+      - :title: Non-Linear Equations Text
+        :type: :mode0
+        :paths: [ T.NLinEq ]
+      - :title: DFS > ADFS Transfer Text
+        :type: :mode0
+        :paths: [ T.ADFSTFR ]
+      - :title: Tree Rename Utility Text
+        :type: :mode0
+        :paths: [ T.TREETXT ]
+      - :title: Music 500 Waltz Program
+        :type: :mode0
+        :paths: [ 5.M500TXT ]
+      - :title: Extra Repton Screens
+        :type: :mode0
+        :paths: [ RepText ]
+      - :title: ARCHIVER INSTRUCTIONS
+        :type: :mode0
+        :paths: [ T.ARCINS ]
+  - :title: Non-Archived Programs
+    :id: 2
+    :entries:
+      - :title: "'Buzz' Aldrin Picture & Text"
+        :type: :basic
+        :paths: [ AldLOAD ]
+      - :title: "'Bones' Demonstration Program"
+        :type: :basic
+        :paths: [ BONES ]
+      - :title: "'Nite & Day' Demonstration"
+        :type: :basic
+        :paths: [ NITEDAY ]
+      - :title: Chemistry Database/Test Prog
+        :type: :basic
+        :paths: [ CHEMTST ]
+      - :title: Formatted Program Listings
+        :type: :basic
+        :paths: [ FORMLST ]
+      - :title: DFS to ADFS Transfer Utility
+        :type: :basic
+        :paths: [ ADFSTFR ]
+      - :title: NLinEq BASIC Demonstration
+        :type: :basic
+        :paths: [ NLINEQ ]
+      - :title: Mastermind Thought Game
+        :type: :basic
+        :paths: [ MASTER ]
+      - :title: Tree Rename Utility v2
+        :type: :basic
+        :paths: [ TREE ]
+      - :title: '*CAT Replacement Command'
+        :type: :run
+        :paths: [ XTRACAT ]
+      - :title: Slatter Arcade Game
+        :type: :basic
+        :paths: [ ':2.SLATRUN' ]
+      - :title: Archive/De-Archive Utility
+        :type: :basic
+        :paths: [ ':2.ARCHIVE' ]
+      - :title: PREVIOUS MENU
+        :type: :menu
+        :id: 1

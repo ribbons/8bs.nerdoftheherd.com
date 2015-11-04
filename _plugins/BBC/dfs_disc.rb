@@ -24,11 +24,12 @@ module BBC
     def initialize(path)
       @path = path
       @file = File.new(@path, 'rb')
+      @dsd = @path =~ /\.dsd$/
 
       @files = {}
 
       read_catalogue(0)
-      read_catalogue(2)
+      read_catalogue(2) if @dsd
     end
 
     private def read_catalogue(side)
@@ -78,9 +79,11 @@ module BBC
 
     def read_sector(side, sector)
       track = sector / TRACK_SECTORS
+      track = track * 2 + (side / 2) if @dsd
+
       tracksector = sector % TRACK_SECTORS
 
-      @file.seek(((track * 2 + (side / 2)) * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
+      @file.seek((track * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
       @file.sysread(SECTOR_SIZE)
     end
 

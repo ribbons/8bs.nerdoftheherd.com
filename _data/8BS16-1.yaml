@@ -1,0 +1,52 @@
+:date: Nov/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Problems/help wanted
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x28AC
+      - :title: Hints and tips
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x3F32
+      - :title: Mailbox
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x4FC8
+      - :title: Programmers return 8
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x66A4
+      - :title: Repton reportage
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x5F1E
+      - :title: Review
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x786
+      - :title: System return
+        :type: :mode0
+        :paths: [ SYSRET ]
+      - :title: Tech Tips number 3
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x9DAA
+      - :title: Archiving article
+        :type: :mode0
+        :paths: [ ARCHIVE ]
+      - :title: 8 BIT NEWS
+        :type: :mode0
+        :paths: [ NEWS ]
+      - :title: Next month
+        :type: :mode0
+        :paths: [ NEXTMON ]
+      - :title: Footnote to magazine
+        :type: :mode7
+        :paths: [ TELEMAG ]
+        :offset: 0x0000
+      - :title: On this month's disc
+        :type: :mode0
+        :paths: [ ONDISC ]

@@ -17,7 +17,7 @@ module EBS
     def initialize(issue, image)
       @imagepath = '/' + image
       @issue = issue
-      @path = image[%r{/(8BS[0-9-]+)\.dsd$}, 1]
+      @path = image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1]
       @number = @path[/[0-9]-([0-9])/, 1] || '1'
 
       @menus = []

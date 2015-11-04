@@ -40,6 +40,7 @@ module EBS
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = entdat[:title]
           entry.type = entdat[:type]
+          entry.offset = entdat[:offset]
 
           if entdat[:paths].nil?
             entry.id = entdat[:id]

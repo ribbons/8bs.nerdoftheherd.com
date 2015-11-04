@@ -34,7 +34,7 @@ module EBS
       issues = {}
 
       Dir['discimgs/*'].each do |discimg|
-        issuenum = discimg[%r{/8BS([0-9]+)(?:-[0-9])?\.dsd$}, 1].to_i
+        issuenum = discimg[%r{/8BS([0-9]+)(?:-[0-9])?\.[a-z]{3}$}, 1].to_i
         issues[issuenum] = Issue.new(issuenum) unless issues.key?(issuenum)
 
         case issuenum
