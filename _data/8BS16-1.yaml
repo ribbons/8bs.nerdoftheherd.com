@@ -6,34 +6,34 @@
       - :title: Problems/help wanted
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x28AC
+        :offsets: [ 0x28b2, 0x1680 ]
       - :title: Hints and tips
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x3F32
+        :offsets: [ 0x3f38, 0x1090 ]
       - :title: Mailbox
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x4FC8
+        :offsets: [ 0x4fce, 0xf50 ]
       - :title: Programmers return 8
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x66A4
+        :offsets: [ 0x66aa, 0x3700 ]
       - :title: Repton reportage
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x5F1E
+        :offsets: [ 0x5f24, 0x780 ]
       - :title: Review
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x786
+        :offsets: [ 0x78c, 0x2120 ]
       - :title: System return
         :type: :mode0
         :paths: [ SYSRET ]
       - :title: Tech Tips number 3
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x9DAA
+        :offsets: [ 0x9db0, 0x1d10 ]
       - :title: Archiving article
         :type: :mode0
         :paths: [ ARCHIVE ]
@@ -46,7 +46,7 @@
       - :title: Footnote to magazine
         :type: :mode7
         :paths: [ TELEMAG ]
-        :offset: 0x0000
+        :offsets: [ 0x0006, 0x780 ]
       - :title: On this month's disc
         :type: :mode0
         :paths: [ ONDISC ]

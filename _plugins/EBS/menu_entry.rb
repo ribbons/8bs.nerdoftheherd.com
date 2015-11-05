@@ -19,7 +19,7 @@ module EBS
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :id, :offset
+    attr_accessor :title, :type, :id, :offsets
     attr_reader :paths
 
     def paths=(paths)
@@ -52,14 +52,14 @@ module EBS
     def content
       content = []
 
-      @paths.each do |path|
+      @paths.each_with_index do |path, idx|
         file = @disc.file(path)
 
         if @type == :mode7
-          if @offset.nil?
+          if @offsets.nil?
             content << trim_scroller(file.content, file.loadaddr)
           else
-            content << split_text(file.content, @offset)
+            content << extract_section(file.content, @offsets, idx)
           end
         else
           content << file.content
@@ -80,21 +80,9 @@ module EBS
       content[textstart..textend]
     end
 
-    private def split_text(content, offset)
-      # First 6 bytes are 0xff followed by the text length,
-      # stored as a real for some strange reason
-      start = offset + 6
-
-      # Bytes 1-4 are the mantissa
-      mantissa = 1 << 31 | (content.getbyte(offset + 4) << 24) | (content.getbyte(offset + 3) << 16) | (content.getbyte(offset + 2) << 8) | content.getbyte(offset + 1)
-      # Byte 5 is the mantissa (offset by 0x80)
-      exponent = content.getbyte(offset + 5) - 0x80
-
-      # All integers, so cheat and shift right by the difference between 32 and the exponent
-      length = mantissa >> (32 - exponent)
-
-      # Return correct section of file
-      content[start..start + length + MODE7_SCREEN_SIZE]
+    private def extract_section(content, offsets, index)
+      offind = index * 2
+      content[offsets[offind]..offsets[offind] + offsets[offind + 1]]
     end
   end
 end

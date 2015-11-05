@@ -1,0 +1,132 @@
+:date: Jul/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Issue 14 Disc Magazine
+        :type: :menu
+        :id: 2
+      - :title: Issue 14 Software Menu
+        :type: :menu
+        :id: 3
+      - :title: Issue 14 Magazine Help
+        :type: :mode0
+        :paths: [ ':2.MagINS' ]
+      - :title: Messages for You
+        :type: :mode0
+        :paths: [ ':2.Message' ]
+      - :title: SYSTEMS Server PROGRAM
+        :type: :exec
+        :paths: [ '!Server' ]
+      - :title: SYSTEMS Server MANUALS
+        :type: :menu
+        :id: 4
+      - :title: Tech Tips ISSUE 2
+        :type: :mode7
+        :paths: [ SHOWMAG, SHOWMAG, SHOWMAG ]
+        :offsets: [ 17152, 1000, 286, 15360, 18176, 1000 ]
+      - :title: Kickstart
+        :type: :run
+        :paths: [ /kickst ]
+  - :title: Disc Magazine
+    :id: 2
+    :entries:
+      - :title: Issue News
+        :type: :mode0
+        :paths: [ ':2.NEWS' ]
+      - :title: Universal Mailbox
+        :type: :mode0
+        :paths: [ ':2.MAILBOX' ]
+      - :title: Hints/Tips
+        :type: :mode0
+        :paths: [ ':2.HINTS' ]
+      - :title: Sim City Review
+        :type: :mode0
+        :paths: [ ':2.REVIEWS' ]
+      - :title: Charging Article
+        :type: :mode0
+        :paths: [ ':2.CHARGNG' ]
+      - :title: IMPORTANT APPEAL
+        :type: :mode0
+        :paths: [ ':2.APPEAL' ]
+      - :title: Coming Next Month...
+        :type: :mode0
+        :paths: [ ':2.NEXTMON' ]
+      - :title: Programmers Return 7
+        :type: :mode0
+        :paths: [ ':2.PROGRET' ]
+      - :title: Problems/Help Wanted
+        :type: :mode0
+        :paths: [ ':2.PROBLEM' ]
+      - :title: On this Months Disc
+        :type: :mode0
+        :paths: [ ':2.PROGRAM' ]
+      - :title: Repton Reportage
+        :type: :mode0
+        :paths: [ ':2.REPTON' ]
+      - :title: Software Documentation
+        :type: :mode0
+        :paths: [ ':2.DOCUMEN' ]
+      - :title: SYSTEMS (New Users)
+        :type: :mode0
+        :paths: [ ':2.STMtxt1' ]
+      - :title: SYSTEMS (Existing Usr)
+        :type: :mode0
+        :paths: [ ':2.STMtxt2' ]
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1
+  - :title: Software Menu
+    :id: 3
+    :entries:
+      - :title: Barbarian Screen Map
+        :type: :basic
+        :paths: [ ':2.BarLoad' ]
+      - :title: Braille Translator
+        :type: :run
+        :paths: [ ':2.BRAILLE' ]
+      - :title: Maple Leaf Rag (MCODE)
+        :type: :run
+        :paths: [ MAPLEL ]
+      - :title: New Life Music (BASIC)
+        :type: :basic
+        :paths: [ NEWLIFE ]
+      - :title: Periodic Table Program
+        :type: :basic
+        :paths: [ PERTABB ]
+      - :title: Repton 3 Cheat Program
+        :type: :basic
+        :paths: [ ':2.REP3CHT' ]
+      - :title: 3-A-Line Strategy Game
+        :type: :basic
+        :paths: [ SQUARE ]
+      - :title: 5-A-Side Soccer Game
+        :type: :basic
+        :paths: [ ':2.R.INTRO' ]
+      - :title: Y80 Faulty Program (HELP)
+        :type: :basic
+        :paths: [ WEIRD ]
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1
+  - :title: SYSTEMS Server MANUALS
+    :id: 4
+    :entries:
+      - :title: SYSTEMS Server MANUAL Part 1
+        :type: :mode0
+        :paths: [ ':2.T.ServGd1' ]
+      - :title: SYSTEMS Server MANUAL Part 2
+        :type: :mode0
+        :paths: [ ':2.T.ServGd2' ]
+      - :title: SYSTEMS Server MANUAL Part 3
+        :type: :mode0
+        :paths: [ ':2.T.ServGd3' ]
+      - :title: SYSTEMS Server MANUAL Part 4
+        :type: :mode0
+        :paths: [ ':2.T.ServGd4' ]
+      - :title: SYSTEMS Server MANUAL Part 5
+        :type: :mode0
+        :paths: [ ':2.T.ServGd5' ]
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1
