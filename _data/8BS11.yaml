@@ -1,0 +1,96 @@
+:date: Apr/1991
+:menus:
+  - :title: ISSUE 11 PD SOFTWARE AND MAGAZINE
+    :id: 1
+    :entries:
+      - :title: Issue 11 Disc Magazine
+        :type: :menu
+        :id: 2
+      - :title: Issue 11 Software Menu
+        :type: :menu
+        :id: 3
+      - :title: Charging Article
+        :type: :mode0
+        :paths: [ ':2.T.CHARGE' ]
+      - :title: Repton Infinity Review
+        :type: :mode0
+        :paths: [ ':2.T.REPTON' ]
+      - :title: Disc Magazine Help
+        :type: :mode0
+        :paths: [ T.MagINS ]
+      - :title: MESSAGES FOR YOU
+        :type: :mode0
+        :paths: [ ':2.Message' ]
+  - :title: P.D.MAGAZINE ISSUE 11
+    :id: 2
+    :entries:
+      - :title: NEWS
+        :type: :mode7
+        :paths: [ ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920 ]
+      - :title: THIS MONTH'S GOODIES
+        :type: :mode7
+        :paths: [ ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920 ]
+      - :title: SYSTEMS NEWS
+        :type: :mode7
+        :paths: [ ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920 ]
+      - :title: ADVERTS/HINTS TIPS&CHEATS
+        :type: :mode7
+        :paths: [ ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+      - :title: TBI SOFTWARE POOL
+        :type: :mode7
+        :paths: [ ':2.V.5', ':2.V.5', ':2.V.5', ':2.V.5' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+      - :title: MEMBERS ARTICLES
+        :type: :mode7
+        :paths: [ ':2.V.6' ]
+        :offsets: [ 0, 920 ]
+      - :title: REPTON COMPETITION
+        :type: :mode7
+        :paths: [ ':2.V.7', ':2.V.7', ':2.V.7' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+      - :title: Previous Menu
+        :type: :menu
+        :id: 1
+  - :title: Software Menu
+    :id: 3
+    :entries:
+      - :title: Helicopter Haulocast
+        :type: :basic
+        :paths: [ Helicop ]
+      - :title: Astronomy Database
+        :type: :basic
+        :paths: [ Observe ]
+      - :title: Pontoon Card Game
+        :type: :basic
+        :paths: [ Pontoon ]
+      - :title: Teletext Editor
+        :type: :basic
+        :paths: [ TextED ]
+      - :title: Careers Forcaster
+        :type: :basic
+        :paths: [ Careers ]
+      - :title: Extra Star Commands
+        :type: :mode0
+        :paths: [ T.Starcom ]
+      - :title: Year Planner/Organiser
+        :type: :basic
+        :paths: [ Organse ]
+      - :title: Percentages Program
+        :type: :basic
+        :paths: [ Percent ]
+      - :title: Red Dwarf III Screens
+        :type: :basic
+        :paths: [ Dloader ]
+      - :title: World Map Graphical Screens
+        :type: :ldpic
+        :paths: [ OBLITER, RAYTRC, VALKY, WMAP1, WMAP2, WMAP3 ]
+      - :title: PROGRAMMERS RETURN REVIEWS
+        :type: :mode0
+        :paths: [ ':2.T.Progret' ]
+      - :title: Previous Menu
+        :type: :menu
+        :id: 1

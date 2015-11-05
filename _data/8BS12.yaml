@@ -1,0 +1,126 @@
+:date: May/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Issue 12 Disc Magazine
+        :type: :menu
+        :id: 2
+      - :title: Issue 12 Software Menu
+        :type: :menu
+        :id: 3
+      - :title: Chuckie Egg Screens
+        :type: :basic
+        :paths: [ A.CHUCK ]
+      - :title: Lost Your Marbles Fix
+        :type: :basic
+        :paths: [ MM1 ]
+      - :title: Disc Magazine Help
+        :type: :mode0
+        :paths: [ ':2.MagINS' ]
+      - :title: Andy Nibbs' TECH TIPS
+        :type: :mode7
+        :paths: [ ':2.010A', ':2.010b', ':2.010c', ':2.010d', ':2.010e' ]
+        :offsets: [ 0, 1000, 0, 1000, 0, 1000, 0, 1000, 0, 1000 ]
+      - :title: MESSAGES FOR YOU
+        :type: :mode0
+        :paths: [ ':2.Message' ]
+  - :title: Disc Magazine
+    :id: 2
+    :entries:
+      - :title: Introduction
+        :type: :mode0
+        :paths: [ ':2.INTRO' ]
+      - :title: Issue News
+        :type: :mode0
+        :paths: [ ':2.NEWS' ]
+      - :title: Adverts/Help Wanted
+        :type: :mode0
+        :paths: [ ':2.ADVERT' ]
+      - :title: Hints/Tips
+        :type: :mode0
+        :paths: [ ':2.HINTS' ]
+      - :title: LIFE & Devils Island
+        :type: :mode0
+        :paths: [ ':2.DevLife' ]
+      - :title: Charges Article 8CT
+        :type: :mode0
+        :paths: [ ':2.CHARGES' ]
+      - :title: BASDUMP Article 709
+        :type: :mode0
+        :paths: [ ':2.BASDUMP' ]
+      - :title: Arc XArc Article
+        :type: :mode0
+        :paths: [ ':2.ARCXARC' ]
+      - :title: Programmers Return 5
+        :type: :mode0
+        :paths: [ ':2.PRORET5' ]
+      - :title: Program Construction
+        :type: :mode0
+        :paths: [ ':2.PROGTUT' ]
+      - :title: On this Months Disc
+        :type: :mode0
+        :paths: [ ':2.PROGS' ]
+      - :title: Repton Reportage
+        :type: :mode0
+        :paths: [ ':2.REPTON' ]
+      - :title: Members Response Pool
+        :type: :mode0
+        :paths: [ ':2.RESPONS' ]
+      - :title: UIM & SIM City Reviews
+        :type: :mode0
+        :paths: [ ':2.UIMSIM' ]
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1
+  - :title: Software Menu
+    :id: 3
+    :entries:
+      - :title: 3D Spinning Ball
+        :type: :basic
+        :paths: [ 3DSPIN ]
+      - :title: Complete Address Book
+        :type: :basic
+        :paths: [ ADDRESS ]
+      - :title: Prommer ROM Utility
+        :type: :basic
+        :paths: [ PROMMER ]
+      - :title: ROT5 Graphics (basic)
+        :type: :basic
+        :paths: [ ROT5 ]
+      - :title: RS232 Utility Prog
+        :type: :basic
+        :paths: [ RS232 ]
+      - :title: Shares Accountant
+        :type: :basic
+        :paths: [ SSCREEN ]
+      - :title: Sunrise/Sunset
+        :type: :basic
+        :paths: [ SUNPROG ]
+      - :title: Devils Island
+        :type: :run
+        :paths: [ B.DEVILS ]
+      - :title: BASDUMP Utility
+        :type: :run
+        :paths: [ R.BASDUMP ]
+      - :title: ROM Based LIFE Prog
+        :type: :run
+        :paths: [ R.LIFE ]
+      - :title: Arc & XArc Utility
+        :type: :run
+        :paths: [ R.ARC ]
+      - :title: Bananas Levels Game
+        :type: :basic
+        :paths: [ ':2.BANANAS' ]
+      - :title: Space Pods Game
+        :type: :basic
+        :paths: [ ':2.SPCPODS' ]
+      - :title: Agog Ago Title Screen
+        :type: :basic
+        :paths: [ ':2.TITLE2' ]
+      - :title: Persian Carpet Screen
+        :type: :basic
+        :paths: [ ':2.TITLE1' ]
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1

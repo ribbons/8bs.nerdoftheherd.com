@@ -1,0 +1,134 @@
+:date: Jun/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: Issue 13 Disc Magazine
+        :type: :menu
+        :id: 2
+      - :title: Issue 13 Software Menu
+        :type: :menu
+        :id: 3
+      - :title: Disc Magazine Help
+        :type: :mode0
+        :paths: [ ':2.$.MagINS' ]
+      - :title: MESSAGES FOR YOU
+        :type: :mode0
+        :paths: [ ':2.$.Message' ]
+  - :title: Disc Magazine
+    :id: 2
+    :entries:
+      - :title: Issue News
+        :type: :mode0
+        :paths: [ ':2.NEWS' ]
+      - :title: Adverts/Help Wanted
+        :type: :mode0
+        :paths: [ ':2.ADVERTS' ]
+      - :title: Hints/Tips
+        :type: :mode0
+        :paths: [ ':2.HINTS' ]
+      - :title: Communications
+        :type: :mode0
+        :paths: [ ':2.COMMS' ]
+      - :title: Amcom-ADFS Guide
+        :type: :mode0
+        :paths: [ ':2.AMCOM' ]
+      - :title: PR Scripts Article
+        :type: :mode0
+        :paths: [ ':2.PRSCR' ]
+      - :title: Watford S.SWR detail
+        :type: :mode0
+        :paths: [ ':2.SWRART' ]
+      - :title: Programmers Return 6
+        :type: :mode0
+        :paths: [ ':2.PROGRET' ]
+      - :title: Problems/Help Wanted
+        :type: :mode0
+        :paths: [ ':2.PROBS' ]
+      - :title: On this Months Disc
+        :type: :mode0
+        :paths: [ ':2.PROGS' ]
+      - :title: Repton Reportage
+        :type: :mode0
+        :paths: [ ':2.REPTON' ]
+      - :title: Members Response Pool
+        :type: :mode0
+        :paths: [ ':2.REPLIES' ]
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1
+  - :title: Software Menu 1
+    :id: 3
+    :entries:
+      - :title: Amcom to ADFS Transfer
+        :type: :basic
+        :paths: [ Amcom ]
+      - :title: AxelF Music (BASIC)
+        :type: :basic
+        :paths: [ Axelf ]
+      - :title: Broadway Boogie (BASIC)
+        :type: :basic
+        :paths: [ Boogie ]
+      - :title: Directory Rename Utility
+        :type: :basic
+        :paths: [ DirName ]
+      - :title: Envelope Creator
+        :type: :basic
+        :paths: [ EnvCRT ]
+      - :title: E Type Game Cheat
+        :type: :basic
+        :paths: [ EtypeCH ]
+      - :title: Froggy Game (BASIC)
+        :type: :basic
+        :paths: [ Froggy ]
+      - :title: Golden Brown (BASIC)
+        :type: :basic
+        :paths: [ GOLDEN ]
+      - :title: Stairway to Heaven
+        :type: :basic
+        :paths: [ Heaven ]
+      - :title: Kix Game Cheat
+        :type: :basic
+        :paths: [ KixCHT ]
+      - :title: Motor Consumption Util
+        :type: :basic
+        :paths: [ MOTOR ]
+      - :title: News Reader Demo
+        :type: :basic
+        :paths: [ NEWS ]
+      - :title: NEXT PAGE
+        :type: :menu
+        :id: 4
+      - :title: RETURN TO MAIN MENU
+        :type: :menu
+        :id: 1
+  - :title: Software Menu 2
+    :id: 4
+    :entries:
+      - :title: ADFS String Search
+        :type: :basic
+        :paths: [ ADFSSCH ]
+      - :title: Phantom of the Opera
+        :type: :basic
+        :paths: [ Phan2 ]
+      - :title: Rom to Disc Utility
+        :type: :basic
+        :paths: [ RomDisc ]
+      - :title: Seasick Mode Split Demo
+        :type: :basic
+        :paths: [ Seasick ]
+      - :title: Thomas the Tank Engine
+        :type: :ldpic
+        :paths: [ THOMAS ]
+      - :title: Blakes 7 Liberator Pic
+        :type: :basic
+        :paths: [ ':2.LIBERAT' ]
+      - :title: Digitised Animations
+        :type: :basic
+        :paths: [ ':2.DEMO' ]
+      - :title: Message to Amiga/ST Owners
+        :type: :basic
+        :paths: [ ':2.BRITISH' ]
+      - :title: PREVIOUS MENU
+        :type: :menu
+        :id: 3
