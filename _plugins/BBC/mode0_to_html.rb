@@ -22,9 +22,15 @@ module BBC
 
       underline = false
       controlchar = false
+      ignorenext = false
       prevchar = -1
 
       input.each_byte do |c|
+        if ignorenext
+          ignorenext = false
+          next
+        end
+
         if controlchar
           case c.chr
           when 'B'
@@ -57,6 +63,9 @@ module BBC
         when 0
           # EOF
           break
+        when 1
+          # 'Next to printer': Don't display next character
+          ignorenext = true
         when 9
           # Tab - conv to spaces in the same way as the 80 col scroller
           loop do
