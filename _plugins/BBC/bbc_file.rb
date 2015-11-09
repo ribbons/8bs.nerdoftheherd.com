@@ -31,7 +31,7 @@ module BBC
       sector = @startsector
       remaining = @length.fdiv(DfsDisc::SECTOR_SIZE).ceil
       lastlen = (@length % DfsDisc::SECTOR_SIZE)
-      lastlen = DfsDisc::SECTOR_SIZE - 1 if lastlen == 0
+      lastlen = DfsDisc::SECTOR_SIZE if lastlen == 0
 
       loop do
         buffer = @disc.read_sector(@side, sector)
@@ -40,7 +40,7 @@ module BBC
 
         if remaining == 0
           # Only include the sector data up to EOF
-          data << buffer[0..lastlen]
+          data << buffer[0..lastlen - 1]
           return data
         end
 

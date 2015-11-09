@@ -56,10 +56,13 @@ module BBC
     private def convert_line(data)
       fail 'Malformed BBC BASIC file' if data.shift != 0x0d
 
-      # End of file marker is 0xff
-      return nil if (byte1 = data.shift) == 0xff
+      byte1, byte2 = data.shift(2)
 
-      line_num = (byte1 << 8) | data.shift
+      # End of file marker is 0xff, tolerate unexpected EOFs here (as BASIC does)
+      return nil if byte1.nil? || byte1 == 0xff
+      return nil if byte2.nil?
+
+      line_num = (byte1 << 8) | byte2
 
       linelen = data.shift
       return nil if linelen.nil?
