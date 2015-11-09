@@ -34,7 +34,7 @@ module BBC
       GFX_SEPARATED = 0xC0
     end
 
-    def mode7_to_html(input)
+    def mode7_mem_to_html(input)
       row = 0
       column = 0
       spanopen = false
@@ -63,11 +63,6 @@ module BBC
         end
 
         case c
-        when 13
-          while column < 39
-            prevheights[column] = heighttype
-            column += 1
-          end
         when 0, 27, 128, 138, 139, 142, 143, 144, 155
           # 'Nothing' in the user guide - displays as a space
           thischar = ' '
@@ -613,7 +608,7 @@ module BBC
 
           thischar = ' '
           height = heighttype = :standard
-        when 10, 141
+        when 10, 13, 141
           if graphicshold == :hold && lastchar.ord > Offsets::GFX_STANDARD
             throw 'Check if held graphics would be valid here'
           end
