@@ -1,0 +1,125 @@
+:date: Feb/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: ISSUE 9 DISC MAGAZINE
+        :type: :menu
+        :id: 2
+      - :title: ISSUE 9 SOFTWARE MENU
+        :type: :menu
+        :id: 3
+      - :title: ISSUE 9 HELP FILES
+        :type: :menu
+        :id: 4
+      - :title: VIEW SPELLCHECKER
+        :type: :basic
+        :paths: [ ':2.SPELL' ]
+      - :title: INFORMANT ROM IMAGE
+        :type: :run
+        :paths: [ R.Inform ]
+      - :title: GHOSTBUSTERS LOGO
+        :type: :basic
+        :paths: [ G.GHOST ]
+      - :title: MAGAZINE HELP
+        :type: :mode0
+        :paths: [ ':2.$.MagINS' ]
+  - :title: P.D.MAGAZINE
+    :id: 2
+    :entries:
+      - :title: NEWS
+        :type: :mode7
+        :paths: [ ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920 ]
+      - :title: THIS MONTH'S GOODIES
+        :type: :mode7
+        :paths: [ ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+      - :title: 8-BIT STAFF
+        :type: :mode7
+        :paths: [ ':2.V.300', ':2.V.300', ':2.V.300' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+      - :title: ADVERTS AND HELP WANTED
+        :type: :mode7
+        :paths: [ ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+      - :title: PROGRAM REVIEWS
+        :type: :mode7
+        :paths: [ ':2.V.5', ':2.V.5', ':2.V.5', ':2.V.5' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+      - :title: HINTS AND TIPS
+        :type: :mode7
+        :paths: [ ':2.V.6', ':2.V.6' ]
+        :offsets: [ 0, 920, 1024, 920 ]
+      - :title: Previous Menu
+        :type: :menu
+        :id: 1
+  - :title: SOFTWARE MENU
+    :id: 3
+    :entries:
+      - :title: Advanced Disc Backup
+        :type: :basic
+        :paths: [ BACKUP ]
+      - :title: VDU Codes Killer
+        :type: :basic
+        :paths: [ ':2.VDUKILL' ]
+      - :title: Tape to DFS Utility
+        :type: :basic
+        :paths: [ T>DFS ]
+      - :title: Tape to ADFS Utility
+        :type: :basic
+        :paths: [ T>ADFS ]
+      - :title: Test Cards Program
+        :type: :basic
+        :paths: [ TCintro ]
+      - :title: SWRload and Notepad ROM
+        :type: :basic
+        :paths: [ SWRload ]
+      - :title: Speech! Fiddle Program
+        :type: :basic
+        :paths: [ SPEECHF ]
+      - :title: Lost Your Marbles Game
+        :type: :basic
+        :paths: [ MARBLES ]
+      - :title: Letterhead Designer
+        :type: :basic
+        :paths: [ LETTER ]
+      - :title: SYSTEMS hardcopy Utility
+        :type: :basic
+        :paths: [ HARD ]
+      - :title: Faults Graphics Program
+        :type: :basic
+        :paths: [ FAULTS ]
+      - :title: Inca Treasure Adventure
+        :type: :basic
+        :paths: [ INCA ]
+      - :title: City Bomber Game
+        :type: :basic
+        :paths: [ BOMBER ]
+      - :title: Previous Menu
+        :type: :menu
+        :id: 1
+  - :title: HELP FILES
+    :id: 4
+    :entries:
+      - :title: Speech! Fiddler Instructions
+        :type: :mode0
+        :paths: [ T.SpeechI ]
+      - :title: SYSTEMS hardcopy Instructions
+        :type: :mode0
+        :paths: [ T.HARDINF ]
+#      - :title: Inca Treasure Instructions
+#        :type: :mode0
+#        :paths: [ T.INCINFO ] # Missing from disc image
+      - :title: Letterhead Designer Information
+        :type: :mode0
+        :paths: [ T.LETTINS ]
+      - :title: Informant ROM Instructions
+        :type: :mode0
+        :paths: [ T.INFORMI ]
+      - :title: View Spellcheck Instructions
+        :type: :mode0
+        :paths: [ ':2.$.SPELINS' ]
+      - :title: PREVIOUS MENU
+        :type: :menu
+        :id: 1

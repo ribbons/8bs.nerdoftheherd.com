@@ -1,0 +1,82 @@
+:date: Jan/1991
+:menus:
+  - :title: Main menu
+    :id: 1
+    :entries:
+      - :title: ISSUE 8 DISC MAGAZINE
+        :type: :menu
+        :id: 2
+      - :title: ISSUE 8 PROGRAM MENU
+        :type: :menu
+        :id: 3
+  - :title: P.D.MAGAZINE
+    :id: 2
+    :entries:
+      - :title: NEWS
+        :type: :mode7
+        :paths: [ ':2.1', ':2.1', ':2.1' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+      - :title: THIS MONTH'S GOODIES
+        :type: :mode7
+        :paths: [ ':2.2', ':2.2', ':2.2', ':2.2' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+      - :title: FUTURE SOFTWARE
+        :type: :mode7
+        :paths: [ ':2.300', ':2.300' ]
+        :offsets: [ 0, 920, 1024, 920 ]
+      - :title: ADVERTS
+        :type: :mode7
+        :paths: [ ':2.4', ':2.4', ':2.4' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+      - :title: PROGRAM REVIEWS
+        :type: :mode7
+        :paths: [ ':2.5', ':2.5', ':2.5', ':2.5', ':2.5', ':2.5' ]
+        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920 ]
+      - :title: Previous Menu
+        :type: :menu
+        :id: 1
+  - :title: SOFTWARE MENU
+    :id: 3
+    :entries:
+      - :title: New Battleships Program
+        :type: :basic
+        :paths: [ BATTLE ]
+      - :title: New Cells and Serpents
+        :type: :basic
+        :paths: [ NEWCELS ]
+      - :title: Elite Cheat Editor
+        :type: :basic
+        :paths: [ CHEAT ]
+      - :title: Basic Envelope Printer
+        :type: :basic
+        :paths: [ ENVELOP ]
+      - :title: Fighter Command Game
+        :type: :basic
+        :paths: [ FCINTRO ]
+      - :title: Graphical Globe Screen
+        :type: :basic
+        :paths: [ GLOBE ]
+      - :title: Stopping Distances Test
+        :type: :basic
+        :paths: [ HIGHWAY ]
+      - :title: Keystrip Designer/Printer
+        :type: :basic
+        :paths: [ KEYSTRP ]
+      - :title: Metric Converter Utility
+        :type: :basic
+        :paths: [ METRIC ]
+      - :title: Musical Keyboard Program
+        :type: :basic
+        :paths: [ MUSIC ]
+      - :title: Character Re-definition
+        :type: :basic
+        :paths: [ TEXTDEF ]
+      - :title: Typewriter Emulation
+        :type: :basic
+        :paths: [ TYINTRO ]
+      - :title: Virus Simulator
+        :type: :run
+        :paths: [ VIRUS ]
+      - :title: Previous Menu
+        :type: :menu
+        :id: 1

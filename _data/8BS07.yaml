@@ -1,0 +1,65 @@
+:date: 1990
+:menus:
+  - :title: Digitised Pictures
+    :id: 1
+    :entries:
+      - :title: CHIP
+        :type: :ldpic
+        :paths: [ CHIP ]
+      - :title: CLOWN
+        :type: :ldpic
+        :paths: [ CLOWN ]
+      - :title: COCKTAIL
+        :type: :ldpic
+        :paths: [ COCKTAI ]
+      - :title: COKE
+        :type: :ldpic
+        :paths: [ COKE ]
+      - :title: DROID3
+        :type: :ldpic
+        :paths: [ DROID3 ]
+      - :title: ELITE
+        :type: :ldpic
+        :paths: [ ELITE ]
+      - :title: GIRL
+        :type: :ldpic
+        :paths: [ GIRL ]
+      - :title: HANCOCK
+        :type: :ldpic
+        :paths: [ HANCOCK ]
+      - :title: HENRY
+        :type: :ldpic
+        :paths: [ HENRY ]
+      - :title: HOUSE
+        :type: :ldpic
+        :paths: [ HOUSE ]
+      - :title: MAX
+        :type: :ldpic
+        :paths: [ MAX ]
+      - :title: MAXHEAD
+        :type: :ldpic
+        :paths: [ MAXHEAD ]
+      - :title: MIGHTY
+        :type: :ldpic
+        :paths: [ MIGHTY ]
+      - :title: SPIDEY
+        :type: :ldpic
+        :paths: [ SPIDEY ]
+      - :title: RAQUEL
+        :type: :ldpic
+        :paths: [ RAQUEL ]
+      - :title: SHARP
+        :type: :ldpic
+        :paths: [ SHARP ]
+      - :title: SHIP
+        :type: :ldpic
+        :paths: [ SHIP ]
+      - :title: SKI
+        :type: :ldpic
+        :paths: [ SKI ]
+      - :title: SNOOPY
+        :type: :ldpic
+        :paths: [ SNOOPY ]
+      - :title: SANDY
+        :type: :ldpic
+        :paths: [ SANDY ]
