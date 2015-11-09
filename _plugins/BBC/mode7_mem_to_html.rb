@@ -814,6 +814,7 @@ module BBC
         end
       end
 
+      htmllines << htmlline.join('') if htmlline.size > 0
       htmllines.join("\n")
     end
 
