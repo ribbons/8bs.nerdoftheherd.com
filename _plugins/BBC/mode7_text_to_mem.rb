@@ -19,6 +19,10 @@ module BBC
       column = 0
 
       input.each_byte do |c|
+        if c == 138
+          c = 32
+        end
+
         if c == 13
           while column < 40
             column += 1
