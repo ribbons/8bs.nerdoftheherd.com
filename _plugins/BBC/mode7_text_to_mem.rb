@@ -19,7 +19,16 @@ module BBC
       column = 0
 
       input.each_byte do |c|
-        if c == 138
+        # Map to correct Teletext characters to replicate
+        # the behaviour of OSWRCH on the BBC
+        case c
+        when 35 # '#'
+          c = 95
+        when 95 # '-'
+          c = 96
+        when 96 # '£'
+          c = 35
+        when 138 # 'Nothing', displays as a space
           c = 32
         end
 
