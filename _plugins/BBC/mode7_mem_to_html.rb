@@ -82,7 +82,7 @@ module BBC
           end
         when 35
           if mode == :text
-            thischar = '£'
+            thischar = textval('£', heighttype)
           else
             thischar = graphval(3, heighttype, graphicsmode)
           end
