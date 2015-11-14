@@ -1,5 +1,4 @@
 exclude:
-  - image source
   - Gemfile
   - Gemfile.lock
   - Rakefile
