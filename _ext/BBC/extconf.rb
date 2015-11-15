@@ -1,4 +1,4 @@
-# This file is part of the 8BS Online Conversion.
+﻿# This file is part of the 8BS Online Conversion.
 # Copyright © 2015 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -12,10 +12,11 @@
 # You should have received a copy of the GNU General Public License along with this program.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-source 'https://rubygems.org'
+require 'mkmf'
 
-gem 'jekyll'
-gem 'rubocop',       require: false
-gem 'rake',          require: false
-gem 'jshintrb',      require: false
-gem 'rake-compiler', require: false
+# rubocop:disable Style/GlobalVars
+
+$CFLAGS << ' -std=c99 -O3 -Wall -Werror'
+$CFLAGS = $CFLAGS.sub(/ -O2/, '')
+
+create_makefile('mode7_filters_c')

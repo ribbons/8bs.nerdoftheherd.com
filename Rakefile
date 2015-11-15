@@ -14,6 +14,8 @@
 
 require 'rubocop/rake_task'
 require 'jshintrb/jshinttask'
+require 'rake/extensiontask'
+require 'rake/clean'
 
 RuboCop::RakeTask.new
 
@@ -38,3 +40,12 @@ Jshintrb::JshintTask.new :jshint do |t|
 end
 
 task lint: %w(rubocop jshint)
+
+Rake::ExtensionTask.new do |ext|
+  ext.name = 'mode7_filters_c'
+  ext.ext_dir = '_ext/BBC'
+  ext.lib_dir = '_plugins/BBC'
+end
+
+CLEAN.include('_ext/**/*.so')
+CLEAN.include('tmp')

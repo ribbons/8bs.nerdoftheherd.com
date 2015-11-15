@@ -12,40 +12,8 @@
 # You should have received a copy of the GNU General Public License along with this program.  If not, see
 # <http://www.gnu.org/licenses/>.
 
+require_relative 'mode7_filters_c'
+
 module BBC
-  module Mode7TextToMemFilter
-    def mode7_text_to_mem(input)
-      output = ''
-      column = 0
-
-      input.each_byte do |c|
-        # Map to correct Teletext characters to replicate
-        # the behaviour of OSWRCH on the BBC
-        case c
-        when 35 # '#'
-          c = 95
-        when 95 # '-'
-          c = 96
-        when 96 # '£'
-          c = 35
-        when 138 # 'Nothing', displays as a space
-          c = 32
-        end
-
-        if c == 13
-          while column < 40
-            column += 1
-            output << ' '
-          end
-        else
-          output << c.chr
-          column = (column + 1) % 40
-        end
-      end
-
-      output
-    end
-  end
-
-  Liquid::Template.register_filter(BBC::Mode7TextToMemFilter)
+  Liquid::Template.register_filter(BBC::Mode7Filters)
 end
