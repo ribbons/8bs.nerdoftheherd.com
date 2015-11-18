@@ -21,9 +21,7 @@ VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 	char* data = RSTRING_PTR(input);
 	int dataLen = RSTRING_LEN(input);
 
-	int buffill = 0;
-	int bufsize = dataLen * 2;
-	char *buffer = malloc(bufsize);
+	GString *output = g_string_sized_new(dataLen);
 
 	int column = 0;
 
@@ -52,33 +50,22 @@ VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 		if(c == 13)
 		{
 			int fillcols = MODE7_COLS - column;
+			size_t prevLen = output->len;
 
-			if(buffill + fillcols >= bufsize)
-			{
-				bufsize *= 2;
-				buffer = realloc(buffer, bufsize);
-			}
+			g_string_set_size(output, prevLen + fillcols);
+			memset(&output->str[prevLen], ' ', fillcols);
 
-			memset(&buffer[buffill], ' ', fillcols);
-			buffill += fillcols;
 			column = 0;
 		}
 		else
 		{
-			buffer[buffill++] = c;
-
-			if(buffill == bufsize)
-			{
-				bufsize *= 2;
-				buffer = realloc(buffer, bufsize);
-			}
-
+			g_string_append_c(output, c);
 			column = (column + 1) % 40;
 		}
 	}
 
-	VALUE output = rb_str_new(buffer, buffill);
-	free(buffer);
+	VALUE outputR = rb_str_new(output->str, output->len);
+	g_string_free(output, true);
 
-	return output;
+	return outputR;
 }

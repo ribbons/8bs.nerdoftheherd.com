@@ -14,6 +14,8 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+#include <stdbool.h>
+#include <glib.h>
 #include <ruby.h>
 
 #define MODE7_COLS 40

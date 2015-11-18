@@ -14,8 +14,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include <stdbool.h>
-#include <glib.h>
 #include "mode7_filters.h"
 
 typedef enum
