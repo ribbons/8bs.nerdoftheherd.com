@@ -14,13 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include "mode7_filters.h"
+#include <ruby.h>
 
-void Init_mode7_filters_c()
-{
-	VALUE BBC = rb_define_module("BBC");
-	VALUE Mode7Filters = rb_define_module_under(BBC, "Mode7Filters");
+#define MODE7_COLS 40
 
-	rb_define_method(Mode7Filters, "mode7_text_to_mem", method_mode7_text_to_mem, 1);
-	rb_define_method(Mode7Filters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
-}
+#define STR_AND_LEN(s) s, sizeof(s) - 1
+
+VALUE method_mode7_text_to_mem(VALUE self, VALUE input);
+VALUE method_mode7_mem_to_html(VALUE self, VALUE input);

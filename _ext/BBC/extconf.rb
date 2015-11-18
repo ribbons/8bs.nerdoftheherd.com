@@ -16,6 +16,8 @@ require 'mkmf'
 
 # rubocop:disable Style/GlobalVars
 
+throw 'glib-2.0 is required' unless pkg_config('glib-2.0')
+
 $CFLAGS << ' -std=c99 -O3 -Wall -Werror'
 $CFLAGS = $CFLAGS.sub(/ -O2/, '')
 

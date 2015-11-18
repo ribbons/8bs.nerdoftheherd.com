@@ -14,9 +14,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#include <ruby.h>
-
-#define MODE7_COLS 40
+#include "mode7_filters.h"
 
 VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 {
