@@ -19,13 +19,13 @@
 VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 {
 	char* data = RSTRING_PTR(input);
-	int dataLen = RSTRING_LEN(input);
+	long dataLen = RSTRING_LEN(input);
 
-	GString *output = g_string_sized_new(dataLen);
+	GString *output = g_string_sized_new((gsize)dataLen);
 
-	int column = 0;
+	unsigned int column = 0;
 
-	for(int i = 0; i < dataLen; i++)
+	for(long i = 0; i < dataLen; i++)
 	{
 		char c = data[i];
 
@@ -49,7 +49,7 @@ VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 
 		if(c == 13)
 		{
-			int fillcols = MODE7_COLS - column;
+			unsigned int fillcols = MODE7_COLS - column;
 			size_t prevLen = output->len;
 
 			g_string_set_size(output, prevLen + fillcols);
@@ -64,7 +64,7 @@ VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 		}
 	}
 
-	VALUE outputR = rb_str_new(output->str, output->len);
+	VALUE outputR = rb_str_new(output->str, (long)output->len);
 	g_string_free(output, true);
 
 	return outputR;

@@ -18,7 +18,7 @@ require 'mkmf'
 
 throw 'glib-2.0 is required' unless pkg_config('glib-2.0')
 
-$CFLAGS << ' -std=c99 -O3 -Wall -Werror'
+$CFLAGS << ' -std=c99 -O3 -Wall -Wconversion -Werror'
 $CFLAGS = $CFLAGS.sub(/ -O2/, '')
 
 create_makefile('mode7_filters_c')

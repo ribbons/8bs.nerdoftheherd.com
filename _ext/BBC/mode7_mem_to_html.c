@@ -67,7 +67,7 @@ uint32_t textval(uint32_t chval, Height height)
 	}
 }
 
-uint32_t graphval(int value, Height height, bool separated)
+uint32_t graphval(uint32_t value, Height height, bool separated)
 {
 	uint32_t charval;
 
@@ -119,11 +119,11 @@ VALUE method_mode7_mem_to_html(VALUE self, VALUE input)
 	}
 
 	char* data = RSTRING_PTR(input);
-	int dataLen = RSTRING_LEN(input);
+	long dataLen = RSTRING_LEN(input);
 
-	GString *output = g_string_sized_new(dataLen);
+	GString *output = g_string_sized_new((gsize)dataLen);
 
-	for(int i = 0; i < dataLen; i++)
+	for(long i = 0; i < dataLen; i++)
 	{
 		bool stylechange;
 		uint32_t thischar;
@@ -1403,7 +1403,7 @@ VALUE method_mode7_mem_to_html(VALUE self, VALUE input)
 		g_string_truncate(output, output->len - 1);
 	}
 
-	VALUE outputR = rb_str_new(output->str, output->len);
+	VALUE outputR = rb_str_new(output->str, (long)output->len);
 	g_string_free(output, true);
 
 	return outputR;
