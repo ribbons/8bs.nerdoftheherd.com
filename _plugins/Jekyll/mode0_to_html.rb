@@ -1,6 +1,5 @@
----
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU General
 # Public License as published by the Free Software Foundation, either version 3 of the License, or (at your
@@ -13,13 +12,12 @@
 # You should have received a copy of the GNU General Public License along with this program.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-layout:     main
----
+module Jekyll
+  module ChompDotFilter
+    def chomp_dot(input)
+      input.chomp('.')
+    end
+  end
 
-<div id="content">
-	<h1>{{ page.entry.title | chomp_dot }}</h1>
-	
-	<p>This file is binary machine code compiled to be run on a BBC.</p>
-	
-	<p>To view it, you can <a href="/{{ page.disc.path }}/emulate/">run this disc in the jsbeeb emulator</a>.</p>
-</div>
+  Liquid::Template.register_filter(Jekyll::ChompDotFilter)
+end

@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU General
 # Public License as published by the Free Software Foundation, either version 3 of the License, or (at your
@@ -46,10 +46,12 @@ module Jekyll
       process(@name)
       read_yaml(File.join(@base, '_layouts'), template + '.html')
 
+      title = entry.title.chomp('.')
+
       if data['title']
-        data['title'].sub!('$title', entry.title)
+        data['title'].sub!('$title', title)
       else
-        data['title'] = entry.title
+        data['title'] = title
       end
 
       data['disc'] = disc
