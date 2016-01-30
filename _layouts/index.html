@@ -5,19 +5,19 @@ title:      8-Bit Software Magazines Index
 ---
 
 <div id="content">
-	<h1>8BS Issues</h1>
-	
-	{% for issue in page.issues %}
-		<h2>Issue {{ issue.number }} <span class="issuedate">{{ issue.date }}</span></h2>
+    <h1>8BS Issues</h1>
 
-		<ul>
-			{% for disc in issue.discs %}
-				{% if issue.discs.size > 1 %}
-					<li><a href="{{disc.path}}/">Browse Disc {{ disc.number }}</a></li>
-				{% else %}
-					<li><a href="{{disc.path}}/">Browse</a></li>
-				{% endif %}
-			{% endfor %}
-		</ul>
-	{% endfor %}
+    {% for issue in page.issues %}
+        <h2>Issue {{ issue.number }} <span class="issuedate">{{ issue.date }}</span></h2>
+
+        <ul>
+            {% for disc in issue.discs %}
+                {% if issue.discs.size > 1 %}
+                    <li><a href="{{disc.path}}/">Browse Disc {{ disc.number }}</a></li>
+                {% else %}
+                    <li><a href="{{disc.path}}/">Browse</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endfor %}
 </div>

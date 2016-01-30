@@ -1,42 +1,42 @@
 (function () {
-	"use strict";
+    "use strict";
 
-	$(document).ready(function() {
-		if(!testSupport())
-		{
-			$('#need-to-have').html('a more <a href="http://browsehappy.com/">recent browser</a>');
-			return;
-		}
+    $(document).ready(function() {
+        if(!testSupport())
+        {
+            $('#need-to-have').html('a more <a href="http://browsehappy.com/">recent browser</a>');
+            return;
+        }
 
-		var container = $('#emulator');
-		var imagePath = location.protocol + location.hostname + container.data('imagePath');
+        var container = $('#emulator');
+        var imagePath = location.protocol + location.hostname + container.data('imagePath');
 
-		container.html('<iframe src="' + location.protocol + '//bbc.godbolt.org/?embed&disc=' + imagePath +
-		               '&autoboot" width=896 height=698 frameborder=0></iframe>');
+        container.html('<iframe src="' + location.protocol + '//bbc.godbolt.org/?embed&disc=' + imagePath +
+                       '&autoboot" width=896 height=698 frameborder=0></iframe>');
 
-		$('#emulator > iframe').load(function() {
-			this.contentWindow.focus();
-		});
+        $('#emulator > iframe').load(function() {
+            this.contentWindow.focus();
+        });
 
-		$('#content').hide();
-	});
+        $('#content').hide();
+    });
 
-	function testSupport()
-	{
-		// Check if the current browser has <canvas> support
-		var testCanvas = document.createElement('canvas');
+    function testSupport()
+    {
+        // Check if the current browser has <canvas> support
+        var testCanvas = document.createElement('canvas');
 
-		if(!testCanvas.getContext || !testCanvas.getContext('2d'))
-		{
-			return false;
-		}
+        if(!testCanvas.getContext || !testCanvas.getContext('2d'))
+        {
+            return false;
+        }
 
-		// Some browsers (e.g. IE9 & 10) return the wrong object type from createImageData()
-		if(!testCanvas.getContext('2d').createImageData(1, 1).data.buffer)
-		{
-			return false;
-		}
+        // Some browsers (e.g. IE9 & 10) return the wrong object type from createImageData()
+        if(!testCanvas.getContext('2d').createImageData(1, 1).data.buffer)
+        {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 }());

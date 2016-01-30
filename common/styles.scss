@@ -2,180 +2,180 @@
 ---
 
 body {
-	color: white;
-	background-color: black;
-	margin: 115px 1em 1em 1em;
-	padding: 0;
-	text-align: center;
-	font: 12pt Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: black;
+    margin: 115px 1em 1em 1em;
+    padding: 0;
+    text-align: center;
+    font: 12pt Arial, Helvetica, sans-serif;
 }
 
 a {
-	color: white;
+    color: white;
 }
 
 a:hover {
-	color: silver;
+    color: silver;
 }
 
 hr {
-	height: 1px;
-	margin: 2em -1em;
-	border: 0;
-	border-bottom: 1px solid gray;
+    height: 1px;
+    margin: 2em -1em;
+    border: 0;
+    border-bottom: 1px solid gray;
 }
 
 .centralcol {
-	text-align: left;
-	margin-left: auto;
-	margin-right: auto;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #header {
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	background-color: black;
-	border-bottom: 1px solid gray;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    background-color: black;
+    border-bottom: 1px solid gray;
 
-	#innerhdr {
-		margin-left: auto;
-		margin-right: auto;
-		width: 610px;
-		text-align: left;
-		height: 95px;
-	}
+    #innerhdr {
+        margin-left: auto;
+        margin-right: auto;
+        width: 610px;
+        text-align: left;
+        height: 95px;
+    }
 
-	#logo {
-		float: left;
-		color: white;
-		background-color: blue;
-		border: 0;
-	}
+    #logo {
+        float: left;
+        color: white;
+        background-color: blue;
+        border: 0;
+    }
 
-	#banner {
-		width: 468px;
-		height: 60px;
-		float: right;
-	}
+    #banner {
+        width: 468px;
+        height: 60px;
+        float: right;
+    }
 
-	#nav {
-		width: 468px;
-		float: right;
-		margin-top: 11px;
-	}
+    #nav {
+        width: 468px;
+        float: right;
+        margin-top: 11px;
+    }
 
-	#nav #about {
-		float: right;
-	}
+    #nav #about {
+        float: right;
+    }
 
-	#nav .current {
-		font-weight: bold;
-	}
+    #nav .current {
+        font-weight: bold;
+    }
 }
 
 div#content {
-	width: 38em;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: left;
+    width: 38em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
 
-	.issuedate {
-		font-size: 12pt;
-		font-weight: normal;
-		margin-left: 0.5em;
-	}
+    .issuedate {
+        font-size: 12pt;
+        font-weight: normal;
+        margin-left: 0.5em;
+    }
 
-	#emulate-issue {
-		float: right;
-	}
+    #emulate-issue {
+        float: right;
+    }
 }
 
 @font-face {
-	font-family: "ModeSeven";
-	src: url("fonts/mode7gx3.eot");
+    font-family: "ModeSeven";
+    src: url("fonts/mode7gx3.eot");
 }
 
 @font-face {
-	font-family: "ModeSeven";
-	src: url("fonts/mode7gx3.ttf");
+    font-family: "ModeSeven";
+    src: url("fonts/mode7gx3.ttf");
 }
 
 .mode0, .mode7 {
-	display: inline-block;
-	white-space: pre;
+    display: inline-block;
+    white-space: pre;
 }
 
 .mode7 {
-	font: 20px "ModeSeven", "Courier New", "Courier", monospace;
-	line-height: 1em;
+    font: 20px "ModeSeven", "Courier New", "Courier", monospace;
+    line-height: 1em;
 
-	.t1 { color: red; }
-	.t2 { color: lime; }
-	.t3 { color: yellow; }
-	.t4 { color: blue; }
-	.t5 { color: fuchsia; }
-	.t6 { color: aqua; }
+    .t1 { color: red; }
+    .t2 { color: lime; }
+    .t3 { color: yellow; }
+    .t4 { color: blue; }
+    .t5 { color: fuchsia; }
+    .t6 { color: aqua; }
 
-	.b1 { background-color: red; }
-	.b2 { background-color: lime; }
-	.b3 { background-color: yellow; }
-	.b4 { background-color: blue; }
-	.b5 { background-color: fuchsia; }
-	.b6 { background-color: aqua; }
-	.b7 { background-color: white; }
+    .b1 { background-color: red; }
+    .b2 { background-color: lime; }
+    .b3 { background-color: yellow; }
+    .b4 { background-color: blue; }
+    .b5 { background-color: fuchsia; }
+    .b6 { background-color: aqua; }
+    .b7 { background-color: white; }
 
-	.flashoff { color: black; }
-	.flashoff.b1 { color: red; }
-	.flashoff.b2 { color: lime; }
-	.flashoff.b3 { color: yellow; }
-	.flashoff.b4 { color: blue; }
-	.flashoff.b5 { color: fuchsia; }
-	.flashoff.b6 { color: aqua; }
-	.flashoff.b7 { color: white; }
+    .flashoff { color: black; }
+    .flashoff.b1 { color: red; }
+    .flashoff.b2 { color: lime; }
+    .flashoff.b3 { color: yellow; }
+    .flashoff.b4 { color: blue; }
+    .flashoff.b5 { color: fuchsia; }
+    .flashoff.b6 { color: aqua; }
+    .flashoff.b7 { color: white; }
 }
 
 .mode0 {
-	font: 14px "Courier New", "Courier", monospace;
+    font: 14px "Courier New", "Courier", monospace;
 
-	.uline {
-		text-decoration: underline;
-	}
+    .uline {
+        text-decoration: underline;
+    }
 
-	.wide {
-		/* Gives a rough effect until css3 font-strech or something similar is
-		   widely implemented */
-		font-weight: bold;
-		font-size: 1.2em;
-		letter-spacing: 0.75ex;
-		line-height: 1em;
-	}
+    .wide {
+        /* Gives a rough effect until css3 font-strech or something similar is
+           widely implemented */
+        font-weight: bold;
+        font-size: 1.2em;
+        letter-spacing: 0.75ex;
+        line-height: 1em;
+    }
 
-	.super {
-		/* Use font size and positioning instead of proper superscript, as this
-		   pushes the spacing of the rest of the line apart, and causes font size
-		   issues in IE.  Letter spacing is used until font-stretch or similar is
-		   widely implemented */
-		font-size: 0.8em;
-		position: relative;
-		z-index: -1;
-		bottom: 0.33em;
-		letter-spacing: 0.2ex;
-	}
+    .super {
+        /* Use font size and positioning instead of proper superscript, as this
+           pushes the spacing of the rest of the line apart, and causes font size
+           issues in IE.  Letter spacing is used until font-stretch or similar is
+           widely implemented */
+        font-size: 0.8em;
+        position: relative;
+        z-index: -1;
+        bottom: 0.33em;
+        letter-spacing: 0.2ex;
+    }
 
-	.subs {
-		/* See comments above for superscript */
-		font-size: 0.8em;
-		position: relative;
-		z-index: -1;
-		bottom: -0.25em;
-		letter-spacing: 0.2ex;
-	}
+    .subs {
+        /* See comments above for superscript */
+        font-size: 0.8em;
+        position: relative;
+        z-index: -1;
+        bottom: -0.25em;
+        letter-spacing: 0.2ex;
+    }
 
-	.inv {
-		background-color: white;
-		color: black;
-		font-weight: bold;
-	}
+    .inv {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+    }
 }

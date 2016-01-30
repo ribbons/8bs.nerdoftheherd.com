@@ -20,9 +20,9 @@
 
 void Init_mode7_filters_c()
 {
-	VALUE BBC = rb_define_module("BBC");
-	VALUE Mode7Filters = rb_define_module_under(BBC, "Mode7Filters");
+    VALUE BBC = rb_define_module("BBC");
+    VALUE Mode7Filters = rb_define_module_under(BBC, "Mode7Filters");
 
-	rb_define_method(Mode7Filters, "mode7_text_to_mem", method_mode7_text_to_mem, 1);
-	rb_define_method(Mode7Filters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
+    rb_define_method(Mode7Filters, "mode7_text_to_mem", method_mode7_text_to_mem, 1);
+    rb_define_method(Mode7Filters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
 }

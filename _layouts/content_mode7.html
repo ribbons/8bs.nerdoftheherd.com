@@ -4,6 +4,6 @@ includejs:  '/common/script/mode7.js'
 ---
 
 {% for item in page.entry.content %}
-	{% if forloop.index > 1 %}<hr>{% endif %}
-	<div class="centralcol mode7">{{ item | mode7_mem_to_html }}</div>
+    {% if forloop.index > 1 %}<hr>{% endif %}
+    <div class="centralcol mode7">{{ item | mode7_mem_to_html }}</div>
 {% endfor %}

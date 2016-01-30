@@ -20,54 +20,54 @@
 
 VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 {
-	char* data = RSTRING_PTR(input);
-	long dataLen = RSTRING_LEN(input);
+    char* data = RSTRING_PTR(input);
+    long dataLen = RSTRING_LEN(input);
 
-	GString *output = g_string_sized_new((gsize)dataLen);
+    GString *output = g_string_sized_new((gsize)dataLen);
 
-	unsigned int column = 0;
+    unsigned int column = 0;
 
-	for(long i = 0; i < dataLen; i++)
-	{
-		char c = data[i];
+    for(long i = 0; i < dataLen; i++)
+    {
+        char c = data[i];
 
-		// Map to correct Teletext characters to replicate
-		// the behaviour of OSWRCH on the BBC
-		switch((unsigned char)c)
-		{
-			case 35: // '#'
-				c = 95;
-				break;
-			case 95: // '-'
-				c = 96;
-				break;
-			case 96: // '£'
-				c = 35;
-				break;
-			case 138: // 'Nothing', displays as a space
-				c = 32;
-				break;
-		}
+        // Map to correct Teletext characters to replicate
+        // the behaviour of OSWRCH on the BBC
+        switch((unsigned char)c)
+        {
+            case 35: // '#'
+                c = 95;
+                break;
+            case 95: // '-'
+                c = 96;
+                break;
+            case 96: // '£'
+                c = 35;
+                break;
+            case 138: // 'Nothing', displays as a space
+                c = 32;
+                break;
+        }
 
-		if(c == 13)
-		{
-			unsigned int fillcols = MODE7_COLS - column;
-			size_t prevLen = output->len;
+        if(c == 13)
+        {
+            unsigned int fillcols = MODE7_COLS - column;
+            size_t prevLen = output->len;
 
-			g_string_set_size(output, prevLen + fillcols);
-			memset(&output->str[prevLen], ' ', fillcols);
+            g_string_set_size(output, prevLen + fillcols);
+            memset(&output->str[prevLen], ' ', fillcols);
 
-			column = 0;
-		}
-		else
-		{
-			g_string_append_c(output, c);
-			column = (column + 1) % 40;
-		}
-	}
+            column = 0;
+        }
+        else
+        {
+            g_string_append_c(output, c);
+            column = (column + 1) % 40;
+        }
+    }
 
-	VALUE outputR = rb_str_new(output->str, (long)output->len);
-	g_string_free(output, true);
+    VALUE outputR = rb_str_new(output->str, (long)output->len);
+    g_string_free(output, true);
 
-	return outputR;
+    return outputR;
 }

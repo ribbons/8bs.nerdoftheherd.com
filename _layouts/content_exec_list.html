@@ -22,10 +22,10 @@ action:     Listing
 ---
 
 <div id="content">
-	<h1>{{ page.title }}</h1>
+    <h1>{{ page.title }}</h1>
 </div>
 
 {% for item in page.entry.content %}
-	{% if forloop.index > 1 %}<hr>{% endif %}
-	<div class="centralcol mode7">{{ item | mode7_text_to_mem | mode7_mem_to_html }}</div>
+    {% if forloop.index > 1 %}<hr>{% endif %}
+    <div class="centralcol mode7">{{ item | mode7_text_to_mem | mode7_mem_to_html }}</div>
 {% endfor %}
