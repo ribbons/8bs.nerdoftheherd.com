@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,11 @@ module Jekyll
 
     def generate(site)
       issues = EBS::Issue.all_issues
+
+      # Ensure folders for files generated outside Jekyll exist
+      site.config['keep_files'].each do |dir|
+        FileUtils.mkpath(site.in_dest_dir(dir))
+      end
 
       site.pages << IndexPage.new(site, issues)
 

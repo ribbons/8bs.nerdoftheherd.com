@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ end
 task lint: %w(rubocop jshint)
 
 Rake::ExtensionTask.new do |ext|
-  ext.name = 'mode7_filters_c'
+  ext.name = 'native_filters_c'
   ext.ext_dir = '_ext/BBC'
   ext.lib_dir = '_plugins/BBC'
 end

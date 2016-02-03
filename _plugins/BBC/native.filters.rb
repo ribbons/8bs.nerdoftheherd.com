@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative 'mode7_filters_c'
+require_relative 'native_filters_c'
 
 module BBC
-  Liquid::Template.register_filter(BBC::Mode7Filters)
+  Liquid::Template.register_filter(BBC::NativeFilters)
 end

@@ -33,7 +33,9 @@ module Jekyll
         else
           template = 'content_basic'
         end
-      when :run, :ldpic
+      when :ldpic
+        template = 'content_ldpic'
+      when :run
         template = 'content_runnable'
       when :exec
         if action == :list

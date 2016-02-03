@@ -86,8 +86,8 @@
         :type: :basic
         :paths: [ Dloader ]
       - :title: World Map Graphical Screens
-        :type: :ldpic
-        :paths: [ OBLITER, RAYTRC, VALKY, WMAP1, WMAP2, WMAP3 ]
+        :type: :run
+        :paths: [ ':2.S.OBLITER', ':2.S.RAYTRC', ':2.S.VALKY', ':2.S.WMAP1', ':2.S.WMAP2', ':2.S.WMAP3' ]
       - :title: PROGRAMMERS RETURN REVIEWS
         :type: :mode0
         :paths: [ ':2.T.Progret' ]
