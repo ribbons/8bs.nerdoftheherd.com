@@ -49,5 +49,5 @@ Rake::ExtensionTask.new do |ext|
   ext.lib_dir = '_plugins/BBC'
 end
 
-CLEAN.include('_ext/**/*.so')
+CLEAN.include('_plugins/**/*.so')
 CLEAN.include('tmp')
