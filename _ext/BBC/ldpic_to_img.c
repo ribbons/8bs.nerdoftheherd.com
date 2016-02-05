@@ -104,8 +104,9 @@ VALUE method_ldpic_to_img(VALUE self, VALUE input)
     }
 
     png_init_io(png_ptr, handle);
+    png_set_compression_level(png_ptr, Z_BEST_COMPRESSION);
 
-    png_set_IHDR(png_ptr, info_ptr, width, height, 8, PNG_COLOR_TYPE_PALETTE,
+    png_set_IHDR(png_ptr, info_ptr, width, height, 4, PNG_COLOR_TYPE_PALETTE,
         PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
     png_color palette[] = {
@@ -121,7 +122,10 @@ VALUE method_ldpic_to_img(VALUE self, VALUE input)
 
     png_set_PLTE(png_ptr, info_ptr, palette, sizeof(palette) / sizeof(palette[0]));
     png_write_info(png_ptr, info_ptr);
+
+    png_set_packing(png_ptr);
     png_write_image(png_ptr, row_pointers);
+
     png_write_end(png_ptr, NULL);
     png_destroy_write_struct(&png_ptr, &info_ptr);
 
