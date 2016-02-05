@@ -46,8 +46,9 @@ task lint: %w(rubocop jshint)
 Rake::ExtensionTask.new do |ext|
   ext.name = 'native_filters_c'
   ext.ext_dir = '_ext/BBC'
+  ext.tmp_dir = File.join(Dir.tmpdir, '8bs_online_conversion')
   ext.lib_dir = '_plugins/BBC'
 end
 
 CLEAN.include('_plugins/**/*.so')
-CLEAN.include('tmp')
+CLEAN.include(File.join(Dir.tmpdir, '8bs_online_conversion'))
