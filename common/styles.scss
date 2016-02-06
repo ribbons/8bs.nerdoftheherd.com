@@ -16,10 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---
 
+@font-face {
+    font-family: "ModeSeven";
+    src: url("fonts/mode7gx3.eot");
+}
+
+@font-face {
+    font-family: "ModeSeven";
+    src: url("fonts/mode7gx3.ttf");
+}
+
 body {
     color: white;
     background-color: black;
-    margin: 115px 1em 1em 1em;
+    margin: 75px 10px 10px 10px;
     padding: 0;
     text-align: center;
     font: 12pt Arial, Helvetica, sans-serif;
@@ -35,7 +45,7 @@ a:hover {
 
 hr {
     height: 1px;
-    margin: 2em -1em;
+    margin: 2em -10px;
     border: 0;
     border-bottom: 1px solid gray;
 }
@@ -55,30 +65,21 @@ hr {
     border-bottom: 1px solid gray;
 
     #innerhdr {
-        margin-left: auto;
-        margin-right: auto;
-        width: 610px;
+        margin: 10px auto 0 auto;
+        display: inline-block;
         text-align: left;
-        height: 95px;
+        height: 55px;
     }
 
-    #logo {
-        float: left;
-        color: white;
+    #site-title {
+        font: 20px "ModeSeven", "Courier New", "Courier", monospace;
         background-color: blue;
-        border: 0;
-    }
-
-    #banner {
-        width: 468px;
-        height: 60px;
-        float: right;
+        text-decoration: none;
+        white-space: pre;
     }
 
     #nav {
-        width: 468px;
-        float: right;
-        margin-top: 11px;
+        margin-top: 10px;
     }
 
     #nav #about {
@@ -105,16 +106,6 @@ div#content {
     #emulate-issue {
         float: right;
     }
-}
-
-@font-face {
-    font-family: "ModeSeven";
-    src: url("fonts/mode7gx3.eot");
-}
-
-@font-face {
-    font-family: "ModeSeven";
-    src: url("fonts/mode7gx3.ttf");
 }
 
 .mode0, .mode7 {
