@@ -26,5 +26,9 @@ layout:     main
     {% for item in page.entry.content %}
         {% if forloop.index > 1 %}<hr>{% endif %}
         {{ item | ldpic_to_img }}
+
+        {% if page.entry.captions %}
+            <div class="caption">{{ page.entry.captions[forloop.index0] }}</div>
+        {% endif %}
     {% endfor %}
 </div>

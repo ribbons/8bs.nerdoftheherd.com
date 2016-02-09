@@ -1,0 +1,11 @@
+5:
+  Picture.:
+    :paths:
+      - ':2.GIRL'
+    :type: :ldpic
+  Mandelbrots In Seconds!:
+    :paths:
+      - ':2.MAND1'
+      - ':2.MAND2'
+      - ':2.MAND3'
+    :type: :ldpic

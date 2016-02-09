@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -60,6 +60,29 @@ module EBS
       end
 
       lines
+    end
+
+    private def apply_tweaks(imagepath)
+      yamlpath = File.expand_path('../../_data/' + File.basename(imagepath, '.*') + '.yaml', __dir__)
+      return unless File.exist?(yamlpath)
+
+      data = YAML.load_file(yamlpath)
+
+      @menus.each do |menu|
+        if data.key?(menu.id)
+          menudata = data[menu.id]
+
+          menu.entries.each do |entry|
+            if menudata.key?(entry.title)
+              itemdata = menudata[entry.title]
+
+              entry.paths = itemdata[:paths] if itemdata.key?(:paths)
+              entry.type = itemdata[:type] if itemdata.key?(:type)
+              entry.captions = itemdata[:captions] if itemdata.key?(:captions)
+            end
+          end
+        end
+      end
     end
   end
 end

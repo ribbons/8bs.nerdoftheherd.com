@@ -186,9 +186,15 @@ div#content {
     }
 }
 
-.image img {
-    -ms-interpolation-mode: nearest-neighbor;
-    image-rendering: -webkit-crisp-edges;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: pixelated;
+.image {
+    img {
+        -ms-interpolation-mode: nearest-neighbor;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: pixelated;
+    }
+
+    .caption {
+        margin-top: 5px;
+    }
 }

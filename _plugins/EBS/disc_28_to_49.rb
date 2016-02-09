@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ module EBS
       id_mapping = read_id_map(data)
       lines = read_data_lines(data)
       convert_menu_data(lines, id_mapping, disc)
+      apply_tweaks(imagepath)
     end
 
     # The first version of the menu by S.Flintham includes 'PROCla' which takes
@@ -69,7 +70,7 @@ module EBS
           pos += 4
           linelen -= 4
 
-          menuid = data.getbyte(pos).chr
+          menuid = data.getbyte(pos).chr.to_i
 
           if linelen == 3
             map[:first] = menuid unless map.key?(:first)

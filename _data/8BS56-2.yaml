@@ -1,0 +1,13 @@
+3:
+  8BS Snaps:
+    :paths:
+      - MESETUP
+      - SETUP
+    :type: :ldpic
+  Tube Elite Screenshots:
+    :paths:
+      - ':2.3'
+      - ':2.1'
+      - ':2.2'
+      - ':2.4'
+    :type: :ldpic

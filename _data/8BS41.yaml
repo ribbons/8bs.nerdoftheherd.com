@@ -1,0 +1,7 @@
+5:
+  GFX Demo Screen.:
+    :paths:
+      - ':2.Screen2'
+    :captions:
+      - This disc is avaliable from 8BS as TBI-78, a DFS double sided disc.
+    :type: :ldpic

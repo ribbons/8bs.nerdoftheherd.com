@@ -1,0 +1,9 @@
+7:
+  Pictures From 4WL:
+    :paths:
+      - ':2.S.FCONTAC'
+      - ':2.S.AWORKS'
+    :captions:
+      - First Contact
+      - AWorks
+    :type: :ldpic
