@@ -3,3 +3,13 @@
     :paths:
       - ':2.DALEK'
     :type: :ldpic
+  Pawn Picture.:
+    :paths:
+      - ':2.Pawns'
+    :type: :screendump
+    :modes: [ 0 ]
+  Acorn User Show Pic.:
+    :paths:
+      - ':2.ShowPic'
+    :type: :screendump
+    :modes: [ 0 ]

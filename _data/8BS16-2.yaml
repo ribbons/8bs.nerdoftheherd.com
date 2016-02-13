@@ -34,8 +34,9 @@
     :id: 2
     :entries:
       - :title: "'Buzz' Aldrin Picture & Text"
-        :type: :basic
-        :paths: [ AldLOAD ]
+        :type: :screendump
+        :paths: [ ALDRIN ]
+        :modes: [ [ 1, 0, 0, 4, 7 ] ]
       - :title: "'Bones' Demonstration Program"
         :type: :basic
         :paths: [ BONES ]

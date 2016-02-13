@@ -33,12 +33,34 @@ void callback(int x, int y, uint8_t colour)
     row_pointers[y][x] = colour;
 }
 
-VALUE method_ldpic_to_img(VALUE self, VALUE input)
+VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode)
 {
     char* data = RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
 
-    BbcScreenP screen = BbcImageLoader_LoadLdPic((uint8_t*)data, (int)dataLen);
+    char* typeString = RSTRING_PTR(type);
+    BbcScreenP screen;
+
+    if(strcmp(typeString, "ldpic") == 0)
+    {
+        screen = BbcImageLoader_LoadLdPic((uint8_t*)data, (int)dataLen);
+    }
+    else if(strcmp(typeString, "screendump") == 0)
+    {
+        VALUE modeVals = rb_ary_to_ary(mode);
+
+        screen = BbcImageLoader_LoadMemDump((uint8_t*)data, (int)dataLen);
+        BbcScreen_setMode(screen, (uint8_t)NUM2UINT(rb_ary_shift(modeVals)));
+
+        for(uint8_t i = 0; i < RARRAY_LEN(modeVals); i++)
+        {
+            BbcScreen_setColour(screen, i, (uint8_t)NUM2UINT(rb_ary_entry(modeVals, i)));
+        }
+    }
+    else
+    {
+        rb_fatal("Unknown image type \"%s\"", typeString);
+    }
 
     unsigned width = (unsigned)BbcScreen_getScreenWidth(screen);
     unsigned height = (unsigned)BbcScreen_getScreenHeight(screen);
@@ -139,7 +161,7 @@ VALUE method_ldpic_to_img(VALUE self, VALUE input)
     free(row_pointers);
 
     GString *output = g_string_new(NULL);
-    g_string_printf(output, "<img src=\"/%s\" width=640 height=512>", fileNameCommon->str);
+    g_string_printf(output, "<img src=\"/%s\" width=640 height=%d>", fileNameCommon->str, height * 2);
     g_string_free(fileNameCommon, TRUE);
 
     VALUE outputR = rb_str_new(output->str, (long)output->len);

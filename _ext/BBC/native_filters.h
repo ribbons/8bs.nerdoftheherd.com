@@ -26,4 +26,4 @@
 
 VALUE method_mode7_text_to_mem(VALUE self, VALUE input);
 VALUE method_mode7_mem_to_html(VALUE self, VALUE input);
-VALUE method_ldpic_to_img(VALUE self, VALUE input);
+VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode);

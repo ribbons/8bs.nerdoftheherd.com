@@ -78,6 +78,8 @@ module EBS
 
               entry.paths = itemdata[:paths] if itemdata.key?(:paths)
               entry.type = itemdata[:type] if itemdata.key?(:type)
+              entry.offsets = itemdata[:offsets] if itemdata.key?(:offsets)
+              entry.modes = itemdata[:modes] if itemdata.key?(:modes)
               entry.captions = itemdata[:captions] if itemdata.key?(:captions)
             end
           end

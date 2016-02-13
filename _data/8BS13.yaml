@@ -121,8 +121,9 @@
         :type: :ldpic
         :paths: [ THOMAS ]
       - :title: Blakes 7 Liberator Pic
-        :type: :basic
-        :paths: [ ':2.LIBERAT' ]
+        :type: :screendump
+        :paths: [ ':2.P.Blakes7' ]
+        :modes: [ 2 ]
       - :title: Digitised Animations
         :type: :basic
         :paths: [ ':2.DEMO' ]

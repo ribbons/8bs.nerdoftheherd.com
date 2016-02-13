@@ -1,0 +1,6 @@
+5:
+  8BS Pictures (Shrink example).:
+    :paths:
+      - ':2.8BSpics'
+    :type: :screendump
+    :modes: [ 0 ]

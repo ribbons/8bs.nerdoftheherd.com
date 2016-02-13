@@ -25,5 +25,5 @@ void Init_native_filters_c()
 
     rb_define_method(NativeFilters, "mode7_text_to_mem", method_mode7_text_to_mem, 1);
     rb_define_method(NativeFilters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
-    rb_define_method(NativeFilters, "ldpic_to_img", method_ldpic_to_img, 1);
+    rb_define_method(NativeFilters, "bbc_pic_to_img", method_bbc_pic_to_img, 3);
 }

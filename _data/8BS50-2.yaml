@@ -1,0 +1,6 @@
+4:
+  Madness Picture:
+    :paths:
+      - ':2.MAD'
+    :type: :screendump
+    :modes: [ 0 ]

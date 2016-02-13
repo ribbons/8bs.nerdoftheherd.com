@@ -73,8 +73,10 @@
         :type: :basic
         :paths: [ ':2.S.samp' ]
       - :title: Satellite picture.
-        :type: :basic
+        :type: :screendump
         :paths: [ ':2.S.scr1' ]
+        :modes: [ [ 1, 2, 4, 7, 6 ] ]
+        :offsets: [ 256, 204800 ]
   - :title: Utilities
     :id: 999
     :entries:

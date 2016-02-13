@@ -43,6 +43,7 @@ module EBS
           entry.title = entdat[:title]
           entry.type = entdat[:type]
           entry.offsets = entdat[:offsets]
+          entry.modes = entdat[:modes]
           entry.captions = entdat[:captions]
 
           if entdat[:paths].nil?

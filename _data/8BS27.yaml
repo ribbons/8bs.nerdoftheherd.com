@@ -67,8 +67,9 @@
         :type: :basic
         :paths: [ ':2.Warring' ]
       - :title: Pictures
-        :type: :basic
-        :paths: [ ':2.PicLoad' ]
+        :type: :screendump
+        :paths: [ ':2.S.Plus', ':2.S.Table' ]
+        :modes: [ 2, 2 ]
       - :title: Can Can
         :type: :basic
         :paths: [ ':2.CanCan' ]

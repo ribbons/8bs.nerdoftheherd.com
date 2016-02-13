@@ -1,0 +1,11 @@
+3:
+  Elite Pictures:
+    :paths:
+      - ':2.EliBBCB'
+      - ':2.EliteT'
+      - ':2.Krait'
+      - ':2.Viper'
+      - ':2.Viper2'
+      - ':2.Viper3'
+    :type: :screendump
+    :modes: [ 1, 1, 1, 1, 1, 1 ]

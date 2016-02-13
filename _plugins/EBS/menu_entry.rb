@@ -21,7 +21,7 @@ module EBS
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :id, :offsets, :captions
+    attr_accessor :title, :type, :id, :offsets, :modes, :captions
     attr_reader :paths
 
     def paths=(paths)
@@ -43,6 +43,10 @@ module EBS
       @linkpaths[@linkpath] = 1
     end
 
+    def typestr
+      @type.id2name
+    end
+
     def linkpath
       if @type == :menu
         return '#menu' + @id.to_s
@@ -57,12 +61,10 @@ module EBS
       @paths.each_with_index do |path, idx|
         file = @disc.file(path)
 
-        if @type == :mode7
-          if @offsets.nil?
-            content << trim_scroller(file.content, file.loadaddr)
-          else
-            content << extract_section(file.content, @offsets, idx)
-          end
+        if !@offsets.nil?
+          content << extract_section(file.content, @offsets, idx)
+        elsif @type == :mode7
+          content << trim_scroller(file.content, file.loadaddr)
         else
           content << file.content
         end
