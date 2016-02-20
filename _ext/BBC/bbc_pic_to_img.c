@@ -35,7 +35,7 @@ void callback(int x, int y, uint8_t colour)
 
 VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode)
 {
-    char* data = RSTRING_PTR(input);
+    uint8_t* data = (uint8_t*)RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
 
     char* typeString = RSTRING_PTR(type);
@@ -43,14 +43,45 @@ VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode)
 
     if(strcmp(typeString, "ldpic") == 0)
     {
-        screen = BbcImageLoader_LoadLdPic((uint8_t*)data, (int)dataLen);
+        screen = BbcImageLoader_LoadLdPic(data, (int)dataLen);
     }
     else if(strcmp(typeString, "screendump") == 0)
     {
         VALUE modeVals = rb_ary_to_ary(mode);
 
-        screen = BbcImageLoader_LoadMemDump((uint8_t*)data, (int)dataLen);
+        screen = BbcImageLoader_LoadMemDump(data, (int)dataLen);
         BbcScreen_setMode(screen, (uint8_t)NUM2UINT(rb_ary_shift(modeVals)));
+
+        for(uint8_t i = 0; i < RARRAY_LEN(modeVals); i++)
+        {
+            BbcScreen_setColour(screen, i, (uint8_t)NUM2UINT(rb_ary_entry(modeVals, i)));
+        }
+    }
+    else if(strcmp(typeString, "scrload") == 0)
+    {
+        VALUE modeVals = rb_ary_to_ary(mode);
+
+        if(RTEST(rb_ary_shift(modeVals)))
+        {
+            screen = BbcImageLoader_LoadScrLoad(data, (int)dataLen);
+        }
+        else
+        {
+            screen = BbcImageLoader_LoadMemDump(data, (int)dataLen);
+        }
+
+        uint8_t mode = (uint8_t)NUM2UINT(rb_ary_shift(modeVals));
+        BbcScreen_setMode(screen, mode);
+
+        if(mode == 2)
+        {
+            // ScrLoad saves mappings for colours 9-16 in the first four bytes
+            // of the image and then copies the next four over to hide this
+            for(int i = 0; i < 4; i++)
+            {
+                BbcScreen_setScreenByte(screen, i, BbcScreen_getScreenByte(screen, i + 4));
+            }
+        }
 
         for(uint8_t i = 0; i < RARRAY_LEN(modeVals); i++)
         {

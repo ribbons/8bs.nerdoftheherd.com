@@ -33,7 +33,7 @@ module Jekyll
         else
           template = 'content_basic'
         end
-      when :ldpic, :screendump
+      when :ldpic, :screendump, :scrload
         template = 'content_image'
       when :run
         template = 'content_runnable'
