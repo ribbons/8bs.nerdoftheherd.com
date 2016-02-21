@@ -80,8 +80,9 @@
     :id: 3
     :entries:
       - :title: Barbarian Screen Map
-        :type: :basic
-        :paths: [ ':2.BarLoad' ]
+        :type: :screendump
+        :paths: [ ':2.51EMAP' ]
+        :modes: [ 4 ]
       - :title: Braille Translator
         :type: :run
         :paths: [ ':2.BRAILLE' ]

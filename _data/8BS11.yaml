@@ -83,8 +83,17 @@
         :type: :basic
         :paths: [ Percent ]
       - :title: Red Dwarf III Screens
-        :type: :basic
-        :paths: [ Dloader ]
+        :type: :screendump
+        :paths:
+          - P.RIMMER
+          - P.HOLLY
+          - P.KRYTEN
+          - P.CLINT
+        :modes:
+          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
+          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
+          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
+          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
       - :title: World Map Graphical Screens
         :type: :scrload
         :paths:
