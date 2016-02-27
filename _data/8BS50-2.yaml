@@ -1,3 +1,11 @@
+2:
+  Maps of Sheffield:
+    :paths:
+      - ':2.MAP1'
+      - ':2.MAP2'
+      - ':2.MAP3'
+    :type: :screendump
+    :modes: [ 0, 0, 0 ]
 4:
   Madness Picture:
     :paths:
