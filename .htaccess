@@ -6,6 +6,9 @@ AddDefaultCharset UTF-8
 	Header set X-UA-Compatible "IE=Edge"
 </FilesMatch>
 
+# Allow external JSBeeb to access disc images and bootstrap basic files
+Header set Access-Control-Allow-Origin "*"
+
 # Redirect old-style URLs to their current equivalents
 RewriteEngine on
 RewriteRule ^8BS51-1/menu[0-9]\.html$ /8BS51-1/ [R=301,L]

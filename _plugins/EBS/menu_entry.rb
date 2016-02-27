@@ -55,6 +55,14 @@ module EBS
       end
     end
 
+    def bootstrap_basic
+      splitpath = @paths[0].split('.', 3)
+
+      'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
+      'OSCLI("DIR ' + splitpath[1] + "\")\n" \
+      'CHAIN "' + splitpath[2] + '"'
+    end
+
     def content
       content = []
 

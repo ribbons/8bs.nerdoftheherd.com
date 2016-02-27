@@ -20,7 +20,12 @@ module Jekyll
       @site = site
       @base = site.source
       @dir = dir
-      @name = 'index.html'
+
+      if action == :bootstrap
+        @name = 'emulate.bas'
+      else
+        @name = 'index.html'
+      end
 
       case entry.type
       when :mode0
@@ -30,6 +35,8 @@ module Jekyll
       when :basic
         if action == :list
           template = 'content_basic_list'
+        elsif action == :bootstrap
+          template = 'content_bootstrap'
         else
           template = 'content_basic'
         end
