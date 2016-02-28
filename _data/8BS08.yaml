@@ -75,7 +75,7 @@
         :type: :basic
         :paths: [ TYINTRO ]
       - :title: Virus Simulator
-        :type: :run
+        :type: :basic
         :paths: [ VIRUS ]
       - :title: Previous Menu
         :type: :menu
