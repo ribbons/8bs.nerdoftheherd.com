@@ -58,9 +58,14 @@ module EBS
     def bootstrap_basic
       splitpath = @paths[0].split('.', 3)
 
-      'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
-      'OSCLI("DIR ' + splitpath[1] + "\")\n" \
-      'CHAIN "' + splitpath[2] + '"'
+      basic = 'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
+      'OSCLI("DIR ' + splitpath[1] + "\")\n"
+
+      if @type == :basic
+        basic + 'CHAIN "' + splitpath[2] + '"'
+      else
+        basic + 'OSCLI("RUN ' + splitpath[2] + '")'
+      end
     end
 
     def content

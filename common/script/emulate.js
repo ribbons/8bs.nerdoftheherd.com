@@ -32,7 +32,7 @@
 
         var html = '<iframe src="' + location.protocol + '//bbc.godbolt.org/?embed&disc=' + imagePath;
 
-        if(action === 'basic')
+        if(action === 'basic' || action === 'run')
         {
             html += '&loadBasic=' + location.href + 'emulate.bas&autorun';
         }

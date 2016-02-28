@@ -27,25 +27,27 @@ module Jekyll
         @name = 'index.html'
       end
 
-      case entry.type
-      when :mode0
-        template = 'content_mode0'
-      when :mode7
-        template = 'content_mode7'
-      when :basic
-        if action == :list
-          template = 'content_basic_list'
-        elsif action == :bootstrap
-          template = 'content_bootstrap'
-        else
-          template = 'content_basic'
-        end
-      when :ldpic, :screendump, :scrload
-        template = 'content_image'
-      when :run
-        template = 'content_runnable'
+      if action == :bootstrap
+        template = 'content_bootstrap'
       else
-        throw 'Unknown entry type: ' + entry.type.to_s
+        case entry.type
+        when :mode0
+          template = 'content_mode0'
+        when :mode7
+          template = 'content_mode7'
+        when :basic
+          if action == :list
+            template = 'content_basic_list'
+          else
+            template = 'content_basic'
+          end
+        when :ldpic, :screendump, :scrload
+          template = 'content_image'
+        when :run
+          template = 'content_runnable'
+        else
+          throw 'Unknown entry type: ' + entry.type.to_s
+        end
       end
 
       process(@name)
