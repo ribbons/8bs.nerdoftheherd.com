@@ -44,12 +44,6 @@ module Jekyll
         template = 'content_image'
       when :run
         template = 'content_runnable'
-      when :exec
-        if action == :list
-          template = 'content_exec_list'
-        else
-          template = 'content_exec'
-        end
       else
         throw 'Unknown entry type: ' + entry.type.to_s
       end

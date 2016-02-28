@@ -16,8 +16,8 @@
         :type: :mode0
         :paths: [ ':2.Message' ]
       - :title: SYSTEMS Server PROGRAM
-        :type: :exec
-        :paths: [ '!Server' ]
+        :type: :basic
+        :paths: [ 'Server1' ]
       - :title: SYSTEMS Server MANUALS
         :type: :menu
         :id: 4

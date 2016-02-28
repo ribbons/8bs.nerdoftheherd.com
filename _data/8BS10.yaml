@@ -10,8 +10,8 @@
         :type: :menu
         :id: 3
       - :title: Graphical Animations
-        :type: :exec
-        :paths: [ ':2.!Swars' ]
+        :type: :basic
+        :paths: [ ':2.DEMO' ]
       - :title: Adventure Hints 1+2
         :type: :mode0
         :paths: [ ':2.V.Hint1', ':2.V.Hint2' ]
