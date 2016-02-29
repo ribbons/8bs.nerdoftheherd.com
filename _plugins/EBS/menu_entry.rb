@@ -21,7 +21,7 @@ module EBS
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :id, :offsets, :modes, :captions
+    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions
     attr_reader :paths
 
     def paths=(paths)
@@ -45,6 +45,15 @@ module EBS
 
     def typestr
       @type.id2name
+    end
+
+    def modelstr
+      case @model
+      when :modelb
+        'b'
+      when :master128
+        'master'
+      end
     end
 
     def linkpath

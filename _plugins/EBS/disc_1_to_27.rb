@@ -42,6 +42,7 @@ module EBS
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = entdat[:title]
           entry.type = entdat[:type]
+          entry.model = entdat[:model]
           entry.offsets = entdat[:offsets]
           entry.modes = entdat[:modes]
           entry.captions = entdat[:captions]

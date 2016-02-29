@@ -71,6 +71,7 @@
         :paths: [ ':2.PUSH' ]
       - :title: Push the Bale - Master
         :type: :basic
+        :model: :master128
         :paths: [ ':2.PUSH2' ]
       - :title: Trading Simulation
         :type: :basic

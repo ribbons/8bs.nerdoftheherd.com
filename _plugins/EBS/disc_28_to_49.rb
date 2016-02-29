@@ -121,6 +121,7 @@ module EBS
         else
           entry = MenuEntry.new(disc, @linkpaths)
           entry.title = vals[0]
+          entry.model = model_from_title(entry.title)
 
           unless vals[3] == ''
             entry.paths = vals[3].split('@').each.map { |file| vals[2] + '.' + file }

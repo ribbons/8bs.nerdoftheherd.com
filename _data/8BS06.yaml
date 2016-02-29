@@ -5,6 +5,7 @@
     :entries:
       - :title: ADFS Backup (Master)
         :type: :basic
+        :model: :master128
         :paths: [ ADFSBCK ]
       - :title: Menu Program Utility
         :type: :basic

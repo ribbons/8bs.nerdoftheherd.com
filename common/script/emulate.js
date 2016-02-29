@@ -28,9 +28,15 @@
 
         var container = $('#emulator');
         var imagePath = location.protocol + location.hostname + container.data('imagePath');
+        var model = container.data('model');
         var action = container.data('action');
 
         var html = '<iframe src="' + location.protocol + '//bbc.godbolt.org/?embed&disc=' + imagePath;
+
+        if(model)
+        {
+            html += '&model=' + model;
+        }
 
         if(action === 'basic' || action === 'run')
         {

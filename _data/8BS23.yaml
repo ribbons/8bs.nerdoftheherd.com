@@ -59,6 +59,7 @@
         :paths: [ ':2.M.koledy' ]
       - :title: The Union Jack. Not Model B.
         :type: :basic
+        :model: :master128
         :paths: [ ':2.u-jack' ]
       - :title: The Union Jack. Screen.
         :type: :screendump

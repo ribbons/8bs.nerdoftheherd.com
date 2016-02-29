@@ -19,7 +19,13 @@ layout:     main
 includejs:  '/common/script/emulate.js'
 ---
 
-<div id="emulator" data-image-path="{{ page.disc.imagepath }}" data-action="basic"></div>
+<div id="emulator" data-image-path="{{ page.disc.imagepath }}"
+
+{% if page.entry.modelstr %}
+    data-model="{{ page.entry.modelstr }}"
+{% endif %}
+
+    data-action="basic"></div>
 
 <div id="content">
     <h1>{{ page.entry.title | chomp_dot }}</h1>

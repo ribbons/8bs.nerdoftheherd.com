@@ -62,6 +62,14 @@ module EBS
       lines
     end
 
+    private def model_from_title(title)
+      if title =~ /(master )/i
+        :master128
+      else
+        :modelb
+      end
+    end
+
     private def apply_tweaks(imagepath)
       yamlpath = File.expand_path('../../_data/' + File.basename(imagepath, '.*') + '.yaml', __dir__)
       return unless File.exist?(yamlpath)
