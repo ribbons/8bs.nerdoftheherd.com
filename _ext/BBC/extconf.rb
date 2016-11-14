@@ -24,7 +24,7 @@ throw 'libpng is required' unless pkg_config('libpng')
 throw 'libstdc++ is required' unless find_library('stdc++', 'main')
 throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 
-$CFLAGS << ' -std=c99 -O3 -Wall -Wconversion -Werror'
+$CFLAGS << ' -std=c99 -O3 -Wall -Wconversion'
 $CFLAGS = $CFLAGS.sub(/ -O2/, '')
 
 create_makefile('native_filters_c')
