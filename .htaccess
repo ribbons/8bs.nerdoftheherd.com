@@ -6,6 +6,15 @@ AddDefaultCharset UTF-8
 	Header set X-UA-Compatible "IE=Edge"
 </FilesMatch>
 
+# Force browsers to follow the Content-Type header
+Header always set X-Content-Type-Options "nosniff"
+
+# Switch XSS protection to block mode
+Header always set X-Xss-Protection "1; mode=block"
+
+# Prevent the site from being loaded in frames by other sites
+Header always set X-Frame-Options "SAMEORIGIN"
+
 # Allow external JSBeeb to access disc images and bootstrap basic files
 Header set Access-Control-Allow-Origin "*"
 
