@@ -3,7 +3,7 @@ AddDefaultCharset UTF-8
 
 # Make sure IE uses latest standards mode, and hide the compatibility mode button
 <FilesMatch "\.html$">
-	Header set X-UA-Compatible "IE=Edge"
+    Header set X-UA-Compatible "IE=Edge"
 </FilesMatch>
 
 # Force browsers to follow the Content-Type header
@@ -16,7 +16,9 @@ Header always set X-Xss-Protection "1; mode=block"
 Header always set X-Frame-Options "SAMEORIGIN"
 
 # Allow external JSBeeb to access disc images and bootstrap basic files
-Header set Access-Control-Allow-Origin "*"
+<FilesMatch "\.([sd]sd|bas)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
 
 RewriteEngine on
 
