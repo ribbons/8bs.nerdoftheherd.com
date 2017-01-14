@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ module BBC
                0xF0 => 'PLOT', 0xF1 => 'PRINT', 0xF2 => 'PROC', 0xF3 => 'READ', 0xF4 => 'REM',
                0xF5 => 'REPEAT', 0xF6 => 'REPORT', 0xF7 => 'RESTORE', 0xF8 => 'RETURN', 0xF9 => 'RUN',
                0xFA => 'STOP', 0xFB => 'COLOUR', 0xFC => 'TRACE', 0xFD => 'UNTIL', 0xFE => 'WIDTH',
-               0xFF => 'OSCLI' }
+               0xFF => 'OSCLI' }.freeze
 
     def basic_to_text(input)
       data = input.each_byte.to_a
@@ -56,7 +56,7 @@ module BBC
     end
 
     private def convert_line(data)
-      fail 'Malformed BBC BASIC file' if data.shift != 0x0d
+      raise 'Malformed BBC BASIC file' if data.shift != 0x0d
 
       byte1, byte2 = data.shift(2)
 
@@ -107,7 +107,7 @@ module BBC
 
         in_quotes = !in_quotes if value == 0x22
 
-        if (value > 0x7f) && (!in_quotes)
+        if (value > 0x7f) && !in_quotes
           if value == 0x8d # In-line line number
             line << BasicFilter.inline_line_num(data).to_s
             linelen -= 3

@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ module EBS
       pos = 0
 
       loop do
-        fail 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
+        raise 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
         pos += 1
 
         # End of file marker is 0xff

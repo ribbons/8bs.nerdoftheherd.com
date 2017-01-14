@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 source 'https://rubygems.org'
 
 gem 'jekyll'
-gem 'rubocop',       require: false
-gem 'rake',          require: false
 gem 'jshintrb',      require: false
+gem 'rake',          require: false
 gem 'rake-compiler', require: false
+gem 'rubocop',       require: false

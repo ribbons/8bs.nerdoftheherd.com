@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,34 +21,34 @@ module Jekyll
       @base = site.source
       @dir = dir
 
-      if action == :bootstrap
-        @name = 'emulate.bas'
-      else
-        @name = 'index.html'
-      end
+      @name = if action == :bootstrap
+                'emulate.bas'
+              else
+                'index.html'
+              end
 
-      if action == :bootstrap
-        template = 'content_bootstrap'
-      else
-        case entry.type
-        when :mode0
-          template = 'content_mode0'
-        when :mode7
-          template = 'content_mode7'
-        when :basic
-          if action == :list
-            template = 'content_basic_list'
-          else
-            template = 'content_basic'
-          end
-        when :ldpic, :screendump, :scrload
-          template = 'content_image'
-        when :run
-          template = 'content_runnable'
-        else
-          throw 'Unknown entry type: ' + entry.type.to_s
-        end
-      end
+      template = if action == :bootstrap
+                   'content_bootstrap'
+                 else
+                   case entry.type
+                   when :mode0
+                     'content_mode0'
+                   when :mode7
+                     'content_mode7'
+                   when :basic
+                     if action == :list
+                       'content_basic_list'
+                     else
+                       'content_basic'
+                     end
+                   when :ldpic, :screendump, :scrload
+                     'content_image'
+                   when :run
+                     'content_runnable'
+                   else
+                     throw 'Unknown entry type: ' + entry.type.to_s
+                   end
+                 end
 
       process(@name)
       read_yaml(File.join(@base, '_layouts'), template + '.html')

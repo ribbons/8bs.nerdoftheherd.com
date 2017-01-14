@@ -46,7 +46,7 @@ module EBS
       inproc = false
 
       loop do
-        fail 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
+        raise 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
         pos += 1
 
         # End of file marker
@@ -66,7 +66,7 @@ module EBS
           end
 
           if linelen < 7 || data[pos..pos + 3] != "\xe7f%=".b || data[pos + 5..pos + 6] != "\x8c\xf7".b
-            fail 'Unexpected line in PROC la'
+            raise 'Unexpected line in PROC la'
           end
 
           pos += 4
@@ -98,7 +98,7 @@ module EBS
       first_paths = nil
 
       lines.each do |linenum, vals|
-        if entries == 0
+        if entries.zero?
           menuid = id_mapping[linenum]
 
           if menu.nil?

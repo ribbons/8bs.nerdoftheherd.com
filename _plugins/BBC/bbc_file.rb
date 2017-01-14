@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,14 +33,14 @@ module BBC
       sector = @startsector
       remaining = @length.fdiv(DfsDisc::SECTOR_SIZE).ceil
       lastlen = (@length % DfsDisc::SECTOR_SIZE)
-      lastlen = DfsDisc::SECTOR_SIZE if lastlen == 0
+      lastlen = DfsDisc::SECTOR_SIZE if lastlen.zero?
 
       loop do
         buffer = @disc.read_sector(@side, sector)
         sector += 1
         remaining -= 1
 
-        if remaining == 0
+        if remaining.zero?
           # Only include the sector data up to EOF
           data << buffer[0..lastlen - 1]
           return data

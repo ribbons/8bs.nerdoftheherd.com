@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2007-2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2007-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -65,11 +65,11 @@ module BBC
             if column > 79
               output << "\n"
               row += 1
-              column == 0
+              column.zero?
             end
 
             output << ' '
-            break if (column + 2) % 8 == 0
+            break if ((column + 2) % 8).zero?
             column += 1
           end
         when 10
@@ -79,11 +79,8 @@ module BBC
           # Carriage return
           # This displays as a line feed as well unless there has just
           # been one, in which when it has no effect
-          if prevchar != 10
-            column = 79
-          else
-            next
-          end
+          next if prevchar == 10
+          column = 79
         when 28
           if underline
             output << '</span>'

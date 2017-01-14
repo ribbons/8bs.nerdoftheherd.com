@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -58,9 +58,9 @@ module EBS
 
     def linkpath
       if @type == :menu
-        return '#menu' + @id.to_s
+        '#menu' + @id.to_s
       else
-        return 'content/' + @linkpath + '/'
+        'content/' + @linkpath + '/'
       end
     end
 
@@ -83,13 +83,13 @@ module EBS
       @paths.each_with_index do |path, idx|
         file = @disc.file(path)
 
-        if !@offsets.nil?
-          content << extract_section(file.content, @offsets, idx)
-        elsif @type == :mode7
-          content << trim_scroller(file.content, file.loadaddr)
-        else
-          content << file.content
-        end
+        content << if !@offsets.nil?
+                     extract_section(file.content, @offsets, idx)
+                   elsif @type == :mode7
+                     trim_scroller(file.content, file.loadaddr)
+                   else
+                     file.content
+                   end
       end
 
       content
