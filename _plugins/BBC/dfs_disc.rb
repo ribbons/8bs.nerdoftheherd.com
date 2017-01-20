@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,12 +16,19 @@
 
 module BBC
   class DfsDisc
-    TRACKS        = 40
+    TRACKS        = 80
     TRACK_SECTORS = 10
     SECTOR_SIZE   = 256
     TRACK_SIZE    = TRACK_SECTORS * SECTOR_SIZE
+    TOTAL_SECTORS = TRACKS * TRACK_SECTORS
 
     FILEREC_SIZE  = 8
+    MAX_FILES     = 31
+
+    OPTION_OFF    = 0x00
+    OPTION_LOAD   = 0x10
+    OPTION_RUN    = 0x20
+    OPTION_EXEC   = 0x30
 
     def initialize(path)
       @path = path
@@ -75,6 +82,58 @@ module BBC
       end
     end
 
+    private def build_catalogue(name, files)
+      name = name.ljust(12, 0.chr)
+
+      cat = name[0...8] # First 8 bytes of disc title
+      pad_entries = MAX_FILES - files.count
+
+      files.each do |file|
+        cat << file.name.ljust(7, ' ')[0...7]
+        cat << file.dir
+      end
+
+      # Pad out to the end of the first catalogue sector
+      cat << ' ' * (pad_entries * FILEREC_SIZE)
+
+      cat << name[8...12] # Rest of the disc title
+      cat << 0.chr        # Cycle number
+
+      # Offset to last valid file entry in the catalogue
+      cat << (files.count * FILEREC_SIZE).chr
+
+      # Boot option & sectors in volume (bits 9 & 10)
+      cat << (OPTION_EXEC | ((TOTAL_SECTORS & 0x300) >> 8)).chr
+
+      # Sectors in volume (bits 1-8)
+      cat << (TOTAL_SECTORS & 0xFF).chr
+
+      offset = 2
+
+      files.each do |file|
+        sectors = (file.length / SECTOR_SIZE) + 1
+
+        cat << (file.loadaddr & 0xFF).chr
+        cat << ((file.loadaddr & 0xFF00) >> 8).chr
+        cat << (file.execaddr & 0xFF).chr
+        cat << ((file.execaddr & 0xFF00) >> 8).chr
+        cat << (file.length & 0xFF).chr
+        cat << ((file.length & 0xFF00) >> 8).chr
+
+        # The top two bits of the exec addr, length, load addr & start sector
+        cat << (((file.execaddr & 0x30000) >> 10) | ((file.length & 0x30000) >> 12) | ((file.loadaddr & 0x30000) >> 14) | ((offset & 0x300) >> 16)).chr
+
+        cat << (offset & 0xFF).chr
+
+        offset += sectors
+      end
+
+      # Pad out to the end of the second catalogue sector
+      cat << ' ' * (pad_entries * FILEREC_SIZE)
+
+      cat
+    end
+
     def file(path)
       @files[canonicalise_path(path)]
     end
@@ -97,6 +156,18 @@ module BBC
       file = split.join('.')
 
       drive + '.' + dir + '.' + file
+    end
+
+    def generate_disc(name, files)
+      disc = build_catalogue(name, files)
+
+      files.each do |file|
+        padding = SECTOR_SIZE - file.length % SECTOR_SIZE
+        disc << file.content
+        disc << ' ' * padding
+      end
+
+      disc
     end
   end
 end

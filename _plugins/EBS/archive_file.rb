@@ -1,6 +1,5 @@
----
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,22 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-layout:     main
-includejs:  '/common/script/emulate.js'
----
+module EBS
+  class ArchiveFile
+    def initialize(archive, dir, name, start, length, loadaddr, execaddr)
+      @archive = archive
+      @dir = dir
+      @name = name
+      @start = start
+      @length = length
+      @loadaddr = loadaddr
+      @execaddr = execaddr
+    end
 
-<div id="emulator" data-image-path="{{ page.entry.imagepath }}"
+    attr_reader :dir, :name, :loadaddr, :execaddr, :length
 
-{% if page.entry.modelstr %}
-    data-model="{{ page.entry.modelstr }}"
-{% endif %}
-
-    data-action="basic"></div>
-
-<div id="content">
-    <h1>{{ page.entry.title | chomp_dot }}</h1>
-
-    <p>To view an emulation of this BBC Basic program, you need to have
-    <span id="need-to-have"><a href="http://enable-javascript.com/">JavaScript enabled</a></span>,
-    or you can <a href="list/">view a listing</a> of this program instead.</p>
-</div>
+    def content
+      @archive.data[@start...(@start + @length)].pack('c*')
+    end
+  end
+end

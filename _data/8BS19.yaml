@@ -57,9 +57,10 @@
 #      - :title: Repton Competition Screens
 #        :type: :basic
 #        :paths: [ C.Repton ]
-#      - :title: Chris Richardson's Text Editor
-#        :type: :basic
-#        :paths: [ C.TextEd ]
+      - :title: Chris Richardson's Text Editor
+        :type: :basic
+        :paths: [ C.TextEd ]
+        :arcpath: Menu
       - :title: Outer Space Graphic Pictures
         :type: :screendump
         :modes:   [   1,          1,       [ 1, 0, 4, 6, 7 ] ]

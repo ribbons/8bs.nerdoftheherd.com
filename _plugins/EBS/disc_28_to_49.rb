@@ -121,7 +121,7 @@ module EBS
           entries = vals[1].to_i
           first_paths = []
         else
-          entry = MenuEntry.new(disc, @linkpaths)
+          entry = MenuEntry.new(self, disc, @linkpaths)
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
 

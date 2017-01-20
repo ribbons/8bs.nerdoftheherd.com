@@ -41,13 +41,14 @@ module EBS
 
       unless data[:entries].nil?
         data[:entries].each do |entdat|
-          entry = MenuEntry.new(disc, @linkpaths)
+          entry = MenuEntry.new(self, disc, @linkpaths)
           entry.title = entdat[:title]
           entry.type = entdat[:type]
           entry.model = entdat[:model]
           entry.offsets = entdat[:offsets]
           entry.modes = entdat[:modes]
           entry.captions = entdat[:captions]
+          entry.arcpath = entdat[:arcpath]
 
           if entdat[:paths].nil?
             entry.id = entdat[:id]

@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,6 +37,10 @@ module Jekyll
             menu.entries.each do |entry|
               if entry.type != :menu
                 site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :default)
+              end
+
+              unless entry.arcpath.nil?
+                site.static_files << DiscFile.new(site, File.join(disc.path, entry.linkpath), entry)
               end
 
               if entry.type == :basic || entry.type == :run

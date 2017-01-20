@@ -42,9 +42,9 @@
   - :title: Program Menu
     :id: 999
     :entries:
-#      - :title: Issue 18 Archived Programs
-#        :type: :menu
-#        :id: 2
+      - :title: Issue 18 Archived Programs
+        :type: :menu
+        :id: 2
       - :title: Issue 18 Non-Archived Programs
         :type: :menu
         :id: 3
@@ -57,6 +57,28 @@
       - :title: Run Archiver Program v3.0
         :type: :basic
         :paths: [ ':2.ARC3.0' ]
+  - :title: Archived Software
+    :id: 2
+    :entries:
+      - :title: 200th Anniversary Mozart's Death
+        :type: :basic
+        :paths: [ ':2.C.Mozart1', ':2.C.Mozart2' ]
+        :arcpath: M.!Menu
+      - :title: Welsh Boys PD Demo Software
+        :type: :basic
+        :paths: [ ':2.C.WelshB' ]
+        :arcpath: Demo
+      - :title: Sorting Article Part III
+        :type: :basic
+        :paths: [ ':2.C.Sort3' ]
+        :arcpath: Loader
+#      - :title: 3D Grand Prix Extra Screens
+#        :type: :basic
+#        :paths: [ ':2.C.3DCons' ]
+#        :arcpath: G.SPEED
+      - :title: Return to Main Menu
+        :type: :menu
+        :id: 999
   - :title: Non-Archived Programs
     :id: 3
     :entries:

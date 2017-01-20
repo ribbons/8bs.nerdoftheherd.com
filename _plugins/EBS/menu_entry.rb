@@ -16,12 +16,13 @@
 
 module EBS
   class MenuEntry < Liquid::Drop
-    def initialize(disc, linkpaths)
+    def initialize(issdisc, disc, linkpaths)
+      @issdisc = issdisc
       @disc = disc
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions
+    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions, :arcpath
     attr_reader :paths
 
     def paths=(paths)
@@ -64,8 +65,32 @@ module EBS
       end
     end
 
+    def imagepath
+      if @arcpath.nil?
+        @issdisc.imagepath
+      else
+        '/' + @issdisc.path + '/' + linkpath + 'emulate.ssd'
+      end
+    end
+
+    def generate_disc
+      files = []
+
+      @paths.each do |path|
+        file = @disc.file(path)
+        archive = Archive.new(file)
+        files.concat(archive.files)
+      end
+
+      @disc.generate_disc(@paths[0], files)
+    end
+
     def bootstrap_basic
-      splitpath = @paths[0].split('.', 3)
+      splitpath = if @arcpath.nil?
+                    @paths[0].split('.', 3)
+                  else
+                    @disc.canonicalise_path(@arcpath).split('.', 3)
+                  end
 
       basic = 'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
       'OSCLI("DIR ' + splitpath[1] + "\")\n"
@@ -82,6 +107,11 @@ module EBS
 
       @paths.each_with_index do |path, idx|
         file = @disc.file(path)
+
+        unless @arcpath.nil?
+          archive = Archive.new(file)
+          return archive.file(@arcpath)
+        end
 
         content << if !@offsets.nil?
                      extract_section(file.content, @offsets, idx)

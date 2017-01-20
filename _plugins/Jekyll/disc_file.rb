@@ -1,4 +1,3 @@
----
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -15,22 +14,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-layout:     main
-includejs:  '/common/script/emulate.js'
----
+module Jekyll
+  class DiscFile < StaticFile
+    def initialize(site, dir, entry)
+      @site = site
+      @base = site.source
+      @dir = dir
+      @entry = entry
 
-<div id="emulator" data-image-path="{{ page.entry.imagepath }}"
+      @name = 'emulate.ssd'
+    end
 
-{% if page.entry.modelstr %}
-    data-model="{{ page.entry.modelstr }}"
-{% endif %}
+    def write(dest)
+      dest_path = destination(dest)
 
-    data-action="basic"></div>
+      FileUtils.mkdir_p(File.dirname(dest_path))
+      FileUtils.rm(dest_path) if File.exist?(dest_path)
+      File.write(dest_path, @entry.generate_disc)
 
-<div id="content">
-    <h1>{{ page.entry.title | chomp_dot }}</h1>
-
-    <p>To view an emulation of this BBC Basic program, you need to have
-    <span id="need-to-have"><a href="http://enable-javascript.com/">JavaScript enabled</a></span>,
-    or you can <a href="list/">view a listing</a> of this program instead.</p>
-</div>
+      true
+    end
+  end
+end

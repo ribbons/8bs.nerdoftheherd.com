@@ -46,7 +46,7 @@ module EBS
         entries.times do
           vals = lines.shift
 
-          entry = MenuEntry.new(disc, @linkpaths)
+          entry = MenuEntry.new(self, disc, @linkpaths)
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
           entry.paths = [vals[1] + '.' + vals[2]] if vals[1] != ''
