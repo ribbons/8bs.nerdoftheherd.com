@@ -15,16 +15,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module EBS
-  class ArchiveFile
-    def initialize(dir, name, length, loadaddr, execaddr, content)
-      @dir = dir
-      @name = name
-      @length = length
-      @loadaddr = loadaddr
-      @execaddr = execaddr
-      @content = content
-    end
+  require_relative 'archive'
 
-    attr_reader :dir, :name, :loadaddr, :execaddr, :length, :content
+  class ArcVer18 < Archive
+    def initialize(disc, data)
+      @disc = disc
+      @files = {}
+
+      until data.empty?
+        filename = read_value(data)
+        length = read_value(data)
+        load_addr = read_value(data)
+        exec_addr = read_value(data)
+
+        splitname = filename.split('.', 2)
+        dir = splitname.count == 1 ? '$' : splitname.shift
+        justname = splitname.shift
+        canon = @disc.canonicalise_path(filename)
+
+        @files[canon] = ArchiveFile.new(dir, justname, length,
+                                        load_addr, exec_addr,
+                                        data.shift(length).pack('c*'))
+      end
+    end
   end
 end

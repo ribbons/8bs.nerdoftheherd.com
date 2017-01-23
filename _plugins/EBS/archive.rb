@@ -16,53 +16,17 @@
 
 module EBS
   class Archive
-    # Each file has a number written just before it for some reason, so we need
-    # to skip 5 bytes (1 for 0x40 and 4 for the integer value) before each one
-    BYTES_BEFORE_FILE = 5
-
-    attr_reader :data
-
-    def initialize(file)
-      @file = file
+    def self.from_file(file)
       data = file.content.each_byte.to_a
 
-      3.times do
-        raise 'Archive doesn\'t start with three zero ints' if read_value(data) != 0
+      case data.first
+      when 0x00
+        ArcVer18.new(file.disc, data)
+      when 0x40
+        ArcVer30.new(file.disc, data)
+      else
+        raise 'Unexpected first byte of archive'
       end
-
-      version = read_value(data)
-      raise 'Unknown archive version ' + version if version != '3.0'
-
-      file_count = read_value(data)
-
-      raise 'Invalid archive, expected total' unless read_value(data).is_a?(Integer)
-      raise 'Invalid archive, expected creator' unless read_value(data).is_a?(String)
-      raise 'Invalid archive, expected date' unless read_value(data).is_a?(String)
-
-      # Skip over all lines of the notes
-      read_value(data).times do
-        raise 'Invalid archive, expected note line' unless read_value(data).is_a?(String)
-      end
-
-      @files = {}
-      offset = BYTES_BEFORE_FILE
-
-      file_count.times do
-        filename = read_value(data)
-        load_addr = read_value(data)
-        exec_addr = read_value(data)
-        length = read_value(data)
-        raise 'File entry should end with zero int' if read_value(data) != 0
-
-        splitname = filename.split('.', 2)
-        dir = splitname.count == 1 ? '$' : splitname.shift
-        justname = splitname.shift
-
-        @files[@file.disc.canonicalise_path(filename)] = ArchiveFile.new(self, dir, justname, offset, length, load_addr, exec_addr)
-        offset += length + BYTES_BEFORE_FILE
-      end
-
-      @data = data
     end
 
     def files
@@ -70,7 +34,8 @@ module EBS
     end
 
     def file(path)
-      @files[@file.disc.canonicalise_path(path)].content
+      file = @files[@disc.canonicalise_path(path)]
+      file.content unless file.nil?
     end
 
     private def read_value(data)

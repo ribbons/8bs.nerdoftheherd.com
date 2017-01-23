@@ -48,7 +48,7 @@ module EBS
           entry.offsets = entdat[:offsets]
           entry.modes = entdat[:modes]
           entry.captions = entdat[:captions]
-          entry.arcpath = entdat[:arcpath]
+          entry.arcpaths = entdat[:arcpaths]
 
           if entdat[:paths].nil?
             entry.id = entdat[:id]

@@ -22,7 +22,7 @@ module EBS
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions, :arcpath
+    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions, :arcpaths
     attr_reader :paths
 
     def paths=(paths)
@@ -66,7 +66,7 @@ module EBS
     end
 
     def imagepath
-      if @arcpath.nil?
+      if @arcpaths.nil?
         @issdisc.imagepath
       else
         '/' + @issdisc.path + '/' + linkpath + 'emulate.ssd'
@@ -78,7 +78,7 @@ module EBS
 
       @paths.each do |path|
         file = @disc.file(path)
-        archive = Archive.new(file)
+        archive = Archive.from_file(file)
         files.concat(archive.files)
       end
 
@@ -86,10 +86,10 @@ module EBS
     end
 
     def bootstrap_basic
-      splitpath = if @arcpath.nil?
+      splitpath = if @arcpaths.nil?
                     @paths[0].split('.', 3)
                   else
-                    @disc.canonicalise_path(@arcpath).split('.', 3)
+                    @disc.canonicalise_path(@arcpaths[0]).split('.', 3)
                   end
 
       basic = 'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
@@ -108,18 +108,22 @@ module EBS
       @paths.each_with_index do |path, idx|
         file = @disc.file(path)
 
-        unless @arcpath.nil?
-          archive = Archive.new(file)
-          return archive.file(@arcpath)
-        end
+        if @arcpaths.nil?
+          content << if !@offsets.nil?
+                       extract_section(file.content, @offsets, idx)
+                     elsif @type == :mode7
+                       trim_scroller(file.content, file.loadaddr)
+                     else
+                       file.content
+                     end
+        else
+          archive = Archive.from_file(file)
 
-        content << if !@offsets.nil?
-                     extract_section(file.content, @offsets, idx)
-                   elsif @type == :mode7
-                     trim_scroller(file.content, file.loadaddr)
-                   else
-                     file.content
-                   end
+          @arcpaths.each do |arcpath|
+            filecontent = archive.file(arcpath)
+            content << filecontent unless filecontent.nil?
+          end
+        end
       end
 
       content

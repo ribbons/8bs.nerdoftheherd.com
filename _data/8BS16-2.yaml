@@ -4,8 +4,8 @@
     :id: 1
     :entries:
       - :title: Issue 16 Archived Programs
-        :type: :mode0
-        :paths: [ T.ArcTxt ]
+        :type: :menu
+        :id: 3
       - :title: Issue 16 Non-Archived Programs
         :type: :menu
         :id: 2
@@ -70,6 +70,26 @@
       - :title: Archive/De-Archive Utility
         :type: :basic
         :paths: [ ':2.ARCHIVE' ]
+      - :title: PREVIOUS MENU
+        :type: :menu
+        :id: 1
+  - :title: Archived Programs
+    :id: 3
+    :entries:
+#      - :title: Musical Titles
+#        :type: :basic
+#        :paths: [ ':2.C.MUSIC' ]
+      - :title: Sorting Article Part 2
+        :type: :basic
+        :paths: [ ':2.C.709' ]
+        :arcpaths: [ LOADER ]
+#      - :title: 3 Versions of Battleships
+#        :type: :basic
+#        :paths: [ ':2.C.BSHIPS' ]
+      - :title: Digitised Pictures
+        :type: :ldpic
+        :paths: [ ':2.C.PICTURE' ]
+        :arcpaths: [ P.ARNEE, P.WWOLF ]
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 1

@@ -60,9 +60,9 @@
       - :title: Other Items
         :type: :menu
         :id: 5
-      - :title: De-archive Software
-        :type: :basic
-        :paths: [ ':2.ARCER18' ]
+      - :title: Archived Software
+        :type: :menu
+        :id: 6
       - :title: BACK TO MAGAZINE
         :type: :menu
         :id: 1
@@ -132,6 +132,26 @@
       - :title: Number Converter
         :type: :basic
         :paths: [ ':2.NumConv' ]
+      - :title: Back to main menu
+        :type: :menu
+        :id: 999
+  - :title: Archived Software
+    :id: 6
+    :entries:
+      - :title: Fantasy Adventure Creator
+        :type: :basic
+        :paths: [ ':2.C.FntyDes' ]
+        :arcpaths: [ fLOAD ]
+#      - :title: C.Hacker
+#        :type: :basic
+#        :paths: [ ':2.C.Hacker' ]
+      - :title: Typing Tutor
+        :type: :basic
+        :paths: [ ':2.C.TypTutr' ]
+        :arcpaths: [ TUTOR ]
+#      - :title: C.UtlsEtc
+#        :type: :basic
+#        :paths: [ ':2.C.UtlsEtc' ]
       - :title: Back to main menu
         :type: :menu
         :id: 999

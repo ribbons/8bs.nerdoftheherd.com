@@ -39,11 +39,11 @@ module Jekyll
                 site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :default)
               end
 
-              unless entry.arcpath.nil?
-                site.static_files << DiscFile.new(site, File.join(disc.path, entry.linkpath), entry)
-              end
-
               if entry.type == :basic || entry.type == :run
+                unless entry.arcpaths.nil?
+                  site.static_files << DiscFile.new(site, File.join(disc.path, entry.linkpath), entry)
+                end
+
                 site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :bootstrap)
               end
 

@@ -60,12 +60,12 @@
       - :title: Chris Richardson's Text Editor
         :type: :basic
         :paths: [ C.TextEd ]
-        :arcpath: Menu
+        :arcpaths: [ Menu ]
       - :title: Outer Space Graphic Pictures
         :type: :screendump
-        :modes:   [   1,          1,       [ 1, 0, 4, 6, 7 ] ]
-        :offsets: [   223, 20480, 20892, 20480, 41377, 20480 ]
-        :paths:   [ ':2.C.Space', ':2.C.Space', ':2.C.Space' ]
+        :modes:    [ 1,       1,        [ 1, 0, 4, 6, 7 ] ]
+        :arcpaths: [ P.Astro, P.Saturn, P.Neptune ]
+        :paths: [ ':2.C.Space' ]
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
