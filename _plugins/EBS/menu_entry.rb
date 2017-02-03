@@ -22,7 +22,7 @@ module EBS
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions, :arcpaths
+    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions, :arcpaths, :arcfix
     attr_reader :paths
 
     def paths=(paths)
@@ -78,7 +78,7 @@ module EBS
 
       @paths.each do |path|
         file = @disc.file(path)
-        archive = Archive.from_file(file)
+        archive = Archive.from_file(file, @arcfix)
         files.concat(archive.files)
       end
 
@@ -117,7 +117,7 @@ module EBS
                        file.content
                      end
         else
-          archive = Archive.from_file(file)
+          archive = Archive.from_file(file, @arcfix)
 
           @arcpaths.each do |arcpath|
             filecontent = archive.file(arcpath)

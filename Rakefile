@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,6 +48,13 @@ Rake::ExtensionTask.new do |ext|
   ext.ext_dir = '_ext/BBC'
   ext.tmp_dir = File.join(Dir.tmpdir, '8bs_online_conversion')
   ext.lib_dir = '_plugins/BBC'
+end
+
+Rake::ExtensionTask.new do |ext|
+  ext.name = 'arc2_c'
+  ext.ext_dir = '_ext/EBS'
+  ext.tmp_dir = File.join(Dir.tmpdir, '8bs_online_conversion')
+  ext.lib_dir = '_plugins/EBS'
 end
 
 CLEAN.include('_plugins/**/*.so')

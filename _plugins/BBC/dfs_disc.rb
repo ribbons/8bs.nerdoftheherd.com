@@ -121,7 +121,7 @@ module BBC
         cat << ((file.length & 0xFF00) >> 8).chr
 
         # The top two bits of the exec addr, length, load addr & start sector
-        cat << (((file.execaddr & 0x30000) >> 10) | ((file.length & 0x30000) >> 12) | ((file.loadaddr & 0x30000) >> 14) | ((offset & 0x300) >> 16)).chr
+        cat << (((file.execaddr & 0x30000) >> 10) | ((file.length & 0x30000) >> 12) | ((file.loadaddr & 0x30000) >> 14) | ((offset & 0x300) >> 8)).chr
 
         cat << (offset & 0xFF).chr
 

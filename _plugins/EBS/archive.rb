@@ -16,7 +16,7 @@
 
 module EBS
   class Archive
-    def self.from_file(file)
+    def self.from_file(file, fixdata)
       data = file.content.each_byte.to_a
 
       case data.first
@@ -24,6 +24,8 @@ module EBS
         ArcVer18.new(file.disc, data)
       when 0x40
         ArcVer30.new(file.disc, data)
+      when 0x1A
+        Arc2.new(file.disc, data, fixdata)
       else
         raise 'Unexpected first byte of archive'
       end
