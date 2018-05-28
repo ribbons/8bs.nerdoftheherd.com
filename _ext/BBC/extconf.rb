@@ -1,5 +1,5 @@
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2018 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,15 +16,15 @@
 
 require 'mkmf'
 
-# rubocop:disable Style/GlobalVars
-
 throw 'glib-2.0 is required' unless pkg_config('glib-2.0')
 throw 'libpng is required' unless pkg_config('libpng')
 
 throw 'libstdc++ is required' unless find_library('stdc++', 'main')
 throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 
+# rubocop:disable Style/GlobalVars
 $CFLAGS << ' -std=c99 -O3 -Wall -Wconversion'
 $CFLAGS = $CFLAGS.sub(/ -O2/, '')
+# rubocop:enable Style/GlobalVars
 
 create_makefile('native_filters_c')
