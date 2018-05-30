@@ -1,6 +1,6 @@
 ---
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2007-2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2007-2018 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 body {
     color: white;
     background-color: black;
-    margin: 75px 10px 10px 10px;
+    margin: 0;
     padding: 0;
     text-align: center;
     font: 12pt Arial, Helvetica, sans-serif;
@@ -45,7 +45,7 @@ a:hover {
 
 hr {
     height: 1px;
-    margin: 2em -10px;
+    margin: 2em 0;
     border: 0;
     border-bottom: 1px solid gray;
 }
@@ -57,24 +57,22 @@ hr {
 }
 
 #header {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    background-color: black;
+    padding: 0.5em;
     border-bottom: 1px solid gray;
+    margin-bottom: 0.5em;
 
     #innerhdr {
-        margin: 10px auto 0 auto;
-        display: inline-block;
+        margin: 0 auto;
+        max-width: 38em;
         text-align: left;
-        height: 55px;
     }
 
     #site-title {
         font: 20px "ModeSeven", "Courier New", "Courier", monospace;
         background-color: blue;
         text-decoration: none;
+        text-align: center;
+        display: block;
         white-space: pre;
     }
 
@@ -89,13 +87,20 @@ hr {
     #nav .current {
         font-weight: bold;
     }
+
+    @media all and (max-width: 36em) {
+        .full {
+            display: none;
+        }
+    }
 }
 
 div#content {
-    width: 38em;
+    max-width: 38em;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
+    padding: 0.5em;
 
     .issuedate {
         font-size: 12pt;
