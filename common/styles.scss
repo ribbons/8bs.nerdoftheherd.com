@@ -50,12 +50,6 @@ hr {
     border-bottom: 1px solid gray;
 }
 
-.centralcol {
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 header {
     padding: 0.5em;
     border-bottom: 1px solid gray;
@@ -130,6 +124,8 @@ div#content {
 .mode0, .mode7 {
     display: inline-block;
     white-space: pre;
+    text-align: left;
+    margin: 0 auto;
 }
 
 .mode7 {
