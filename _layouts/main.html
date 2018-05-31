@@ -55,23 +55,15 @@
     </head>
 
     <body>
-        <div id="header">
-            <div id="innerhdr">
-                <span id="site-title">8<span class="full">-</span>B<span class="full">it </span>S<span class="full">oftware</span> Online Conversion</span>
-                <div id="nav">
-                    <div id="about">
-                        {% if page.page == 'about' %}
-                            <span class="current">About</span>
-                        {% else %}
-                            <a href="/about.html" title="About This Conversion">About</a>
-                        {% endif %}
-                    </div>
-
-                    <div id="crumb">
+        <header>
+            <div class="inner">
+                <h1>8<span class="full">-</span>B<span class="full">it </span>S<span class="full">oftware</span> Online Conversion</h1>
+                <nav>
+                    <ul>
                         {% if page.page == 'index' %}
-                            <span class="current">Index</span>
+                            <li class="current">Index</li>
                         {% else %}
-                            <a href="/" title="8BS Magazines Index">Index</a>
+                            <li><a href="/" title="8BS Magazines Index">Index</a></li>
                         {% endif %}
 
                         {% if page.disc %}
@@ -80,28 +72,34 @@
                             {% endif %}
 
                             {% if page.page == 'disc_index' %}
-                                &gt; <span class="current">8BS{{ page.disc.issue.number }}{{ discnumtext }}</span>
+                                <li class="current">8BS{{ page.disc.issue.number }}{{ discnumtext }}</li>
                             {% else %}
-                                &gt; <a href="/{{ page.disc.path }}/">8BS{{ page.disc.issue.number }}{{ discnumtext }}</a>
+                                <li><a href="/{{ page.disc.path }}/">8BS{{ page.disc.issue.number }}{{ discnumtext }}</a></li>
                             {% endif %}
 
                             {% if page.page == 'emulate_disc' %}
-                                &gt; <span class="current">Emulate</span>
+                                <li class="current">Emulate</li>
                             {% endif %}
                         {% endif %}
 
                         {% if page.entry %}
                             {% if page.action %}
-                                &gt; <a href="/{{ page.disc.path }}/{{ page.entry.linkpath }}">{{ page.entry.title | chomp_dot }}</a>
-                                &gt; <span class="current">{{ page.action }}</span>
+                                <li><a href="/{{ page.disc.path }}/{{ page.entry.linkpath }}">{{ page.entry.title | chomp_dot }}</a></li>
+                                <li class="current">{{ page.action }}</li>
                             {% else %}
-                                &gt; <span class="current">{{ page.entry.title | chomp_dot }}</span>
+                                <li class="current">{{ page.entry.title | chomp_dot }}</li>
                             {% endif %}
                         {% endif %}
-                    </div>
-                </div>
+
+                        {% if page.page == 'about' %}
+                            <li class="about current">About</li>
+                        {% else %}
+                            <li class="about"><a href="/about.html" title="About This Conversion">About</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
-        </div>
+        </header>
 
         {{ content }}
     </body>

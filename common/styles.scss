@@ -56,36 +56,50 @@ hr {
     margin-right: auto;
 }
 
-#header {
+header {
     padding: 0.5em;
     border-bottom: 1px solid gray;
     margin-bottom: 0.5em;
 
-    #innerhdr {
+    .inner {
         margin: 0 auto;
         max-width: 38em;
         text-align: left;
     }
 
-    #site-title {
+    h1 {
         font: 20px "ModeSeven", "Courier New", "Courier", monospace;
         background-color: blue;
         text-decoration: none;
         text-align: center;
         display: block;
         white-space: pre;
+        margin: 0 0 0.5em 0;
     }
 
-    #nav {
-        margin-top: 10px;
-    }
+    nav {
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-    #nav #about {
-        float: right;
-    }
+        li {
+            display: inline-block;
+        }
 
-    #nav .current {
-        font-weight: bold;
+        li:not(:first-child):not(.about)::before {
+            content: ' > ';
+            font-weight: normal;
+        }
+
+        .about {
+            float: right;
+        }
+
+        .current {
+            font-weight: bold;
+        }
     }
 
     @media all and (max-width: 36em) {
