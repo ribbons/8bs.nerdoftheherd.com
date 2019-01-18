@@ -1,6 +1,3 @@
-AllCops:
-  AllowSymlinksInCacheRootDirectory: true
-
 Metrics/MethodLength:
   Enabled: false
 
