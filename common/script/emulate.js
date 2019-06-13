@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2016 by the authors - see the AUTHORS file for details.
+ * Copyright © 2016-2019 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@
             html += '&autoboot';
         }
 
-        html += '" width=896 height=698 frameborder=0></iframe>';
+        html += '" width="100%" height=698 frameborder=0></iframe>';
 
         if(action === 'basic')
         {
