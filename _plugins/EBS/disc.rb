@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -28,16 +30,20 @@ module EBS
 
     attr_reader :imagepath, :issue, :path, :number, :date, :menus
 
-    private def read_data_lines(data)
+    private
+
+    def read_data_lines(data)
       lines = {}
       pos = 0
 
       loop do
         raise 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
+
         pos += 1
 
         # End of file marker is 0xff
         break if (byte1 = data.getbyte(pos)) == 0xff
+
         pos += 1
 
         line_num = (byte1 << 8) | data.getbyte(pos)
@@ -62,7 +68,7 @@ module EBS
       lines
     end
 
-    private def model_from_title(title)
+    def model_from_title(title)
       if title =~ /(master )/i
         :master128
       else
@@ -70,27 +76,28 @@ module EBS
       end
     end
 
-    private def apply_tweaks(imagepath)
-      yamlpath = File.expand_path('../../_data/' + File.basename(imagepath, '.*') + '.yaml', __dir__)
+    def apply_tweaks(imagepath)
+      yamlpath = File.expand_path(
+        '../../_data/' + File.basename(imagepath, '.*') + '.yaml', __dir__
+      )
       return unless File.exist?(yamlpath)
 
       data = YAML.load_file(yamlpath)
 
       @menus.each do |menu|
-        if data.key?(menu.id)
-          menudata = data[menu.id]
+        next unless data.key?(menu.id)
 
-          menu.entries.each do |entry|
-            if menudata.key?(entry.title)
-              itemdata = menudata[entry.title]
+        menudata = data[menu.id]
 
-              entry.paths = itemdata[:paths] if itemdata.key?(:paths)
-              entry.type = itemdata[:type] if itemdata.key?(:type)
-              entry.offsets = itemdata[:offsets] if itemdata.key?(:offsets)
-              entry.modes = itemdata[:modes] if itemdata.key?(:modes)
-              entry.captions = itemdata[:captions] if itemdata.key?(:captions)
-            end
-          end
+        menu.entries.each do |entry|
+          next unless menudata.key?(entry.title)
+
+          itemdata = menudata[entry.title]
+          entry.paths = itemdata[:paths] if itemdata.key?(:paths)
+          entry.type = itemdata[:type] if itemdata.key?(:type)
+          entry.offsets = itemdata[:offsets] if itemdata.key?(:offsets)
+          entry.modes = itemdata[:modes] if itemdata.key?(:modes)
+          entry.captions = itemdata[:captions] if itemdata.key?(:captions)
         end
       end
     end

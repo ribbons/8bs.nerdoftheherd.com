@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2017 by the authors - see the AUTHORS file for details.
 #
@@ -22,7 +24,9 @@ module EBS
       @disc = disc
 
       3.times do
-        raise 'Archive doesn\'t start with three zero ints' if read_value(data) != 0
+        if read_value(data) != 0
+          raise 'Archive doesn\'t start with three zero ints'
+        end
       end
 
       version = read_value(data)
@@ -30,32 +34,45 @@ module EBS
 
       file_count = read_value(data)
 
-      raise 'Invalid archive, expected total' unless read_value(data).is_a?(Integer)
-      raise 'Invalid archive, expected creator' unless read_value(data).is_a?(String)
-      raise 'Invalid archive, expected date' unless read_value(data).is_a?(String)
+      unless read_value(data).is_a?(Integer)
+        raise 'Invalid archive, expected total'
+      end
+
+      unless read_value(data).is_a?(String)
+        raise 'Invalid archive, expected creator'
+      end
+
+      unless read_value(data).is_a?(String)
+        raise 'Invalid archive, expected date'
+      end
 
       # Skip over all lines of the notes
       read_value(data).times do
-        raise 'Invalid archive, expected note line' unless read_value(data).is_a?(String)
+        unless read_value(data).is_a?(String)
+          raise 'Invalid archive, expected note line'
+        end
       end
 
       @files = {}
 
       file_data = Array.new(file_count) do
         file = {
-          name:      read_value(data),
+          name: read_value(data),
           load_addr: read_value(data),
           exec_addr: read_value(data),
-          length:    read_value(data)
+          length: read_value(data)
         }
 
         raise 'File entry should end with zero int' if read_value(data) != 0
+
         file
       end
 
       file_data.each do |file|
         # Each file has a number written before it for some reason
-        raise 'Invalid archive, expected int' unless read_value(data).is_a?(Integer)
+        unless read_value(data).is_a?(Integer)
+          raise 'Invalid archive, expected int'
+        end
 
         splitname = file[:name].split('.', 2)
         dir = splitname.count == 1 ? '$' : splitname.shift

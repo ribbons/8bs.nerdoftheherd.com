@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -22,7 +24,8 @@ module EBS
       @linkpaths = linkpaths
     end
 
-    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions, :arcpaths, :arcfix
+    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions,
+                  :arcpaths, :arcfix
     attr_reader :paths
 
     def paths=(paths)
@@ -131,16 +134,19 @@ module EBS
 
     MODE7_SCREEN_SIZE = 25 * 40
 
-    private def trim_scroller(content, loadaddr)
+    private
+
+    def trim_scroller(content, loadaddr)
       # The first four bytes are the start and end locations of the text data
       textstart = (content.getbyte(1) << 8 | content.getbyte(0)) - loadaddr
-      textend = (content.getbyte(3) << 8 | content.getbyte(2)) - loadaddr + MODE7_SCREEN_SIZE - 1
+      textend = (content.getbyte(3) << 8 | content.getbyte(2)) -
+                loadaddr + MODE7_SCREEN_SIZE - 1
 
       # Chop off scroller code
       content[textstart..textend]
     end
 
-    private def extract_section(content, offsets, index)
+    def extract_section(content, offsets, index)
       offind = index * 2
       content[offsets[offind]..offsets[offind] + offsets[offind + 1] - 1]
     end

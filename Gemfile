@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #

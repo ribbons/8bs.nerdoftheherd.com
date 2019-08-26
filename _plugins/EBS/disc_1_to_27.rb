@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -24,9 +26,12 @@ module EBS
       super(issue, imagepath)
 
       id = File.basename(imagepath, '.*')
-      data = YAML.load_file(File.expand_path('../../_data/' + id + '.yaml', __dir__))
-      @date = data[:date]
 
+      data = YAML.load_file(
+        File.expand_path('../../_data/' + id + '.yaml', __dir__)
+      )
+
+      @date = data[:date]
       disc = BBC::DfsDisc.new(imagepath)
 
       data[:menus].each do |menu|
@@ -34,31 +39,31 @@ module EBS
       end
     end
 
-    private def load_menu_data(data, disc)
+    private
+
+    def load_menu_data(data, disc)
       menu = Menu.new
       menu.title = data[:title]
       menu.id = data[:id]
 
-      unless data[:entries].nil?
-        data[:entries].each do |entdat|
-          entry = MenuEntry.new(self, disc, @linkpaths)
-          entry.title = entdat[:title]
-          entry.type = entdat[:type]
-          entry.model = entdat[:model]
-          entry.offsets = entdat[:offsets]
-          entry.modes = entdat[:modes]
-          entry.captions = entdat[:captions]
-          entry.arcpaths = entdat[:arcpaths]
-          entry.arcfix = entdat[:arcfix]
+      data[:entries]&.each do |entdat|
+        entry = MenuEntry.new(self, disc, @linkpaths)
+        entry.title = entdat[:title]
+        entry.type = entdat[:type]
+        entry.model = entdat[:model]
+        entry.offsets = entdat[:offsets]
+        entry.modes = entdat[:modes]
+        entry.captions = entdat[:captions]
+        entry.arcpaths = entdat[:arcpaths]
+        entry.arcfix = entdat[:arcfix]
 
-          if entdat[:paths].nil?
-            entry.id = entdat[:id]
-          else
-            entry.paths = entdat[:paths]
-          end
-
-          menu.entries << entry
+        if entdat[:paths].nil?
+          entry.id = entdat[:id]
+        else
+          entry.paths = entdat[:paths]
         end
+
+        menu.entries << entry
       end
 
       menu

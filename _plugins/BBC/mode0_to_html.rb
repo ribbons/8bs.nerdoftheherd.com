@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2007-2017 by the authors - see the AUTHORS file for details.
 #
@@ -17,7 +19,7 @@
 module BBC
   module Mode0Filter
     def mode0_to_html(input)
-      output = ''
+      output = String.new
 
       row = 0
       column = 0
@@ -48,7 +50,8 @@ module BBC
           when '*'
             output << '<span class="inv">*</span>'
           else
-            throw 'Unknown control character: "' + c.chr + '" (ascii ' + c.to_s + ') at line ' + row.to_s + ' column ' + column.to_s
+            throw 'Unknown control character: "' + c.chr + '" (ascii ' +
+                  c.to_s + ') at line ' + row.to_s + ' column ' + column.to_s
           end
 
           controlchar = false
@@ -70,6 +73,7 @@ module BBC
 
             output << ' '
             break if ((column + 2) % 8).zero?
+
             column += 1
           end
         when 10
@@ -80,6 +84,7 @@ module BBC
           # This displays as a line feed as well unless there has just
           # been one, in which when it has no effect
           next if prevchar == 10
+
           column = 79
         when 28
           if underline
@@ -122,17 +127,18 @@ module BBC
           output << ' '
         else
           output << '?'
-          throw 'Unknown character value ' + c.to_s + ' at line ' + row.to_s + ' column ' + column.to_s
+          throw 'Unknown character value ' + c.to_s + ' at line ' + row.to_s +
+                ' column ' + column.to_s
         end
 
         prevchar = c
         column += 1
 
-        if column > 79
-          output << "\n"
-          row += 1
-          column = 0
-        end
+        next unless column > 79
+
+        output << "\n"
+        row += 1
+        column = 0
       end
 
       output

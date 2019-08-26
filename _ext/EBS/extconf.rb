@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2017-2018 by the authors - see the AUTHORS file for details.
 #
@@ -17,7 +19,8 @@
 require 'mkmf'
 
 # rubocop:disable Style/GlobalVars
-$CFLAGS << ' -DSYSV=1 -O3 -Wall -Wno-unused-function -Wno-unused-variable -Werror'
+$CFLAGS <<
+  ' -DSYSV=1 -O3 -Wall -Wno-unused-function -Wno-unused-variable -Werror'
 $CFLAGS = $CFLAGS.sub(/ -O2/, '')
 # rubocop:enable Style/GlobalVars
 

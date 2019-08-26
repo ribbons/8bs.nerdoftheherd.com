@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2007-2017 by the authors - see the AUTHORS file for details.
 #
@@ -27,7 +29,8 @@ module EBS
       lines = read_data_lines(file.content).values
       vals = lines.shift
 
-      @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y').strftime('%d/%b/%Y')
+      @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
+                  .strftime('%d/%b/%Y')
       @menuid = 1
 
       convert_menu_data(lines, file.disc)

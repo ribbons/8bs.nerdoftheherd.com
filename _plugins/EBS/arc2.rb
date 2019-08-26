@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2017 by the authors - see the AUTHORS file for details.
 #
@@ -34,10 +36,11 @@ module EBS
         raise 'Unexpected compression version' unless type == 0x08
 
         namebytes = data.shift(13)
-        filename = ''
+        filename = String.new
 
         namebytes.each do |b|
           break if b.zero?
+
           filename << b.chr
         end
 

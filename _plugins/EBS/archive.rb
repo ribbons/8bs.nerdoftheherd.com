@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2017 by the authors - see the AUTHORS file for details.
 #
@@ -37,10 +39,12 @@ module EBS
 
     def file(path)
       file = @files[@disc.canonicalise_path(path)]
-      file.content unless file.nil?
+      file&.content
     end
 
-    private def read_value(data)
+    private
+
+    def read_value(data)
       type = data.shift
 
       case type
@@ -53,11 +57,11 @@ module EBS
       end
     end
 
-    private def read_int(data)
+    def read_int(data)
       (data.shift << 24) | (data.shift << 16) | (data.shift << 8) | data.shift
     end
 
-    private def read_str(data)
+    def read_str(data)
       length = data.shift
 
       value = ''

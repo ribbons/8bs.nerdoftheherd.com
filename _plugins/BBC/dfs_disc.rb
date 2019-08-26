@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -41,7 +43,45 @@ module BBC
       read_catalogue(2) if @dsd
     end
 
-    private def read_catalogue(side)
+    def file(path)
+      @files[canonicalise_path(path)]
+    end
+
+    def read_sector(side, sector)
+      track = sector / TRACK_SECTORS
+      track = track * 2 + (side / 2) if @dsd
+
+      tracksector = sector % TRACK_SECTORS
+
+      @file.seek((track * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
+      @file.sysread(SECTOR_SIZE)
+    end
+
+    def canonicalise_path(path)
+      split = path.sub(/^\.+/, '').upcase.split('.', 3)
+
+      drive = split[0][0] == ':' ? split.shift : ':0'
+      dir = split.size == 2 && split[0].size == 1 ? split.shift : '$'
+      file = split.join('.')
+
+      drive + '.' + dir + '.' + file
+    end
+
+    def generate_disc(name, files)
+      disc = build_catalogue(name, files)
+
+      files.each do |file|
+        padding = SECTOR_SIZE - file.length % SECTOR_SIZE
+        disc << file.content
+        disc << ' ' * padding
+      end
+
+      disc
+    end
+
+    private
+
+    def read_catalogue(side)
       cat = []
 
       # Catalogue is in the first two sectors (0 & 1)
@@ -70,19 +110,25 @@ module BBC
         dir = (cat[offset + 7] & 0x7F).chr
 
         # Sector 2: Bytes 1 & 2 are the load address
-        loadaddr = (cat[SECTOR_SIZE + offset + 1] << 8) | cat[SECTOR_SIZE + offset]
+        loadaddr = (cat[SECTOR_SIZE + offset + 1] << 8) |
+                   cat[SECTOR_SIZE + offset]
 
         # Bytes 5 & 6 and a couple of bits of 7 are the length
-        length = ((cat[SECTOR_SIZE + offset + 6] & 0x30) << 12) | (cat[SECTOR_SIZE + offset + 5] << 8) | cat[SECTOR_SIZE + offset + 4]
+        length = ((cat[SECTOR_SIZE + offset + 6] & 0x30) << 12) |
+                 (cat[SECTOR_SIZE + offset + 5] << 8) |
+                 cat[SECTOR_SIZE + offset + 4]
+
         # Byte 8 and a couple of bits of 7 are the sector where the file starts
-        startsector = ((cat[SECTOR_SIZE + offset + 6] & 0x03) << 8) | cat[SECTOR_SIZE + offset + 7]
+        startsector = ((cat[SECTOR_SIZE + offset + 6] & 0x03) << 8) |
+                      cat[SECTOR_SIZE + offset + 7]
 
         file = BBCFile.new(self, side, dir, name, startsector, length, loadaddr)
-        @files[':' + file.side.to_s + '.' + file.dir.upcase + '.' + file.name.upcase] = file
+        @files[':' + file.side.to_s + '.' + file.dir.upcase + '.' +
+          file.name.upcase] = file
       end
     end
 
-    private def build_catalogue(name, files)
+    def build_catalogue(name, files)
       name = name.ljust(12, 0.chr)
 
       cat = name[0...8] # First 8 bytes of disc title
@@ -121,7 +167,10 @@ module BBC
         cat << ((file.length & 0xFF00) >> 8).chr
 
         # The top two bits of the exec addr, length, load addr & start sector
-        cat << (((file.execaddr & 0x30000) >> 10) | ((file.length & 0x30000) >> 12) | ((file.loadaddr & 0x30000) >> 14) | ((offset & 0x300) >> 8)).chr
+        cat << (((file.execaddr & 0x30000) >> 10) |
+                ((file.length & 0x30000) >> 12) |
+                ((file.loadaddr & 0x30000) >> 14) |
+                ((offset & 0x300) >> 8)).chr
 
         cat << (offset & 0xFF).chr
 
@@ -132,42 +181,6 @@ module BBC
       cat << ' ' * (pad_entries * FILEREC_SIZE)
 
       cat
-    end
-
-    def file(path)
-      @files[canonicalise_path(path)]
-    end
-
-    def read_sector(side, sector)
-      track = sector / TRACK_SECTORS
-      track = track * 2 + (side / 2) if @dsd
-
-      tracksector = sector % TRACK_SECTORS
-
-      @file.seek((track * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
-      @file.sysread(SECTOR_SIZE)
-    end
-
-    def canonicalise_path(path)
-      split = path.sub(/^\.+/, '').upcase.split('.', 3)
-
-      drive = split[0][0] == ':' ? split.shift : ':0'
-      dir = split.size == 2 && split[0].size == 1 ? split.shift : '$'
-      file = split.join('.')
-
-      drive + '.' + dir + '.' + file
-    end
-
-    def generate_disc(name, files)
-      disc = build_catalogue(name, files)
-
-      files.each do |file|
-        padding = SECTOR_SIZE - file.length % SECTOR_SIZE
-        disc << file.content
-        disc << ' ' * padding
-      end
-
-      disc
     end
   end
 end

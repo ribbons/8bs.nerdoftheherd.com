@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -24,7 +26,9 @@ module EBS
       disc = BBC::DfsDisc.new(imagepath)
 
       bootlines = disc.file('$.!Boot').content.split("\r")
-      datevals = bootlines[6].match(/(?:([0-9]+)[A-Z]{2} )?([A-Z]{3})[A-Z]* ([0-9]{4})/i).captures
+      datevals = bootlines[6]
+                 .match(/(?:([0-9]+)[A-Z]{2} )?([A-Z]{3})[A-Z]* ([0-9]{4})/i)
+                 .captures
 
       @date = datevals[1..2].join('/')
       @date = datevals[0].rjust(2, '0') + '/' + @date unless datevals[0].nil?
@@ -36,17 +40,20 @@ module EBS
       apply_tweaks(imagepath)
     end
 
+    private
+
     # The first version of the menu by S.Flintham includes 'PROCla' which takes
     # a menu number and then RESTOREs to the relevant data line.
     # Read these values and build a reverse lookup hash to convert line numbers
     # into menu numbers.
-    private def read_id_map(data)
+    def read_id_map(data)
       map = {}
       pos = 0
       inproc = false
 
       loop do
         raise 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
+
         pos += 1
 
         # End of file marker
@@ -65,7 +72,8 @@ module EBS
             break
           end
 
-          if linelen < 7 || data[pos..pos + 3] != "\xe7f%=".b || data[pos + 5..pos + 6] != "\x8c\xf7".b
+          if linelen < 7 || data[pos..pos + 3] != "\xe7f%=".b ||
+             data[pos + 5..pos + 6] != "\x8c\xf7".b
             raise 'Unexpected line in PROC la'
           end
 
@@ -78,7 +86,8 @@ module EBS
             map[:first] = menuid unless map.key?(:first)
           else
             numpos = data.getbyte(pos + 4) == 0x8d ? pos + 5 : pos + 4
-            linenum = BBC::BasicFilter.inline_line_num(data[numpos..numpos + 2].each_byte.to_a)
+            linenum = BBC::BasicFilter.inline_line_num(data[numpos..numpos + 2]
+                                      .each_byte.to_a)
             map[linenum] = menuid
           end
         elsif linelen == 8 && data[pos..pos + 7] == "\xdd\xf2la(f%)".b
@@ -92,7 +101,7 @@ module EBS
       map
     end
 
-    private def convert_menu_data(lines, id_mapping, disc)
+    def convert_menu_data(lines, id_mapping, disc)
       entries = 0
       menu = nil
       first_paths = nil
@@ -108,8 +117,10 @@ module EBS
 
             # Remove second+ paths which are the first path on another entry
             menu.entries.each do |entry|
-              unless entry.paths.nil? || entry.paths.size == 1
-                entry.paths.delete_if.with_index { |path, i| i > 0 && first_paths.include?(path) }
+              next if entry.paths.nil? || entry.paths.size == 1
+
+              entry.paths.delete_if.with_index do |path, i|
+                i.positive? && first_paths.include?(path)
               end
             end
           end
@@ -126,7 +137,10 @@ module EBS
           entry.model = model_from_title(entry.title)
 
           unless vals[3] == ''
-            entry.paths = vals[3].split('@').each.map { |file| vals[2] + '.' + file }
+            entry.paths = vals[3].split('@').each.map do |file|
+              vals[2] + '.' + file
+            end
+
             first_paths << entry.paths.first
           end
 
@@ -151,7 +165,8 @@ module EBS
             when '*EX.'
               entry.type = :exec
             else
-              throw 'Unknown command \'' + command + '\' for \'' + entry.title + '\''
+              throw 'Unknown command \'' + command + '\' for \'' +
+                    entry.title + '\''
             end
           end
 

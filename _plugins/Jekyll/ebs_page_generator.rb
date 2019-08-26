@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of the 8BS Online Conversion.
 # Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
 #
@@ -31,25 +33,39 @@ module Jekyll
       issues.each do |issue|
         issue.discs.each do |disc|
           site.pages << DiscIndexPage.new(site, disc.path, disc)
-          site.pages << EmulateDiscPage.new(site, File.join(disc.path, 'emulate'), disc)
+
+          site.pages << EmulateDiscPage.new(
+            site, File.join(disc.path, 'emulate'), disc
+          )
 
           disc.menus.each do |menu|
             menu.entries.each do |entry|
               if entry.type != :menu
-                site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :default)
+                site.pages << ContentPage.new(
+                  site, File.join(disc.path, entry.linkpath), disc, entry,
+                  :default
+                )
               end
 
               if entry.type == :basic || entry.type == :run
                 unless entry.arcpaths.nil?
-                  site.static_files << DiscFile.new(site, File.join(disc.path, entry.linkpath), entry)
+                  site.static_files << DiscFile.new(
+                    site, File.join(disc.path, entry.linkpath), entry
+                  )
                 end
 
-                site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath), disc, entry, :bootstrap)
+                site.pages << ContentPage.new(
+                  site, File.join(disc.path, entry.linkpath), disc, entry,
+                  :bootstrap
+                )
               end
 
-              if entry.type == :basic
-                site.pages << ContentPage.new(site, File.join(disc.path, entry.linkpath, 'list'), disc, entry, :list)
-              end
+              next unless entry.type == :basic
+
+              site.pages << ContentPage.new(
+                site, File.join(disc.path, entry.linkpath, 'list'), disc,
+                entry, :list
+              )
             end
           end
         end
