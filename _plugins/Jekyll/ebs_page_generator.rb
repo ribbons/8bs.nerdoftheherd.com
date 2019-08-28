@@ -27,13 +27,13 @@ module Jekyll
       end
 
       issues = EBS::Issue.all_issues(site)
-      site.pages << IndexPage.new(site, issues)
+      site.pages << EBS::Output::IndexPage.new(site, issues)
 
       issues.each do |issue|
         issue.discs.each do |disc|
-          site.pages << DiscIndexPage.new(site, disc.path, disc)
+          site.pages << EBS::Output::DiscIndexPage.new(site, disc.path, disc)
 
-          site.pages << EmulateDiscPage.new(
+          site.pages << EBS::Output::EmulateDiscPage.new(
             site, File.join(disc.path, 'emulate'), disc
           )
         end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,18 +16,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-module Jekyll
-  class IndexPage < Page
-    def initialize(site, issues)
-      @site = site
-      @base = site.source
-      @dir = ''
-      @name = 'index.html'
+module EBS
+  module Output
+    class DiscIndexPage < Jekyll::Page
+      def initialize(site, dir, disc)
+        @site = site
+        @base = site.source
+        @dir = dir
+        @name = 'index.html'
 
-      process(@name)
-      read_yaml(File.join(@base, '_layouts'), 'index.html')
+        process(@name)
+        read_yaml(File.join(@base, '_layouts'), 'disc_index.html')
 
-      data['issues'] = issues
+        issue = disc.issue
+
+        data['title'] += issue.number.to_s
+        data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
+
+        data['disc'] = disc
+      end
     end
   end
 end

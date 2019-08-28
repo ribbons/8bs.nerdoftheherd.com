@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,23 +16,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-module Jekyll
-  class EmulateDiscPage < Page
-    def initialize(site, dir, disc)
-      @site = site
-      @base = site.source
-      @dir = dir
-      @name = 'index.html'
+module EBS
+  module Output
+    class DiscFile < Jekyll::StaticFile
+      def initialize(site, dir, entry)
+        @site = site
+        @base = site.source
+        @dir = dir
+        @entry = entry
 
-      process(@name)
-      read_yaml(File.join(@base, '_layouts'), 'emulate_disc.html')
+        @name = 'emulate.ssd'
+      end
 
-      issue = disc.issue
+      def write(dest)
+        dest_path = destination(dest)
 
-      data['title'] += issue.number.to_s
-      data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
+        FileUtils.mkdir_p(File.dirname(dest_path))
+        FileUtils.rm(dest_path) if File.exist?(dest_path)
+        File.write(dest_path, @entry.generate_disc)
 
-      data['disc'] = disc
+        true
+      end
     end
   end
 end

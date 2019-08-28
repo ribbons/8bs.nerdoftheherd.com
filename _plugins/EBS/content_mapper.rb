@@ -49,25 +49,25 @@ module EBS
 
       @paths[linkpath] = 1
 
-      @site.pages << Jekyll::ContentPage.new(
+      @site.pages << Output::ContentPage.new(
         @site, File.join(@infodisc.path, linkpath), @infodisc, entry, :default
       )
 
       if entry.type == :basic || entry.type == :run
         unless entry.arcpaths.nil?
-          @site.static_files << Jekyll::DiscFile.new(
+          @site.static_files << Output::DiscFile.new(
             @site, File.join(@infodisc.path, linkpath), entry
           )
         end
 
-        @site.pages << Jekyll::ContentPage.new(
+        @site.pages << Output::ContentPage.new(
           @site, File.join(@infodisc.path, linkpath), @infodisc, entry,
           :bootstrap
         )
       end
 
       if entry.type == :basic
-        @site.pages << Jekyll::ContentPage.new(
+        @site.pages << Output::ContentPage.new(
           @site, File.join(@infodisc.path, linkpath, 'list'), @infodisc,
           entry, :list
         )
