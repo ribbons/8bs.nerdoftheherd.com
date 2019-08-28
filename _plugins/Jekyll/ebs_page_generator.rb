@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,13 +21,12 @@ module Jekyll
     safe true
 
     def generate(site)
-      issues = EBS::Issue.all_issues
-
       # Ensure folders for files generated outside Jekyll exist
       site.config['keep_files'].each do |dir|
         FileUtils.mkpath(site.in_dest_dir(dir))
       end
 
+      issues = EBS::Issue.all_issues(site)
       site.pages << IndexPage.new(site, issues)
 
       issues.each do |issue|
@@ -37,37 +36,6 @@ module Jekyll
           site.pages << EmulateDiscPage.new(
             site, File.join(disc.path, 'emulate'), disc
           )
-
-          disc.menus.each do |menu|
-            menu.entries.each do |entry|
-              if entry.type != :menu
-                site.pages << ContentPage.new(
-                  site, File.join(disc.path, entry.linkpath), disc, entry,
-                  :default
-                )
-              end
-
-              if entry.type == :basic || entry.type == :run
-                unless entry.arcpaths.nil?
-                  site.static_files << DiscFile.new(
-                    site, File.join(disc.path, entry.linkpath), entry
-                  )
-                end
-
-                site.pages << ContentPage.new(
-                  site, File.join(disc.path, entry.linkpath), disc, entry,
-                  :bootstrap
-                )
-              end
-
-              next unless entry.type == :basic
-
-              site.pages << ContentPage.new(
-                site, File.join(disc.path, entry.linkpath, 'list'), disc,
-                entry, :list
-              )
-            end
-          end
         end
       end
     end

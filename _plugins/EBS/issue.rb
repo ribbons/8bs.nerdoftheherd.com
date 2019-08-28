@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ module EBS
 
     attr_reader :number, :discs
 
-    def self.all_issues
+    def self.all_issues(site)
       issues = {}
 
       Dir['discimgs/*'].each do |discimg|
@@ -43,11 +43,11 @@ module EBS
 
         case issuenum
         when 1..27
-          disc = EBS::Disc1To27.new(issues[issuenum], discimg)
+          disc = EBS::Disc1To27.new(site, issues[issuenum], discimg)
         when 28..49
-          disc = EBS::Disc28To49.new(issues[issuenum], discimg)
+          disc = EBS::Disc28To49.new(site, issues[issuenum], discimg)
         when 50..66
-          disc = EBS::Disc50To66.new(issues[issuenum], discimg)
+          disc = EBS::Disc50To66.new(site, issues[issuenum], discimg)
         end
 
         issues[issuenum].add_disc(disc)

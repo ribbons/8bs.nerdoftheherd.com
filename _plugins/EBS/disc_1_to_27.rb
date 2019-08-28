@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@ module EBS
   class Disc1To27 < Disc
     require 'yaml'
 
-    def initialize(issue, imagepath)
-      super(issue, imagepath)
+    def initialize(site, issue, imagepath)
+      super(site, issue, imagepath)
 
       id = File.basename(imagepath, '.*')
 
@@ -32,22 +32,23 @@ module EBS
       )
 
       @date = data[:date]
-      disc = BBC::DfsDisc.new(imagepath)
 
       data[:menus].each do |menu|
-        @menus << load_menu_data(menu, disc)
+        @menus << load_menu_data(menu)
       end
+
+      @mapper.map_menus(@menus)
     end
 
     private
 
-    def load_menu_data(data, disc)
+    def load_menu_data(data)
       menu = Menu.new
       menu.title = data[:title]
       menu.id = data[:id]
 
       data[:entries]&.each do |entdat|
-        entry = MenuEntry.new(self, disc, @linkpaths)
+        entry = MenuEntry.new(self)
         entry.title = entdat[:title]
         entry.type = entdat[:type]
         entry.model = entdat[:model]

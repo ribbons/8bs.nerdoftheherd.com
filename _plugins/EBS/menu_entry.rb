@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,33 +18,19 @@
 
 module EBS
   class MenuEntry < Liquid::Drop
-    def initialize(issdisc, disc, linkpaths)
+    def initialize(issdisc)
       @issdisc = issdisc
-      @disc = disc
-      @linkpaths = linkpaths
     end
 
     attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions,
                   :arcpaths, :arcfix
     attr_reader :paths
+    attr_writer :linkpath
 
     def paths=(paths)
-      @paths = []
-
-      paths.each do |path|
-        @paths << @disc.canonicalise_path(path)
+      @paths = paths.map do |path|
+        @issdisc.disc.canonicalise_path(path)
       end
-
-      @linkpath = Jekyll::Utils.slugify(@paths[0])
-
-      # Make the path unique if it collides with an existing one
-      if @linkpaths.key?(@linkpath)
-        suffix = 1
-        suffix += 1 while @linkpaths.key?(@linkpath + '-' + suffix.to_s)
-        @linkpath << '-' + suffix.to_s
-      end
-
-      @linkpaths[@linkpath] = 1
     end
 
     def typestr
@@ -64,7 +50,7 @@ module EBS
       if @type == :menu
         '#menu' + @id.to_s
       else
-        'content/' + @linkpath + '/'
+        @linkpath + '/'
       end
     end
 
@@ -80,19 +66,19 @@ module EBS
       files = []
 
       @paths.each do |path|
-        file = @disc.file(path)
+        file = @issdisc.disc.file(path)
         archive = Archive.from_file(file, @arcfix)
         files.concat(archive.files)
       end
 
-      @disc.generate_disc(@paths[0], files)
+      @issdisc.disc.generate_disc(@paths[0], files)
     end
 
     def bootstrap_basic
       splitpath = if @arcpaths.nil?
                     @paths[0].split('.', 3)
                   else
-                    @disc.canonicalise_path(@arcpaths[0]).split('.', 3)
+                    @issdisc.disc.canonicalise_path(@arcpaths[0]).split('.', 3)
                   end
 
       basic = 'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
@@ -109,7 +95,7 @@ module EBS
       content = []
 
       @paths.each_with_index do |path, idx|
-        file = @disc.file(path)
+        file = @issdisc.disc.file(path)
 
         if @arcpaths.nil?
           content << if !@offsets.nil?

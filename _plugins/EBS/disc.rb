@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,17 +18,19 @@
 
 module EBS
   class Disc < Liquid::Drop
-    def initialize(issue, image)
+    def initialize(site, issue, image)
       @imagepath = '/' + image
       @issue = issue
       @path = image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1]
       @number = @path[/[0-9]-([0-9])/, 1] || '1'
 
       @menus = []
-      @linkpaths = {}
+      @disc = BBC::DfsDisc.new(image)
+      @mapper = ContentMapper.new(site, self)
     end
 
-    attr_reader :imagepath, :issue, :path, :number, :date, :menus
+    attr_reader :imagepath, :issue, :path, :number, :date, :menus, :mapper,
+                :disc
 
     private
 

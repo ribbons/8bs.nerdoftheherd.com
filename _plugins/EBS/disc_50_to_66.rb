@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2007-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2007-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,10 +20,9 @@ require_relative 'disc'
 
 module EBS
   class Disc50To66 < Disc
-    def initialize(issue, imagepath)
-      super(issue, imagepath)
+    def initialize(site, issue, imagepath)
+      super(site, issue, imagepath)
 
-      disc = BBC::DfsDisc.new(imagepath)
       file = disc.file('$.!BOOT')
 
       lines = read_data_lines(file.content).values
@@ -33,11 +32,13 @@ module EBS
                   .strftime('%d/%b/%Y')
       @menuid = 1
 
-      convert_menu_data(lines, file.disc)
+      convert_menu_data(lines)
       apply_tweaks(imagepath)
+
+      @mapper.map_menus(@menus)
     end
 
-    def convert_menu_data(lines, disc)
+    def convert_menu_data(lines)
       until (vals = lines.shift).nil?
         menu = Menu.new
         menu.title = vals[0]
@@ -49,7 +50,7 @@ module EBS
         entries.times do
           vals = lines.shift
 
-          entry = MenuEntry.new(self, disc, @linkpaths)
+          entry = MenuEntry.new(self)
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
           entry.paths = [vals[1] + '.' + vals[2]] if vals[1] != ''
