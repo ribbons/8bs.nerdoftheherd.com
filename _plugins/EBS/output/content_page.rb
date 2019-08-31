@@ -19,7 +19,7 @@
 module EBS
   module Output
     class ContentPage < Jekyll::Page
-      def initialize(site, dir, disc, entry, action)
+      def initialize(site, dir, disc, item, action)
         @site = site
         @base = site.source
         @dir = dir
@@ -33,7 +33,7 @@ module EBS
         template = if action == :bootstrap
                      'content_bootstrap'
                    else
-                     case entry.type
+                     case item.type
                      when :mode0
                        'content_mode0'
                      when :mode7
@@ -49,14 +49,14 @@ module EBS
                      when :run
                        'content_runnable'
                      else
-                       throw 'Unknown entry type: ' + entry.type.to_s
+                       throw 'Unknown item type: ' + item.type.to_s
                      end
                    end
 
         process(@name)
         read_yaml(File.join(@base, '_layouts'), template + '.html')
 
-        title = entry.title.chomp('.')
+        title = item.title.chomp('.')
 
         if data['title']
           data['title'].sub!('$title', title)
@@ -65,7 +65,7 @@ module EBS
         end
 
         data['disc'] = disc
-        data['entry'] = entry
+        data['item'] = item
       end
     end
   end

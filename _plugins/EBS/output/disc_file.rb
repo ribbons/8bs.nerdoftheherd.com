@@ -19,11 +19,11 @@
 module EBS
   module Output
     class DiscFile < Jekyll::StaticFile
-      def initialize(site, dir, entry)
+      def initialize(site, dir, item)
         @site = site
         @base = site.source
         @dir = dir
-        @entry = entry
+        @item = item
 
         @name = 'emulate.ssd'
       end
@@ -33,9 +33,22 @@ module EBS
 
         FileUtils.mkdir_p(File.dirname(dest_path))
         FileUtils.rm(dest_path) if File.exist?(dest_path)
-        File.write(dest_path, @entry.generate_disc)
+        File.write(dest_path, generate_disc)
 
         true
+      end
+
+      private
+
+      def generate_disc
+        files = []
+
+        @item.files.each do |file|
+          archive = Archive.from_file(file, @arcfix)
+          files.concat(archive.files)
+        end
+
+        @item.files[0].disc.generate_disc(@item.files[0].name, files)
       end
     end
   end

@@ -1,6 +1,6 @@
 ---
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2016 by the authors - see the AUTHORS file for details.
+# Copyright © 2016-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,16 +19,16 @@ layout:     main
 ---
 
 <div id="content">
-    <h1>{{ page.entry.title | chomp_dot }}</h1>
+    <h1>{{ page.item.title | chomp_dot }}</h1>
 </div>
 
 <div class="image">
-    {% for item in page.entry.content %}
+    {% for item in page.item.content %}
         {% if forloop.index > 1 %}<hr>{% endif %}
-        {{ item | bbc_pic_to_img: page.entry.typestr, page.entry.modes[forloop.index0] }}
+        {{ item | bbc_pic_to_img: page.item.typestr, page.item.modes[forloop.index0] }}
 
-        {% if page.entry.captions %}
-            <div class="caption">{{ page.entry.captions[forloop.index0] }}</div>
+        {% if page.item.captions %}
+            <div class="caption">{{ page.item.captions[forloop.index0] }}</div>
         {% endif %}
     {% endfor %}
 </div>

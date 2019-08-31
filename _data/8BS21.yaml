@@ -128,7 +128,7 @@
         :paths: [ ':2.Exampl2' ]
       - :title: DIRlock Utility
         :type: :run
-        :paths: [ ':2.DIRlock ']
+        :paths: [ ':2.DIRlock']
       - :title: Number Converter
         :type: :basic
         :paths: [ ':2.NumConv' ]

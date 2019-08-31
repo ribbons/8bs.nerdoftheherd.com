@@ -1,6 +1,6 @@
 ---
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2018 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -82,12 +82,12 @@
                             {% endif %}
                         {% endif %}
 
-                        {% if page.entry %}
+                        {% if page.item %}
                             {% if page.action %}
-                                <li><a href="/{{ page.disc.path }}/{{ page.entry.linkpath }}">{{ page.entry.title | chomp_dot }}</a></li>
+                                <li><a href="/{{ page.disc.path }}/{{ page.item.linkpath }}">{{ page.item.title | chomp_dot }}</a></li>
                                 <li class="current">{{ page.action }}</li>
                             {% else %}
-                                <li class="current">{{ page.entry.title | chomp_dot }}</li>
+                                <li class="current">{{ page.item.title | chomp_dot }}</li>
                             {% endif %}
                         {% endif %}
 

@@ -27,7 +27,7 @@
         :offsets: [ 17152, 1000, 286, 15360, 18176, 1000 ]
       - :title: Kickstart
         :type: :run
-        :paths: [ /kickst ]
+        :paths: [ kickst ]
   - :title: Disc Magazine
     :id: 2
     :entries:

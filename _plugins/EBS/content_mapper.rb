@@ -48,32 +48,34 @@ module EBS
       end
 
       @paths[linkpath] = 1
+      entry.linkpath = linkpath
+
+      files = paths.map { |path| @infodisc.disc.file(path) }
+      item = ContentItem.new(files, entry)
 
       @site.pages << Output::ContentPage.new(
-        @site, File.join(@infodisc.path, linkpath), @infodisc, entry, :default
+        @site, File.join(@infodisc.path, linkpath), @infodisc, item, :default
       )
 
       if entry.type == :basic || entry.type == :run
         unless entry.arcpaths.nil?
           @site.static_files << Output::DiscFile.new(
-            @site, File.join(@infodisc.path, linkpath), entry
+            @site, File.join(@infodisc.path, linkpath), item
           )
         end
 
         @site.pages << Output::ContentPage.new(
-          @site, File.join(@infodisc.path, linkpath), @infodisc, entry,
+          @site, File.join(@infodisc.path, linkpath), @infodisc, item,
           :bootstrap
         )
       end
 
-      if entry.type == :basic
-        @site.pages << Output::ContentPage.new(
-          @site, File.join(@infodisc.path, linkpath, 'list'), @infodisc,
-          entry, :list
-        )
-      end
+      return unless entry.type == :basic
 
-      entry.linkpath = linkpath
+      @site.pages << Output::ContentPage.new(
+        @site, File.join(@infodisc.path, linkpath, 'list'), @infodisc,
+        item, :list
+      )
     end
   end
 end

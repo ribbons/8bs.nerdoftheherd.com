@@ -33,19 +33,6 @@ module EBS
       end
     end
 
-    def typestr
-      @type.id2name
-    end
-
-    def modelstr
-      case @model
-      when :modelb
-        'b'
-      when :master128
-        'master'
-      end
-    end
-
     def linkpath
       if @type == :menu
         '#menu' + @id.to_s
@@ -60,81 +47,6 @@ module EBS
       else
         '/' + @issdisc.path + '/' + linkpath + 'emulate.ssd'
       end
-    end
-
-    def generate_disc
-      files = []
-
-      @paths.each do |path|
-        file = @issdisc.disc.file(path)
-        archive = Archive.from_file(file, @arcfix)
-        files.concat(archive.files)
-      end
-
-      @issdisc.disc.generate_disc(@paths[0], files)
-    end
-
-    def bootstrap_basic
-      splitpath = if @arcpaths.nil?
-                    @paths[0].split('.', 3)
-                  else
-                    @issdisc.disc.canonicalise_path(@arcpaths[0]).split('.', 3)
-                  end
-
-      basic = 'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
-      'OSCLI("DIR ' + splitpath[1] + "\")\n"
-
-      if @type == :basic
-        basic + 'CHAIN "' + splitpath[2] + '"'
-      else
-        basic + 'OSCLI("RUN ' + splitpath[2] + '")'
-      end
-    end
-
-    def content
-      content = []
-
-      @paths.each_with_index do |path, idx|
-        file = @issdisc.disc.file(path)
-
-        if @arcpaths.nil?
-          content << if !@offsets.nil?
-                       extract_section(file.content, @offsets, idx)
-                     elsif @type == :mode7
-                       trim_scroller(file.content, file.loadaddr)
-                     else
-                       file.content
-                     end
-        else
-          archive = Archive.from_file(file, @arcfix)
-
-          @arcpaths.each do |arcpath|
-            filecontent = archive.file(arcpath)
-            content << filecontent unless filecontent.nil?
-          end
-        end
-      end
-
-      content
-    end
-
-    MODE7_SCREEN_SIZE = 25 * 40
-
-    private
-
-    def trim_scroller(content, loadaddr)
-      # The first four bytes are the start and end locations of the text data
-      textstart = (content.getbyte(1) << 8 | content.getbyte(0)) - loadaddr
-      textend = (content.getbyte(3) << 8 | content.getbyte(2)) -
-                loadaddr + MODE7_SCREEN_SIZE - 1
-
-      # Chop off scroller code
-      content[textstart..textend]
-    end
-
-    def extract_section(content, offsets, index)
-      offind = index * 2
-      content[offsets[offind]..offsets[offind] + offsets[offind + 1] - 1]
     end
   end
 end
