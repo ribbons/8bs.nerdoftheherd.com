@@ -51,6 +51,21 @@ module EBS
       entry.linkpath = linkpath
 
       files = paths.map { |path| @infodisc.disc.file(path) }
+      arcfiles = files.clone unless entry.arcpaths.nil?
+
+      unless entry.arcpaths.nil?
+        files = []
+
+        arcfiles.each do |arcfile|
+          archive = Archive.from_file(arcfile, entry.arcfix)
+
+          entry.arcpaths.each do |arcpath|
+            file = archive.file(arcpath)
+            files << file unless file.nil?
+          end
+        end
+      end
+
       item = ContentItem.new(files, entry)
 
       @site.pages << Output::ContentPage.new(
@@ -60,7 +75,7 @@ module EBS
       if entry.type == :basic || entry.type == :run
         unless entry.arcpaths.nil?
           @site.static_files << Output::DiscFile.new(
-            @site, File.join(@infodisc.path, linkpath), item
+            @site, File.join(@infodisc.path, linkpath), entry.title, arcfiles
           )
         end
 

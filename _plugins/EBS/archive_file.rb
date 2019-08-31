@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,5 +28,9 @@ module EBS
     end
 
     attr_reader :dir, :name, :loadaddr, :execaddr, :length, :content
+
+    def side
+      0
+    end
   end
 end

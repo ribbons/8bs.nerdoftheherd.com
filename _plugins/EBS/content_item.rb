@@ -24,16 +24,14 @@ module EBS
       @type = entry.type
       @title = entry.title
       @offsets = entry.offsets
-      @arcpaths = entry.arcpaths
-      @arcfix = entry.arcfix
       @modes = entry.modes
       @linkpath = entry.linkpath
       @imagepath = entry.imagepath
       @model = entry.model
     end
 
-    attr_reader :type, :title, :offsets, :arcpaths, :arcfix, :modes, :files,
-                :linkpath, :model, :imagepath
+    attr_reader :type, :title, :offsets, :modes, :files, :linkpath, :model,
+                :imagepath
 
     def typestr
       @type.id2name
@@ -52,41 +50,26 @@ module EBS
       content = []
 
       @files.each_with_index do |file, idx|
-        if @arcpaths.nil?
-          content << if !@offsets.nil?
-                       extract_section(file.content, @offsets, idx)
-                     elsif @type == :mode7
-                       trim_scroller(file.content, file.loadaddr)
-                     else
-                       file.content
-                     end
-        else
-          archive = Archive.from_file(file, @arcfix)
-
-          @arcpaths.each do |arcpath|
-            filecontent = archive.file(arcpath)
-            content << filecontent unless filecontent.nil?
-          end
-        end
+        content << if !@offsets.nil?
+                     extract_section(file.content, @offsets, idx)
+                   elsif @type == :mode7
+                     trim_scroller(file.content, file.loadaddr)
+                   else
+                     file.content
+                   end
       end
 
       content
     end
 
     def bootstrap_basic
-      splitpath = if @arcpaths.nil?
-                    [':' + @files[0].side.to_s, @files[0].dir, @files[0].name]
-                  else
-                    files[0].disc.canonicalise_path(@arcpaths[0]).split('.', 3)
-                  end
-
-      basic = 'OSCLI("DRIVE ' + splitpath[0][1] + "\")\n" \
-      'OSCLI("DIR ' + splitpath[1] + "\")\n"
+      basic = 'OSCLI("DRIVE ' + @files[0].side.to_s + "\")\n" \
+      'OSCLI("DIR ' + @files[0].dir + "\")\n"
 
       if @type == :basic
-        basic + 'CHAIN "' + splitpath[2] + '"'
+        basic + 'CHAIN "' + @files[0].name + '"'
       else
-        basic + 'OSCLI("RUN ' + splitpath[2] + '")'
+        basic + 'OSCLI("RUN ' + @files[0].name + '")'
       end
     end
 
