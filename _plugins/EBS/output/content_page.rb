@@ -24,33 +24,25 @@ module EBS
         @base = site.source
         @dir = dir
 
-        @name = if action == :bootstrap
-                  'emulate.bas'
-                else
-                  'index.html'
-                end
+        @name = 'index.html'
 
-        template = if action == :bootstrap
-                     'content_bootstrap'
-                   else
-                     case item.type
-                     when :mode0
-                       'content_mode0'
-                     when :mode7
-                       'content_mode7'
-                     when :basic
-                       if action == :list
-                         'content_basic_list'
-                       else
-                         'content_basic'
-                       end
-                     when :ldpic, :screendump, :scrload
-                       'content_image'
-                     when :run
-                       'content_runnable'
+        template = case item.type
+                   when :mode0
+                     'content_mode0'
+                   when :mode7
+                     'content_mode7'
+                   when :basic
+                     if action == :list
+                       'content_basic_list'
                      else
-                       throw 'Unknown item type: ' + item.type.to_s
+                       'content_basic'
                      end
+                   when :ldpic, :screendump, :scrload
+                     'content_image'
+                   when :run
+                     'content_runnable'
+                   else
+                     throw 'Unknown item type: ' + item.type.to_s
                    end
 
         process(@name)

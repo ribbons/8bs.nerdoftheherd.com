@@ -62,17 +62,6 @@ module EBS
       content
     end
 
-    def bootstrap_basic
-      basic = 'OSCLI("DRIVE ' + @files[0].side.to_s + "\")\n" \
-      'OSCLI("DIR ' + @files[0].dir + "\")\n"
-
-      if @type == :basic
-        basic + 'CHAIN "' + @files[0].name + '"'
-      else
-        basic + 'OSCLI("RUN ' + @files[0].name + '")'
-      end
-    end
-
     private
 
     MODE7_SCREEN_SIZE = 25 * 40

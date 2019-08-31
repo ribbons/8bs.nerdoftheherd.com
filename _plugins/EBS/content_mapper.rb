@@ -79,9 +79,8 @@ module EBS
           )
         end
 
-        @site.pages << Output::ContentPage.new(
-          @site, File.join(@infodisc.path, linkpath), @infodisc, item,
-          :bootstrap
+        @site.static_files << Output::BootstrapBasicFile.new(
+          @site, File.join(@infodisc.path, linkpath), item
         )
       end
 
