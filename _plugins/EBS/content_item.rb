@@ -22,7 +22,7 @@ module EBS
       @files = files
 
       @type = entry.type
-      @title = entry.title
+      @title = entry.title.chomp('.')
       @offsets = entry.offsets
       @modes = entry.modes
       @linkpath = entry.linkpath

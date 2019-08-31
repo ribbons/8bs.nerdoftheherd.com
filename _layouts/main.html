@@ -84,10 +84,10 @@
 
                         {% if page.item %}
                             {% if page.action %}
-                                <li><a href="/{{ page.disc.path }}/{{ page.item.linkpath }}">{{ page.item.title | chomp_dot }}</a></li>
+                                <li><a href="/{{ page.disc.path }}/{{ page.item.linkpath }}">{{ page.item.title }}</a></li>
                                 <li class="current">{{ page.action }}</li>
                             {% else %}
-                                <li class="current">{{ page.item.title | chomp_dot }}</li>
+                                <li class="current">{{ page.item.title }}</li>
                             {% endif %}
                         {% endif %}
 

@@ -48,12 +48,10 @@ module EBS
         process(@name)
         read_yaml(File.join(@base, '_layouts'), template + '.html')
 
-        title = item.title.chomp('.')
-
         if data['title']
-          data['title'].sub!('$title', title)
+          data['title'].sub!('$title', item.title)
         else
-          data['title'] = title
+          data['title'] = item.title
         end
 
         data['disc'] = disc
