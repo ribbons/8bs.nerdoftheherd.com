@@ -104,7 +104,7 @@ module EBS
     def convert_menu_data(lines, id_mapping)
       entries = 0
       menu = nil
-      first_paths = nil
+      first_files = nil
 
       lines.each do |linenum, vals|
         if entries.zero?
@@ -115,12 +115,12 @@ module EBS
           else
             @menus << menu
 
-            # Remove second+ paths which are the first path on another entry
+            # Remove second+ files which are the first file on another entry
             menu.entries.each do |entry|
-              next if entry.paths.nil? || entry.paths.size == 1
+              next if entry.files.nil? || entry.files.size == 1
 
-              entry.paths.delete_if.with_index do |path, i|
-                i.positive? && first_paths.include?(path)
+              entry.files.delete_if.with_index do |file, i|
+                i.positive? && first_files.include?(file)
               end
             end
           end
@@ -130,18 +130,18 @@ module EBS
           menu.id = menuid
 
           entries = vals[1].to_i
-          first_paths = []
+          first_files = []
         else
           entry = MenuEntry.new(self)
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
 
           unless vals[3] == ''
-            entry.paths = vals[3].split('@').each.map do |file|
-              vals[2] + '.' + file
+            entry.files = vals[3].split('@').each.map do |file|
+              @disc.file(vals[2] + '.' + file)
             end
 
-            first_paths << entry.paths.first
+            first_files << entry.files.first
           end
 
           command = vals[1]

@@ -20,18 +20,12 @@ module EBS
   class MenuEntry < Liquid::Drop
     def initialize(issdisc)
       @issdisc = issdisc
+      @files = []
     end
 
     attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions,
-                  :arcpaths, :arcfix
-    attr_reader :paths
+                  :arcpaths, :arcfix, :files
     attr_writer :linkpath
-
-    def paths=(paths)
-      @paths = paths.map do |path|
-        @issdisc.disc.canonicalise_path(path)
-      end
-    end
 
     def linkpath
       if @type == :menu

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,6 +29,10 @@ module BBC
     end
 
     attr_reader :side, :dir, :name, :loadaddr, :disc
+
+    def path
+      ':' + @side.to_s + '.' + @dir.to_s + '.' + @name
+    end
 
     def content
       data = String.new

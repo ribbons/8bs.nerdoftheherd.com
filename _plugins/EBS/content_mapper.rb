@@ -30,15 +30,15 @@ module EBS
         menu.entries.each do |entry|
           next if entry.type == :menu
 
-          map_content(entry, entry.paths)
+          map_content(entry, entry.files)
         end
       end
     end
 
     private
 
-    def map_content(entry, paths)
-      linkpath = 'content/' + Jekyll::Utils.slugify(paths[0])
+    def map_content(entry, files)
+      linkpath = 'content/' + Jekyll::Utils.slugify(files[0].path)
 
       # Make the path unique if it collides with an existing one
       if @paths.key?(linkpath)
@@ -50,7 +50,6 @@ module EBS
       @paths[linkpath] = 1
       entry.linkpath = linkpath
 
-      files = paths.map { |path| @infodisc.disc.file(path) }
       arcfiles = files.clone unless entry.arcpaths.nil?
 
       unless entry.arcpaths.nil?

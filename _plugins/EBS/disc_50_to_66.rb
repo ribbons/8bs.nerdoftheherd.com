@@ -53,7 +53,7 @@ module EBS
           entry = MenuEntry.new(self)
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
-          entry.paths = [vals[1] + '.' + vals[2]] if vals[1] != ''
+          entry.files = [@disc.file(vals[1] + '.' + vals[2])] if vals[1] != ''
 
           action = vals[3]
 

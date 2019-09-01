@@ -95,7 +95,11 @@ module EBS
           next unless menudata.key?(entry.title)
 
           itemdata = menudata[entry.title]
-          entry.paths = itemdata[:paths] if itemdata.key?(:paths)
+
+          if itemdata.key?(:paths)
+            entry.files = itemdata[:paths].map { |path| @disc.file(path) }
+          end
+
           entry.type = itemdata[:type] if itemdata.key?(:type)
           entry.offsets = itemdata[:offsets] if itemdata.key?(:offsets)
           entry.modes = itemdata[:modes] if itemdata.key?(:modes)

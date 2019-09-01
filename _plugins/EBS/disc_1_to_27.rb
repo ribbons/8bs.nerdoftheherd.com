@@ -61,7 +61,7 @@ module EBS
         if entdat[:paths].nil?
           entry.id = entdat[:id]
         else
-          entry.paths = entdat[:paths]
+          entry.files = entdat[:paths].map { |path| @disc.file(path) }
         end
 
         menu.entries << entry
