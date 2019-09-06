@@ -44,22 +44,12 @@ module BBC
     end
 
     def file(path)
-      path = canonicalise_path(path)
+      path = self.class.canonicalise_path(path)
       throw "#{path} not found in #{@path}" unless @files.key?(path)
       @files[path]
     end
 
-    def read_sector(side, sector)
-      track = sector / TRACK_SECTORS
-      track = track * 2 + (side / 2) if @dsd
-
-      tracksector = sector % TRACK_SECTORS
-
-      @file.seek((track * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
-      @file.sysread(SECTOR_SIZE)
-    end
-
-    def canonicalise_path(path)
+    def self.canonicalise_path(path)
       split = path.sub(/^\.+/, '').upcase.split('.', 3)
 
       drive = split[0][0] == ':' ? split.shift : ':0'
@@ -69,7 +59,7 @@ module BBC
       drive + '.' + dir + '.' + file
     end
 
-    def generate_disc(name, files)
+    def self.generate_disc(name, files)
       disc = build_catalogue(name, files)
 
       files.each do |file|
@@ -124,13 +114,46 @@ module BBC
         startsector = ((cat[SECTOR_SIZE + offset + 6] & 0x03) << 8) |
                       cat[SECTOR_SIZE + offset + 7]
 
-        file = BBCFile.new(self, side, dir, name, startsector, length, loadaddr)
-        @files[':' + file.side.to_s + '.' + file.dir.upcase + '.' +
-          file.name.upcase] = file
+        file = BBCFile.new(side, dir, name, loadaddr, nil,
+                           file_content(side, startsector, length))
+
+        @files[':' + side.to_s + '.' + dir.upcase + '.' + name.upcase] = file
       end
     end
 
-    def build_catalogue(name, files)
+    def read_sector(side, sector)
+      track = sector / TRACK_SECTORS
+      track = track * 2 + (side / 2) if @dsd
+
+      tracksector = sector % TRACK_SECTORS
+
+      @file.seek((track * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
+      @file.sysread(SECTOR_SIZE)
+    end
+
+    def file_content(side, startsector, length)
+      data = String.new
+      sector = startsector
+      remaining = length.fdiv(DfsDisc::SECTOR_SIZE).ceil
+      lastlen = (length % DfsDisc::SECTOR_SIZE)
+      lastlen = DfsDisc::SECTOR_SIZE if lastlen.zero?
+
+      loop do
+        buffer = read_sector(side, sector)
+        sector += 1
+        remaining -= 1
+
+        if remaining.zero?
+          # Only include the sector data up to EOF
+          data << buffer[0..lastlen - 1]
+          return data
+        end
+
+        data << buffer
+      end
+    end
+
+    private_class_method def self.build_catalogue(name, files)
       name = name.ljust(12, 0.chr)
 
       cat = name[0...8] # First 8 bytes of disc title

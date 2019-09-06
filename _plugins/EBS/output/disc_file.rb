@@ -49,7 +49,7 @@ module EBS
           files.concat(archive.files)
         end
 
-        @files[0].disc.generate_disc(@title, files)
+        BBC::DfsDisc.generate_disc(@title, files)
       end
     end
   end

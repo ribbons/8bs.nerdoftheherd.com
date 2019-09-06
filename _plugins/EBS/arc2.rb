@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,7 @@ module EBS
   require_relative 'archive'
 
   class Arc2 < Archive
-    def initialize(disc, data, arcfix)
-      @disc = disc
+    def initialize(data, arcfix)
       @files = {}
 
       loop do
@@ -52,7 +51,7 @@ module EBS
         length = read_size(data)
         decomp_data = decompress(data.shift(compr_length).pack('c*'), length)
 
-        canon = @disc.canonicalise_path(filename)
+        canon = BBC::DfsDisc.canonicalise_path(filename)
         loadaddr = 0xFFFFFFFF
         execaddr = 0xFFFFFFFF
 
@@ -64,8 +63,8 @@ module EBS
           end
         end
 
-        @files[canon] = ArchiveFile.new('$', filename, length,
-                                        loadaddr, execaddr, decomp_data)
+        @files[canon] = BBC::BBCFile.new(0, '$', filename, loadaddr, execaddr,
+                                         decomp_data)
       end
     end
 

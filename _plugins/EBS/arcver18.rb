@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,7 @@ module EBS
   require_relative 'archive'
 
   class ArcVer18 < Archive
-    def initialize(disc, data)
-      @disc = disc
+    def initialize(data)
       @files = {}
 
       until data.empty?
@@ -33,11 +32,10 @@ module EBS
         splitname = filename.split('.', 2)
         dir = splitname.count == 1 ? '$' : splitname.shift
         justname = splitname.shift
-        canon = @disc.canonicalise_path(filename)
+        canon = BBC::DfsDisc.canonicalise_path(filename)
 
-        @files[canon] = ArchiveFile.new(dir, justname, length,
-                                        load_addr, exec_addr,
-                                        data.shift(length).pack('c*'))
+        @files[canon] = BBC::BBCFile.new(0, dir, justname, load_addr, exec_addr,
+                                         data.shift(length).pack('c*'))
       end
     end
   end

@@ -23,11 +23,11 @@ module EBS
 
       case data.first
       when 0x00
-        ArcVer18.new(file.disc, data)
+        ArcVer18.new(data)
       when 0x40
-        ArcVer30.new(file.disc, data)
+        ArcVer30.new(data)
       when 0x1A
-        Arc2.new(file.disc, data, fixdata)
+        Arc2.new(data, fixdata)
       else
         raise 'Unexpected first byte of archive'
       end
@@ -38,7 +38,7 @@ module EBS
     end
 
     def file(path)
-      @files[@disc.canonicalise_path(path)]
+      @files[BBC::DfsDisc.canonicalise_path(path)]
     end
 
     private
