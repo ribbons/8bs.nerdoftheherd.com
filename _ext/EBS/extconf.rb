@@ -19,9 +19,8 @@
 require 'mkmf'
 
 # rubocop:disable Style/GlobalVars
-$CFLAGS <<
-  ' -DSYSV=1 -O3 -Wall -Wno-unused-function -Wno-unused-variable -Werror'
-$CFLAGS = $CFLAGS.sub(/ -O2/, '')
+$CFLAGS =
+  '-DSYSV=1 -O3 -Wall -Wno-unused-function -Wno-unused-variable -Werror -fPIC'
 # rubocop:enable Style/GlobalVars
 
 create_makefile('arc2_c')

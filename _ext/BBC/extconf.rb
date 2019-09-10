@@ -25,8 +25,7 @@ throw 'libstdc++ is required' unless find_library('stdc++', 'main')
 throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 
 # rubocop:disable Style/GlobalVars
-$CFLAGS << ' -std=c99 -O3 -Wall -Wconversion'
-$CFLAGS = $CFLAGS.sub(/ -O2/, '')
+$CFLAGS = '-std=c99 -O3 -Wall -Wconversion -fPIC'
 # rubocop:enable Style/GlobalVars
 
 create_makefile('native_filters_c')
