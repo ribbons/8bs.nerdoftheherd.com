@@ -31,10 +31,9 @@ module EBS
       @date = datevals[1..2].join('/')
       @date = datevals[0].rjust(2, '0') + '/' + @date unless datevals[0].nil?
 
-      data = disc.file('$.Menu').content
-      id_mapping = read_id_map(data)
-      lines = read_data_lines(data)
-      convert_menu_data(lines, id_mapping)
+      file = disc.file('$.Menu')
+      id_mapping = read_id_map(file.content)
+      convert_menu_data(file.parsed.data, id_mapping)
       apply_tweaks(imagepath)
 
       @mapper.map_menus(@menus)

@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2016-2018 by the authors - see the AUTHORS file for details.
+ * Copyright © 2016-2019 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #include <zlib.h>
 #include <BbcImageLoader.h>
 
-#include "native_filters.h"
+#include "bbc_native.h"
 
 png_bytep *row_pointers;
 

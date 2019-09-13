@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+ * Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdbool.h>
-#include <glib.h>
-#include <ruby.h>
+#include "bbc_native.h"
 
-#define MODE7_COLS 40
+void Init_bbc_native()
+{
+    VALUE mBBC = rb_define_module("BBC");
+    VALUE NativeFilters = rb_define_module_under(mBBC, "NativeFilters");
 
-#define STR_AND_LEN(s) s, sizeof(s) - 1
+    rb_define_method(NativeFilters, "mode7_text_to_mem", method_mode7_text_to_mem, 1);
+    rb_define_method(NativeFilters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
+    rb_define_method(NativeFilters, "bbc_pic_to_img", method_bbc_pic_to_img, 3);
 
-VALUE method_mode7_text_to_mem(VALUE self, VALUE input);
-VALUE method_mode7_mem_to_html(VALUE self, VALUE input);
-VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode);
+    init_basic_file(mBBC);
+}

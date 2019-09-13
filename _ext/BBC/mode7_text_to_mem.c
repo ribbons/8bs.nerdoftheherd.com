@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2015-2016 by the authors - see the AUTHORS file for details.
+ * Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "native_filters.h"
+#include "bbc_native.h"
 
 VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
 {

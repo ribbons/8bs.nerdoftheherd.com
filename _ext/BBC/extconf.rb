@@ -28,4 +28,4 @@ throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 $CFLAGS = '-O3 -Wall -Wconversion -Werror -fPIC'
 # rubocop:enable Style/GlobalVars
 
-create_makefile('native_filters_c')
+create_makefile('bbc_native')

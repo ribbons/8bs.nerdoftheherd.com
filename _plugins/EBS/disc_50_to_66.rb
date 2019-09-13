@@ -23,9 +23,7 @@ module EBS
     def initialize(site, issue, imagepath)
       super(site, issue, imagepath)
 
-      file = disc.file('$.!BOOT')
-
-      lines = read_data_lines(file.content).values
+      lines = disc.file('$.!BOOT').parsed.data.values
       vals = lines.shift
 
       @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')

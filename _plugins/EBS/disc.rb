@@ -34,42 +34,6 @@ module EBS
 
     private
 
-    def read_data_lines(data)
-      lines = {}
-      pos = 0
-
-      loop do
-        raise 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
-
-        pos += 1
-
-        # End of file marker is 0xff
-        break if (byte1 = data.getbyte(pos)) == 0xff
-
-        pos += 1
-
-        line_num = (byte1 << 8) | data.getbyte(pos)
-        pos += 1
-
-        # Entire length of line, so subtract bytes already read
-        linelen = data.getbyte(pos) - 4
-        pos += 1
-
-        # Only a valid data line if first byte is the DATA token
-        is_data_line = data.getbyte(pos) == 0xdc
-        pos += 1
-
-        if is_data_line
-          line = data[pos..(pos + linelen - 1)]
-          lines[line_num] = line.strip.split(',')
-        end
-
-        pos += linelen - 1
-      end
-
-      lines
-    end
-
     def model_from_title(title)
       if title =~ /(master )/i
         :master128

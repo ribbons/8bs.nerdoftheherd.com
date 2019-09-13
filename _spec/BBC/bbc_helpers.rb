@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2019 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-source 'https://rubygems.org'
+require_relative '../../_plugins/BBC/bbc_file.rb'
 
-gem 'jekyll'
-gem 'jshintrb',      require: false
-gem 'rake',          require: false
-gem 'rake-compiler', require: false
-gem 'rspec',         require: false
-gem 'rubocop',       require: false
+module BBCHelpers
+  def get_file(name)
+    fullpath = File.expand_path('../test_data/' + name, __FILE__)
+    content = File.open(fullpath, 'rb', &:read)
+
+    BBC::BBCFile.new(0, '$', name, 0xFFFFFFFF, 0xFFFFFFFF, content)
+  end
+end
