@@ -31,9 +31,9 @@ module EBS
       @date = datevals[1..2].join('/')
       @date = datevals[0].rjust(2, '0') + '/' + @date unless datevals[0].nil?
 
-      file = disc.file('$.Menu')
-      id_mapping = read_id_map(file.content)
-      convert_menu_data(file.parsed.data, id_mapping)
+      basic = disc.file('$.Menu').parsed
+      id_mapping = read_id_map(basic)
+      convert_menu_data(basic.data, id_mapping)
       apply_tweaks(imagepath)
 
       @mapper.map_menus(@menus)
@@ -45,57 +45,32 @@ module EBS
     # a menu number and then RESTOREs to the relevant data line.
     # Read these values and build a reverse lookup hash to convert line numbers
     # into menu numbers.
-    def read_id_map(data)
+    def read_id_map(basic)
       map = {}
-      pos = 0
       inproc = false
 
-      loop do
-        raise 'Malformed BBC BASIC file' if data.getbyte(pos) != 0x0d
-
-        pos += 1
-
-        # End of file marker
-        break if data.getbyte(pos) == 0xff
-
-        # Skip second byte of line number
-        pos += 2
-
-        # Entire length of line, so subtract bytes already read
-        linelen = data.getbyte(pos) - 4
-        pos += 1
-
+      basic.lines.values.each do |line|
         if inproc
-          if linelen == 1 && data.getbyte(pos) == 0xe1
-            # ENDPROC
-            break
-          end
+          break if line.match(/^ENDPROC$/)
 
-          if linelen < 7 || data[pos..pos + 3] != "\xe7f%=".b ||
-             data[pos + 5..pos + 6] != "\x8c\xf7".b
-            raise 'Unexpected line in PROC la'
-          end
+          extract = line.match(/^IFf%=([0-9])THENRESTORE(?: ?([0-9]+))?$/)
+          raise 'Unexpected line in PROCla: "' + line + '"' unless extract
 
-          pos += 4
-          linelen -= 4
+          menuid = extract.captures[0].to_i
 
-          menuid = data.getbyte(pos).chr.to_i
+          linenum = if extract.captures[1].nil?
+                      basic.data.keys.first
+                    else
+                      extract.captures[1].to_i
+                    end
 
-          if linelen == 3
-            map[:first] = menuid unless map.key?(:first)
-          else
-            numpos = data.getbyte(pos + 4) == 0x8d ? pos + 5 : pos + 4
-            linenum = BBC::BasicFilter.inline_line_num(data[numpos..numpos + 2]
-                                      .each_byte.to_a)
-            map[linenum] = menuid
-          end
-        elsif linelen == 8 && data[pos..pos + 7] == "\xdd\xf2la(f%)".b
-          # Found DEFPROCla(f%)
+          map[linenum] = menuid unless map.key?(linenum)
+        elsif line.match(/^DEFPROCla\(f%\)$/)
           inproc = true
         end
-
-        pos += linelen
       end
+
+      raise 'Unable to find PROCla' unless inproc
 
       map
     end
@@ -109,9 +84,7 @@ module EBS
         if entries.zero?
           menuid = id_mapping[linenum]
 
-          if menu.nil?
-            menuid = id_mapping[:first] if menuid.nil?
-          else
+          unless menu.nil?
             @menus << menu
 
             # Remove second+ files which are the first file on another entry

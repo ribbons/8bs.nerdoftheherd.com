@@ -1,3 +1,4 @@
+# encoding: ASCII-8BIT
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
@@ -37,6 +38,16 @@ module BBC
         20 => ['1', '2 ', '3', '4', ''],
         30 => ['HERE', '', 'IS  ', 'SOME', 'DATA '],
         2040 => ['', 'AND', '', 'SOME', 'MORE']
+      )
+    end
+
+    it 'builds a hash of line display content' do
+      basic = BasicFile.parse(get_file('basic_file_lines'))
+
+      expect(basic.lines).to include(
+        10 => 'REM BASIC TO TEST CONVERSION',
+        20 => "PRINT \"STRING WITH\x81CONTROL CHAR\"",
+        30 => 'RESTORE 32198'
       )
     end
   end

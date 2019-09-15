@@ -19,15 +19,51 @@
 #include "bbc_native.h"
 
 #define BASIC_LINE_START (char)0x0d
+#define BASIC_T_LINE_NUM (char)0x8d
 #define BASIC_T_DATA     (char)0xdc
 #define BASIC_EOF        (char)0xff
 
+#define MAX_TOKEN_LEN    8
+
+static char* Tokens[] = {
+"AND",   "DIV",    "EOR",     "MOD",   "OR",      "ERROR", "LINE",   "OFF",
+"STEP",  "SPC",    "TAB(",    "ELSE",  "THEN",    NULL,    "OPENIN", "PTR",
+"PAGE",  "TIME",   "LOMEM",   "HIMEM", "ABS",     "ACS",   "ADVAL",  "ASC",
+"ASN",   "ATN",    "BGET",    "COS",   "COUNT",   "DEG",   "ERL",    "ERR",
+"EVAL",  "EXP",    "EXT",     "FALSE", "FN",      "GET",   "INKEY",  "INSTR(",
+"INT",   "LEN",    "LN",      "LOG",   "NOT",     "OPENUP","OPENOUT","PI",
+"POINT(","POS",    "RAD",     "RND",   "SGN",     "SIN",   "SQR",    "TAN",
+"TO",    "TRUE",   "USR",     "VAL",   "VPOS",    "CHR$",  "GET$",   "INKEY$",
+"LEFT$(","MID$(",  "RIGHT$(", "STR$",  "STRING$(","EOF",   "AUTO",   "DELETE",
+"LOAD",  "LIST",   "NEW",     "OLD",   "RENUMBER","SAVE",  NULL,     "PTR",
+"PAGE",  "TIME",   "LOMEM",   "HIMEM", "SOUND",   "BPUT",  "CALL",   "CHAIN",
+"CLEAR", "CLOSE",  "CLG",     "CLS",   "DATA",    "DEF",   "DIM",    "DRAW",
+"END",   "ENDPROC","ENVELOPE","FOR",   "GOSUB",   "GOTO",  "GCOL",   "IF",
+"INPUT", "LET",    "LOCAL",   "MODE",  "MOVE",    "NEXT",  "ON",     "VDU",
+"PLOT",  "PRINT",  "PROC",    "READ",  "REM",     "REPEAT","REPORT", "RESTORE",
+"RETURN","RUN",    "STOP",    "COLOUR","TRACE",   "UNTIL", "WIDTH",  "OSCLI" };
+
 VALUE cBasicFile;
 
-VALUE basicfile_initialize(VALUE self, VALUE data)
+VALUE basicfile_initialize(VALUE self, VALUE data, VALUE lines)
 {
     rb_iv_set(self, "@data", data);
+    rb_iv_set(self, "@lines", lines);
     return self;
+}
+
+void inline_line_num(uint8_t* p, char** lp)
+{
+    // Many thanks to Matt Godbolt for describing the line number format:
+    // https://xania.org/200711/bbc-basic-line-number-format
+
+    int top2 = (p[1] << 2) & 0xc0;  // Top two bits of LSB
+    int lsb = top2 ^ p[2];          // XOR with middle byte to form the LSB
+
+    top2 = (p[1] << 4) & 0xc0;      // Top two bits of MSB
+    int msb = top2 ^ p[3];          // XOR with final byte to form the MSB
+
+    *lp += sprintf(*lp, "%d", lsb | (msb << 8));
 }
 
 VALUE parse(VALUE self, VALUE bbcfile)
@@ -38,10 +74,14 @@ VALUE parse(VALUE self, VALUE bbcfile)
     char* endinput = input + RSTRING_LEN(content);
 
     VALUE data = rb_hash_new();
+    VALUE lines = rb_hash_new();
+
+    char line[MAX_TOKEN_LEN * 251];
 
     for(char* p = input; p <= endinput; )
     {
         char* linestart = p;
+        char* lp = line;
 
         if(*p++ != BASIC_LINE_START)
         {
@@ -63,9 +103,10 @@ VALUE parse(VALUE self, VALUE bbcfile)
             p++;
         }
 
-        if(*p++ == BASIC_T_DATA)
+        if(*p == BASIC_T_DATA)
         {
             VALUE linedata = rb_ary_new();
+            p++;
 
             do
             {
@@ -90,16 +131,61 @@ VALUE parse(VALUE self, VALUE bbcfile)
             rb_hash_aset(data, INT2NUM(line_num), linedata);
         }
 
+        int in_string = FALSE;
+
+        while(p < nextline)
+        {
+            if(*p == '"')
+            {
+                in_string = !in_string;
+            }
+
+            if(!in_string && (*p & 0x80) != 0)
+            {
+                if(*p == BASIC_T_LINE_NUM)
+                {
+                    inline_line_num((uint8_t*)p, &lp);
+                    p += 3;
+                }
+                else
+                {
+                    char* token = Tokens[*p & 0x7f];
+
+                    if(token == NULL)
+                    {
+                        return Qnil;
+                    }
+
+                    size_t length = strlen(token);
+                    memcpy(lp, token, length);
+                    lp += length;
+                }
+            }
+            else
+            {
+                *lp++ = *p;
+            }
+
+            p++;
+        }
+
+        VALUE linestr = rb_str_new(line, lp - line);
+        rb_hash_aset(lines, INT2NUM(line_num), linestr);
+
         p = nextline;
     }
 
-    return rb_class_new_instance(1, &data, cBasicFile);
+    VALUE argv[] = {data, lines};
+    return rb_class_new_instance(2, argv, cBasicFile);
 }
 
 void init_basic_file(VALUE mBBC)
 {
     cBasicFile = rb_define_class_under(mBBC, "BasicFile", rb_cObject);
+
     rb_define_attr(cBasicFile, "data", 1, 0);
-    rb_define_method(cBasicFile, "initialize", basicfile_initialize, 1);
+    rb_define_attr(cBasicFile, "lines", 1, 0);
+
+    rb_define_method(cBasicFile, "initialize", basicfile_initialize, 2);
     rb_define_singleton_method(cBasicFile, "parse", parse, 1);
 }
