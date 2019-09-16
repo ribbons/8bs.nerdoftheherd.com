@@ -18,7 +18,7 @@
 
 #include "bbc_native.h"
 
-VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
+VALUE mode7_text_to_mem(VALUE input)
 {
     char* data = RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
@@ -31,21 +31,36 @@ VALUE method_mode7_text_to_mem(VALUE self, VALUE input)
     {
         char c = data[i];
 
-        // Map to correct Teletext characters to replicate
-        // the behaviour of OSWRCH on the BBC
+        // Map to correct in-memory bytes to replicate
+        // the behaviour of OSWRCH on the BBC if appropriate
         switch((unsigned char)c)
         {
-            case 35: // '#'
-                c = 95;
+            case 0x07: // Beep - ignore
+                continue;
+            case 0x08: // Back
+                // Probably hiding line numbers or code - ignore
+                continue;
+            case 0x0c: // Clear screen - ignore
+                continue;
+            case 0x0e: // Paged mode - ignore
+                continue;
+            case 0x15: // Disable VDU - ignore
+                continue;
+            case 0x16: // Set Mode
+                // Also uses the value of the next byte
+                i++;
+                continue;
+            case 0x23: // '#'
+                c = 0x5f;
                 break;
-            case 95: // '-'
-                c = 96;
+            case 0x5f: // '-'
+                c = 0x60;
                 break;
-            case 96: // '£'
-                c = 35;
+            case 0x60: // '£'
+                c = 0x23;
                 break;
-            case 138: // 'Nothing', displays as a space
-                c = 32;
+            case 0x8A: // 'Nothing', displays as a space
+                c = ' ';
                 break;
         }
 

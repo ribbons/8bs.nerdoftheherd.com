@@ -23,7 +23,6 @@ void Init_bbc_native()
     VALUE mBBC = rb_define_module("BBC");
     VALUE NativeFilters = rb_define_module_under(mBBC, "NativeFilters");
 
-    rb_define_method(NativeFilters, "mode7_text_to_mem", method_mode7_text_to_mem, 1);
     rb_define_method(NativeFilters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
     rb_define_method(NativeFilters, "bbc_pic_to_img", method_bbc_pic_to_img, 3);
 

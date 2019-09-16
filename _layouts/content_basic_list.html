@@ -27,5 +27,5 @@ action:     Listing
 
 {% for item in page.item.content %}
     {% if forloop.index > 1 %}<hr>{% endif %}
-    <div class="mode7">{{ item | basic_to_text | mode7_text_to_mem | mode7_mem_to_html }}</div>
+    <div class="mode7">{{ item }}</div>
 {% endfor %}

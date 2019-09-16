@@ -52,6 +52,8 @@ module EBS
       @files.each_with_index do |file, idx|
         content << if !@offsets.nil?
                      extract_section(file.content, @offsets, idx)
+                   elsif @type == :basic
+                     file.parsed.to_html
                    elsif @type == :mode7
                      trim_scroller(file.content, file.loadaddr)
                    else

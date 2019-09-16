@@ -31,6 +31,11 @@ module BBC
       expect(BasicFile.parse(file)).to be_nil
     end
 
+    it 'treats first byte of line number above 0x7f as EOF' do
+      basic = BasicFile.parse(get_file('basic_file_eof'))
+      expect(basic.lines.keys).not_to include(35_096)
+    end
+
     it 'stores data line values from a BASIC file' do
       basic = BasicFile.parse(get_file('basic_file_data'))
 
@@ -47,7 +52,18 @@ module BBC
       expect(basic.lines).to include(
         10 => 'REM BASIC TO TEST CONVERSION',
         20 => "PRINT \"STRING WITH\x81CONTROL CHAR\"",
-        30 => 'RESTORE 32198'
+        30 => 'RESTORE 32198',
+        40 => '  DATA WITH,LEADING,SPACES',
+        50 => " REMARK WITH\x81CONTROL CHAR"
+      )
+    end
+
+    it 'returns listing MODE 7 equivalent in HTML format' do
+      basic = BasicFile.parse(get_file('basic_file_html'))
+
+      expect(basic.to_html).to eql(
+        "   10PRINT \"HELLO WORLD\"                \n" \
+        '20000PRINT "GOODBYE"                    '
       )
     end
   end

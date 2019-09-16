@@ -24,7 +24,7 @@
 
 #define STR_AND_LEN(s) s, sizeof(s) - 1
 
-VALUE method_mode7_text_to_mem(VALUE self, VALUE input);
+VALUE mode7_text_to_mem(VALUE input);
 VALUE method_mode7_mem_to_html(VALUE self, VALUE input);
 VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode);
 

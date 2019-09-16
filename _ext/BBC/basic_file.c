@@ -21,7 +21,7 @@
 #define BASIC_LINE_START (char)0x0d
 #define BASIC_T_LINE_NUM (char)0x8d
 #define BASIC_T_DATA     (char)0xdc
-#define BASIC_EOF        (char)0xff
+#define BASIC_T_REM      (char)0xf4
 
 #define MAX_TOKEN_LEN    8
 
@@ -50,6 +50,44 @@ VALUE basicfile_initialize(VALUE self, VALUE data, VALUE lines)
     rb_iv_set(self, "@data", data);
     rb_iv_set(self, "@lines", lines);
     return self;
+}
+
+void process_data_vals(VALUE data, int line_num, char* p, char* nextline)
+{
+    while(*p == ' ')
+    {
+        p++;
+    }
+
+    if(*p != BASIC_T_DATA)
+    {
+        return;
+    }
+
+    VALUE linedata = rb_ary_new();
+    p++;
+
+    do
+    {
+        char* start = p;
+
+        while(p < nextline && *p != ',')
+        {
+            p++;
+        }
+
+        char* end = p - 1;
+
+        while(*start == ' ')
+        {
+            start++;
+        }
+
+        rb_ary_push(linedata, rb_str_new(start, (end - start) + 1));
+    }
+    while(p++ < nextline);
+
+    rb_hash_aset(data, INT2NUM(line_num), linedata);
 }
 
 void inline_line_num(uint8_t* p, char** lp)
@@ -88,8 +126,10 @@ VALUE parse(VALUE self, VALUE bbcfile)
             return Qnil;
         }
 
-        if(*p == BASIC_EOF)
+        if((*p & 0x80) != 0)
         {
+            // BASIC sets the first byte of the line number to 0xff to signify
+            // EOF but actually only checks the first bit when reading a file
             break;
         }
 
@@ -97,39 +137,7 @@ VALUE parse(VALUE self, VALUE bbcfile)
         line_num |= (uint8_t)*p++;
 
         char* nextline = linestart + (uint8_t)*p++;
-
-        while(*p == ' ')
-        {
-            p++;
-        }
-
-        if(*p == BASIC_T_DATA)
-        {
-            VALUE linedata = rb_ary_new();
-            p++;
-
-            do
-            {
-                char* start = p;
-
-                while(p < nextline && *p != ',')
-                {
-                    p++;
-                }
-
-                char* end = p - 1;
-
-                while(*start == ' ')
-                {
-                    start++;
-                }
-
-                rb_ary_push(linedata, rb_str_new(start, (end - start) + 1));
-            }
-            while(p++ < nextline);
-
-            rb_hash_aset(data, INT2NUM(line_num), linedata);
-        }
+        process_data_vals(data, line_num, p, nextline);
 
         int in_string = FALSE;
 
@@ -145,7 +153,7 @@ VALUE parse(VALUE self, VALUE bbcfile)
                 if(*p == BASIC_T_LINE_NUM)
                 {
                     inline_line_num((uint8_t*)p, &lp);
-                    p += 3;
+                    p += 4;
                 }
                 else
                 {
@@ -159,14 +167,20 @@ VALUE parse(VALUE self, VALUE bbcfile)
                     size_t length = strlen(token);
                     memcpy(lp, token, length);
                     lp += length;
+
+                    if(*p++ == BASIC_T_REM)
+                    {
+                        length = (size_t)(nextline - p);
+                        memcpy(lp, p, length);
+                        lp += length;
+                        break;
+                    }
                 }
             }
             else
             {
-                *lp++ = *p;
+                *lp++ = *p++;
             }
-
-            p++;
         }
 
         VALUE linestr = rb_str_new(line, lp - line);
@@ -179,6 +193,26 @@ VALUE parse(VALUE self, VALUE bbcfile)
     return rb_class_new_instance(2, argv, cBasicFile);
 }
 
+VALUE to_html(VALUE self)
+{
+    VALUE lines = rb_iv_get(self, "@lines");
+    size_t size = RHASH_SIZE(lines);
+
+    VALUE* linenums = RARRAY_PTR(rb_funcall(lines, rb_intern("keys"), 0));
+    VALUE text = rb_str_new_cstr("");
+
+    for(int i = 0; i < size; i++)
+    {
+        VALUE linenum = linenums[i];
+
+        rb_str_catf(text, "%5d", NUM2INT(linenum));
+        rb_str_append(text, rb_hash_aref(lines, linenum));
+        rb_str_cat_cstr(text, "\r");
+    }
+
+    return method_mode7_mem_to_html(Qnil, mode7_text_to_mem(text));
+}
+
 void init_basic_file(VALUE mBBC)
 {
     cBasicFile = rb_define_class_under(mBBC, "BasicFile", rb_cObject);
@@ -187,5 +221,7 @@ void init_basic_file(VALUE mBBC)
     rb_define_attr(cBasicFile, "lines", 1, 0);
 
     rb_define_method(cBasicFile, "initialize", basicfile_initialize, 2);
+    rb_define_method(cBasicFile, "to_html", to_html, 0);
+
     rb_define_singleton_method(cBasicFile, "parse", parse, 1);
 }
