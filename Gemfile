@@ -18,9 +18,10 @@
 
 source 'https://rubygems.org'
 
+gem 'html-proofer', require: false
 gem 'jekyll'
-gem 'jshintrb',      require: false
-gem 'rake',          require: false
+gem 'jshintrb', require: false
+gem 'rake', require: false
 gem 'rake-compiler', require: false
-gem 'rspec',         require: false
-gem 'rubocop',       require: false
+gem 'rspec', require: false
+gem 'rubocop', require: false

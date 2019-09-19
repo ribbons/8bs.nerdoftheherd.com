@@ -20,7 +20,7 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>{{ page.title }}</title>
+        <title>{{ page.title | xml_escape }}</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="/common/images/favicon.ico" sizes="16x16 32x32">
         <link rel="icon" type="image/png" href="/common/images/favicon-256.png" sizes="256x256">
@@ -68,7 +68,7 @@
 
                         {% for item in page.navchain -%}
                             {% if forloop.last -%}
-                                <li class="current">{{ item.navtitle }}</li>
+                                <li class="current">{{ item.navtitle | xml_escape }}</li>
                             {% else -%}
                                 <li><a href="{{ item.path }}">{{ item.navtitle }}</a></li>
                             {% endif -%}

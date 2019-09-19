@@ -71,16 +71,16 @@
     :entries:
       - :title: Games & Demos
         :type: :menu
-        :id: 2
+        :id: 3
       - :title: Music (from Mad Rabbit PD)
         :type: :menu
-        :id: 3
+        :id: 4
       - :title: Text/Printer Utilities
         :type: :menu
-        :id: 4
+        :id: 5
       - :title: Other Items
         :type: :menu
-        :id: 5
+        :id: 6
       - :title: BBC PD Catalogue
         :type: :basic
         :paths: [ ':2.B.CatLoad' ]
@@ -88,7 +88,7 @@
         :type: :menu
         :id: 1
   - :title: Games & Demos
-    :id: 2
+    :id: 3
     :entries:
       - :title: Power Raider Game
         :type: :run
@@ -103,7 +103,7 @@
         :type: :menu
         :id: 999
   - :title: Music
-    :id: 3
+    :id: 4
     :entries:
       - :title: Pride
         :type: :basic
@@ -121,7 +121,7 @@
         :type: :menu
         :id: 999
   - :title: Text/Printer Utilities
-    :id: 4
+    :id: 5
     :entries:
       - :title: View to ASCII Converter
         :type: :run
@@ -148,7 +148,7 @@
         :type: :menu
         :id: 999
   - :title: Other Items
-    :id: 5
+    :id: 6
     :entries:
       - :title: Presenting Poland Pt.1
         :type: :basic

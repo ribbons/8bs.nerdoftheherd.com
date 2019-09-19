@@ -5,10 +5,10 @@ rvm:
   - 2.6.0
 
 before_install:
-  - wget -O libbeebimage.tar.gz
+  - pushd ~ && wget -O libbeebimage.tar.gz
       https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz
   - tar -xzf libbeebimage.tar.gz
-  - mkdir libbeebimage-1.0/build && pushd libbeebimage-1.0/build
+  - mkdir libbeebimage-1.0/build && cd libbeebimage-1.0/build
   - cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install
   - popd
 
@@ -16,3 +16,4 @@ script:
   - bundle exec rake compile
   - bundle exec rspec
   - bundle exec rake lint
+  - bundle exec rake proof

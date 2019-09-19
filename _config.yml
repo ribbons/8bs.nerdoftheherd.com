@@ -5,6 +5,7 @@ exclude:
   - '**/Thumbs.db'
   - AUTHORS.md
   - LICENSE.txt
+  - vendor
 
 keep_files:
   - assets/convimages

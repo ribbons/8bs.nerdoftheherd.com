@@ -20,6 +20,8 @@ require 'rubocop/rake_task'
 require 'jshintrb/jshinttask'
 require 'rake/extensiontask'
 require 'rake/clean'
+require 'html-proofer'
+require 'jekyll'
 
 RuboCop::RakeTask.new
 
@@ -57,6 +59,21 @@ Rake::ExtensionTask.new do |ext|
   ext.ext_dir = '_ext/EBS'
   ext.tmp_dir = File.join(Dir.tmpdir, '8bs_online_conversion')
   ext.lib_dir = '_plugins/EBS'
+end
+
+task :proof do
+  builddir = File.join(Dir.tmpdir, '8bs_online_conversion', 'html')
+
+  ENV['JEKYLL_ENV'] = 'production'
+  Jekyll::Commands::Build.process(destination: builddir)
+
+  HTMLProofer.check_directory(
+    builddir,
+    check_html: true,
+    check_favicon: true,
+    disable_external: true,
+    alt_ignore: [%r{^/assets/convimages/}]
+  ).run
 end
 
 CLEAN.include('_plugins/**/*.so')
