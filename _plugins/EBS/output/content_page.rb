@@ -56,6 +56,9 @@ module EBS
 
         data['disc'] = disc
         data['item'] = item
+
+        data['navchain'] = item.navchain
+        data['navchain'].push('navtitle' => data['action']) if data['action']
       end
     end
   end

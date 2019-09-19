@@ -34,6 +34,7 @@ module EBS
         data['title'] += ' Disc ' + disc.number if issue.discs.count > 1
 
         data['disc'] = disc
+        data['navchain'] = disc.navchain
       end
     end
   end

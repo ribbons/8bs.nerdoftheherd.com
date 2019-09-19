@@ -65,7 +65,7 @@ module EBS
         end
       end
 
-      item = ContentItem.new(files, entry)
+      item = ContentItem.new(@infodisc, files, entry)
 
       @site.pages << Output::ContentPage.new(
         @site, File.join(@infodisc.path, linkpath), @infodisc, item, :default

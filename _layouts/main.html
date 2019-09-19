@@ -66,30 +66,13 @@
                             <li><a href="/" title="8BS Magazines Index">Index</a></li>
                         {% endif %}
 
-                        {% if page.disc %}
-                            {% if page.disc.issue.discs.size > 1 %}
-                                {% capture discnumtext %} Disc {{page.disc.number}}{% endcapture %}
-                            {% endif %}
-
-                            {% if page.page == 'disc_index' %}
-                                <li class="current">8BS{{ page.disc.issue.number }}{{ discnumtext }}</li>
-                            {% else %}
-                                <li><a href="/{{ page.disc.path }}/">8BS{{ page.disc.issue.number }}{{ discnumtext }}</a></li>
-                            {% endif %}
-
-                            {% if page.page == 'emulate_disc' %}
-                                <li class="current">Emulate</li>
-                            {% endif %}
-                        {% endif %}
-
-                        {% if page.item %}
-                            {% if page.action %}
-                                <li><a href="/{{ page.disc.path }}/{{ page.item.linkpath }}">{{ page.item.title }}</a></li>
-                                <li class="current">{{ page.action }}</li>
-                            {% else %}
-                                <li class="current">{{ page.item.title }}</li>
-                            {% endif %}
-                        {% endif %}
+                        {% for item in page.navchain -%}
+                            {% if forloop.last -%}
+                                <li class="current">{{ item.navtitle }}</li>
+                            {% else -%}
+                                <li><a href="{{ item.path }}">{{ item.navtitle }}</a></li>
+                            {% endif -%}
+                        {% endfor -%}
 
                         {% if page.page == 'about' %}
                             <li class="about current">About</li>

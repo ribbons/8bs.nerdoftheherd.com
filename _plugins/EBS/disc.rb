@@ -21,7 +21,7 @@ module EBS
     def initialize(site, issue, image)
       @imagepath = '/' + image
       @issue = issue
-      @path = image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1]
+      @path = '/' + image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1] + '/'
       @number = @path[/[0-9]-([0-9])/, 1] || '1'
 
       @menus = []
@@ -31,6 +31,16 @@ module EBS
 
     attr_reader :imagepath, :issue, :path, :number, :date, :menus, :mapper,
                 :disc
+
+    def navchain
+      [self]
+    end
+
+    def navtitle
+      title = '8BS' + issue.number.to_s
+      title += ' Disc ' + number.to_s if issue.discs.size > 1
+      title
+    end
 
     private
 

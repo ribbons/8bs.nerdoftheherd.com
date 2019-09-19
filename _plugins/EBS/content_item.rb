@@ -18,19 +18,20 @@
 
 module EBS
   class ContentItem < Liquid::Drop
-    def initialize(files, entry)
+    def initialize(parent, files, entry)
+      @parent = parent
       @files = files
 
       @type = entry.type
       @title = entry.title.chomp('.')
       @offsets = entry.offsets
       @modes = entry.modes
-      @linkpath = entry.linkpath
+      @path = parent.path + entry.linkpath
       @imagepath = entry.imagepath
       @model = entry.model
     end
 
-    attr_reader :type, :title, :offsets, :modes, :files, :linkpath, :model,
+    attr_reader :type, :title, :offsets, :modes, :files, :path, :model,
                 :imagepath
 
     def typestr
@@ -44,6 +45,14 @@ module EBS
       when :master128
         'master'
       end
+    end
+
+    def navchain
+      @parent.navchain + [self]
+    end
+
+    def navtitle
+      @title
     end
 
     def content
