@@ -31,7 +31,7 @@ module EBS
       if @type == :menu
         '#menu' + @id.to_s
       else
-        @linkpath + '/'
+        @linkpath
       end
     end
 
@@ -39,7 +39,7 @@ module EBS
       if @arcpaths.nil?
         @issdisc.imagepath
       else
-        '/' + @issdisc.path + '/' + linkpath + 'emulate.ssd'
+        '/' + @issdisc.path + '/' + linkpath.to_s + 'emulate.ssd'
       end
     end
   end

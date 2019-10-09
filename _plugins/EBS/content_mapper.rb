@@ -23,9 +23,10 @@ module EBS
       @infodisc = infodisc
 
       @paths = {}
+      @by_file = {}
     end
 
-    def map_menus(menus)
+    def map(menus, files)
       menus.each do |menu|
         menu.entries.each do |entry|
           next if entry.type == :menu
@@ -33,26 +34,39 @@ module EBS
           map_content(entry, entry.files)
         end
       end
+
+      files.each { |file| map_content(nil, [file]) }
+
+      @site.pages << Output::FileListPage.new(
+        @site, File.join(@infodisc.path, 'files'), @infodisc, @by_file.values
+      )
     end
 
     private
 
     def map_content(entry, files)
-      linkpath = 'content/' + Jekyll::Utils.slugify(files[0].path)
+      baselink = 'content/' + Jekyll::Utils.slugify(files[0].path)
 
-      # Make the path unique if it collides with an existing one
-      if @paths.key?(linkpath)
-        suffix = 1
-        suffix += 1 while @paths.key?(linkpath + '-' + suffix.to_s)
-        linkpath << '-' + suffix.to_s
+      linkpath = baselink + '/'
+      suffix = 0
+
+      while (item = @paths[linkpath])
+        return if item.files == files && entry.nil?
+
+        suffix += 1
+        linkpath = baselink + '-' + suffix.to_s + '/'
       end
 
-      @paths[linkpath] = 1
-      entry.linkpath = linkpath
+      entry.linkpath = linkpath unless entry.nil?
 
-      arcfiles = files.clone unless entry.arcpaths.nil?
+      item = ContentItem.new(@infodisc, linkpath, files, entry)
+      return if item.type.nil?
 
-      unless entry.arcpaths.nil?
+      @paths[linkpath] = item
+      @by_file[files[0]] = item
+
+      unless entry&.arcpaths.nil?
+        arcfiles = files.clone
         files = []
 
         arcfiles.each do |arcfile|
@@ -63,16 +77,16 @@ module EBS
             files << file unless file.nil?
           end
         end
-      end
 
-      item = ContentItem.new(@infodisc, files, entry)
+        item = ContentItem.new(@infodisc, linkpath, files, entry)
+      end
 
       @site.pages << Output::ContentPage.new(
         @site, File.join(@infodisc.path, linkpath), @infodisc, item, :default
       )
 
-      if entry.type == :basic || entry.type == :run
-        unless entry.arcpaths.nil?
+      if item.type == :basic || item.type == :run
+        unless entry&.arcpaths.nil?
           @site.static_files << Output::DiscFile.new(
             @site, File.join(@infodisc.path, linkpath), entry.title, arcfiles
           )
@@ -83,7 +97,7 @@ module EBS
         )
       end
 
-      return unless entry.type == :basic
+      return unless item.type == :basic
 
       @site.pages << Output::ContentPage.new(
         @site, File.join(@infodisc.path, linkpath, 'list'), @infodisc,

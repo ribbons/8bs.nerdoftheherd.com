@@ -37,7 +37,7 @@ module EBS
         @menus << load_menu_data(menu)
       end
 
-      @mapper.map_menus(@menus)
+      @mapper.map(@menus, @disc.files)
     end
 
     private

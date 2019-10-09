@@ -43,6 +43,10 @@ module BBC
       read_catalogue(2) if @dsd
     end
 
+    def files
+      @files.values
+    end
+
     def file(path)
       path = self.class.canonicalise_path(path)
       throw "#{path} not found in #{@path}" unless @files.key?(path)

@@ -36,7 +36,7 @@ module EBS
       convert_menu_data(basic.data, id_mapping)
       apply_tweaks(imagepath)
 
-      @mapper.map_menus(@menus)
+      @mapper.map(@menus, @disc.files)
     end
 
     private

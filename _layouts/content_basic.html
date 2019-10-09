@@ -28,7 +28,7 @@ includejs:  '/common/script/emulate.js'
     data-action="basic"></div>
 
 <div id="content">
-    <h1>{{ page.item.title }}</h1>
+    <h1>{{ page.item.title | xml_escape }}</h1>
 
     <p>To view an emulation of this BBC Basic program, you need to have
     <span id="need-to-have"><a href="http://enable-javascript.com/">JavaScript enabled</a></span>,

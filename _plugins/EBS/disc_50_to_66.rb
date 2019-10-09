@@ -33,7 +33,7 @@ module EBS
       convert_menu_data(lines)
       apply_tweaks(imagepath)
 
-      @mapper.map_menus(@menus)
+      @mapper.map(@menus, @disc.files)
     end
 
     def convert_menu_data(lines)

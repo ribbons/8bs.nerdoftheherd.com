@@ -18,17 +18,18 @@
 
 module EBS
   class ContentItem < Liquid::Drop
-    def initialize(parent, files, entry)
+    def initialize(parent, path, files, entry)
       @parent = parent
       @files = files
 
-      @type = entry.type
-      @title = entry.title.chomp('.')
-      @offsets = entry.offsets
-      @modes = entry.modes
-      @path = parent.path + entry.linkpath
-      @imagepath = entry.imagepath
-      @model = entry.model
+      @title = entry&.title&.chomp('.') || files[0].path
+      @offsets = entry&.offsets
+      @modes = entry&.modes
+      @path = parent.path + path
+      @imagepath = entry&.imagepath || parent.imagepath
+      @model = entry&.model
+
+      @type = entry&.type || files[0].type
     end
 
     attr_reader :type, :title, :offsets, :modes, :files, :path, :model,

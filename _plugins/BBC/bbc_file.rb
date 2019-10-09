@@ -41,5 +41,12 @@ module BBC
       @parsedfile = BasicFile.parse(self) if @parsedfile.nil?
       @parsedfile
     end
+
+    def type
+      case parsed
+      when BasicFile
+        :basic
+      end
+    end
   end
 end
