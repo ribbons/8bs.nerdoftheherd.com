@@ -59,28 +59,21 @@
     :id: 3
     :entries:
       - :title: Helicopter Haulocast
-        :type: :basic
         :paths: [ Helicop ]
       - :title: Astronomy Database
-        :type: :basic
         :paths: [ Observe ]
       - :title: Pontoon Card Game
-        :type: :basic
         :paths: [ Pontoon ]
       - :title: Teletext Editor
-        :type: :basic
         :paths: [ TextED ]
       - :title: Careers Forcaster
-        :type: :basic
         :paths: [ Careers ]
       - :title: Extra Star Commands
         :type: :mode0
         :paths: [ T.Starcom ]
       - :title: Year Planner/Organiser
-        :type: :basic
         :paths: [ Organse ]
       - :title: Percentages Program
-        :type: :basic
         :paths: [ Percent ]
       - :title: Red Dwarf III Screens
         :type: :screendump

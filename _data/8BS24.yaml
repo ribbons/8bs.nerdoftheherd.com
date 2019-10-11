@@ -22,7 +22,6 @@
         :type: :mode7
         :paths: [ Present ]
       - :title: Freeze your 6502
-        :type: :basic
         :paths: [ Freeze ]
       - :title: Book Review
         :type: :mode7
@@ -64,7 +63,6 @@
         :type: :menu
         :id: 4
       - :title: Repton Passwords
-        :type: :basic
         :paths: [ ':2.RepPass' ]
 #      - :title: De-archive Software
 #        :type: :menu
@@ -76,25 +74,18 @@
     :id: 2
     :entries:
       - :title: Patience
-        :type: :basic
         :paths: [ ':2.PATNCE' ]
       - :title: Intellectual Hangman
-        :type: :basic
         :paths: [ ':2.Execute' ]
       - :title: Christmas Cracker
-        :type: :basic
         :paths: [ ':2.CRACKER' ]
       - :title: 12 Days of Xmas
-        :type: :basic
         :paths: [ ':2.12Days' ]
       - :title: Graph14
-        :type: :basic
         :paths: [ ':2.GRAPH14' ]
       - :title: 3D Demo
-        :type: :basic
         :paths: [ ':2.3DDemo' ]
       - :title: 3D Demo (B)
-        :type: :basic
         :paths: [ ':2.3DDemoS' ]
       - :title: Back to main menu
         :type: :menu
@@ -103,22 +94,17 @@
     :id: 3
     :entries:
       - :title: Bank Manager
-        :type: :basic
         :paths: [ ':2.BankMan' ]
       - :title: Disk Envelope Creator
-        :type: :basic
         :paths: [ ':2.ENVCRE' ]
       - :title: Fahrenheit to Celsius
         :type: :run
         :paths: [ ':2.FAHR' ]
       - :title: Form Master
-        :type: :basic
         :paths: [ ':2.FormMas' ]
       - :title: Sim City Cheat
-        :type: :basic
         :paths: [ ':2.SimCht' ]
       - :title: Picture Gallery V2
-        :type: :basic
         :paths: [ ':2.PicDis3' ]
       - :title: Back to main menu
         :type: :menu
@@ -127,16 +113,12 @@
     :id: 4
     :entries:
       - :title: Econet Tree
-        :type: :basic
         :paths: [ ':2.ETREE' ]
       - :title: RAMdisk
-        :type: :basic
         :paths: [ ':2.RAMdisk' ]
       - :title: Multiple Accesser
-        :type: :basic
         :paths: [ ':2.Accessr' ]
       - :title: Bulk Delete
-        :type: :basic
         :paths: [ ':2.BulkDel' ]
       - :title: Back to main menu
         :type: :menu

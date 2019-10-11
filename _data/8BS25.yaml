@@ -55,31 +55,22 @@
         :type: :menu
         :id: 1
       - :title: All Fall Down Game.
-        :type: :basic
         :paths: [ ':2.fall' ]
       - :title: Joker.
-        :type: :basic
         :paths: [ ':2.joker' ]
       - :title: Animation demo.
-        :type: :basic
         :paths: [ ':2.anim' ]
       - :title: Shapes demo.
-        :type: :basic
         :paths: [ ':2.shapes' ]
       - :title: Life.
-        :type: :basic
         :paths: [ ':2.hexlife' ]
       - :title: Cosine graph 1.
-        :type: :basic
         :paths: [ ':2.trig1' ]
       - :title: Cosine graph 2.
-        :type: :basic
         :paths: [ ':2.trig2' ]
       - :title: Sample.
-        :type: :basic
         :paths: [ ':2.rh1run' ]
       - :title: Wordsearch.
-        :type: :basic
         :paths: [ ':2.pr600-2' ]
   - :title: Utilities
     :id: 999
@@ -88,38 +79,26 @@
         :type: :menu
         :id: 1
       - :title: Database.
-        :type: :basic
         :paths: [ ':2.DBase' ]
       - :title: Test/revision database.
-        :type: :basic
         :paths: [ ':2.selftes' ]
       - :title: Basic program reader.
-        :type: :basic
         :paths: [ ':2.listbas' ]
       - :title: Press the spacebar.
-        :type: :basic
         :paths: [ ':2.space' ]
       - :title: Program presentation example1
-        :type: :basic
         :paths: [ ':2.dirctc1' ]
       - :title: Program presentation example2
-        :type: :basic
         :paths: [ ':2.dirctc2' ]
       - :title: Program presentation example3
-        :type: :basic
         :paths: [ ':2.dirctc3' ]
       - :title: Program presentation example4
-        :type: :basic
         :paths: [ ':2.dirctc4' ]
       - :title: Big Ben.
-        :type: :basic
         :paths: [ ':2.bigben' ]
       - :title: AMX view.
-        :type: :basic
         :paths: [ ':2.amxview' ]
       - :title: Tape backup.
-        :type: :basic
         :paths: [ ':2.Tcopy' ]
       - :title: Catalogues.
-        :type: :basic
         :paths: [ ':2.ofcats' ]

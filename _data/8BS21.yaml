@@ -70,16 +70,12 @@
     :id: 2
     :entries:
       - :title: Satellite Havoc II
-        :type: :basic
         :paths: [ ':2.FIRST' ]
       - :title: Loopy Loop II
-        :type: :basic
         :paths: [ ':2.CRAZE3' ]
       - :title: Jackpot
-        :type: :basic
         :paths: [ ':2.JACKPOT' ]
       - :title: Guess the Letter
-        :type: :basic
         :paths: [ ':2.LtGuess' ]
       - :title: Back to main menu
         :type: :menu
@@ -88,10 +84,8 @@
     :id: 3
     :entries:
       - :title: 'Bach : Little Prelude'
-        :type: :basic
         :paths: [ ':2.LitPrel' ]
       - :title: Ghostbusters
-        :type: :basic
         :paths: [ ':2.Ghost-B' ]
       - :title: Back to main menu
         :type: :menu
@@ -100,19 +94,14 @@
     :id: 4
     :entries:
       - :title: 'PRINT   : Print prepared L-head'
-        :type: :basic
         :paths: [ ':2.PRINT' ]
       - :title: 'SFGEN1  : Create L-head screen'
-        :type: :basic
         :paths: [ ':2.SFGEN1' ]
       - :title: 'SCRGEN  : Convert screen'
-        :type: :basic
         :paths: [ ':2.SCRGEN' ]
       - :title: 'PTODISC : Create print file'
-        :type: :basic
         :paths: [ ':2.PTODISC' ]
       - :title: 'SFGEN2  : Other S.F. screen'
-        :type: :basic
         :paths: [ ':2.SFGEN2' ]
       - :title: Back to main menu
         :type: :menu
@@ -121,16 +110,13 @@
     :id: 5
     :entries:
       - :title: Presentation Example #1
-        :type: :basic
         :paths: [ ':2.Example' ]
       - :title: Presentation Example #2
-        :type: :basic
         :paths: [ ':2.Exampl2' ]
       - :title: DIRlock Utility
         :type: :run
         :paths: [ ':2.DIRlock']
       - :title: Number Converter
-        :type: :basic
         :paths: [ ':2.NumConv' ]
       - :title: Back to main menu
         :type: :menu
@@ -143,14 +129,12 @@
         :paths: [ ':2.C.FntyDes' ]
         :arcpaths: [ fLOAD ]
 #      - :title: C.Hacker
-#        :type: :basic
 #        :paths: [ ':2.C.Hacker' ]
       - :title: Typing Tutor
         :type: :basic
         :paths: [ ':2.C.TypTutr' ]
         :arcpaths: [ TUTOR ]
 #      - :title: C.UtlsEtc
-#        :type: :basic
 #        :paths: [ ':2.C.UtlsEtc' ]
       - :title: Back to main menu
         :type: :menu

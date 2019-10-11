@@ -4,35 +4,24 @@
     :id: 1
     :entries:
       - :title: The Bungle Brothers
-        :type: :basic
         :paths: [ BUNGLE ]
       - :title: Stock Market
-        :type: :basic
         :paths: [ STOCK ]
       - :title: Cells & Serpents
-        :type: :basic
         :paths: [ SERPENT ]
       - :title: Nightmare Park
-        :type: :basic
         :paths: [ PARKY ]
       - :title: Battleships
-        :type: :basic
         :paths: [ BATTLE ]
       - :title: Logo Subset
-        :type: :basic
         :paths: [ LOGOSET ]
       - :title: Curves
-        :type: :basic
         :paths: [ CURVES ]
       - :title: Score Keeper
-        :type: :basic
         :paths: [ SCORER ]
       - :title: Definer
-        :type: :basic
         :paths: [ RUNE ]
       - :title: Modes +
-        :type: :basic
         :paths: [ MODES+ ]
       - :title: Rune Converter
-        :type: :basic
         :paths: [ DEFINER ]

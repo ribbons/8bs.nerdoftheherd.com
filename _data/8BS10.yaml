@@ -10,7 +10,6 @@
         :type: :menu
         :id: 3
       - :title: Graphical Animations
-        :type: :basic
         :paths: [ ':2.DEMO' ]
       - :title: Adventure Hints 1+2
         :type: :mode0
@@ -59,46 +58,32 @@
     :id: 3
     :entries:
       - :title: Infinate Triangles
-        :type: :basic
         :paths: [ Triangl ]
       - :title: Citadel Cheat Program
-        :type: :basic
         :paths: [ Citadel ]
       - :title: Crazy Balls Game
-        :type: :basic
         :paths: [ Crazy ]
       - :title: Liverpool Manager
-        :type: :basic
         :paths: [ Liverp ]
       - :title: Coldtea Music (basic)
-        :type: :basic
         :paths: [ Coldtea ]
       - :title: Screen Transfer Routine
-        :type: :basic
         :paths: [ ScreenT ]
       - :title: Bubbles Animation
-        :type: :basic
         :paths: [ Bubbles ]
       - :title: Complex Equations
-        :type: :basic
         :paths: [ Complex ]
       - :title: Graphical Gears
-        :type: :basic
         :paths: [ Gears ]
       - :title: Space Planets Animation
-        :type: :basic
         :paths: [ SpaceP ]
       - :title: Mandlebrot Set
-        :type: :basic
         :paths: [ Mandle ]
       - :title: Printer Command
-        :type: :basic
         :paths: [ Print ]
       - :title: Lumberjack Tune
-        :type: :basic
         :paths: [ Tune1 ]
       - :title: Gisburns Castle Cheat
-        :type: :basic
         :paths: [ Gisburn ]
       - :title: Concept Car Graphics
         :type: :screendump

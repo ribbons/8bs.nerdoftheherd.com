@@ -55,35 +55,26 @@
         :type: :menu
         :id: 1
       - :title: Lightpen Menu
-        :type: :basic
         :paths: [ ':2.LpenMen' ]
       - :title: Supreme
-        :type: :basic
         :paths: [ ':2.Supreme' ]
       - :title: Comic Strip
-        :type: :basic
         :paths: [ ':2.ComicSt' ]
       - :title: Music Collection
-        :type: :basic
         :paths: [ ':2.Warring' ]
       - :title: Pictures
         :type: :screendump
         :paths: [ ':2.S.Plus', ':2.S.Table' ]
         :modes: [ 2, 2 ]
       - :title: Can Can
-        :type: :basic
         :paths: [ ':2.CanCan' ]
       - :title: Time Tutor
-        :type: :basic
         :paths: [ ':2.Time' ]
       - :title: Review database
-        :type: :basic
         :paths: [ ':2.RatQ' ]
       - :title: One liner from 15A
-        :type: :basic
         :paths: [ ':2.WordPrc' ]
       - :title: Test Cards
-        :type: :basic
         :paths: [ ':2.Cards' ]
   - :title: Utilities
     :id: 999
@@ -92,38 +83,26 @@
         :type: :menu
         :id: 1
       - :title: Line number removal
-        :type: :basic
         :paths: [ ':2.LineOut' ]
       - :title: Random in machine code
-        :type: :basic
         :paths: [ ':2.AssRnd' ]
       - :title: Elbow the ADFS 'E' attribute
-        :type: :basic
         :paths: [ ':2.Eoff!' ]
       - :title: Sort
-        :type: :basic
         :paths: [ ':2.Sort' ]
       - :title: Wapping editor viewer
-        :type: :basic
         :paths: [ ':2.W.Viewer' ]
       - :title: Pagemaker/clip art viewer
-        :type: :basic
         :paths: [ ':2.P.Viewer' ]
       - :title: Presenting programs Ex. 1
-        :type: :basic
         :paths: [ ':2.F.Step1' ]
       - :title: Presenting programs Ex. 2
-        :type: :basic
         :paths: [ ':2.F.Step2' ]
       - :title: Presenting programs Ex. 3
-        :type: :basic
         :paths: [ ':2.F.Step3' ]
       - :title: Presenting programs Ex. 4
-        :type: :basic
         :paths: [ ':2.F.Step4' ]
       - :title: Cut
-        :type: :basic
         :paths: [ ':2.Cut' ]
       - :title: Paste
-        :type: :basic
         :paths: [ ':2.Paste' ]

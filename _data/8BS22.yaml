@@ -67,23 +67,18 @@
     :id: 2
     :entries:
       - :title: Push the Bale - BBC B
-        :type: :basic
         :paths: [ ':2.PUSH' ]
       - :title: Push the Bale - Master
-        :type: :basic
         :model: :master128
         :paths: [ ':2.PUSH2' ]
       - :title: Trading Simulation
-        :type: :basic
         :paths: [ ':2.TRADE' ]
       - :title: Big Screen Alien Demo
-        :type: :basic
         :paths: [ ':2.ALIEN' ]
       - :title: Promote Demo
         :type: :run
         :paths: [ ':2.PROMOTE' ]
       - :title: Dish-Drawing Demo
-        :type: :basic
         :paths: [ ':2.DshDraw' ]
       - :title: Back to main menu
         :type: :menu
@@ -92,16 +87,12 @@
     :id: 3
     :entries:
       - :title: 'Debussy : Little Negro'
-        :type: :basic
         :paths: [ ':2.LitNeg' ]
       - :title: Airwolf
-        :type: :basic
         :paths: [ ':2.AirWolf' ]
       - :title: Land of Hope & Glory
-        :type: :basic
         :paths: [ ':2.Land' ]
       - :title: Stairway to Heaven
-        :type: :basic
         :paths: [ ':2.Heaven' ]
       - :title: Back to main menu
         :type: :menu
@@ -110,16 +101,12 @@
     :id: 4
     :entries:
       - :title: Title-Top Style Screen
-        :type: :basic
         :paths: [ ':2.TitlTop' ]
       - :title: Boxes Style Screen
-        :type: :basic
         :paths: [ ':2.Boxes' ]
       - :title: Colour Clash Demonstration
-        :type: :basic
         :paths: [ ':2.ColClsh' ]
       - :title: Problem Demonstration
-        :type: :basic
         :paths: [ ':2.TelProb' ]
       - :title: Back to main menu
         :type: :menu
@@ -128,22 +115,17 @@
     :id: 5
     :entries:
       - :title: Area Calculator
-        :type: :basic
         :paths: [ ':2.Areas' ]
       - :title: Units Conversion
-        :type: :basic
         :paths: [ ':2.Cnvrter' ]
       - :title: DFS => ADFS Utility
-        :type: :basic
         :paths: [ ':2.DTOA' ]
       - :title: '*CLONE utility sourcecode'
-        :type: :basic
         :paths: [ ':2.ClonSrc' ]
       - :title: '*VIEWCON utility'
         :type: :run
         :paths: [ ':2.VIEWCON' ]
       - :title: Viewcon utility sourcecode
-        :type: :basic
         :paths: [ ':2.ConvSrc' ]
       - :title: Back to main menu
         :type: :menu

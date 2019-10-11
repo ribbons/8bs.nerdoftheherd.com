@@ -39,43 +39,30 @@
     :id: 3
     :entries:
       - :title: New Battleships Program
-        :type: :basic
         :paths: [ BATTLE ]
       - :title: New Cells and Serpents
-        :type: :basic
         :paths: [ NEWCELS ]
       - :title: Elite Cheat Editor
-        :type: :basic
         :paths: [ CHEAT ]
       - :title: Basic Envelope Printer
-        :type: :basic
         :paths: [ ENVELOP ]
       - :title: Fighter Command Game
-        :type: :basic
         :paths: [ FCINTRO ]
       - :title: Graphical Globe Screen
-        :type: :basic
         :paths: [ GLOBE ]
       - :title: Stopping Distances Test
-        :type: :basic
         :paths: [ HIGHWAY ]
       - :title: Keystrip Designer/Printer
-        :type: :basic
         :paths: [ KEYSTRP ]
       - :title: Metric Converter Utility
-        :type: :basic
         :paths: [ METRIC ]
       - :title: Musical Keyboard Program
-        :type: :basic
         :paths: [ MUSIC ]
       - :title: Character Re-definition
-        :type: :basic
         :paths: [ TEXTDEF ]
       - :title: Typewriter Emulation
-        :type: :basic
         :paths: [ TYINTRO ]
       - :title: Virus Simulator
-        :type: :basic
         :paths: [ VIRUS ]
       - :title: Previous Menu
         :type: :menu

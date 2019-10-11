@@ -73,43 +73,31 @@
     :id: 3
     :entries:
       - :title: Polish Christmas
-        :type: :basic
         :paths: [ POLXMAS ]
       - :title: Search for Sanity
-        :type: :basic
         :paths: [ SEARCH ]
       - :title: Sound Mix Editor
-        :type: :basic
         :paths: [ MIXED ]
       - :title: Run-Build Mix-Ed
-        :type: :basic
         :paths: [ RUNBLD ]
       - :title: Miles Per Gallon
-        :type: :basic
         :paths: [ MILESPG ]
       - :title: Heart-and-Soul (Music)
-        :type: :basic
         :paths: [ HEART ]
       - :title: Memory Map Display
-        :type: :basic
         :paths: [ MEMORY ]
       - :title: Flying Bird Animation
-        :type: :basic
         :paths: [ BIRDIE ]
       - :title: View Filter Utility
-        :type: :basic
         :paths: [ FILTER ]
       - :title: AMX Discussion (348)
         :type: :menu
         :id: 4
       - :title: Sattelite Havac Game
-        :type: :basic
         :paths: [ ':2.SATLITE' ]
       - :title: Textfile Viewer
-        :type: :basic
         :paths: [ ':2.TEXTVW' ]
       - :title: Catalogue Saver
-        :type: :basic
         :paths: [ ':2.CATSAVE' ]
       - :title: Return to Main Menu
         :type: :menu
@@ -118,10 +106,8 @@
     :id: 4
     :entries:
       - :title: BF_AMX converter
-        :type: :basic
         :paths: [ ':2.M.BF_AMX' ]
       - :title: BF_PM  converter
-        :type: :basic
         :paths: [ ':2.M.BF_PM' ]
       - :title: Return to Non-Archived Programs
         :type: :menu

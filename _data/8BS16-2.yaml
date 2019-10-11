@@ -38,37 +38,27 @@
         :paths: [ ALDRIN ]
         :modes: [ [ 1, 0, 0, 4, 7 ] ]
       - :title: "'Bones' Demonstration Program"
-        :type: :basic
         :paths: [ BONES ]
       - :title: "'Nite & Day' Demonstration"
-        :type: :basic
         :paths: [ NITEDAY ]
       - :title: Chemistry Database/Test Prog
-        :type: :basic
         :paths: [ CHEMTST ]
       - :title: Formatted Program Listings
-        :type: :basic
         :paths: [ FORMLST ]
       - :title: DFS to ADFS Transfer Utility
-        :type: :basic
         :paths: [ ADFSTFR ]
       - :title: NLinEq BASIC Demonstration
-        :type: :basic
         :paths: [ NLINEQ ]
       - :title: Mastermind Thought Game
-        :type: :basic
         :paths: [ MASTER ]
       - :title: Tree Rename Utility v2
-        :type: :basic
         :paths: [ TREE ]
       - :title: '*CAT Replacement Command'
         :type: :run
         :paths: [ XTRACAT ]
       - :title: Slatter Arcade Game
-        :type: :basic
         :paths: [ ':2.SLATRUN' ]
       - :title: Archive/De-Archive Utility
-        :type: :basic
         :paths: [ ':2.ARCHIVE' ]
       - :title: PREVIOUS MENU
         :type: :menu
@@ -77,14 +67,12 @@
     :id: 3
     :entries:
 #      - :title: Musical Titles
-#        :type: :basic
 #        :paths: [ ':2.C.MUSIC' ]
       - :title: Sorting Article Part 2
         :type: :basic
         :paths: [ ':2.C.709' ]
         :arcpaths: [ LOADER ]
 #      - :title: 3 Versions of Battleships
-#        :type: :basic
 #        :paths: [ ':2.C.BSHIPS' ]
       - :title: Digitised Pictures
         :type: :ldpic

@@ -4,17 +4,13 @@
     :id: 1
     :entries:
       - :title: ADFS Backup (Master)
-        :type: :basic
         :model: :master128
         :paths: [ ADFSBCK ]
       - :title: Menu Program Utility
-        :type: :basic
         :paths: [ MENUPRG ]
       - :title: Mode 7 Graph Routine
-        :type: :basic
         :paths: [ GRAFGEN ]
       - :title: Lower to Upper Case
-        :type: :basic
         :paths: [ UPPCASE ]
       - :title: SOUND SAMPLES MENU
         :type: :menu
@@ -23,28 +19,20 @@
     :id: 2
     :entries:
       - :title: Breakout
-        :type: :basic
         :paths: [ BREAK ]
       - :title: The Radio Star
-        :type: :basic
         :paths: [ BUGGLE ]
       - :title: Ghostbusters
-        :type: :basic
         :paths: [ GHOST ]
       - :title: Knight Rider
-        :type: :basic
         :paths: [ KNIGHT ]
       - :title: Short Sentence
-        :type: :basic
         :paths: [ SENT1 ]
       - :title: Top Gun Theme
-        :type: :basic
         :paths: [ TOPGUN ]
       - :title: Vincent
-        :type: :basic
         :paths: [ VINCENT ]
       - :title: Laura
-        :type: :basic
         :paths: [ LAURA ]
       - :title: Previous Menu
         :type: :menu

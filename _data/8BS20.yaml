@@ -13,7 +13,6 @@
         :type: :mode0
         :paths: [ QuInstr ]
       - :title: FILL IN QUESTIONNAIRE
-        :type: :basic
         :paths: [ QuFill ]
       - :title: About This Issue
         :type: :mode0
@@ -82,7 +81,6 @@
         :type: :menu
         :id: 6
       - :title: BBC PD Catalogue
-        :type: :basic
         :paths: [ ':2.B.CatLoad' ]
       - :title: RETURN TO MAGAZINE
         :type: :menu
@@ -94,7 +92,6 @@
         :type: :run
         :paths: [ ':2.POWER' ]
       - :title: Loopy Loop Game
-        :type: :basic
         :paths: [ ':2.CRAZE1' ]
       - :title: SWAT demo
         :type: :run
@@ -106,16 +103,12 @@
     :id: 4
     :entries:
       - :title: Pride
-        :type: :basic
         :paths: [ ':2.PRIDE' ]
       - :title: Bad
-        :type: :basic
         :paths: [ ':2.BAD' ]
       - :title: 13 Amps
-        :type: :basic
         :paths: [ ':2.13AMPS' ]
       - :title: A-Level Project
-        :type: :basic
         :paths: [ ':2.ALevel' ]
       - :title: Back to main menu
         :type: :menu
@@ -127,7 +120,6 @@
         :type: :run
         :paths: [ ':2.ViewASC' ]
       - :title: ASCII Unformatter
-        :type: :basic
         :paths: [ ':2.Unform' ]
       - :title: Display Unformatted ASCII
         :type: :run
@@ -136,13 +128,11 @@
         :type: :run
         :paths: [ ':2.PRINTTO' ]
       - :title: Teletext Article Printer
-        :type: :basic
         :paths: [ ':2.TelPrnt' ]
       - :title: Printout Corrector
         :type: :run
         :paths: [ ':2.SUBS1' ]
       - :title: Printout Corrector Generator
-        :type: :basic
         :paths: [ ':2.SUBSGEN' ]
       - :title: Back to main menu
         :type: :menu
@@ -151,19 +141,14 @@
     :id: 6
     :entries:
       - :title: Presenting Poland Pt.1
-        :type: :basic
         :paths: [ ':2.POLAND' ]
       - :title: ECG Simulator V.3
-        :type: :basic
         :paths: [ ':2.ECGSim3' ]
       - :title: Rom Header Creator
-        :type: :basic
         :paths: [ ':2.BldROM' ]
       - :title: Auto Data Scrambler
-        :type: :basic
         :paths: [ ':2.SCRAM' ]
       - :title: Wordsearch Creator
-        :type: :basic
         :paths: [ ':2.WrdSrch' ]
       - :title: Back to main menu
         :type: :menu

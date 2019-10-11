@@ -55,7 +55,6 @@
         :type: :menu
         :id: 1
       - :title: Run Archiver Program v3.0
-        :type: :basic
         :paths: [ ':2.ARC3.0' ]
   - :title: Archived Software
     :id: 2
@@ -73,7 +72,6 @@
         :paths: [ ':2.C.Sort3' ]
         :arcpaths: [ Loader ]
 #      - :title: 3D Grand Prix Extra Screens
-#        :type: :basic
 #        :paths: [ ':2.C.3DCons' ]
 #        :arcpaths: [ G.SPEED ]
       - :title: Return to Main Menu
@@ -86,25 +84,19 @@
         :type: :run
         :paths: [ Escape ]
       - :title: ADFS Sector Rescue
-        :type: :basic
         :paths: [ Rescue ]
       - :title: 80 Col 16 Colour Modes
-        :type: :basic
         :paths: [ ModeDem ]
       - :title: Program Chopper/Joiner
-        :type: :basic
         :paths: [ chopper ]
       - :title: Screen Load/Save Utility
         :type: :run
         :paths: [ scrload ]
       - :title: Tree Rename (Revised)
-        :type: :basic
         :paths: [ TreeRen ]
       - :title: Address Database
-        :type: :basic
         :paths: [ DBase ]
       - :title: Assembler Tutorial Example
-        :type: :basic
         :paths: [ Ass1 ]
       - :title: Character Set Exploder
         :type: :run

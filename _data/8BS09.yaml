@@ -13,13 +13,11 @@
         :type: :menu
         :id: 4
       - :title: VIEW SPELLCHECKER
-        :type: :basic
         :paths: [ ':2.SPELL' ]
       - :title: INFORMANT ROM IMAGE
         :type: :run
         :paths: [ R.Inform ]
       - :title: GHOSTBUSTERS LOGO
-        :type: :basic
         :paths: [ G.GHOST ]
       - :title: MAGAZINE HELP
         :type: :mode0
@@ -58,43 +56,30 @@
     :id: 3
     :entries:
       - :title: Advanced Disc Backup
-        :type: :basic
         :paths: [ BACKUP ]
       - :title: VDU Codes Killer
-        :type: :basic
         :paths: [ ':2.VDUKILL' ]
       - :title: Tape to DFS Utility
-        :type: :basic
         :paths: [ T>DFS ]
       - :title: Tape to ADFS Utility
-        :type: :basic
         :paths: [ T>ADFS ]
       - :title: Test Cards Program
-        :type: :basic
         :paths: [ TCintro ]
       - :title: SWRload and Notepad ROM
-        :type: :basic
         :paths: [ SWRload ]
       - :title: Speech! Fiddle Program
-        :type: :basic
         :paths: [ SPEECHF ]
       - :title: Lost Your Marbles Game
-        :type: :basic
         :paths: [ MARBLES ]
       - :title: Letterhead Designer
-        :type: :basic
         :paths: [ LETTER ]
       - :title: SYSTEMS hardcopy Utility
-        :type: :basic
         :paths: [ HARD ]
       - :title: Faults Graphics Program
-        :type: :basic
         :paths: [ FAULTS ]
       - :title: Inca Treasure Adventure
-        :type: :basic
         :paths: [ INCA ]
       - :title: City Bomber Game
-        :type: :basic
         :paths: [ BOMBER ]
       - :title: Previous Menu
         :type: :menu

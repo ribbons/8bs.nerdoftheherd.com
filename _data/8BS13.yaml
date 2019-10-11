@@ -61,40 +61,28 @@
     :id: 3
     :entries:
       - :title: Amcom to ADFS Transfer
-        :type: :basic
         :paths: [ Amcom ]
       - :title: AxelF Music (BASIC)
-        :type: :basic
         :paths: [ Axelf ]
       - :title: Broadway Boogie (BASIC)
-        :type: :basic
         :paths: [ Boogie ]
       - :title: Directory Rename Utility
-        :type: :basic
         :paths: [ DirName ]
       - :title: Envelope Creator
-        :type: :basic
         :paths: [ EnvCRT ]
       - :title: E Type Game Cheat
-        :type: :basic
         :paths: [ EtypeCH ]
       - :title: Froggy Game (BASIC)
-        :type: :basic
         :paths: [ Froggy ]
       - :title: Golden Brown (BASIC)
-        :type: :basic
         :paths: [ GOLDEN ]
       - :title: Stairway to Heaven
-        :type: :basic
         :paths: [ Heaven ]
       - :title: Kix Game Cheat
-        :type: :basic
         :paths: [ KixCHT ]
       - :title: Motor Consumption Util
-        :type: :basic
         :paths: [ MOTOR ]
       - :title: News Reader Demo
-        :type: :basic
         :paths: [ NEWS ]
       - :title: NEXT PAGE
         :type: :menu
@@ -106,16 +94,12 @@
     :id: 4
     :entries:
       - :title: ADFS String Search
-        :type: :basic
         :paths: [ ADFSSCH ]
       - :title: Phantom of the Opera
-        :type: :basic
         :paths: [ Phan2 ]
       - :title: Rom to Disc Utility
-        :type: :basic
         :paths: [ RomDisc ]
       - :title: Seasick Mode Split Demo
-        :type: :basic
         :paths: [ Seasick ]
       - :title: Thomas the Tank Engine
         :type: :ldpic
@@ -125,10 +109,8 @@
         :paths: [ ':2.P.Blakes7' ]
         :modes: [ 2 ]
       - :title: Digitised Animations
-        :type: :basic
         :paths: [ ':2.DEMO' ]
       - :title: Message to Amiga/ST Owners
-        :type: :basic
         :paths: [ ':2.BRITISH' ]
       - :title: PREVIOUS MENU
         :type: :menu

@@ -61,37 +61,28 @@
     :id: 3
     :entries:
       - :title: 64 Colour Screen Demo
-        :type: :basic
         :paths: [ 64COLS ]
       - :title: NEW Address Book Prog
-        :type: :basic
         :paths: [ ADDRESS ]
       - :title: ADFS Sector Editor BASIC
-        :type: :basic
         :paths: [ ADFSSEC ]
       - :title: Cassette Inlay Printer
-        :type: :basic
         :paths: [ CASSINP ]
       - :title: Character Editor Program
         :type: :run
         :paths: [ CHARINE ]
       - :title: TV Tune/Sound DEMO
-        :type: :basic
         :paths: [ FUZRUN ]
       - :title: Multicolour Puzzle Game
-        :type: :basic
         :paths: [ MULCOLR ]
       - :title: Timelapsed Arcade Game
         :type: :run
         :paths: [ TIMELAP ]
       - :title: Locked Cassette Prog Loader
-        :type: :basic
         :paths: [ UNLOCK ]
       - :title: View to a Kill DEMO
-        :type: :basic
         :paths: [ VIEW ]
       - :title: RoboCop Game Graphics DEMO
-        :type: :basic
         :paths: [ ':2.R.ROBO' ]
       - :title: Powermix Demonstration 722
         :type: :run

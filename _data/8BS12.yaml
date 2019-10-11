@@ -10,10 +10,8 @@
         :type: :menu
         :id: 3
       - :title: Chuckie Egg Screens
-        :type: :basic
         :paths: [ A.CHUCK ]
       - :title: Lost Your Marbles Fix
-        :type: :basic
         :paths: [ MM1 ]
       - :title: Disc Magazine Help
         :type: :mode0
@@ -77,25 +75,18 @@
     :id: 3
     :entries:
       - :title: 3D Spinning Ball
-        :type: :basic
         :paths: [ 3DSPIN ]
       - :title: Complete Address Book
-        :type: :basic
         :paths: [ ADDRESS ]
       - :title: Prommer ROM Utility
-        :type: :basic
         :paths: [ PROMMER ]
       - :title: ROT5 Graphics (basic)
-        :type: :basic
         :paths: [ ROT5 ]
       - :title: RS232 Utility Prog
-        :type: :basic
         :paths: [ RS232 ]
       - :title: Shares Accountant
-        :type: :basic
         :paths: [ SSCREEN ]
       - :title: Sunrise/Sunset
-        :type: :basic
         :paths: [ SUNPROG ]
       - :title: Devils Island
         :type: :run
@@ -110,16 +101,12 @@
         :type: :run
         :paths: [ R.ARC ]
       - :title: Bananas Levels Game
-        :type: :basic
         :paths: [ ':2.BANANAS' ]
       - :title: Space Pods Game
-        :type: :basic
         :paths: [ ':2.SPCPODS' ]
       - :title: Agog Ago Title Screen
-        :type: :basic
         :paths: [ ':2.TITLE2' ]
       - :title: Persian Carpet Screen
-        :type: :basic
         :paths: [ ':2.TITLE1' ]
       - :title: RETURN TO MAIN MENU
         :type: :menu

@@ -46,7 +46,6 @@
 #        :type: :menu
 #        :id: 4
       - :title: Run Archiver Program v3.0
-        :type: :basic
         :paths: [ ARC3.0 ]
       - :title: 8BS Catalogue (issue 4-18)
         :type: :mode7
@@ -55,7 +54,6 @@
     :id: 2
     :entries:
 #      - :title: Repton Competition Screens
-#        :type: :basic
 #        :paths: [ C.Repton ]
       - :title: Chris Richardson's Text Editor
         :type: :basic
@@ -76,13 +74,10 @@
         :type: :run
         :paths: [ ':2.OMCL' ]
       - :title: Oil Rig Drilling Game
-        :type: :basic
         :paths: [ ':2.OILRIG' ]
       - :title: Bazzasoft BASIC II ROM
-        :type: :basic
         :paths: [ BASICII ]
       - :title: Hash (#) Generator
-        :type: :basic
         :paths: [ HASHGEN ]
       - :title: View-ASCII Converter
         :type: :run
@@ -91,22 +86,16 @@
         :type: :mode7
         :paths: [ MIXINF ]
       - :title: Noughts & Crosses
-        :type: :basic
         :paths: [ Noughts ]
       - :title: Simon Copycat Game
-        :type: :basic
         :paths: [ SIMON ]
       - :title: Catch'em / Prikkomani Games
-        :type: :basic
         :paths: [ TwoGame ]
       - :title: Klax Game Cheat
-        :type: :basic
         :paths: [ ':2.KlaxHax' ]
       - :title: Greek Learning Program
-        :type: :basic
         :paths: [ ':2.!Loader' ]
       - :title: 8BS Allpurpose Database
-        :type: :basic
         :paths: [ ':2.Intro' ]
       - :title: Return to Main Menu
         :type: :menu
