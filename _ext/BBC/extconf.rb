@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ throw 'libstdc++ is required' unless find_library('stdc++', 'main')
 throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 
 # rubocop:disable Style/GlobalVars
-$CFLAGS = '-O3 -Wall -Wconversion -Werror -fPIC'
+$CFLAGS = '-O3 -Wall -Werror -fPIC'
 # rubocop:enable Style/GlobalVars
 
 create_makefile('bbc_native')
