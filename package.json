@@ -1,22 +1,29 @@
 {
   "devDependencies": {
-    "jshint": "2.6.1"
+    "jshint": "latest"
   },
   "scripts": {
     "jshint": "jshint common/script/*.js"
   },
   "jshintConfig": {
     "bitwise": true,
+    "browser": true,
     "curly": true,
     "eqeqeq": true,
     "forin": true,
+    "freeze": true,
+    "futurehostile": true,
+    "jquery": true,
     "latedef": true,
+    "leanswitch":  true,
     "noarg": true,
+    "nocomma": true,
     "nonew": true,
+    "noreturnawait": true,
     "singleGroups": true,
     "strict": true,
+    "trailingcomma": true,
     "undef": true,
-    "browser": true,
-    "jquery": true
+    "unused": true
   }
 }

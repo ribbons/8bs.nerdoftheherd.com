@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2016-2019 by the authors - see the AUTHORS file for details.
+ * Copyright © 2016-2020 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,25 @@
 
 (function () {
     "use strict";
+
+    function testSupport()
+    {
+        // Check if the current browser has <canvas> support
+        var testCanvas = document.createElement('canvas');
+
+        if(!testCanvas.getContext || !testCanvas.getContext('2d'))
+        {
+            return false;
+        }
+
+        // Some browsers (e.g. IE9 & 10) return the wrong object type from createImageData()
+        if(!testCanvas.getContext('2d').createImageData(1, 1).data.buffer)
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     $(document).ready(function() {
         if(!testSupport())
@@ -62,23 +81,4 @@
 
         $('#content').hide();
     });
-
-    function testSupport()
-    {
-        // Check if the current browser has <canvas> support
-        var testCanvas = document.createElement('canvas');
-
-        if(!testCanvas.getContext || !testCanvas.getContext('2d'))
-        {
-            return false;
-        }
-
-        // Some browsers (e.g. IE9 & 10) return the wrong object type from createImageData()
-        if(!testCanvas.getContext('2d').createImageData(1, 1).data.buffer)
-        {
-            return false;
-        }
-
-        return true;
-    }
 }());
