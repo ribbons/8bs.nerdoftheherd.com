@@ -11,6 +11,7 @@ before_install:
   - mkdir libbeebimage-1.0/build && cd libbeebimage-1.0/build
   - cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install
   - popd
+  - npm ci
 
 script:
   - bundle exec rake compile

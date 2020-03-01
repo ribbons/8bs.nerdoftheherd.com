@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'rubocop/rake_task'
-require 'jshintrb/jshinttask'
 require 'rake/extensiontask'
 require 'rake/clean'
 require 'html-proofer'
@@ -25,24 +24,8 @@ require 'jekyll'
 
 RuboCop::RakeTask.new
 
-Jshintrb::JshintTask.new :jshint do |t|
-  t.pattern = 'common/script/*.js'
-
-  t.options = {
-    bitwise: true,
-    curly: true,
-    eqeqeq: true,
-    forin: true,
-    latedef: true,
-    noarg: true,
-    nonew: true,
-    singleGroups: true,
-    strict: true,
-    undef: true,
-
-    browser: true,
-    jquery: true
-  }
+task :jshint do
+  sh 'npm run --silent jshint'
 end
 
 task lint: %w[rubocop jshint]
