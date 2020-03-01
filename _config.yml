@@ -6,6 +6,9 @@ exclude:
   - AUTHORS.md
   - LICENSE.txt
   - vendor
+  - node_modules
+  - package.json
+  - package-lock.json
 
 keep_files:
   - assets/convimages

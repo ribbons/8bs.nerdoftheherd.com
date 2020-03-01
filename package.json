@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "jshint": "2.6.1"
+  },
+  "scripts": {
+    "jshint": "jshint common/script/*.js"
+  },
+  "jshintConfig": {
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "latedef": true,
+    "noarg": true,
+    "nonew": true,
+    "singleGroups": true,
+    "strict": true,
+    "undef": true,
+    "browser": true,
+    "jquery": true
+  }
+}
