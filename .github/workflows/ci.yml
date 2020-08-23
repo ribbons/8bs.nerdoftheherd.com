@@ -1,0 +1,55 @@
+name: CI
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '30 12 * * 5'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Ruby and bundle
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Node packages
+        run: npm ci
+
+      - name: Lint
+        run: bundle exec rake lint
+
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install libbeebimage
+        run: |
+          wget -qO- https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz |\
+            tar -xzC ..
+          cmake -S ../libbeebimage-1.0 -B ../build -DCMAKE_BUILD_TYPE=Release
+          cmake --build ../build && sudo cmake --install ../build
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Ruby and bundle
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Node packages
+        run: npm ci
+
+      - name: Build, test and proof
+        run: |
+          bundle exec rake compile
+          bundle exec rspec
+          bundle exec rake proof
