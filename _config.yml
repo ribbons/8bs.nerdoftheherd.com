@@ -12,3 +12,6 @@ exclude:
 
 keep_files:
   - assets/convimages
+
+sass:
+  sourcemap: never

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,12 +20,8 @@ module EBS
   module Output
     class BootstrapBasicFile < Jekyll::StaticFile
       def initialize(site, dir, item)
-        @site = site
-        @base = site.source
-        @dir = dir
+        super(site, site.source, dir, 'emulate.bas')
         @item = item
-
-        @name = 'emulate.bas'
       end
 
       def write(dest)

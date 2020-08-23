@@ -1,4 +1,5 @@
 /node_modules/
+/.jekyll-cache/
 Thumbs.db
 _plugins/**/*.so
 .directory
