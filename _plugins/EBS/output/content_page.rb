@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,11 +42,11 @@ module EBS
                    when :run
                      'content_runnable'
                    else
-                     throw 'Unknown item type: ' + item.type.to_s
+                     throw "Unknown item type: #{item.type}"
                    end
 
         process(@name)
-        read_yaml(File.join(@base, '_layouts'), template + '.html')
+        read_yaml(File.join(@base, '_layouts'), "#{template}.html")
 
         if data['title']
           data['title'].sub!('$title', item.title)

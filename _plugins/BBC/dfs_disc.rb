@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ module BBC
       dir = split.size == 2 && split[0].size == 1 ? split.shift : '$'
       file = split.join('.')
 
-      drive + '.' + dir + '.' + file
+      "#{drive}.#{dir}.#{file}"
     end
 
     def self.generate_disc(name, files)
@@ -121,7 +121,7 @@ module BBC
         file = BBCFile.new(side, dir, name, loadaddr, nil,
                            file_content(side, startsector, length))
 
-        @files[':' + side.to_s + '.' + dir.upcase + '.' + name.upcase] = file
+        @files[":#{side}.#{dir.upcase}.#{name.upcase}"] = file
       end
     end
 

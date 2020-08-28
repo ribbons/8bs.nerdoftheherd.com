@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2007-2017 by the authors - see the AUTHORS file for details.
+# Copyright © 2007-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -50,8 +50,8 @@ module BBC
           when '*'
             output << '<span class="inv">*</span>'
           else
-            throw 'Unknown control character: "' + c.chr + '" (ascii ' +
-                  c.to_s + ') at line ' + row.to_s + ' column ' + column.to_s
+            throw "Unknown control character: \"#{c.chr}\" (ascii #{c}) " \
+                  "at line #{row} column #{column}"
           end
 
           controlchar = false
@@ -127,8 +127,7 @@ module BBC
           output << ' '
         else
           output << '?'
-          throw 'Unknown character value ' + c.to_s + ' at line ' + row.to_s +
-                ' column ' + column.to_s
+          throw "Unknown character value #{c} at line #{row} column #{column}"
         end
 
         prevchar = c

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 module EBS
   class Disc < Liquid::Drop
     def initialize(site, issue, image)
-      @imagepath = '/' + image
+      @imagepath = "/#{image}"
       @issue = issue
-      @path = '/' + image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1] + '/'
+      @path = "/#{image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1]}/"
       @number = @path[/[0-9]-([0-9])/, 1] || '1'
 
       @menus = []
@@ -37,8 +37,8 @@ module EBS
     end
 
     def navtitle
-      title = '8BS' + issue.number.to_s
-      title += ' Disc ' + number.to_s if issue.discs.size > 1
+      title = "8BS#{issue.number}"
+      title += " Disc #{number}" if issue.discs.size > 1
       title
     end
 
@@ -54,7 +54,7 @@ module EBS
 
     def apply_tweaks(imagepath)
       yamlpath = File.expand_path(
-        '../../_data/' + File.basename(imagepath, '.*') + '.yaml', __dir__
+        "../../_data/#{File.basename(imagepath, '.*')}.yaml", __dir__
       )
       return unless File.exist?(yamlpath)
 

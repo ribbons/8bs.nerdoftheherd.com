@@ -37,13 +37,13 @@ module EBS
       private
 
       def generate_basic
-        basic = 'OSCLI("DRIVE ' + @item.files[0].side.to_s + "\")\n" \
-                'OSCLI("DIR ' + @item.files[0].dir + "\")\n"
+        basic = "OSCLI(\"DRIVE #{@item.files[0].side}\")\n" \
+                "OSCLI(\"DIR #{@item.files[0].dir}\")\n"
 
         if @item.type == :basic
-          basic + 'CHAIN "' + @item.files[0].name + "\"\n"
+          "#{basic}CHAIN \"#{@item.files[0].name}\"\n"
         else
-          basic + 'OSCLI("RUN ' + @item.files[0].name + "\")\n"
+          "#{basic}OSCLI(\"RUN #{@item.files[0].name}\")\n"
         end
       end
     end

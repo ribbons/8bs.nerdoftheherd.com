@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ module EBS
 
     def linkpath
       if @type == :menu
-        '#menu' + @id.to_s
+        "#menu#{@id}"
       else
         @linkpath
       end
@@ -39,7 +39,7 @@ module EBS
       if @arcpaths.nil?
         @issdisc.imagepath
       else
-        '/' + @issdisc.path + '/' + linkpath.to_s + 'emulate.ssd'
+        "/#{@issdisc.path}/#{linkpath}emulate.ssd"
       end
     end
   end

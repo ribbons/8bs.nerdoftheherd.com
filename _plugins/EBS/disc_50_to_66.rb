@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2007-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2007-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ module EBS
           entry = MenuEntry.new(self)
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
-          entry.files = [@disc.file(vals[1] + '.' + vals[2])] if vals[1] != ''
+          entry.files = [@disc.file("#{vals[1]}.#{vals[2]}")] if vals[1] != ''
 
           action = vals[3]
 
@@ -80,7 +80,7 @@ module EBS
             when '*RUN'
               entry.type = :run
             else
-              throw 'Unknown action type: ' + action
+              throw "Unknown action type: #{action}"
             end
           end
 

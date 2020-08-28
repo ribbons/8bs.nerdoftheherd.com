@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -45,16 +45,16 @@ module EBS
     private
 
     def map_content(entry, files)
-      baselink = 'content/' + Jekyll::Utils.slugify(files[0].path)
+      baselink = "content/#{Jekyll::Utils.slugify(files[0].path)}"
 
-      linkpath = baselink + '/'
+      linkpath = "#{baselink}/"
       suffix = 0
 
       while (item = @paths[linkpath])
         return if item.files == files && entry.nil?
 
         suffix += 1
-        linkpath = baselink + '-' + suffix.to_s + '/'
+        linkpath = "#{baselink}-#{suffix}/"
       end
 
       entry.linkpath = linkpath unless entry.nil?

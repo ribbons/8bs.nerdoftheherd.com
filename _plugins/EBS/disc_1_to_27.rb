@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ module EBS
       id = File.basename(imagepath, '.*')
 
       data = YAML.load_file(
-        File.expand_path('../../_data/' + id + '.yaml', __dir__)
+        File.expand_path("../../_data/#{id}.yaml", __dir__)
       )
 
       @date = data[:date]

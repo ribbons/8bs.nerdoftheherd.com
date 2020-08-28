@@ -29,7 +29,7 @@ module EBS
                  .captures
 
       @date = datevals[1..2].join('/')
-      @date = datevals[0].rjust(2, '0') + '/' + @date unless datevals[0].nil?
+      @date = "#{datevals[0].rjust(2, '0')}/#{@date}" unless datevals[0].nil?
 
       basic = disc.file('$.Menu').parsed
       id_mapping = read_id_map(basic)
@@ -54,7 +54,7 @@ module EBS
           break if line.match(/^ENDPROC$/)
 
           extract = line.match(/^IFf%=([0-9])THENRESTORE(?: ?([0-9]+))?$/)
-          raise 'Unexpected line in PROCla: "' + line + '"' unless extract
+          raise "Unexpected line in PROCla: \"#{line}\"" unless extract
 
           menuid = extract.captures[0].to_i
 
@@ -110,7 +110,7 @@ module EBS
 
           unless vals[3] == ''
             entry.files = vals[3].split('@').each.map do |file|
-              @disc.file(vals[2] + '.' + file)
+              @disc.file("#{vals[2]}.#{file}")
             end
 
             first_files << entry.files.first
@@ -137,8 +137,7 @@ module EBS
             when '*EX.'
               entry.type = :exec
             else
-              throw 'Unknown command \'' + command + '\' for \'' +
-                    entry.title + '\''
+              throw "Unknown command '#{command}' for '#{entry.title}'"
             end
           end
 

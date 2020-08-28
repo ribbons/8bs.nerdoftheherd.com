@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ module EBS
         end
 
         data['title'] += disc.issue.number.to_s
-        data['title'] += ' Disc ' + disc.number if disc.issue.discs.count > 1
+        data['title'] += " Disc #{disc.number}" if disc.issue.discs.count > 1
 
         data['navchain'] = disc.navchain + [{ 'navtitle' => 'File list' }]
         data['files'] = files
