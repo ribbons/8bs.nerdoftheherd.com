@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require_relative '../../_plugins/BBC/bbc_native'
-require_relative 'bbc_helpers.rb'
+require_relative 'bbc_helpers'
 
 RSpec.configure do |c|
   c.include BBCHelpers
