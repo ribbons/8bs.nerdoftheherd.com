@@ -79,6 +79,9 @@ Style/GlobalStdStream:
 Style/HashAsLastArrayItem:
   Enabled: true
 
+Style/HashEachMethods:
+  Enabled: true
+
 Style/HashLikeCase:
   Enabled: true
 
