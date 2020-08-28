@@ -24,7 +24,11 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: bundle exec rake lint
+        run: |
+          bundle exec rake jshint
+          bundle exec rubocop \
+                        --require ./.github/workflows/lib/github_formatter.rb \
+                        --format GitHubFormatter
 
   build:
     name: Build and test
