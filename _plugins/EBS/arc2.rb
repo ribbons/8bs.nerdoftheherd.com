@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2017-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -55,12 +55,10 @@ module EBS
         loadaddr = 0xFFFFFFFF
         execaddr = 0xFFFFFFFF
 
-        unless arcfix.nil?
-          if arcfix.key?(filename)
-            entry = arcfix[filename]
-            loadaddr = entry[:load] if entry.key?(:load)
-            execaddr = entry[:exec] if entry.key?(:exec)
-          end
+        if !arcfix.nil? && arcfix.key?(filename)
+          entry = arcfix[filename]
+          loadaddr = entry[:load] if entry.key?(:load)
+          execaddr = entry[:exec] if entry.key?(:exec)
         end
 
         @files[canon] = BBC::BBCFile.new(0, '$', filename, loadaddr, execaddr,
