@@ -21,6 +21,7 @@ module EBS
 
   class Arc2 < Archive
     def initialize(data, arcfix)
+      super()
       @files = {}
 
       loop do

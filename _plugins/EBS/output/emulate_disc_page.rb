@@ -18,23 +18,22 @@
 
 module EBS
   module Output
-    class EmulateDiscPage < Jekyll::Page
+    class EmulateDiscPage < Jekyll::PageWithoutAFile
       def initialize(site, dir, disc)
-        @site = site
-        @base = site.source
-        @dir = dir
-        @name = 'index.html'
-
-        process(@name)
-        read_yaml(File.join(@base, '_layouts'), 'emulate_disc.html')
+        super(site, site.source, dir, 'index.html')
 
         issue = disc.issue
 
-        data['title'] += issue.number.to_s
-        data['title'] += " Disc #{disc.number}" if issue.discs.count > 1
+        self.data = {
+          'disc' => disc,
+          'includejs' => '/common/script/emulate.js',
+          'navchain' => disc.navchain + [{ 'navtitle' => 'Emulate' }],
+          'layout' => 'emulate_disc',
+          'page' => 'emulate_disc',
+          'title' => "8-Bit Software Issue #{issue.number}"
+        }
 
-        data['disc'] = disc
-        data['navchain'] = disc.navchain + [{ 'navtitle' => 'Emulate' }]
+        data['title'] += " Disc #{disc.number}" if issue.discs.count > 1
       end
     end
   end

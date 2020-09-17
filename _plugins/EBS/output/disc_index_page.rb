@@ -18,23 +18,22 @@
 
 module EBS
   module Output
-    class DiscIndexPage < Jekyll::Page
+    class DiscIndexPage < Jekyll::PageWithoutAFile
       def initialize(site, dir, disc)
-        @site = site
-        @base = site.source
-        @dir = dir
-        @name = 'index.html'
-
-        process(@name)
-        read_yaml(File.join(@base, '_layouts'), 'disc_index.html')
+        super(site, site.source, dir, 'index.html')
 
         issue = disc.issue
 
-        data['title'] += issue.number.to_s
-        data['title'] += " Disc #{disc.number}" if issue.discs.count > 1
+        self.data = {
+          'disc' => disc,
+          'includejs' => '/common/script/menu.js',
+          'navchain' => disc.navchain,
+          'layout' => 'disc_index',
+          'page' => 'disc_index',
+          'title' => "8-Bit Software Issue #{issue.number}"
+        }
 
-        data['disc'] = disc
-        data['navchain'] = disc.navchain
+        data['title'] += " Disc #{disc.number}" if issue.discs.count > 1
       end
     end
   end

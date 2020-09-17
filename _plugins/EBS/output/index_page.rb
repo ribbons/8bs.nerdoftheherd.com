@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,17 +18,16 @@
 
 module EBS
   module Output
-    class IndexPage < Jekyll::Page
+    class IndexPage < Jekyll::PageWithoutAFile
       def initialize(site, issues)
-        @site = site
-        @base = site.source
-        @dir = ''
-        @name = 'index.html'
+        super(site, site.source, '', 'index.html')
 
-        process(@name)
-        read_yaml(File.join(@base, '_layouts'), 'index.html')
-
-        data['issues'] = issues
+        self.data = {
+          'issues' => issues,
+          'layout' => 'index',
+          'page' => 'index',
+          'title' => '8-Bit Software Magazines Index'
+        }
       end
     end
   end

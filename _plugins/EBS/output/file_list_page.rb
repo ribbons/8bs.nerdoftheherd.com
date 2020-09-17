@@ -18,15 +18,9 @@
 
 module EBS
   module Output
-    class FileListPage < Jekyll::Page
+    class FileListPage < Jekyll::PageWithoutAFile
       def initialize(site, dir, disc, fileitems)
-        @site = site
-        @base = site.source
-        @dir = dir
-        @name = 'index.html'
-
-        process(@name)
-        read_yaml(File.join(@base, '_layouts'), 'file_list.html')
+        super(site, site.source, dir, 'index.html')
 
         files = [[], []]
 
@@ -47,11 +41,15 @@ module EBS
           side.sort_by! { |f| f['dir'] + f['name'] }
         end
 
-        data['title'] += disc.issue.number.to_s
-        data['title'] += " Disc #{disc.number}" if disc.issue.discs.count > 1
+        self.data = {
+          'files' => files,
+          'navchain' => disc.navchain + [{ 'navtitle' => 'File list' }],
+          'layout' => 'file_list',
+          'page' => 'file_list',
+          'title' => "File list for 8-Bit Software Issue #{disc.issue.number}"
+        }
 
-        data['navchain'] = disc.navchain + [{ 'navtitle' => 'File list' }]
-        data['files'] = files
+        data['title'] += " Disc #{disc.number}" if disc.issue.discs.count > 1
       end
     end
   end

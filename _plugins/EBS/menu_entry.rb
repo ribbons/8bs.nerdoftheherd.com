@@ -19,6 +19,7 @@
 module EBS
   class MenuEntry < Liquid::Drop
     def initialize(issdisc)
+      super()
       @issdisc = issdisc
       @files = []
     end

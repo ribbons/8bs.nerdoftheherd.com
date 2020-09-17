@@ -19,6 +19,8 @@
 module EBS
   class Disc < Liquid::Drop
     def initialize(site, issue, image)
+      super()
+
       @imagepath = "/#{image}"
       @issue = issue
       @path = "/#{image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1]}/"

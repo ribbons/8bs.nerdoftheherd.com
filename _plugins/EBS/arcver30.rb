@@ -21,6 +21,8 @@ module EBS
 
   class ArcVer30 < Archive
     def initialize(data)
+      super()
+
       3.times do
         if read_value(data) != 0
           raise 'Archive doesn\'t start with three zero ints'
