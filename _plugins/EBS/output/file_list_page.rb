@@ -45,7 +45,6 @@ module EBS
           'files' => files,
           'navchain' => disc.navchain + [{ 'navtitle' => 'File list' }],
           'layout' => 'file_list',
-          'page' => 'file_list',
           'title' => "File list for 8-Bit Software Issue #{disc.issue.number}",
         }
 

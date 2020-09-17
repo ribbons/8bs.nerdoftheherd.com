@@ -29,7 +29,6 @@ module EBS
           'includejs' => '/common/script/menu.js',
           'navchain' => disc.navchain,
           'layout' => 'disc_index',
-          'page' => 'disc_index',
           'title' => "8-Bit Software Issue #{issue.number}",
         }
 

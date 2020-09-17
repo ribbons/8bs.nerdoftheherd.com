@@ -29,7 +29,6 @@ module EBS
           'includejs' => '/common/script/emulate.js',
           'navchain' => disc.navchain + [{ 'navtitle' => 'Emulate' }],
           'layout' => 'emulate_disc',
-          'page' => 'emulate_disc',
           'title' => "8-Bit Software Issue #{issue.number}",
         }
 

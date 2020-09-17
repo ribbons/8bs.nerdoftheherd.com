@@ -25,7 +25,6 @@ module EBS
         self.data = {
           'issues' => issues,
           'layout' => 'index',
-          'page' => 'index',
           'title' => '8-Bit Software Magazines Index',
         }
       end
