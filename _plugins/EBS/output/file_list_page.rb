@@ -31,7 +31,7 @@ module EBS
             'path' => item.path,
             'dir' => file.dir,
             'name' => file.name,
-            'title' => item.title != file.path ? item.title : nil
+            'title' => item.title != file.path ? item.title : nil,
           }
         end
 
@@ -46,7 +46,7 @@ module EBS
           'navchain' => disc.navchain + [{ 'navtitle' => 'File list' }],
           'layout' => 'file_list',
           'page' => 'file_list',
-          'title' => "File list for 8-Bit Software Issue #{disc.issue.number}"
+          'title' => "File list for 8-Bit Software Issue #{disc.issue.number}",
         }
 
         data['title'] += " Disc #{disc.number}" if disc.issue.discs.count > 1

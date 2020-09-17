@@ -30,7 +30,7 @@ module EBS
           'navchain' => disc.navchain,
           'layout' => 'disc_index',
           'page' => 'disc_index',
-          'title' => "8-Bit Software Issue #{issue.number}"
+          'title' => "8-Bit Software Issue #{issue.number}",
         }
 
         data['title'] += " Disc #{disc.number}" if issue.discs.count > 1

@@ -60,7 +60,7 @@ module EBS
           name: read_value(data),
           load_addr: read_value(data),
           exec_addr: read_value(data),
-          length: read_value(data)
+          length: read_value(data),
         }
 
         raise 'File entry should end with zero int' if read_value(data) != 0

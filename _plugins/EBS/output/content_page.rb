@@ -26,7 +26,7 @@ module EBS
           'disc' => disc,
           'item' => item,
           'navchain' => item.navchain,
-          'title' => item.title
+          'title' => item.title,
         }
 
         case item.type

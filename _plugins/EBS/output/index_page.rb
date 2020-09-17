@@ -26,7 +26,7 @@ module EBS
           'issues' => issues,
           'layout' => 'index',
           'page' => 'index',
-          'title' => '8-Bit Software Magazines Index'
+          'title' => '8-Bit Software Magazines Index',
         }
       end
     end

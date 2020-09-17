@@ -12,3 +12,6 @@ Style/AsciiComments:
 
 Style/Documentation:
   Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
