@@ -26,9 +26,7 @@ jobs:
       - name: Lint
         run: |
           bundle exec rake jshint
-          bundle exec rubocop \
-                        --require ./.github/workflows/lib/github_formatter.rb \
-                        --format GitHubFormatter
+          bundle exec rubocop --format github
 
   build:
     name: Build and test
