@@ -31,7 +31,7 @@ module EBS
             'path' => item.path,
             'dir' => file.dir,
             'name' => file.name,
-            'title' => item.title != file.path ? item.title : nil,
+            'title' => item.title == file.path ? nil : item.title,
           }
         end
 
