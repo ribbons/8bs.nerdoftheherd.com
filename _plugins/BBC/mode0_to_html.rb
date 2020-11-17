@@ -97,29 +97,17 @@ module BBC
         when 29
           controlchar = true
           next
-        when 32..37
-          # {space}!"#$%
+        when 32..37, 39..59, 61, 63..95, 97..126
+          # {space}!"#$%'()*+,-./0-9:=?@A-Z[\# ]^_a-z{|}~
           output << c.chr
         when 38
           output << '&amp;'
-        when 39..59
-          # '()*+,-./0-9:
-          output << c.chr
         when 60
           output << '&lt;'
-        when 61
-          # =
-          output << c.chr
         when 62
           output << '&gt;'
-        when 63..95
-          # ?@A-Z[\# ]^_
-          output << c.chr
         when 96
           output << '£'
-        when 97..126
-          # a-z{|}~
-          output << c.chr
         # Chars 128-255 display as spaces in the Micro, but are populated
         # with special characters by default in the Master.
         # As the Micro was more popular, display these as spaces.
