@@ -28,16 +28,16 @@ module BBC
   describe BasicFile do
     it 'returns nil from parsing file not starting with correct value' do
       file = get_file('basic_file_invalid')
-      expect(BasicFile.parse(file)).to be_nil
+      expect(described_class.parse(file)).to be_nil
     end
 
     it 'treats first byte of line number above 0x7f as EOF' do
-      basic = BasicFile.parse(get_file('basic_file_eof'))
+      basic = described_class.parse(get_file('basic_file_eof'))
       expect(basic.lines.keys).not_to include(35_096)
     end
 
     it 'stores data line values from a BASIC file' do
-      basic = BasicFile.parse(get_file('basic_file_data'))
+      basic = described_class.parse(get_file('basic_file_data'))
 
       expect(basic.data).to include(
         20 => ['1', '2 ', '3', '4', ''],
@@ -47,7 +47,7 @@ module BBC
     end
 
     it 'builds a hash of line display content' do
-      basic = BasicFile.parse(get_file('basic_file_lines'))
+      basic = described_class.parse(get_file('basic_file_lines'))
 
       expect(basic.lines).to include(
         10 => 'REM BASIC TO TEST CONVERSION',
@@ -59,7 +59,7 @@ module BBC
     end
 
     it 'returns listing MODE 7 equivalent in HTML format' do
-      basic = BasicFile.parse(get_file('basic_file_html'))
+      basic = described_class.parse(get_file('basic_file_html'))
 
       expect(basic.to_html).to eql(
         "   10PRINT \"HELLO WORLD\"                \n" \

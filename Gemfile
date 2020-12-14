@@ -24,3 +24,4 @@ gem 'rake', require: false
 gem 'rake-compiler', require: false
 gem 'rspec', require: false
 gem 'rubocop', require: false
+gem 'rubocop-rspec', require: false
