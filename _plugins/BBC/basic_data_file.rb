@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019-2021 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,17 +16,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative '../../_plugins/BBC/bbc_file'
+module BBC
+  class BasicDataFile
+    def self.parse(file)
+      values = []
 
-module BBCHelpers
-  def get_file(name)
-    fullpath = File.expand_path("../test_data/#{name}", __FILE__)
-    content = File.open(fullpath, 'rb', &:read)
+      until file.empty?
+        value = read_value(file)
+        return nil if value.nil?
 
-    BBC::BBCFile.new(0, '$', name, 0xFFFFFFFF, 0xFFFFFFFF, content)
-  end
+        values.push value
+      end
 
-  def file_from_string(content)
-    BBC::BBCFile.new(0, '$', 'file', 0xFFFFFFFF, 0xFFFFFFFF, content)
+      BasicDataFile.new(values)
+    end
+
+    attr_reader :values
+
+    def initialize(values)
+      @values = values
+    end
+
+    def self.read_value(file)
+      type = file.shift.ord
+
+      case type
+      when 0x00 # String
+        length = file.shift.ord
+        file.shift(length).reverse
+      when 0x40 # Integer
+        file.shift(4).unpack1('l>')
+      end
+    end
   end
 end

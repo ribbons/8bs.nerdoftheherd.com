@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@ module BBC
       @loadaddr = loadaddr
       @execaddr = execaddr
       @content = content
+      @position = 0
     end
 
     attr_reader :side, :dir, :name, :loadaddr, :execaddr, :content
@@ -34,7 +35,17 @@ module BBC
     end
 
     def length
-      @content.bytesize
+      @content.bytesize - @position
+    end
+
+    def empty?
+      length.zero?
+    end
+
+    def shift(elements = 1)
+      value = @content.byteslice(@position, elements)
+      @position += elements
+      value
     end
 
     def parsed
