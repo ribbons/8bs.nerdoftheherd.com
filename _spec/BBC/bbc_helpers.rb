@@ -19,11 +19,11 @@
 require_relative '../../_plugins/BBC/bbc_file'
 
 module BBCHelpers
-  def get_file(name)
+  def get_file(name, tweaks: nil)
     fullpath = File.expand_path("../test_data/#{name}", __FILE__)
     content = File.open(fullpath, 'rb', &:read)
 
-    BBC::BBCFile.new(0, '$', name, 0xFFFFFFFF, 0xFFFFFFFF, content)
+    BBC::BBCFile.new(0, '$', name, 0xFFFFFFFF, 0xFFFFFFFF, content, tweaks)
   end
 
   def file_from_string(content)

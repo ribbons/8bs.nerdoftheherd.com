@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,20 +48,26 @@ module EBS
       menu.id = data[:id]
 
       data[:entries]&.each do |entdat|
-        entry = MenuEntry.new(self)
+        entry = MenuEntry.new
         entry.title = entdat[:title]
         entry.type = entdat[:type]
         entry.model = entdat[:model]
         entry.offsets = entdat[:offsets]
         entry.modes = entdat[:modes]
         entry.captions = entdat[:captions]
-        entry.arcpaths = entdat[:arcpaths]
-        entry.arcfix = entdat[:arcfix]
 
         if entdat[:paths].nil?
           entry.id = entdat[:id]
         else
-          entry.files = entdat[:paths].map { |path| @disc.file(path) }
+          entry.files = if entdat[:arcpaths].nil?
+                          entdat[:paths].map { |path| [@disc.file(path)] }
+                        else
+                          entdat[:paths].zip(entdat[:arcpaths])
+                                        .map do |path, arcpath|
+                            file = @disc.file(path)
+                            [file, file.parsed.file(arcpath)]
+                          end
+                        end
         end
 
         menu.entries << entry

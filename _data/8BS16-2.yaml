@@ -69,7 +69,6 @@
 #      - :title: Musical Titles
 #        :paths: [ ':2.C.MUSIC' ]
       - :title: Sorting Article Part 2
-        :type: :basic
         :paths: [ ':2.C.709' ]
         :arcpaths: [ LOADER ]
 #      - :title: 3 Versions of Battleships

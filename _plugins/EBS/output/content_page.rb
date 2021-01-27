@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 module EBS
   module Output
     class ContentPage < Jekyll::PageWithoutAFile
-      def initialize(site, dir, disc, item, action)
+      def initialize(site, dir, disc, item, extra)
         super(site, site.source, dir, 'index.html')
 
         self.data = {
@@ -36,7 +36,7 @@ module EBS
           data['layout'] = 'content_mode7'
           data['includejs'] = '/common/script/mode7.js'
         when :basic
-          if action == :list
+          if extra == :list
             data['layout'] = 'content_basic_list'
             data['includejs'] = '/common/script/mode7.js'
             data['title'] += ' - Listing'
@@ -50,6 +50,10 @@ module EBS
         when :run
           data['layout'] = 'content_runnable'
           data['includejs'] = '/common/script/emulate.js'
+        when :archive
+          data['layout'] = 'file_list'
+          data['files'] = FileListPage.prepare_files(extra)
+          data['title'] += ' File list'
         else
           throw "Unknown item type: #{item.type}"
         end

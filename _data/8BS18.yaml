@@ -60,15 +60,12 @@
     :id: 2
     :entries:
       - :title: 200th Anniversary Mozart's Death
-        :type: :basic
-        :paths: [ ':2.C.Mozart1', ':2.C.Mozart2' ]
+        :paths: [ ':2.C.Mozart1' ]
         :arcpaths: [ M.!Menu ]
       - :title: Welsh Boys PD Demo Software
-        :type: :basic
         :paths: [ ':2.C.WelshB' ]
         :arcpaths: [ Demo ]
       - :title: Sorting Article Part III
-        :type: :basic
         :paths: [ ':2.C.Sort3' ]
         :arcpaths: [ Loader ]
 #      - :title: 3D Grand Prix Extra Screens
@@ -107,3 +104,7 @@
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
+
+:tweaks:
+  :merge:
+    - [ ':2.C.Mozart1', ':2.C.Mozart2' ]

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,86 +23,99 @@ module EBS
       @infodisc = infodisc
 
       @paths = {}
-      @by_file = {}
+      @entries = Hash.new { |hash, key| hash[key] = [] }
+      @arcimages = {}
     end
 
-    def map(menus, files)
+    def map(menus, discfiles)
       menus.each do |menu|
-        menu.entries.each do |entry|
-          next if entry.type == :menu
-
-          map_content(entry, entry.files)
+        menu.entries.reject { |e| e.type == :menu }.each do |entry|
+          @entries[entry.files] << entry
         end
       end
 
-      files.each { |file| map_content(nil, [file]) }
+      fileitems = discfiles.filter_map do |file|
+        map_content(@infodisc, [[file]])
+      end
+
+      @entries.each do |files, entries|
+        map_content(@infodisc, files) until entries.empty?
+      end
 
       @site.pages << Output::FileListPage.new(
-        @site, File.join(@infodisc.path, 'files'), @infodisc, @by_file.values
+        @site, File.join(@infodisc.path, 'files'), @infodisc, fileitems
       )
     end
 
     private
 
-    def map_content(entry, files)
-      baselink = "content/#{Jekyll::Utils.slugify(files[0].path)}"
+    def map_content(parent, files)
+      baselink = "#{@infodisc.path}content"
+
+      files[0].each do |file|
+        baselink += "/#{Jekyll::Utils.slugify(file.path)}"
+      end
 
       linkpath = "#{baselink}/"
       suffix = 0
 
       while (item = @paths[linkpath])
-        return if item.files == files && entry.nil?
-
         suffix += 1
         linkpath = "#{baselink}-#{suffix}/"
       end
 
+      entry = @entries[files].shift
       entry.linkpath = linkpath unless entry.nil?
 
-      item = ContentItem.new(@infodisc, linkpath, files, entry)
+      item = ContentItem.new(parent, linkpath, files, entry)
       return if item.type.nil?
 
       @paths[linkpath] = item
-      @by_file[files[0]] = item
+      extra = :default
 
-      unless entry&.arcpaths.nil?
-        arcfiles = files.clone
-        files = []
-
-        arcfiles.each do |arcfile|
-          archive = Archive.from_file(arcfile, entry.arcfix)
-
-          entry.arcpaths.each do |arcpath|
-            file = archive.file(arcpath)
-            files << file unless file.nil?
-          end
+      if item.type == :archive
+        subfileitems = files[0][0].parsed.files.filter_map do |subfile|
+          map_content(item, [[files[0][0], subfile]])
         end
 
-        item = ContentItem.new(@infodisc, linkpath, files, entry)
+        extra = subfileitems
       end
 
       @site.pages << Output::ContentPage.new(
-        @site, File.join(@infodisc.path, linkpath), @infodisc, item, :default
+        @site, linkpath, @infodisc, item, extra
       )
 
       if item.type == :basic || item.type == :run
-        unless entry&.arcpaths.nil?
-          @site.static_files << Output::DiscFile.new(
-            @site, File.join(@infodisc.path, linkpath), entry.title, arcfiles
-          )
+        if files[0][0].type == :archive
+          item.imagepath = map_arcimage(files, parent.path)
         end
 
         @site.static_files << Output::BootstrapBasicFile.new(
-          @site, File.join(@infodisc.path, linkpath), item
+          @site, linkpath, item
         )
       end
 
-      return unless item.type == :basic
+      if item.type == :basic
+        @site.pages << Output::ContentPage.new(
+          @site, File.join(linkpath, 'list'), parent, item, :list
+        )
+      end
 
-      @site.pages << Output::ContentPage.new(
-        @site, File.join(@infodisc.path, linkpath, 'list'), @infodisc,
-        item, :list
-      )
+      item
+    end
+
+    def map_arcimage(files, linkpath)
+      arcfiles = files.map { |f| f[0] }
+
+      unless @arcimages.key?(arcfiles)
+        @site.static_files << Output::DiscFile.new(
+          @site, linkpath, files[0][0].path, arcfiles
+        )
+
+        @arcimages[arcfiles] = "#{linkpath}emulate.ssd"
+      end
+
+      @arcimages[arcfiles]
     end
   end
 end

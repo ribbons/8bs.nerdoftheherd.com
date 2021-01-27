@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2017-2018 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'mkmf'
+module BBC
+  require_relative 'dfs_disc'
 
-# rubocop:disable Style/GlobalVars
-$CFLAGS =
-  '-DSYSV=1 -O3 -Wall -Wno-unused-function -Wno-unused-variable -Werror -fPIC'
-# rubocop:enable Style/GlobalVars
+  class ArchiveFile
+    def initialize(files)
+      @files = files.to_h do |file|
+        [DfsDisc.canonicalise_path(file.path), file]
+      end
+    end
 
-create_makefile('arc2_c')
+    def files
+      @files.values
+    end
+
+    def file(path)
+      path = DfsDisc.canonicalise_path(path)
+      throw "#{path} not found in #{@path}" unless @files.key?(path)
+      @files[path]
+    end
+
+    def <<(item)
+      item.files.each do |file|
+        @files[DfsDisc.canonicalise_path(file.path)] = file
+      end
+    end
+  end
+end

@@ -41,7 +41,7 @@ extern int	lastc;
 
 short    crcval;		/* CRC check value */
 long     stdlen;		/* bytes to read */
-#if	!DOS
+#if	!DOS && NOT_USED_BY_8BS_ONLINE_CONVERSION
 static int	gotcr;		/* got a carriage return? */
 #endif
 

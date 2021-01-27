@@ -17,7 +17,7 @@ jobs:
       - name: Ruby and bundle
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 2.7
           bundler-cache: true
 
       - name: Node packages
@@ -45,7 +45,7 @@ jobs:
       - name: Ruby and bundle
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 2.7
           bundler-cache: true
 
       - name: Node packages

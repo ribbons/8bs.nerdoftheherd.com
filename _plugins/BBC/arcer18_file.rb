@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2017-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2017-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,28 +16,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-module EBS
-  require_relative 'archive'
+module BBC
+  require_relative 'archive_file'
 
-  class ArcVer18 < Archive
-    def initialize(data)
-      super()
-      @files = {}
+  class Arcer18File < ArchiveFile
+    def self.parse(file)
+      return nil if file.empty?
 
-      until data.empty?
-        filename = read_value(data)
-        length = read_value(data)
-        load_addr = read_value(data)
-        exec_addr = read_value(data)
+      files = []
+
+      until file.empty?
+        filename = BasicDataFile.read_value(file)
+        return nil unless filename.is_a?(String)
+
+        length = BasicDataFile.read_value(file)
+        return nil unless length.is_a?(Integer)
+
+        load_addr = BasicDataFile.read_value(file)
+        return nil unless load_addr.is_a?(Integer)
+
+        exec_addr = BasicDataFile.read_value(file)
+        return nil unless exec_addr.is_a?(Integer)
 
         splitname = filename.split('.', 2)
         dir = splitname.count == 1 ? '$' : splitname.shift
         justname = splitname.shift
-        canon = BBC::DfsDisc.canonicalise_path(filename)
 
-        @files[canon] = BBC::BBCFile.new(0, dir, justname, load_addr, exec_addr,
-                                         data.shift(length).pack('c*'))
+        files << BBCFile.new(0, dir, justname, load_addr & 0xFFFFFFFF,
+                             exec_addr & 0xFFFFFFFF, file.shift(length))
       end
+
+      Arcer18File.new(files)
     end
   end
 end

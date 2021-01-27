@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2017 by the authors - see the AUTHORS file for details.
+ * Copyright © 2017-2021 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ruby.h>
+#include <stdarg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "arc.h"
 
 // Main decompression function prototype
@@ -32,58 +36,59 @@ int lastc, dosquash, curin;
 u_char *pinbuf, *pakbuf;
 u_char  state;
 
-// Output and state tracking
-u_char *output;
-int outpos, outlength;
+// Output buffer positions
+u_char *outp, *outendp;
 
-VALUE method_decompress(VALUE self, VALUE input, VALUE rb_outlength)
+void arcdie(const char *format, ...)
 {
-    // Load arc's input buffer with the entire file contents and set the
-    // buffer length variable used by getb_unp to the length
-    pinbuf = (u_char*)RSTRING_PTR(input);
-    stdlen = RSTRING_LEN(input);
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
 
-    outlength = FIX2INT(rb_outlength);
-    outpos = 0;
+    printf("\n");
+    exit(1);
+}
+
+void arc_decompress(char* input, uint32_t inlen, char* output, uint32_t outlen)
+{
+    // Set arc's input buffer to the entire compressed file content and set the
+    // buffer length variable used by getb_unp to the full length
+    pinbuf = (u_char*)input;
+    stdlen = inlen;
 
     if(!(outbuf = malloc(MYBUF)))
     {
-        rb_fatal("Not enough memory for output buffer.");
+        arcdie("Not enough memory for output buffer.");
     }
 
     if(!(pakbuf = malloc(2L*MYBUF)))
     {
-        rb_fatal("Not enough memory for packing buffer.");
+        arcdie("Not enough memory for packing buffer.");
     }
 
-    if(!(output = malloc(outlength)))
-    {
-        rb_fatal("Not enough memory for output buffer.");
-    }
+    outp = (u_char*)output;
+    outendp = outp + outlen;
 
     // As we have replaced the getb_unp and putb_unp functions with ones that
     // do not read or write files, just pass NULLs as the file handles so that
-    // we can keep the same prototype
+    // we can keep the original prototype
     decomp(0, NULL, NULL);
 
-    if(outpos < outlength)
+    if(outp < outendp)
     {
-        rb_fatal("Extracted data shorter (%d) than defined in file header (%d)", outpos, outlength);
+        arcdie("Extracted data shorter (%zd) than defined in file header (%d)",
+               outendp - outp, outlen);
     }
-
-    VALUE retVal = rb_str_new((char*)output, outlength);
 
     free(outbuf);
     free(pakbuf);
-    free(output);
-
-    return retVal;
 }
 
 /*
- * In arc this function gets more data from the file, but as we have loaded the
- * whole file into a buffer, we can just return the length of the buffer, or
- * zero if all of the buffer has been processed.
+ * In arc this function gets more data from the file, but as we have all of the
+ * data in a buffer, we can just return the length of the buffer or zero if all
+ * of the buffer has been processed.
  */
 
 u_int getb_unp(FILE *f)
@@ -104,17 +109,11 @@ u_int getb_unp(FILE *f)
 
 void putb_unp(u_char *buf, u_int len, FILE *t)
 {
-    if(outpos + len > outlength)
+    if(outp + len > outendp)
     {
-        rb_fatal("Extracted data larger (%d) than defined in file header (%d)", outpos + len, outlength);
+        arcdie("Extracted data larger than defined in file header");
     }
 
-    memcpy(output + outpos, buf, len);
-    outpos += len;
-}
-
-void Init_arc2_c()
-{
-    VALUE Arc2 = rb_path2class("EBS::Arc2");
-    rb_define_method(Arc2, "decompress", method_decompress, 2);
+    memcpy(outp, buf, len);
+    outp += len;
 }

@@ -96,7 +96,6 @@ typedef unsigned short	u_short;
 
 #ifndef DONT_DEFINE		/* Defined by arcdata.c */
 //#include "arcs.h"
-#define arcdie rb_fatal
 
 extern int      keepbak;	/* true if saving the old archive */
 #if	!DOS

@@ -125,13 +125,11 @@
     :id: 6
     :entries:
       - :title: Fantasy Adventure Creator
-        :type: :basic
         :paths: [ ':2.C.FntyDes' ]
         :arcpaths: [ fLOAD ]
 #      - :title: C.Hacker
 #        :paths: [ ':2.C.Hacker' ]
       - :title: Typing Tutor
-        :type: :basic
         :paths: [ ':2.C.TypTutr' ]
         :arcpaths: [ TUTOR ]
 #      - :title: C.UtlsEtc

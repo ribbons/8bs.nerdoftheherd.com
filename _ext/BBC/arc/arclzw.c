@@ -46,7 +46,9 @@ char           *memset();
 #endif
 
 #include "proto.h"
+#ifdef NOT_USED_BY_8BS_ONLINE_CONVERSION
 static VOID     putcode();
+#endif
 /* definitions for older style crunching */
 
 #define FALSE    0
@@ -93,10 +95,12 @@ static int      max_maxcode;	/* 1 << BITS; largest possible code (+1) */
 
 static char     buf[SQBITS];	/* input/output buffer */
 
+#ifdef NOT_USED_BY_8BS_ONLINE_CONVERSION
 static u_char    lmask[9] =	/* left side masks */
 {
 	0xff, 0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00
 };
+#endif
 static u_char    rmask[9] =	/* right side masks */
 {
 	0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff

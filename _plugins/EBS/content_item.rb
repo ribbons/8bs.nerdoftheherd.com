@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,18 +24,18 @@ module EBS
       @parent = parent
       @files = files
 
-      @title = entry&.title&.chomp('.') || files[0].path
+      @title = entry&.title&.chomp('.') || files[0][-1].path
       @offsets = entry&.offsets
       @modes = entry&.modes
-      @path = parent.path + path
-      @imagepath = entry&.imagepath || parent.imagepath
+      @path = path
+      @imagepath = parent.imagepath
       @model = entry&.model
 
-      @type = entry&.type || files[0].type
+      @type = entry&.type || files[0][-1].type
     end
 
-    attr_reader :type, :title, :offsets, :modes, :files, :path, :model,
-                :imagepath
+    attr_reader :type, :title, :offsets, :modes, :files, :path, :model
+    attr_accessor :imagepath
 
     def typestr
       @type.id2name
@@ -63,13 +63,13 @@ module EBS
 
       @files.each_with_index do |file, idx|
         content << if !@offsets.nil?
-                     extract_section(file.content, @offsets, idx)
+                     extract_section(file[-1].content, @offsets, idx)
                    elsif @type == :basic
-                     file.parsed.to_html
+                     file[-1].parsed.to_html
                    elsif @type == :mode7
-                     trim_scroller(file.content, file.loadaddr)
+                     trim_scroller(file[-1].content, file[-1].loadaddr)
                    else
-                     file.content
+                     file[-1].content
                    end
       end
 

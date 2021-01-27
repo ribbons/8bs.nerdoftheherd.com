@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,8 +26,14 @@ module EBS
       @path = "/#{image[%r{/(8BS[0-9-]+)\.[a-z]{3}$}, 1]}/"
       @number = @path[/[0-9]-([0-9])/, 1] || '1'
 
+      yamlpath = File.expand_path(
+        "../../_data/#{File.basename(image, '.*')}.yaml", __dir__
+      )
+
+      @data = YAML.load_file(yamlpath) if File.exist?(yamlpath)
+
       @menus = []
-      @disc = BBC::DfsDisc.new(image)
+      @disc = BBC::DfsDisc.new(image, @data&.fetch(:tweaks, nil))
       @mapper = ContentMapper.new(site, self)
     end
 
@@ -54,18 +60,13 @@ module EBS
       end
     end
 
-    def apply_tweaks(imagepath)
-      yamlpath = File.expand_path(
-        "../../_data/#{File.basename(imagepath, '.*')}.yaml", __dir__
-      )
-      return unless File.exist?(yamlpath)
-
-      data = YAML.load_file(yamlpath)
+    def apply_tweaks
+      return if @data.nil?
 
       @menus.each do |menu|
-        next unless data.key?(menu.id)
+        next unless @data.key?(menu.id)
 
-        menudata = data[menu.id]
+        menudata = @data[menu.id]
 
         menu.entries.each do |entry|
           next unless menudata.key?(entry.title)
@@ -73,7 +74,7 @@ module EBS
           itemdata = menudata[entry.title]
 
           if itemdata.key?(:paths)
-            entry.files = itemdata[:paths].map { |path| @disc.file(path) }
+            entry.files = itemdata[:paths].map { |path| [@disc.file(path)] }
           end
 
           entry.type = itemdata[:type] if itemdata.key?(:type)

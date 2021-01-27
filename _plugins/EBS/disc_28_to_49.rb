@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ module EBS
       basic = disc.file('$.Menu').parsed
       id_mapping = read_id_map(basic)
       convert_menu_data(basic.data, id_mapping)
-      apply_tweaks(imagepath)
+      apply_tweaks
 
       @mapper.map(@menus, @disc.files)
     end
@@ -104,13 +104,13 @@ module EBS
           entries = vals[1].to_i
           first_files = []
         else
-          entry = MenuEntry.new(self)
+          entry = MenuEntry.new
           entry.title = vals[0]
           entry.model = model_from_title(entry.title)
 
           unless vals[3] == ''
             entry.files = vals[3].split('@').each.map do |file|
-              @disc.file("#{vals[2]}.#{file}")
+              [@disc.file("#{vals[2]}.#{file}")]
             end
 
             first_files << entry.files.first

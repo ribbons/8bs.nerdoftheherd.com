@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,14 +18,13 @@
 
 module EBS
   class MenuEntry < Liquid::Drop
-    def initialize(issdisc)
+    def initialize
       super()
-      @issdisc = issdisc
       @files = []
     end
 
     attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions,
-                  :arcpaths, :arcfix, :files
+                  :files
     attr_writer :linkpath
 
     def linkpath
@@ -33,14 +32,6 @@ module EBS
         "#menu#{@id}"
       else
         @linkpath
-      end
-    end
-
-    def imagepath
-      if @arcpaths.nil?
-        @issdisc.imagepath
-      else
-        "/#{@issdisc.path}/#{linkpath}emulate.ssd"
       end
     end
   end

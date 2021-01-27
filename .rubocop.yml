@@ -15,8 +15,11 @@ Style/AsciiComments:
 Style/Documentation:
   Enabled: false
 
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
 RSpec/ExampleLength:
-  Max: 8
+  Enabled: false

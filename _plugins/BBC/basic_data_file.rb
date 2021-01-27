@@ -38,12 +38,19 @@ module BBC
     end
 
     def self.read_value(file)
+      return nil if file.empty?
+
       type = file.shift.ord
 
       case type
       when 0x00 # String
+        return nil if file.empty?
+
         length = file.shift.ord
+        return nil if file.length < length
+
         file.shift(length).reverse
+
       when 0x40 # Integer
         file.shift(4).unpack1('l>')
       end

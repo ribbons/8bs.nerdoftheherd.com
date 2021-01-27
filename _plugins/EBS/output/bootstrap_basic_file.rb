@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2019-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2019-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,13 +37,13 @@ module EBS
       private
 
       def generate_basic
-        basic = "OSCLI(\"DRIVE #{@item.files[0].side}\")\n" \
-                "OSCLI(\"DIR #{@item.files[0].dir}\")\n"
+        basic = "OSCLI(\"DRIVE #{@item.files[0][-1].side}\")\n" \
+                "OSCLI(\"DIR #{@item.files[0][-1].dir}\")\n"
 
         if @item.type == :basic
-          "#{basic}CHAIN \"#{@item.files[0].name}\"\n"
+          "#{basic}CHAIN \"#{@item.files[0][-1].name}\"\n"
         else
-          "#{basic}OSCLI(\"RUN #{@item.files[0].name}\")\n"
+          "#{basic}OSCLI(\"RUN #{@item.files[0][-1].name}\")\n"
         end
       end
     end

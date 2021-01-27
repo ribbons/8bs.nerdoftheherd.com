@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2015-2019 by the authors - see the AUTHORS file for details.
+ * Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,5 +26,6 @@ void Init_bbc_native()
     rb_define_method(NativeFilters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
     rb_define_method(NativeFilters, "bbc_pic_to_img", method_bbc_pic_to_img, 3);
 
+    init_arc_file(mBBC);
     init_basic_file(mBBC);
 }

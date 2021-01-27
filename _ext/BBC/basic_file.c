@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2019 by the authors - see the AUTHORS file for details.
+ * Copyright © 2019-2021 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,14 +45,14 @@ static char* Tokens[] = {
 
 VALUE cBasicFile;
 
-VALUE basicfile_initialize(VALUE self, VALUE data, VALUE lines)
+static VALUE basicfile_initialize(VALUE self, VALUE data, VALUE lines)
 {
     rb_iv_set(self, "@data", data);
     rb_iv_set(self, "@lines", lines);
     return self;
 }
 
-void process_data_vals(VALUE data, int line_num, char* p, char* nextline)
+static void process_data_vals(VALUE data, int line_num, char* p, char* nextline)
 {
     while(*p == ' ')
     {
@@ -90,7 +90,7 @@ void process_data_vals(VALUE data, int line_num, char* p, char* nextline)
     rb_hash_aset(data, INT2NUM(line_num), linedata);
 }
 
-void inline_line_num(uint8_t* p, char** lp)
+static void inline_line_num(uint8_t* p, char** lp)
 {
     // Many thanks to Matt Godbolt for describing the line number format:
     // https://xania.org/200711/bbc-basic-line-number-format
@@ -104,7 +104,7 @@ void inline_line_num(uint8_t* p, char** lp)
     *lp += sprintf(*lp, "%d", lsb | (msb << 8));
 }
 
-VALUE parse(VALUE self, VALUE bbcfile)
+static VALUE parse(VALUE self, VALUE bbcfile)
 {
     VALUE content = rb_funcall(bbcfile, rb_intern("content"), 0);
 
@@ -190,10 +190,10 @@ VALUE parse(VALUE self, VALUE bbcfile)
     }
 
     VALUE argv[] = {data, lines};
-    return rb_class_new_instance(2, argv, cBasicFile);
+    return rb_class_new_instance(ARRAY_LEN(argv), argv, cBasicFile);
 }
 
-VALUE to_html(VALUE self)
+static VALUE to_html(VALUE self)
 {
     VALUE lines = rb_iv_get(self, "@lines");
     size_t size = RHASH_SIZE(lines);

@@ -134,36 +134,39 @@
     :id: 6
     :entries:
       - :title: Chain Letters Game
-        :type: :basic
         :paths: [ A.ChLttrs ]
         :arcpaths: [ LOADRAM ]
-        :arcfix:
-          RLOAD:
-            :load: 0x9D0
-            :exec: 0x9DF
       - :title: Applications Etc
-        :type: :basic
         :paths: [ ':2.A.ApplEtc' ]
         :arcpaths: [ Disc ]
         :model: :master128
       - :title: Mode 0 Graphical Screens
         :type: :screendump
-        :paths: [ ':2.A.MODE0' ]
+        :paths: [ ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0' ]
         :arcpaths: [ Hawk, Lightng, MRCA, Shuttle, Tornado ]
         :captions: [ Hawk, Lightng, MRCA, Shuttle, Tornado ]
         :modes: [ 0, 0, 0, 0, 0 ]
       - :title: Mode 1 Graphical Screens
         :type: :screendump
-        :paths: [ A.MODE1 ]
+        :paths: [ A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1 ]
         :arcpaths: [ Chip, CoffeeP, Ewok, FourPcs, GLMLogo, Head, King, MightM, Mndrake ]
         :captions: [ Chip, CoffeeP, Ewok, FourPcs, GLMLogo, Head, King, MightM, Mndrake ]
         :modes: [ 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
       - :title: Mode 2 Graphical Screens
         :type: :screendump
-        :paths: [ ':2.A.MODE2' ]
+        :paths: [ ':2.A.MODE2', ':2.A.MODE2',':2.A.MODE2',':2.A.MODE2', ':2.A.MODE2' ]
         :arcpaths: [ Ghost, Pic, Plane, Snowman, StrTrek ]
         :captions: [ Ghost, Pic, Plane, Snowman, StrTrek ]
         :modes: [ 2, 2, 2, 2, 2 ]
       - :title: Back to main menu
         :type: :menu
         :id: 999
+
+:tweaks:
+  :files:
+    0:
+      A.ChLttrs:
+        :files:
+          RLOAD:
+            :loadaddr: 0x9D0
+            :execaddr: 0x9DF

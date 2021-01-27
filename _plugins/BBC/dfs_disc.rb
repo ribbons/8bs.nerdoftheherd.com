@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This file is part of the 8BS Online Conversion.
-# Copyright © 2015-2020 by the authors - see the AUTHORS file for details.
+# Copyright © 2015-2021 by the authors - see the AUTHORS file for details.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,15 +32,24 @@ module BBC
     OPTION_RUN    = 0x20
     OPTION_EXEC   = 0x30
 
-    def initialize(path)
+    def initialize(path, tweaks)
       @path = path
       @file = File.new(@path, 'rb')
       @dsd = @path =~ /\.dsd$/
 
       @files = {}
 
-      read_catalogue(0)
-      read_catalogue(2) if @dsd
+      filetweaks = tweaks&.fetch(:files, nil)
+      read_catalogue(0, filetweaks&.fetch(0, nil))
+      read_catalogue(2, filetweaks&.fetch(2, nil)) if @dsd
+
+      tweaks&.fetch(:merge, nil)&.each do |merge|
+        into = file(merge.shift)
+
+        merge.each do |from|
+          into << @files.delete(self.class.canonicalise_path(from))
+        end
+      end
     end
 
     def files
@@ -77,7 +86,7 @@ module BBC
 
     private
 
-    def read_catalogue(side)
+    def read_catalogue(side, tweaks)
       cat = []
 
       # Catalogue is in the first two sectors (0 & 1)
@@ -119,7 +128,8 @@ module BBC
                       cat[SECTOR_SIZE + offset + 7]
 
         file = BBCFile.new(side, dir, name, loadaddr, nil,
-                           file_content(side, startsector, length))
+                           file_content(side, startsector, length),
+                           tweaks&.fetch("#{dir}.#{name}", nil))
 
         @files[":#{side}.#{dir.upcase}.#{name.upcase}"] = file
       end
