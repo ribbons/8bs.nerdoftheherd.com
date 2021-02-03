@@ -64,9 +64,9 @@
         :id: 4
       - :title: Repton Passwords
         :paths: [ ':2.RepPass' ]
-#      - :title: De-archive Software
-#        :type: :menu
-#        :id: 5
+      - :title: Archived Software
+        :type: :menu
+        :id: 5
       - :title: BACK TO MAGAZINE
         :type: :menu
         :id: 1
@@ -123,3 +123,8 @@
       - :title: Back to main menu
         :type: :menu
         :id: 999
+  - :title: Archived Software
+    :id: 5
+    :entries:
+      - :title: Sourcecode
+        :paths: [ ':2.Z.SrcCode' ]

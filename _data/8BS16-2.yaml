@@ -66,13 +66,14 @@
   - :title: Archived Programs
     :id: 3
     :entries:
-#      - :title: Musical Titles
-#        :paths: [ ':2.C.MUSIC' ]
+      - :title: Musical Titles
+        :type: :menu
+        :id: 4
       - :title: Sorting Article Part 2
         :paths: [ ':2.C.709' ]
         :arcpaths: [ LOADER ]
-#      - :title: 3 Versions of Battleships
-#        :paths: [ ':2.C.BSHIPS' ]
+      - :title: 3 Versions of Battleships
+        :paths: [ ':2.C.BSHIPS' ]
       - :title: Digitised Pictures
         :type: :ldpic
         :paths: [ ':2.C.PICTURE' ]
@@ -80,3 +81,24 @@
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 1
+  - :title: Musical Titles
+    :id: 4
+    :entries:
+      - :title: Alone
+        :paths: [ ':2.C.MUSIC' ]
+        :arcpaths: [ Alone ]
+      - :title: Asterix
+        :paths: [ ':2.C.MUSIC' ]
+        :arcpaths: [ Asterix ]
+      - :title: China in Your Hand
+        :paths: [ ':2.C.MUSIC' ]
+        :arcpaths: [ China ]
+      - :title: Ghostbusters
+        :paths: [ ':2.C.MUSIC' ]
+        :arcpaths: [ GhostB ]
+      - :title: Captain Pugwash Remix
+        :paths: [ ':2.C.MUSIC' ]
+        :arcpaths: [ Pugwash ]
+      - :title: PREVIOUS MENU
+        :type: :menu
+        :id: 3

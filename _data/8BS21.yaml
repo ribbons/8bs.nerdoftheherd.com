@@ -127,13 +127,13 @@
       - :title: Fantasy Adventure Creator
         :paths: [ ':2.C.FntyDes' ]
         :arcpaths: [ fLOAD ]
-#      - :title: C.Hacker
-#        :paths: [ ':2.C.Hacker' ]
+      - :title: Hacker
+        :paths: [ ':2.C.Hacker' ]
       - :title: Typing Tutor
         :paths: [ ':2.C.TypTutr' ]
         :arcpaths: [ TUTOR ]
-#      - :title: C.UtlsEtc
-#        :paths: [ ':2.C.UtlsEtc' ]
+      - :title: Resolve Communications Software
+        :paths: [ ':2.C.UtlsEtc' ]
       - :title: Back to main menu
         :type: :menu
         :id: 999

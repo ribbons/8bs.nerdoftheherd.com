@@ -56,8 +56,8 @@
 #      - :title: Repton Competition Screens
 #        :paths: [ C.Repton ]
       - :title: Chris Richardson's Text Editor
-        :paths: [ C.TextEd ]
-        :arcpaths: [ Menu ]
+        :type: :menu
+        :id: 4
       - :title: Outer Space Graphic Pictures
         :type: :screendump
         :modes:    [ 1,       1,        [ 1, 0, 4, 6, 7 ] ]
@@ -99,3 +99,31 @@
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
+  - :title: Chris Richardson's Text Editor
+    :id: 4
+    :entries:
+      - :title: Mode 7 display program
+        :paths: [ C.TextEd ]
+        :arcpaths: [ MO7DIS ]
+      - :title: Teletext editor v2 (Master)
+        :model: :master128
+        :paths: [ C.TextEd ]
+        :arcpaths: [ TXT2 ]
+      - :title: Font Design (Master)
+        :model: :master128
+        :paths: [ C.TextEd ]
+        :arcpaths: [ FONTDES ]
+      - :title: Teletext Editor User Guide
+        :type: :mode7
+        :paths: [ C.TextEd ]
+        :arcpaths: [ TX2INFO ]
+      - :title: Mode 7 Display Program Guide
+        :type: :mode7
+        :paths: [ C.TextEd ]
+        :arcpaths: [ DISINFO ]
+      - :title: Mode 7 Graphics Guide (printer on)
+        :paths: [ C.TextEd ]
+        :arcpaths: [ GRAPHV2 ]
+      - :title: Return to Previous Menu
+        :type: :menu
+        :id: 2

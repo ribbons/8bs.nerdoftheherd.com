@@ -60,8 +60,8 @@
     :id: 2
     :entries:
       - :title: 200th Anniversary Mozart's Death
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.!Menu ]
+        :type: :menu
+        :id: 4
       - :title: Welsh Boys PD Demo Software
         :paths: [ ':2.C.WelshB' ]
         :arcpaths: [ Demo ]
@@ -104,6 +104,32 @@
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
+  - :title: 200th Anniversary Mozart's Death
+    :id: 4
+    :entries:
+      - :title: Read Textfile History
+        :type: :mode0
+        :paths: [ ':2.C.Mozart1' ]
+        :arcpaths: [ M.MozText ]
+      - :title: Rondo alla Turca
+        :paths: [ ':2.C.Mozart1' ]
+        :arcpaths: [ M.Rondo ]
+      - :title: Themes from Operas
+        :paths: [ ':2.C.Mozart1' ]
+        :arcpaths: [ M.Opera ]
+      - :title: Symphony Number 40
+        :paths: [ ':2.C.Mozart1' ]
+        :arcpaths: [ M.GMinor ]
+      - :title: Night Music (Model B)
+        :paths: [ ':2.C.Mozart1' ]
+        :arcpaths: [ M.TLNM-b ]
+      - :title: Night Music (Master)
+        :paths: [ ':2.C.Mozart1' ]
+        :arcpaths: [ M.TLNM-m ]
+        :model: :master128
+      - :title: Return to Previous Menu
+        :type: :menu
+        :id: 2
 
 :tweaks:
   :merge:

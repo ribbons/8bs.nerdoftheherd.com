@@ -136,10 +136,9 @@
       - :title: Chain Letters Game
         :paths: [ A.ChLttrs ]
         :arcpaths: [ LOADRAM ]
-      - :title: Applications Etc
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ Disc ]
-        :model: :master128
+      - :title: Programs By S.Johnson
+        :type: :menu
+        :id: 7
       - :title: Mode 0 Graphical Screens
         :type: :screendump
         :paths: [ ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0' ]
@@ -161,6 +160,33 @@
       - :title: Back to main menu
         :type: :menu
         :id: 999
+  - :title: Programs By S.Johnson
+    :id: 7
+    :entries:
+      - :title: Form Master
+        :paths: [ ':2.A.ApplEtc' ]
+        :arcpaths: [ FORMMAS ]
+        :model: :master128
+      - :title: View Start
+        :paths: [ ':2.A.ApplEtc' ]
+        :arcpaths: [ V-START ]
+      - :title: Tiles
+        :paths: [ ':2.A.ApplEtc' ]
+        :arcpaths: [ TILES ]
+        :model: :master128
+      - :title: Warning
+        :paths: [ ':2.A.ApplEtc' ]
+        :arcpaths: [ WARN ]
+      - :title: VAT Calculator
+        :paths: [ ':2.A.ApplEtc' ]
+        :arcpaths: [ VATCALC ]
+      - :title: Comic Relief
+        :paths: [ ':2.A.ApplEtc' ]
+        :arcpaths: [ CRELIEF ]
+        :model: :master128
+      - :title: Back to previous menu
+        :type: :menu
+        :id: 6
 
 :tweaks:
   :files:
