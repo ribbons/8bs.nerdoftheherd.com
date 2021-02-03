@@ -85,6 +85,7 @@
         :paths: [ ':2.GRAPH14' ]
       - :title: 3D Demo
         :paths: [ ':2.3DDemo' ]
+        :model: :master128
       - :title: 3D Demo (B)
         :paths: [ ':2.3DDemoS' ]
       - :title: Back to main menu
