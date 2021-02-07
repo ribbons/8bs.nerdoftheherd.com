@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2016-2019 by the authors - see the AUTHORS file for details.
+ * Copyright © 2016-2021 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,10 +71,10 @@ VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode)
             screen = BbcImageLoader_LoadMemDump(data, (int)dataLen);
         }
 
-        uint8_t mode = (uint8_t)NUM2UINT(rb_ary_shift(modeVals));
-        BbcScreen_setMode(screen, mode);
+        uint8_t bbcmode = (uint8_t)NUM2UINT(rb_ary_shift(modeVals));
+        BbcScreen_setMode(screen, bbcmode);
 
-        if(mode == 2)
+        if(bbcmode == 2)
         {
             // ScrLoad saves mappings for colours 9-16 in the first four bytes
             // of the image and then copies the next four over to hide this

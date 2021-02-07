@@ -1,6 +1,6 @@
 /*
  * This file is part of the 8BS Online Conversion.
- * Copyright © 2007-2019 by the authors - see the AUTHORS file for details.
+ * Copyright © 2007-2021 by the authors - see the AUTHORS file for details.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1208,7 +1208,6 @@ VALUE method_mode7_mem_to_html(VALUE self, VALUE input)
                 }
                 else
                 {
-                    thischar = ' ';
                     thischar = ' ';
                 }
 

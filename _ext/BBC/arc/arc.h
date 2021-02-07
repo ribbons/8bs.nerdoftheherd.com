@@ -87,7 +87,7 @@
 
 #if	!UNIX
 typedef unsigned int	u_int;
-#ifndef	__GNUC__
+#ifdef	__STRICT_ANSI__
 typedef unsigned char	u_char;
 typedef unsigned short	u_short;
 #endif

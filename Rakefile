@@ -28,7 +28,7 @@ task :jshint do
   sh 'npm run --silent jshint'
 end
 
-task lint: %w[rubocop jshint]
+task lint: %w[rubocop jshint cppcheck]
 
 Rake::ExtensionTask.new do |ext|
   ext.name = 'bbc_native'
@@ -50,6 +50,16 @@ task :proof do
     disable_external: true,
     alt_ignore: [%r{^/assets/convimages/}]
   ).run
+end
+
+task :cppcheck do
+  puts 'Running Cppcheck...'
+
+  sh 'cppcheck --quiet --error-exitcode=2 --enable=all --std=c99 \
+               --suppress=missingIncludeSystem --inline-suppr _ext/BBC/*.c',
+     verbose: false
+
+  puts 'No errors found'
 end
 
 CLEAN.include('_plugins/**/*.so')

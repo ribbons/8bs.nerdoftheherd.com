@@ -26,7 +26,7 @@ throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 
 # rubocop:disable Style/GlobalVars
 $srcs = Dir.glob('**/*.c', base: $srcdir)
-$CFLAGS = '-O3 -Wall -Werror -fPIC'
+$CFLAGS = '-O3 -Wall -Werror -fPIC -std=c99'
 $VPATH << '$(srcdir)/arc'
 # rubocop:enable Style/GlobalVars
 

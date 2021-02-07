@@ -18,6 +18,7 @@
 
 #include "bbc_native.h"
 
+// cppcheck-suppress unusedFunction
 void Init_bbc_native()
 {
     VALUE mBBC = rb_define_module("BBC");

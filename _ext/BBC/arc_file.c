@@ -117,7 +117,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
         }
 
         arc_decompress(p, compr_len, contentbuf, uncomp_len);
-        VALUE content = rb_str_new(contentbuf, uncomp_len);
+        VALUE filecontent = rb_str_new(contentbuf, uncomp_len);
         free(contentbuf);
 
         VALUE filetweaks = Qnil;
@@ -129,7 +129,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
 
         VALUE fargs[] = {INT2NUM(0), rb_str_new2("$"), filename,
                          UINT2NUM(0xFFFFFFFF), UINT2NUM(0xFFFFFFFF),
-                         content, filetweaks};
+                         filecontent, filetweaks};
 
         VALUE file = rb_class_new_instance(ARRAY_LEN(fargs), fargs, cBBCFile);
 

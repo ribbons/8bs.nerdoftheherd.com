@@ -9,7 +9,7 @@ on:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,10 +23,14 @@ jobs:
       - name: Node packages
         run: npm ci
 
+      - name: Cppcheck package
+        run: sudo apt-get install cppcheck
+
       - name: Lint
         run: |
           bundle exec rake jshint
           bundle exec rubocop --format github
+          bundle exec rake cppcheck
 
   build:
     name: Build and test
