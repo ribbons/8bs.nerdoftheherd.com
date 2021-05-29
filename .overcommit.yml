@@ -4,6 +4,12 @@ PreCommit:
   ALL:
     problem_on_unmodified_line: warn
 
+  RSpec:
+    enabled: true
+    description: Run RSpec test suite
+    required_executable: bundle
+    command: [bundle, exec, rake, rspec]
+
   RuboCop:
     enabled: true
     required_executable: bundle

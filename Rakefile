@@ -19,6 +19,7 @@
 require 'rubocop/rake_task'
 require 'rake/extensiontask'
 require 'rake/clean'
+require 'rspec/core/rake_task'
 require 'html-proofer'
 require 'jekyll'
 
@@ -60,6 +61,10 @@ task :cppcheck do
      verbose: false
 
   puts 'No errors found'
+end
+
+RSpec::Core::RakeTask.new(rspec: :compile) do |rake|
+  rake.pattern = '_spec/**/*_spec.rb'
 end
 
 CLEAN.include('_plugins/**/*.so')
