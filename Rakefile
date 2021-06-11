@@ -25,10 +25,12 @@ require 'jekyll'
 
 RuboCop::RakeTask.new
 
+desc 'Run JShint'
 task :jshint do
   sh 'npm run --silent jshint'
 end
 
+desc 'Run all lint tasks'
 task lint: %w[rubocop jshint cppcheck]
 
 Rake::ExtensionTask.new do |ext|
@@ -38,6 +40,7 @@ Rake::ExtensionTask.new do |ext|
   ext.lib_dir = '_plugins/BBC'
 end
 
+desc 'Build site and run HTMLProofer against the output'
 task :proof do
   builddir = File.join(Dir.tmpdir, '8bs_online_conversion', 'html')
 
@@ -53,6 +56,7 @@ task :proof do
   ).run
 end
 
+desc 'Run Cppcheck'
 task :cppcheck do
   puts 'Running Cppcheck...'
 
