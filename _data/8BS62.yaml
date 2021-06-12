@@ -1,6 +1,7 @@
+---
 7:
   Spitfire Picture:
     :paths:
       - ':2.S.1SFIRE'
     :type: :screendump
-    :modes: [ 1 ]
+    :modes: [1]

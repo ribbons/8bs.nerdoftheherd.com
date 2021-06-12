@@ -1,27 +1,28 @@
+---
 :date: 1990
 :menus:
   - :title: Main menu
     :id: 1
     :entries:
       - :title: The Bungle Brothers
-        :paths: [ BUNGLE ]
+        :paths: [BUNGLE]
       - :title: Stock Market
-        :paths: [ STOCK ]
+        :paths: [STOCK]
       - :title: Cells & Serpents
-        :paths: [ SERPENT ]
+        :paths: [SERPENT]
       - :title: Nightmare Park
-        :paths: [ PARKY ]
+        :paths: [PARKY]
       - :title: Battleships
-        :paths: [ BATTLE ]
+        :paths: [BATTLE]
       - :title: Logo Subset
-        :paths: [ LOGOSET ]
+        :paths: [LOGOSET]
       - :title: Curves
-        :paths: [ CURVES ]
+        :paths: [CURVES]
       - :title: Score Keeper
-        :paths: [ SCORER ]
+        :paths: [SCORER]
       - :title: Definer
-        :paths: [ RUNE ]
+        :paths: [RUNE]
       - :title: Modes +
-        :paths: [ MODES+ ]
+        :paths: [MODES+]
       - :title: Rune Converter
-        :paths: [ DEFINER ]
+        :paths: [DEFINER]

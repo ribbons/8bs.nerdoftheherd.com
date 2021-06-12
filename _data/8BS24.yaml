@@ -1,3 +1,4 @@
+---
 :date: Jan/1993
 :menus:
   - :title: Main menu
@@ -5,48 +6,48 @@
     :entries:
       - :title: Introduction / News
         :type: :mode7
-        :paths: [ IntNews ]
+        :paths: [IntNews]
       - :title: Questionnaire Results
         :type: :mode7
-        :paths: [ Results ]
+        :paths: [Results]
       - :title: User Response
         :type: :mode7
-        :paths: [ Cmments ]
+        :paths: [Cmments]
       - :title: C Sourcecode
         :type: :mode0
-        :paths: [ CSource ]
+        :paths: [CSource]
       - :title: About this Issue
         :type: :mode7
-        :paths: [ About24 ]
+        :paths: [About24]
       - :title: Presenting Programs 3
         :type: :mode7
-        :paths: [ Present ]
+        :paths: [Present]
       - :title: Freeze your 6502
-        :paths: [ Freeze ]
+        :paths: [Freeze]
       - :title: Book Review
         :type: :mode7
-        :paths: [ EpsonBk ]
+        :paths: [EpsonBk]
       - :title: Messages Section
         :type: :mode7
-        :paths: [ MailBox ]
+        :paths: [MailBox]
       - :title: Program Documentation
         :type: :mode7
-        :paths: [ Dcumnts ]
+        :paths: [Dcumnts]
       - :title: Archimedes Debate
         :type: :mode7
-        :paths: [ ArchDbt ]
+        :paths: [ArchDbt]
       - :title: Puzzle Info
         :type: :mode7
-        :paths: [ PuzInfo ]
+        :paths: [PuzInfo]
       - :title: Christmas Wordpuzzle
         :type: :mode0
-        :paths: [ Puzl92 ]
+        :paths: [Puzl92]
       - :title: 32016 Section
         :type: :mode7
-        :paths: [ NS32016 ]
+        :paths: [NS32016]
       - :title: TBI pool update
         :type: :mode7
-        :paths: [ TBIupdt ]
+        :paths: [TBIupdt]
       - :title: Issue 24 Software Menu
         :type: :menu
         :id: 999
@@ -63,7 +64,7 @@
         :type: :menu
         :id: 4
       - :title: Repton Passwords
-        :paths: [ ':2.RepPass' ]
+        :paths: [':2.RepPass']
       - :title: Archived Software
         :type: :menu
         :id: 5
@@ -74,20 +75,20 @@
     :id: 2
     :entries:
       - :title: Patience
-        :paths: [ ':2.PATNCE' ]
+        :paths: [':2.PATNCE']
       - :title: Intellectual Hangman
-        :paths: [ ':2.Execute' ]
+        :paths: [':2.Execute']
       - :title: Christmas Cracker
-        :paths: [ ':2.CRACKER' ]
+        :paths: [':2.CRACKER']
       - :title: 12 Days of Xmas
-        :paths: [ ':2.12Days' ]
+        :paths: [':2.12Days']
       - :title: Graph14
-        :paths: [ ':2.GRAPH14' ]
+        :paths: [':2.GRAPH14']
       - :title: 3D Demo
-        :paths: [ ':2.3DDemo' ]
+        :paths: [':2.3DDemo']
         :model: :master128
       - :title: 3D Demo (B)
-        :paths: [ ':2.3DDemoS' ]
+        :paths: [':2.3DDemoS']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -95,18 +96,18 @@
     :id: 3
     :entries:
       - :title: Bank Manager
-        :paths: [ ':2.BankMan' ]
+        :paths: [':2.BankMan']
       - :title: Disk Envelope Creator
-        :paths: [ ':2.ENVCRE' ]
+        :paths: [':2.ENVCRE']
       - :title: Fahrenheit to Celsius
         :type: :run
-        :paths: [ ':2.FAHR' ]
+        :paths: [':2.FAHR']
       - :title: Form Master
-        :paths: [ ':2.FormMas' ]
+        :paths: [':2.FormMas']
       - :title: Sim City Cheat
-        :paths: [ ':2.SimCht' ]
+        :paths: [':2.SimCht']
       - :title: Picture Gallery V2
-        :paths: [ ':2.PicDis3' ]
+        :paths: [':2.PicDis3']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -114,13 +115,13 @@
     :id: 4
     :entries:
       - :title: Econet Tree
-        :paths: [ ':2.ETREE' ]
+        :paths: [':2.ETREE']
       - :title: RAMdisk
-        :paths: [ ':2.RAMdisk' ]
+        :paths: [':2.RAMdisk']
       - :title: Multiple Accesser
-        :paths: [ ':2.Accessr' ]
+        :paths: [':2.Accessr']
       - :title: Bulk Delete
-        :paths: [ ':2.BulkDel' ]
+        :paths: [':2.BulkDel']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -128,4 +129,4 @@
     :id: 5
     :entries:
       - :title: Sourcecode
-        :paths: [ ':2.Z.SrcCode' ]
+        :paths: [':2.Z.SrcCode']

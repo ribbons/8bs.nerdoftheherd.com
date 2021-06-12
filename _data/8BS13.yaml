@@ -1,3 +1,4 @@
+---
 :date: Jun/1991
 :menus:
   - :title: Main menu
@@ -11,49 +12,49 @@
         :id: 3
       - :title: Disc Magazine Help
         :type: :mode0
-        :paths: [ ':2.$.MagINS' ]
+        :paths: [':2.$.MagINS']
       - :title: MESSAGES FOR YOU
         :type: :mode0
-        :paths: [ ':2.$.Message' ]
+        :paths: [':2.$.Message']
   - :title: Disc Magazine
     :id: 2
     :entries:
       - :title: Issue News
         :type: :mode0
-        :paths: [ ':2.NEWS' ]
+        :paths: [':2.NEWS']
       - :title: Adverts/Help Wanted
         :type: :mode0
-        :paths: [ ':2.ADVERTS' ]
+        :paths: [':2.ADVERTS']
       - :title: Hints/Tips
         :type: :mode0
-        :paths: [ ':2.HINTS' ]
+        :paths: [':2.HINTS']
       - :title: Communications
         :type: :mode0
-        :paths: [ ':2.COMMS' ]
+        :paths: [':2.COMMS']
       - :title: Amcom-ADFS Guide
         :type: :mode0
-        :paths: [ ':2.AMCOM' ]
+        :paths: [':2.AMCOM']
       - :title: PR Scripts Article
         :type: :mode0
-        :paths: [ ':2.PRSCR' ]
+        :paths: [':2.PRSCR']
       - :title: Watford S.SWR detail
         :type: :mode0
-        :paths: [ ':2.SWRART' ]
+        :paths: [':2.SWRART']
       - :title: Programmers Return 6
         :type: :mode0
-        :paths: [ ':2.PROGRET' ]
+        :paths: [':2.PROGRET']
       - :title: Problems/Help Wanted
         :type: :mode0
-        :paths: [ ':2.PROBS' ]
+        :paths: [':2.PROBS']
       - :title: On this Months Disc
         :type: :mode0
-        :paths: [ ':2.PROGS' ]
+        :paths: [':2.PROGS']
       - :title: Repton Reportage
         :type: :mode0
-        :paths: [ ':2.REPTON' ]
+        :paths: [':2.REPTON']
       - :title: Members Response Pool
         :type: :mode0
-        :paths: [ ':2.REPLIES' ]
+        :paths: [':2.REPLIES']
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1
@@ -61,29 +62,29 @@
     :id: 3
     :entries:
       - :title: Amcom to ADFS Transfer
-        :paths: [ Amcom ]
+        :paths: [Amcom]
       - :title: AxelF Music (BASIC)
-        :paths: [ Axelf ]
+        :paths: [Axelf]
       - :title: Broadway Boogie (BASIC)
-        :paths: [ Boogie ]
+        :paths: [Boogie]
       - :title: Directory Rename Utility
-        :paths: [ DirName ]
+        :paths: [DirName]
       - :title: Envelope Creator
-        :paths: [ EnvCRT ]
+        :paths: [EnvCRT]
       - :title: E Type Game Cheat
-        :paths: [ EtypeCH ]
+        :paths: [EtypeCH]
       - :title: Froggy Game (BASIC)
-        :paths: [ Froggy ]
+        :paths: [Froggy]
       - :title: Golden Brown (BASIC)
-        :paths: [ GOLDEN ]
+        :paths: [GOLDEN]
       - :title: Stairway to Heaven
-        :paths: [ Heaven ]
+        :paths: [Heaven]
       - :title: Kix Game Cheat
-        :paths: [ KixCHT ]
+        :paths: [KixCHT]
       - :title: Motor Consumption Util
-        :paths: [ MOTOR ]
+        :paths: [MOTOR]
       - :title: News Reader Demo
-        :paths: [ NEWS ]
+        :paths: [NEWS]
       - :title: NEXT PAGE
         :type: :menu
         :id: 4
@@ -94,24 +95,24 @@
     :id: 4
     :entries:
       - :title: ADFS String Search
-        :paths: [ ADFSSCH ]
+        :paths: [ADFSSCH]
       - :title: Phantom of the Opera
-        :paths: [ Phan2 ]
+        :paths: [Phan2]
       - :title: Rom to Disc Utility
-        :paths: [ RomDisc ]
+        :paths: [RomDisc]
       - :title: Seasick Mode Split Demo
-        :paths: [ Seasick ]
+        :paths: [Seasick]
       - :title: Thomas the Tank Engine
         :type: :ldpic
-        :paths: [ THOMAS ]
+        :paths: [THOMAS]
       - :title: Blakes 7 Liberator Pic
         :type: :screendump
-        :paths: [ ':2.P.Blakes7' ]
-        :modes: [ 2 ]
+        :paths: [':2.P.Blakes7']
+        :modes: [2]
       - :title: Digitised Animations
-        :paths: [ ':2.DEMO' ]
+        :paths: [':2.DEMO']
       - :title: Message to Amiga/ST Owners
-        :paths: [ ':2.BRITISH' ]
+        :paths: [':2.BRITISH']
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 3

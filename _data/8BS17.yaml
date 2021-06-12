@@ -1,3 +1,4 @@
+---
 :date: Dec/1991
 :menus:
   - :title: Main menu
@@ -5,49 +6,49 @@
     :entries:
       - :title: Introduction/News
         :type: :mode0
-        :paths: [ ':2./NEWS' ]
+        :paths: [':2./NEWS']
       - :title: MixEd Instructions
         :type: :mode0
-        :paths: [ ':2./MXED' ]
+        :paths: [':2./MXED']
       - :title: Hints and Tips
         :type: :mode0
-        :paths: [ ':2./HINT' ]
+        :paths: [':2./HINT']
       - :title: Repton Reportage
         :type: :mode0
-        :paths: [ ':2./REPT' ]
+        :paths: [':2./REPT']
       - :title: Programmers Return
         :type: :mode0
-        :paths: [ ':2./PRET' ]
+        :paths: [':2./PRET']
       - :title: Tech Tips Issue 4
         :type: :mode0
-        :paths: [ ':2./TECH' ]
+        :paths: [':2./TECH']
       - :title: SYSTEMS Shares Info
         :type: :mode0
-        :paths: [ ':2./SHRS' ]
+        :paths: [':2./SHRS']
       - :title: On This Months Disc
         :type: :mode0
-        :paths: [ ':2./PROG' ]
+        :paths: [':2./PROG']
       - :title: PD Libraries Review
         :type: :mode0
-        :paths: [ ':2./PDRV' ]
+        :paths: [':2./PDRV']
       - :title: Watford DDFS Report
         :type: :mode0
-        :paths: [ ':2./DDFS' ]
+        :paths: [':2./DDFS']
       - :title: Messages/Help Wanted
         :type: :mode0
-        :paths: [ ':2./HELP' ]
+        :paths: [':2./HELP']
       - :title: Coming Next Month
         :type: :mode0
-        :paths: [ ':2./NMON' ]
+        :paths: [':2./NMON']
       - :title: Archimedes Review Pt1
         :type: :mode0
-        :paths: [ ':2./ARCH' ]
+        :paths: [':2./ARCH']
       - :title: View Filter Guide
         :type: :mode0
-        :paths: [ ':2./FLTR' ]
+        :paths: [':2./FLTR']
       - :title: CHECKLIST FOR RETURNS
         :type: :mode0
-        :paths: [ ':2./CHCK' ]
+        :paths: [':2./CHCK']
       - :title: Issue 17 Program Menu
         :type: :menu
         :id: 999
@@ -56,49 +57,49 @@
     :entries:
       - :title: Issue 17 Archived Programs
         :type: :mode0
-        :paths: [ T.ArcTxt ]
+        :paths: [T.ArcTxt]
       - :title: Issue 17 Non-Archived Programs
         :type: :menu
         :id: 3
       - :title: Issue 17 Magazine Information
         :type: :mode0
-        :paths: [ T.MagINS ]
+        :paths: [T.MagINS]
       - :title: Return to Issue 17 Magazine
         :type: :menu
         :id: 1
       - :title: Archiver Instructions
         :type: :mode0
-        :paths: [ T.ARCINS ]
+        :paths: [T.ARCINS]
   - :title: Non-Archived Programs
     :id: 3
     :entries:
       - :title: Polish Christmas
-        :paths: [ POLXMAS ]
+        :paths: [POLXMAS]
       - :title: Search for Sanity
-        :paths: [ SEARCH ]
+        :paths: [SEARCH]
       - :title: Sound Mix Editor
-        :paths: [ MIXED ]
+        :paths: [MIXED]
       - :title: Run-Build Mix-Ed
-        :paths: [ RUNBLD ]
+        :paths: [RUNBLD]
       - :title: Miles Per Gallon
-        :paths: [ MILESPG ]
+        :paths: [MILESPG]
       - :title: Heart-and-Soul (Music)
-        :paths: [ HEART ]
+        :paths: [HEART]
       - :title: Memory Map Display
-        :paths: [ MEMORY ]
+        :paths: [MEMORY]
       - :title: Flying Bird Animation
-        :paths: [ BIRDIE ]
+        :paths: [BIRDIE]
       - :title: View Filter Utility
-        :paths: [ FILTER ]
+        :paths: [FILTER]
       - :title: AMX Discussion (348)
         :type: :menu
         :id: 4
       - :title: Sattelite Havac Game
-        :paths: [ ':2.SATLITE' ]
+        :paths: [':2.SATLITE']
       - :title: Textfile Viewer
-        :paths: [ ':2.TEXTVW' ]
+        :paths: [':2.TEXTVW']
       - :title: Catalogue Saver
-        :paths: [ ':2.CATSAVE' ]
+        :paths: [':2.CATSAVE']
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
@@ -106,9 +107,9 @@
     :id: 4
     :entries:
       - :title: BF_AMX converter
-        :paths: [ ':2.M.BF_AMX' ]
+        :paths: [':2.M.BF_AMX']
       - :title: BF_PM  converter
-        :paths: [ ':2.M.BF_PM' ]
+        :paths: [':2.M.BF_PM']
       - :title: Return to Non-Archived Programs
         :type: :menu
         :id: 3

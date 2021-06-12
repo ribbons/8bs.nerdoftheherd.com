@@ -1,3 +1,4 @@
+---
 :date: Apr/1992
 :menus:
   - :title: Main menu
@@ -5,28 +6,28 @@
     :entries:
       - :title: Introduction/News
         :type: :mode0
-        :paths: [ ':2./NEWS' ]
+        :paths: [':2./NEWS']
       - :title: HashGen Userguide
         :type: :mode0
-        :paths: [ ':2./HSGN' ]
+        :paths: [':2./HSGN']
       - :title: Re-Inking Ribbons
         :type: :mode0
-        :paths: [ ':2./INTX' ]
+        :paths: [':2./INTX']
       - :title: Repton Reportage
         :type: :mode0
-        :paths: [ ':2./REPT' ]
+        :paths: [':2./REPT']
       - :title: Pantheon Game Guide
         :type: :mode0
-        :paths: [ ':2./PDOC' ]
+        :paths: [':2./PDOC']
       - :title: Sound Sampling Text
         :type: :mode0
-        :paths: [ ':2./STXT' ]
+        :paths: [':2./STXT']
       - :title: View/Ascii Guide
         :type: :mode0
-        :paths: [ ':2./VWAS' ]
+        :paths: [':2./VWAS']
       - :title: Program Documentation
         :type: :mode0
-        :paths: [ ':2./DOCU' ]
+        :paths: [':2./DOCU']
       - :title: Issue 19 Program Menu
         :type: :menu
         :id: 999
@@ -42,27 +43,27 @@
       - :title: Return to Issue 19 Magazine
         :type: :menu
         :id: 1
-#      - :title: Extra Repton 3 Screens
-#        :type: :menu
-#        :id: 4
+      # - :title: Extra Repton 3 Screens
+      #   :type: :menu
+      #   :id: 4
       - :title: Run Archiver Program v3.0
-        :paths: [ ARC3.0 ]
+        :paths: [ARC3.0]
       - :title: 8BS Catalogue (issue 4-18)
         :type: :mode7
-        :paths: [ 8BS ]
+        :paths: [8BS]
   - :title: Archived Software
     :id: 2
     :entries:
-#      - :title: Repton Competition Screens
-#        :paths: [ C.Repton ]
+      # - :title: Repton Competition Screens
+      #   :paths: [C.Repton]
       - :title: Chris Richardson's Text Editor
         :type: :menu
         :id: 4
       - :title: Outer Space Graphic Pictures
         :type: :screendump
-        :modes:    [ 1,       1,        [ 1, 0, 4, 6, 7 ] ]
-        :arcpaths: [ P.Astro, P.Saturn, P.Neptune ]
-        :paths: [ ':2.C.Space', ':2.C.Space', ':2.C.Space' ]
+        :modes: [1, 1, [1, 0, 4, 6, 7]]
+        :arcpaths: [P.Astro, P.Saturn, P.Neptune]
+        :paths: [':2.C.Space', ':2.C.Space', ':2.C.Space']
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
@@ -71,31 +72,31 @@
     :entries:
       - :title: Pantheon Game (see Mag)
         :type: :run
-        :paths: [ ':2.OMCL' ]
+        :paths: [':2.OMCL']
       - :title: Oil Rig Drilling Game
-        :paths: [ ':2.OILRIG' ]
+        :paths: [':2.OILRIG']
       - :title: Bazzasoft BASIC II ROM
-        :paths: [ BASICII ]
+        :paths: [BASICII]
       - :title: Hash (#) Generator
-        :paths: [ HASHGEN ]
+        :paths: [HASHGEN]
       - :title: View-ASCII Converter
         :type: :run
-        :paths: [ VIEWASC ]
+        :paths: [VIEWASC]
       - :title: Mix-Editor User Guide
         :type: :mode7
-        :paths: [ MIXINF ]
+        :paths: [MIXINF]
       - :title: Noughts & Crosses
-        :paths: [ Noughts ]
+        :paths: [Noughts]
       - :title: Simon Copycat Game
-        :paths: [ SIMON ]
+        :paths: [SIMON]
       - :title: Catch'em / Prikkomani Games
-        :paths: [ TwoGame ]
+        :paths: [TwoGame]
       - :title: Klax Game Cheat
-        :paths: [ ':2.KlaxHax' ]
+        :paths: [':2.KlaxHax']
       - :title: Greek Learning Program
-        :paths: [ ':2.!Loader' ]
+        :paths: [':2.!Loader']
       - :title: 8BS Allpurpose Database
-        :paths: [ ':2.Intro' ]
+        :paths: [':2.Intro']
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
@@ -103,27 +104,27 @@
     :id: 4
     :entries:
       - :title: Mode 7 display program
-        :paths: [ C.TextEd ]
-        :arcpaths: [ MO7DIS ]
+        :paths: [C.TextEd]
+        :arcpaths: [MO7DIS]
       - :title: Teletext editor v2 (Master)
         :model: :master128
-        :paths: [ C.TextEd ]
-        :arcpaths: [ TXT2 ]
+        :paths: [C.TextEd]
+        :arcpaths: [TXT2]
       - :title: Font Design (Master)
         :model: :master128
-        :paths: [ C.TextEd ]
-        :arcpaths: [ FONTDES ]
+        :paths: [C.TextEd]
+        :arcpaths: [FONTDES]
       - :title: Teletext Editor User Guide
         :type: :mode7
-        :paths: [ C.TextEd ]
-        :arcpaths: [ TX2INFO ]
+        :paths: [C.TextEd]
+        :arcpaths: [TX2INFO]
       - :title: Mode 7 Display Program Guide
         :type: :mode7
-        :paths: [ C.TextEd ]
-        :arcpaths: [ DISINFO ]
+        :paths: [C.TextEd]
+        :arcpaths: [DISINFO]
       - :title: Mode 7 Graphics Guide (printer on)
-        :paths: [ C.TextEd ]
-        :arcpaths: [ GRAPHV2 ]
+        :paths: [C.TextEd]
+        :arcpaths: [GRAPHV2]
       - :title: Return to Previous Menu
         :type: :menu
         :id: 2

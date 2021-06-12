@@ -1,3 +1,4 @@
+---
 :date: 1990
 :menus:
   - :title: Main menu
@@ -5,13 +6,13 @@
     :entries:
       - :title: ADFS Backup (Master)
         :model: :master128
-        :paths: [ ADFSBCK ]
+        :paths: [ADFSBCK]
       - :title: Menu Program Utility
-        :paths: [ MENUPRG ]
+        :paths: [MENUPRG]
       - :title: Mode 7 Graph Routine
-        :paths: [ GRAFGEN ]
+        :paths: [GRAFGEN]
       - :title: Lower to Upper Case
-        :paths: [ UPPCASE ]
+        :paths: [UPPCASE]
       - :title: SOUND SAMPLES MENU
         :type: :menu
         :id: 2
@@ -19,21 +20,21 @@
     :id: 2
     :entries:
       - :title: Breakout
-        :paths: [ BREAK ]
+        :paths: [BREAK]
       - :title: The Radio Star
-        :paths: [ BUGGLE ]
+        :paths: [BUGGLE]
       - :title: Ghostbusters
-        :paths: [ GHOST ]
+        :paths: [GHOST]
       - :title: Knight Rider
-        :paths: [ KNIGHT ]
+        :paths: [KNIGHT]
       - :title: Short Sentence
-        :paths: [ SENT1 ]
+        :paths: [SENT1]
       - :title: Top Gun Theme
-        :paths: [ TOPGUN ]
+        :paths: [TOPGUN]
       - :title: Vincent
-        :paths: [ VINCENT ]
+        :paths: [VINCENT]
       - :title: Laura
-        :paths: [ LAURA ]
+        :paths: [LAURA]
       - :title: Previous Menu
         :type: :menu
         :id: 1

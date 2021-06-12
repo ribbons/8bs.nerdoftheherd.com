@@ -1,3 +1,4 @@
+---
 :date: Mar/1991
 :menus:
   - :title: ISSUE 10 PD SOFTWARE AND MAGAZINE
@@ -10,47 +11,134 @@
         :type: :menu
         :id: 3
       - :title: Graphical Animations
-        :paths: [ ':2.DEMO' ]
+        :paths: [':2.DEMO']
       - :title: Adventure Hints 1+2
         :type: :mode0
-        :paths: [ ':2.V.Hint1', ':2.V.Hint2' ]
+        :paths: [':2.V.Hint1', ':2.V.Hint2']
       - :title: Disc Magazine Help
         :type: :mode0
-        :paths: [ ':2.$.MagINS' ]
+        :paths: [':2.$.MagINS']
       - :title: MESSAGES FOR YOU
         :type: :mode0
-        :paths: [ ':2.$.Message' ]
+        :paths: [':2.$.Message']
   - :title: P.D.MAGAZINE
     :id: 2
     :entries:
       - :title: NEWS
         :type: :mode7
-        :paths: [ ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+        :paths:
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
+          - 6144
+          - 920
       - :title: THIS MONTH'S GOODIES
         :type: :mode7
-        :paths: [ ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920, 7168, 920 ]
+        :paths:
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
+          - 6144
+          - 920
+          - 7168
+          - 920
       - :title: U.I.M. REVIEW
         :type: :mode7
-        :paths: [ ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920 ]
+        :paths:
+          - ':2.V.300'
+          - ':2.V.300'
+          - ':2.V.300'
+          - ':2.V.300'
+          - ':2.V.300'
+          - ':2.V.300'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
       - :title: ADVERTS/HINTS TIPS&CHEATS
         :type: :mode7
-        :paths: [ ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920, 7168, 920 ]
+        :paths:
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
+          - 6144
+          - 920
+          - 7168
+          - 920
       - :title: PROGRAM REVIEWS
         :type: :mode7
-        :paths: [ ':2.V.5' ]
-        :offsets: [ 0, 920 ]
+        :paths: [':2.V.5']
+        :offsets: [0, 920]
       - :title: MEMBERS ARTICLES
         :type: :mode7
-        :paths: [ ':2.V.6', ':2.V.6', ':2.V.6', ':2.V.6' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+        :paths: [':2.V.6', ':2.V.6', ':2.V.6', ':2.V.6']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920]
       - :title: M.W. P.D.
         :type: :mode7
-        :paths: [ ':2.V.7', ':2.V.7' ]
-        :offsets: [ 0, 920, 1024, 920 ]
+        :paths: [':2.V.7', ':2.V.7']
+        :offsets: [0, 920, 1024, 920]
       - :title: Previous Menu
         :type: :menu
         :id: 1
@@ -58,37 +146,37 @@
     :id: 3
     :entries:
       - :title: Infinate Triangles
-        :paths: [ Triangl ]
+        :paths: [Triangl]
       - :title: Citadel Cheat Program
-        :paths: [ Citadel ]
+        :paths: [Citadel]
       - :title: Crazy Balls Game
-        :paths: [ Crazy ]
+        :paths: [Crazy]
       - :title: Liverpool Manager
-        :paths: [ Liverp ]
+        :paths: [Liverp]
       - :title: Coldtea Music (basic)
-        :paths: [ Coldtea ]
+        :paths: [Coldtea]
       - :title: Screen Transfer Routine
-        :paths: [ ScreenT ]
+        :paths: [ScreenT]
       - :title: Bubbles Animation
-        :paths: [ Bubbles ]
+        :paths: [Bubbles]
       - :title: Complex Equations
-        :paths: [ Complex ]
+        :paths: [Complex]
       - :title: Graphical Gears
-        :paths: [ Gears ]
+        :paths: [Gears]
       - :title: Space Planets Animation
-        :paths: [ SpaceP ]
+        :paths: [SpaceP]
       - :title: Mandlebrot Set
-        :paths: [ Mandle ]
+        :paths: [Mandle]
       - :title: Printer Command
-        :paths: [ Print ]
+        :paths: [Print]
       - :title: Lumberjack Tune
-        :paths: [ Tune1 ]
+        :paths: [Tune1]
       - :title: Gisburns Castle Cheat
-        :paths: [ Gisburn ]
+        :paths: [Gisburn]
       - :title: Concept Car Graphics
         :type: :screendump
-        :paths: [ S.Concept ]
-        :modes: [ 1 ]
+        :paths: [S.Concept]
+        :modes: [1]
       - :title: Previous Menu
         :type: :menu
         :id: 1

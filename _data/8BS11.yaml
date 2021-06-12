@@ -1,3 +1,4 @@
+---
 :date: Apr/1991
 :menus:
   - :title: ISSUE 11 PD SOFTWARE AND MAGAZINE
@@ -11,47 +12,68 @@
         :id: 3
       - :title: Charging Article
         :type: :mode0
-        :paths: [ ':2.T.CHARGE' ]
+        :paths: [':2.T.CHARGE']
       - :title: Repton Infinity Review
         :type: :mode0
-        :paths: [ ':2.T.REPTON' ]
+        :paths: [':2.T.REPTON']
       - :title: Disc Magazine Help
         :type: :mode0
-        :paths: [ T.MagINS ]
+        :paths: [T.MagINS]
       - :title: MESSAGES FOR YOU
         :type: :mode0
-        :paths: [ ':2.Message' ]
+        :paths: [':2.Message']
   - :title: P.D.MAGAZINE ISSUE 11
     :id: 2
     :entries:
       - :title: NEWS
         :type: :mode7
-        :paths: [ ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920 ]
+        :paths: [':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920]
       - :title: THIS MONTH'S GOODIES
         :type: :mode7
-        :paths: [ ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920 ]
+        :paths: [':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920]
       - :title: SYSTEMS NEWS
         :type: :mode7
-        :paths: [ ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920 ]
+        :paths: [':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300', ':2.V.300']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920]
       - :title: ADVERTS/HINTS TIPS&CHEATS
         :type: :mode7
-        :paths: [ ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+        :paths:
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
+          - 6144
+          - 920
       - :title: TBI SOFTWARE POOL
         :type: :mode7
-        :paths: [ ':2.V.5', ':2.V.5', ':2.V.5', ':2.V.5' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+        :paths: [':2.V.5', ':2.V.5', ':2.V.5', ':2.V.5']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920]
       - :title: MEMBERS ARTICLES
         :type: :mode7
-        :paths: [ ':2.V.6' ]
-        :offsets: [ 0, 920 ]
+        :paths: [':2.V.6']
+        :offsets: [0, 920]
       - :title: REPTON COMPETITION
         :type: :mode7
-        :paths: [ ':2.V.7', ':2.V.7', ':2.V.7' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+        :paths: [':2.V.7', ':2.V.7', ':2.V.7']
+        :offsets: [0, 920, 1024, 920, 2048, 920]
       - :title: Previous Menu
         :type: :menu
         :id: 1
@@ -59,22 +81,22 @@
     :id: 3
     :entries:
       - :title: Helicopter Haulocast
-        :paths: [ Helicop ]
+        :paths: [Helicop]
       - :title: Astronomy Database
-        :paths: [ Observe ]
+        :paths: [Observe]
       - :title: Pontoon Card Game
-        :paths: [ Pontoon ]
+        :paths: [Pontoon]
       - :title: Teletext Editor
-        :paths: [ TextED ]
+        :paths: [TextED]
       - :title: Careers Forcaster
-        :paths: [ Careers ]
+        :paths: [Careers]
       - :title: Extra Star Commands
         :type: :mode0
-        :paths: [ T.Starcom ]
+        :paths: [T.Starcom]
       - :title: Year Planner/Organiser
-        :paths: [ Organse ]
+        :paths: [Organse]
       - :title: Percentages Program
-        :paths: [ Percent ]
+        :paths: [Percent]
       - :title: Red Dwarf III Screens
         :type: :screendump
         :paths:
@@ -83,10 +105,10 @@
           - P.KRYTEN
           - P.CLINT
         :modes:
-          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
-          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
-          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
-          - [ 2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7 ]
+          - [2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7]
+          - [2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7]
+          - [2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7]
+          - [2, 0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7]
       - :title: World Map Graphical Screens
         :type: :scrload
         :paths:
@@ -97,15 +119,15 @@
           - ':2.S.WMAP2'
           - ':2.S.WMAP3'
         :modes:
-          - [ true, 2, 0, 1, 2, 5, 1, 6, 0, 4, 7, 5, 1, 4, 0, 4, 0, 6 ]
-          - [ true, 2, 7, 0, 1, 6, 0, 6, 6, 6, 0, 4, 1, 6, 5, 6, 0, 0 ]
-          - [ true, 1, 0, 4, 1, 7 ]
-          - [ true, 1, 2, 4, 7, 6 ]
-          - [ false, 1, 7, 4, 2, 6 ]
-          - [ true, 1, 2, 4, 7, 6  ]
+          - [true, 2, 0, 1, 2, 5, 1, 6, 0, 4, 7, 5, 1, 4, 0, 4, 0, 6]
+          - [true, 2, 7, 0, 1, 6, 0, 6, 6, 6, 0, 4, 1, 6, 5, 6, 0, 0]
+          - [true, 1, 0, 4, 1, 7]
+          - [true, 1, 2, 4, 7, 6]
+          - [false, 1, 7, 4, 2, 6]
+          - [true, 1, 2, 4, 7, 6]
       - :title: PROGRAMMERS RETURN REVIEWS
         :type: :mode0
-        :paths: [ ':2.T.Progret' ]
+        :paths: [':2.T.Progret']
       - :title: Previous Menu
         :type: :menu
         :id: 1

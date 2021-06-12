@@ -1,3 +1,4 @@
+---
 :date: Oct/1992
 :menus:
   - :title: Main menu
@@ -5,40 +6,40 @@
     :entries:
       - :title: Introduction / News
         :type: :mode0
-        :paths: [ IntNews ]
+        :paths: [IntNews]
       - :title: Discussion / News
         :type: :mode0
-        :paths: [ DisNews ]
+        :paths: [DisNews]
       - :title: About this Issue
         :type: :mode0
-        :paths: [ About22 ]
+        :paths: [About22]
       - :title: Program Documentation
         :type: :mode0
-        :paths: [ Dcumnts ]
+        :paths: [Dcumnts]
       - :title: User Comments
         :type: :mode0
-        :paths: [ Cmments ]
+        :paths: [Cmments]
       - :title: TBI update
         :type: :mode0
-        :paths: [ TBIupdt ]
+        :paths: [TBIupdt]
       - :title: Messages Section
         :type: :mode0
-        :paths: [ MailBox ]
+        :paths: [MailBox]
       - :title: Do you remember?
         :type: :mode0
-        :paths: [ Rmember ]
+        :paths: [Rmember]
       - :title: Presenting Programs 2
         :type: :mode0
-        :paths: [ Present ]
+        :paths: [Present]
       - :title: Beeb & Arch Comparison
         :type: :mode0
-        :paths: [ Compare ]
+        :paths: [Compare]
       - :title: Piggy-backing ROMs
         :type: :mode0
-        :paths: [ PiggyBk ]
+        :paths: [PiggyBk]
       - :title: 2x16K ROMs on one EPROM
         :type: :mode0
-        :paths: [ EPROM ]
+        :paths: [EPROM]
       - :title: Issue 22 Software Menu
         :type: :menu
         :id: 999
@@ -67,19 +68,19 @@
     :id: 2
     :entries:
       - :title: Push the Bale - BBC B
-        :paths: [ ':2.PUSH' ]
+        :paths: [':2.PUSH']
       - :title: Push the Bale - Master
         :model: :master128
-        :paths: [ ':2.PUSH2' ]
+        :paths: [':2.PUSH2']
       - :title: Trading Simulation
-        :paths: [ ':2.TRADE' ]
+        :paths: [':2.TRADE']
       - :title: Big Screen Alien Demo
-        :paths: [ ':2.ALIEN' ]
+        :paths: [':2.ALIEN']
       - :title: Promote Demo
         :type: :run
-        :paths: [ ':2.PROMOTE' ]
+        :paths: [':2.PROMOTE']
       - :title: Dish-Drawing Demo
-        :paths: [ ':2.DshDraw' ]
+        :paths: [':2.DshDraw']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -87,13 +88,13 @@
     :id: 3
     :entries:
       - :title: 'Debussy : Little Negro'
-        :paths: [ ':2.LitNeg' ]
+        :paths: [':2.LitNeg']
       - :title: Airwolf
-        :paths: [ ':2.AirWolf' ]
+        :paths: [':2.AirWolf']
       - :title: Land of Hope & Glory
-        :paths: [ ':2.Land' ]
+        :paths: [':2.Land']
       - :title: Stairway to Heaven
-        :paths: [ ':2.Heaven' ]
+        :paths: [':2.Heaven']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -101,13 +102,13 @@
     :id: 4
     :entries:
       - :title: Title-Top Style Screen
-        :paths: [ ':2.TitlTop' ]
+        :paths: [':2.TitlTop']
       - :title: Boxes Style Screen
-        :paths: [ ':2.Boxes' ]
+        :paths: [':2.Boxes']
       - :title: Colour Clash Demonstration
-        :paths: [ ':2.ColClsh' ]
+        :paths: [':2.ColClsh']
       - :title: Problem Demonstration
-        :paths: [ ':2.TelProb' ]
+        :paths: [':2.TelProb']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -115,18 +116,18 @@
     :id: 5
     :entries:
       - :title: Area Calculator
-        :paths: [ ':2.Areas' ]
+        :paths: [':2.Areas']
       - :title: Units Conversion
-        :paths: [ ':2.Cnvrter' ]
+        :paths: [':2.Cnvrter']
       - :title: DFS => ADFS Utility
-        :paths: [ ':2.DTOA' ]
+        :paths: [':2.DTOA']
       - :title: '*CLONE utility sourcecode'
-        :paths: [ ':2.ClonSrc' ]
+        :paths: [':2.ClonSrc']
       - :title: '*VIEWCON utility'
         :type: :run
-        :paths: [ ':2.VIEWCON' ]
+        :paths: [':2.VIEWCON']
       - :title: Viewcon utility sourcecode
-        :paths: [ ':2.ConvSrc' ]
+        :paths: [':2.ConvSrc']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -134,29 +135,66 @@
     :id: 6
     :entries:
       - :title: Chain Letters Game
-        :paths: [ A.ChLttrs ]
-        :arcpaths: [ LOADRAM ]
+        :paths: [A.ChLttrs]
+        :arcpaths: [LOADRAM]
       - :title: Programs By S.Johnson
         :type: :menu
         :id: 7
       - :title: Mode 0 Graphical Screens
         :type: :screendump
-        :paths: [ ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0', ':2.A.MODE0' ]
-        :arcpaths: [ Hawk, Lightng, MRCA, Shuttle, Tornado ]
-        :captions: [ Hawk, Lightng, MRCA, Shuttle, Tornado ]
-        :modes: [ 0, 0, 0, 0, 0 ]
+        :paths:
+          - ':2.A.MODE0'
+          - ':2.A.MODE0'
+          - ':2.A.MODE0'
+          - ':2.A.MODE0'
+          - ':2.A.MODE0'
+        :arcpaths: [Hawk, Lightng, MRCA, Shuttle, Tornado]
+        :captions: [Hawk, Lightng, MRCA, Shuttle, Tornado]
+        :modes: [0, 0, 0, 0, 0]
       - :title: Mode 1 Graphical Screens
         :type: :screendump
-        :paths: [ A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1, A.MODE1 ]
-        :arcpaths: [ Chip, CoffeeP, Ewok, FourPcs, GLMLogo, Head, King, MightM, Mndrake ]
-        :captions: [ Chip, CoffeeP, Ewok, FourPcs, GLMLogo, Head, King, MightM, Mndrake ]
-        :modes: [ 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+        :paths:
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+          - A.MODE1
+        :arcpaths:
+          - Chip
+          - CoffeeP
+          - Ewok
+          - FourPcs
+          - GLMLogo
+          - Head
+          - King
+          - MightM
+          - Mndrake
+        :captions:
+          - Chip
+          - CoffeeP
+          - Ewok
+          - FourPcs
+          - GLMLogo
+          - Head
+          - King
+          - MightM
+          - Mndrake
+        :modes: [1, 1, 1, 1, 1, 1, 1, 1, 1]
       - :title: Mode 2 Graphical Screens
         :type: :screendump
-        :paths: [ ':2.A.MODE2', ':2.A.MODE2',':2.A.MODE2',':2.A.MODE2', ':2.A.MODE2' ]
-        :arcpaths: [ Ghost, Pic, Plane, Snowman, StrTrek ]
-        :captions: [ Ghost, Pic, Plane, Snowman, StrTrek ]
-        :modes: [ 2, 2, 2, 2, 2 ]
+        :paths:
+          - ':2.A.MODE2'
+          - ':2.A.MODE2'
+          - ':2.A.MODE2'
+          - ':2.A.MODE2'
+          - ':2.A.MODE2'
+        :arcpaths: [Ghost, Pic, Plane, Snowman, StrTrek]
+        :captions: [Ghost, Pic, Plane, Snowman, StrTrek]
+        :modes: [2, 2, 2, 2, 2]
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -164,25 +202,25 @@
     :id: 7
     :entries:
       - :title: Form Master
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ FORMMAS ]
+        :paths: [':2.A.ApplEtc']
+        :arcpaths: [FORMMAS]
         :model: :master128
       - :title: View Start
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ V-START ]
+        :paths: [':2.A.ApplEtc']
+        :arcpaths: [V-START]
       - :title: Tiles
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ TILES ]
+        :paths: [':2.A.ApplEtc']
+        :arcpaths: [TILES]
         :model: :master128
       - :title: Warning
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ WARN ]
+        :paths: [':2.A.ApplEtc']
+        :arcpaths: [WARN]
       - :title: VAT Calculator
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ VATCALC ]
+        :paths: [':2.A.ApplEtc']
+        :arcpaths: [VATCALC]
       - :title: Comic Relief
-        :paths: [ ':2.A.ApplEtc' ]
-        :arcpaths: [ CRELIEF ]
+        :paths: [':2.A.ApplEtc']
+        :arcpaths: [CRELIEF]
         :model: :master128
       - :title: Back to previous menu
         :type: :menu

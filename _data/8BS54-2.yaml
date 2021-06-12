@@ -1,6 +1,7 @@
+---
 3:
   Madness Picture:
     :paths:
       - BBCMAD
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]

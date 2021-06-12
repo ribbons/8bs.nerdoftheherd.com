@@ -1,3 +1,4 @@
+---
 :date: Sep/1991
 :menus:
   - :title: Main menu
@@ -11,49 +12,56 @@
         :id: 3
       - :title: Issue 15 Magazine Help
         :type: :mode0
-        :paths: [ ':2.MagINS' ]
+        :paths: [':2.MagINS']
       - :title: Sorting Article 709
         :type: :mode0
-        :paths: [ ':2.W.INTRO', ':2.W.FORMAT', ':2.W.SORTING', ':2.W.BUBBLE', ':2.W.SELECT', ':2.W.SHELL', ':2.W.COMPARE' ]
+        :paths:
+          - ':2.W.INTRO'
+          - ':2.W.FORMAT'
+          - ':2.W.SORTING'
+          - ':2.W.BUBBLE'
+          - ':2.W.SELECT'
+          - ':2.W.SHELL'
+          - ':2.W.COMPARE'
       - :title: Messages for You
         :type: :mode0
-        :paths: [ ':2.Message' ]
+        :paths: [':2.Message']
   - :title: Disc Magazine
     :id: 2
     :entries:
       - :title: 8BS PROCEDURES
         :type: :mode0
-        :paths: [ ':2./PROC' ]
+        :paths: [':2./PROC']
       - :title: Discussion Corner
         :type: :mode0
-        :paths: [ ':2./DSCS' ]
+        :paths: [':2./DSCS']
       - :title: A-Z Game Cheats
         :type: :mode0
-        :paths: [ ':2./ATOZ' ]
+        :paths: [':2./ATOZ']
       - :title: General Letters
         :type: :mode0
-        :paths: [ ':2./MISC' ]
+        :paths: [':2./MISC']
       - :title: Programmers Return 8
         :type: :mode0
-        :paths: [ ':2./PRET' ]
+        :paths: [':2./PRET']
       - :title: Coming Next Month
         :type: :mode0
-        :paths: [ ':2./NMON' ]
+        :paths: [':2./NMON']
       - :title: Program Documentation
         :type: :mode0
-        :paths: [ ':2./DOCS' ]
+        :paths: [':2./DOCS']
       - :title: Repton Reportage
         :type: :mode0
-        :paths: [ ':2./REPT' ]
+        :paths: [':2./REPT']
       - :title: Palace Of Magic
         :type: :mode0
-        :paths: [ ':2./PAOM' ]
+        :paths: [':2./PAOM']
       - :title: On this Months Disc
         :type: :mode0
-        :paths: [ ':2./PROG' ]
+        :paths: [':2./PROG']
       - :title: Modem Addiction
         :type: :mode0
-        :paths: [ ':2./MODM' ]
+        :paths: [':2./MODM']
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1
@@ -61,32 +69,32 @@
     :id: 3
     :entries:
       - :title: 64 Colour Screen Demo
-        :paths: [ 64COLS ]
+        :paths: [64COLS]
       - :title: NEW Address Book Prog
-        :paths: [ ADDRESS ]
+        :paths: [ADDRESS]
       - :title: ADFS Sector Editor BASIC
-        :paths: [ ADFSSEC ]
+        :paths: [ADFSSEC]
       - :title: Cassette Inlay Printer
-        :paths: [ CASSINP ]
+        :paths: [CASSINP]
       - :title: Character Editor Program
         :type: :run
-        :paths: [ CHARINE ]
+        :paths: [CHARINE]
       - :title: TV Tune/Sound DEMO
-        :paths: [ FUZRUN ]
+        :paths: [FUZRUN]
       - :title: Multicolour Puzzle Game
-        :paths: [ MULCOLR ]
+        :paths: [MULCOLR]
       - :title: Timelapsed Arcade Game
         :type: :run
-        :paths: [ TIMELAP ]
+        :paths: [TIMELAP]
       - :title: Locked Cassette Prog Loader
-        :paths: [ UNLOCK ]
+        :paths: [UNLOCK]
       - :title: View to a Kill DEMO
-        :paths: [ VIEW ]
+        :paths: [VIEW]
       - :title: RoboCop Game Graphics DEMO
-        :paths: [ ':2.R.ROBO' ]
+        :paths: [':2.R.ROBO']
       - :title: Powermix Demonstration 722
         :type: :run
-        :paths: [ ':2.PLAY', MEM ]
+        :paths: [':2.PLAY', MEM]
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1

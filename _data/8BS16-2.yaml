@@ -1,3 +1,4 @@
+---
 :date: Nov/1991
 :menus:
   - :title: Main menu
@@ -11,55 +12,55 @@
         :id: 2
       - :title: Issue 16 Magazine Information
         :type: :mode0
-        :paths: [ T.MagINS ]
+        :paths: [T.MagINS]
       - :title: Non-Linear Equations Text
         :type: :mode0
-        :paths: [ T.NLinEq ]
+        :paths: [T.NLinEq]
       - :title: DFS > ADFS Transfer Text
         :type: :mode0
-        :paths: [ T.ADFSTFR ]
+        :paths: [T.ADFSTFR]
       - :title: Tree Rename Utility Text
         :type: :mode0
-        :paths: [ T.TREETXT ]
+        :paths: [T.TREETXT]
       - :title: Music 500 Waltz Program
         :type: :mode0
-        :paths: [ 5.M500TXT ]
+        :paths: [5.M500TXT]
       - :title: Extra Repton Screens
         :type: :mode0
-        :paths: [ RepText ]
+        :paths: [RepText]
       - :title: ARCHIVER INSTRUCTIONS
         :type: :mode0
-        :paths: [ T.ARCINS ]
+        :paths: [T.ARCINS]
   - :title: Non-Archived Programs
     :id: 2
     :entries:
       - :title: "'Buzz' Aldrin Picture & Text"
         :type: :screendump
-        :paths: [ ALDRIN ]
-        :modes: [ [ 1, 0, 0, 4, 7 ] ]
+        :paths: [ALDRIN]
+        :modes: [[1, 0, 0, 4, 7]]
       - :title: "'Bones' Demonstration Program"
-        :paths: [ BONES ]
+        :paths: [BONES]
       - :title: "'Nite & Day' Demonstration"
-        :paths: [ NITEDAY ]
+        :paths: [NITEDAY]
       - :title: Chemistry Database/Test Prog
-        :paths: [ CHEMTST ]
+        :paths: [CHEMTST]
       - :title: Formatted Program Listings
-        :paths: [ FORMLST ]
+        :paths: [FORMLST]
       - :title: DFS to ADFS Transfer Utility
-        :paths: [ ADFSTFR ]
+        :paths: [ADFSTFR]
       - :title: NLinEq BASIC Demonstration
-        :paths: [ NLINEQ ]
+        :paths: [NLINEQ]
       - :title: Mastermind Thought Game
-        :paths: [ MASTER ]
+        :paths: [MASTER]
       - :title: Tree Rename Utility v2
-        :paths: [ TREE ]
+        :paths: [TREE]
       - :title: '*CAT Replacement Command'
         :type: :run
-        :paths: [ XTRACAT ]
+        :paths: [XTRACAT]
       - :title: Slatter Arcade Game
-        :paths: [ ':2.SLATRUN' ]
+        :paths: [':2.SLATRUN']
       - :title: Archive/De-Archive Utility
-        :paths: [ ':2.ARCHIVE' ]
+        :paths: [':2.ARCHIVE']
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 1
@@ -70,14 +71,14 @@
         :type: :menu
         :id: 4
       - :title: Sorting Article Part 2
-        :paths: [ ':2.C.709' ]
-        :arcpaths: [ LOADER ]
+        :paths: [':2.C.709']
+        :arcpaths: [LOADER]
       - :title: 3 Versions of Battleships
-        :paths: [ ':2.C.BSHIPS' ]
+        :paths: [':2.C.BSHIPS']
       - :title: Digitised Pictures
         :type: :ldpic
-        :paths: [ ':2.C.PICTURE' ]
-        :arcpaths: [ P.ARNEE, P.WWOLF ]
+        :paths: [':2.C.PICTURE']
+        :arcpaths: [P.ARNEE, P.WWOLF]
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 1
@@ -85,20 +86,20 @@
     :id: 4
     :entries:
       - :title: Alone
-        :paths: [ ':2.C.MUSIC' ]
-        :arcpaths: [ Alone ]
+        :paths: [':2.C.MUSIC']
+        :arcpaths: [Alone]
       - :title: Asterix
-        :paths: [ ':2.C.MUSIC' ]
-        :arcpaths: [ Asterix ]
+        :paths: [':2.C.MUSIC']
+        :arcpaths: [Asterix]
       - :title: China in Your Hand
-        :paths: [ ':2.C.MUSIC' ]
-        :arcpaths: [ China ]
+        :paths: [':2.C.MUSIC']
+        :arcpaths: [China]
       - :title: Ghostbusters
-        :paths: [ ':2.C.MUSIC' ]
-        :arcpaths: [ GhostB ]
+        :paths: [':2.C.MUSIC']
+        :arcpaths: [GhostB]
       - :title: Captain Pugwash Remix
-        :paths: [ ':2.C.MUSIC' ]
-        :arcpaths: [ Pugwash ]
+        :paths: [':2.C.MUSIC']
+        :arcpaths: [Pugwash]
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 3

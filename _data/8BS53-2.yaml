@@ -1,3 +1,4 @@
+---
 3:
   Pictures From 4WL. TBI-105:
     :paths:
@@ -11,4 +12,4 @@
       - CLOCK
       - CSHIP
       - DW1BBC
-    :modes: [ 0, 0, 0, 0 ]
+    :modes: [0, 0, 0, 0]

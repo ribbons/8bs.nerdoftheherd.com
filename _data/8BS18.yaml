@@ -1,3 +1,4 @@
+---
 :date: Feb/1992
 :menus:
   - :title: Main menu
@@ -5,37 +6,37 @@
     :entries:
       - :title: Introduction/News
         :type: :mode0
-        :paths: [ ':0./NEWS' ]
+        :paths: [':0./NEWS']
       - :title: HADFS Review
         :type: :mode0
-        :paths: [ ':0./HADF' ]
+        :paths: [':0./HADF']
       - :title: Members Mailbox
         :type: :mode0
-        :paths: [ ':0./MBOX' ]
+        :paths: [':0./MBOX']
       - :title: Repton Reportage
         :type: :mode0
-        :paths: [ ':0./REPT' ]
+        :paths: [':0./REPT']
       - :title: Programmers Return
         :type: :mode0
-        :paths: [ ':0./PRET' ]
+        :paths: [':0./PRET']
       - :title: Tech Tips Issue 5
         :type: :mode0
-        :paths: [ ':2./TECH' ]
+        :paths: [':2./TECH']
       - :title: Begin Machine Code
         :type: :mode0
-        :paths: [ ':0./MART' ]
+        :paths: [':0./MART']
       - :title: Program Documentation
         :type: :mode0
-        :paths: [ ':2./DOC1' ]
+        :paths: [':2./DOC1']
       - :title: Address DBase Guide
         :type: :mode0
-        :paths: [ ':2./DBSE' ]
+        :paths: [':2./DBSE']
       - :title: Chopper Instructions
         :type: :mode0
-        :paths: [ ':2./CHPR' ]
+        :paths: [':2./CHPR']
       - :title: Archimedes Review Pt2
         :type: :mode0
-        :paths: [ ':0./UPGR' ]
+        :paths: [':0./UPGR']
       - :title: Issue 18 Program Menu
         :type: :menu
         :id: 999
@@ -50,12 +51,12 @@
         :id: 3
       - :title: HADFS Text Files Display
         :type: :mode0
-        :paths: [ T.HADFS ]
+        :paths: [T.HADFS]
       - :title: Return to Issue 17 Magazine
         :type: :menu
         :id: 1
       - :title: Run Archiver Program v3.0
-        :paths: [ ':2.ARC3.0' ]
+        :paths: [':2.ARC3.0']
   - :title: Archived Software
     :id: 2
     :entries:
@@ -63,14 +64,14 @@
         :type: :menu
         :id: 4
       - :title: Welsh Boys PD Demo Software
-        :paths: [ ':2.C.WelshB' ]
-        :arcpaths: [ Demo ]
+        :paths: [':2.C.WelshB']
+        :arcpaths: [Demo]
       - :title: Sorting Article Part III
-        :paths: [ ':2.C.Sort3' ]
-        :arcpaths: [ Loader ]
-#      - :title: 3D Grand Prix Extra Screens
-#        :paths: [ ':2.C.3DCons' ]
-#        :arcpaths: [ G.SPEED ]
+        :paths: [':2.C.Sort3']
+        :arcpaths: [Loader]
+      # - :title: 3D Grand Prix Extra Screens
+      #   :paths: [':2.C.3DCons']
+      #   :arcpaths: [G.SPEED]
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
@@ -79,28 +80,28 @@
     :entries:
       - :title: Escape from Jail Game
         :type: :run
-        :paths: [ Escape ]
+        :paths: [Escape]
       - :title: ADFS Sector Rescue
-        :paths: [ Rescue ]
+        :paths: [Rescue]
       - :title: 80 Col 16 Colour Modes
-        :paths: [ ModeDem ]
+        :paths: [ModeDem]
       - :title: Program Chopper/Joiner
-        :paths: [ chopper ]
+        :paths: [chopper]
       - :title: Screen Load/Save Utility
         :type: :run
-        :paths: [ scrload ]
+        :paths: [scrload]
       - :title: Tree Rename (Revised)
-        :paths: [ TreeRen ]
+        :paths: [TreeRen]
       - :title: Address Database
-        :paths: [ DBase ]
+        :paths: [DBase]
       - :title: Assembler Tutorial Example
-        :paths: [ Ass1 ]
+        :paths: [Ass1]
       - :title: Character Set Exploder
         :type: :run
-        :paths: [ explode ]
+        :paths: [explode]
       - :title: VLIST Utility Command
         :type: :run
-        :paths: [ vlist ]
+        :paths: [vlist]
       - :title: Return to Main Menu
         :type: :menu
         :id: 999
@@ -109,23 +110,23 @@
     :entries:
       - :title: Read Textfile History
         :type: :mode0
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.MozText ]
+        :paths: [':2.C.Mozart1']
+        :arcpaths: [M.MozText]
       - :title: Rondo alla Turca
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.Rondo ]
+        :paths: [':2.C.Mozart1']
+        :arcpaths: [M.Rondo]
       - :title: Themes from Operas
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.Opera ]
+        :paths: [':2.C.Mozart1']
+        :arcpaths: [M.Opera]
       - :title: Symphony Number 40
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.GMinor ]
+        :paths: [':2.C.Mozart1']
+        :arcpaths: [M.GMinor]
       - :title: Night Music (Model B)
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.TLNM-b ]
+        :paths: [':2.C.Mozart1']
+        :arcpaths: [M.TLNM-b]
       - :title: Night Music (Master)
-        :paths: [ ':2.C.Mozart1' ]
-        :arcpaths: [ M.TLNM-m ]
+        :paths: [':2.C.Mozart1']
+        :arcpaths: [M.TLNM-m]
         :model: :master128
       - :title: Return to Previous Menu
         :type: :menu
@@ -133,4 +134,4 @@
 
 :tweaks:
   :merge:
-    - [ ':2.C.Mozart1', ':2.C.Mozart2' ]
+    - [':2.C.Mozart1', ':2.C.Mozart2']

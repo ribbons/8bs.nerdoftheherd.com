@@ -1,47 +1,48 @@
+---
 :date: May/1993
 :menus:
   - :title: Main menu
     :id: 1
     :entries:
       - :title: About this issue
-        :paths: [ this, thi2 ]
+        :paths: [this, thi2]
         :type: :mode7
       - :title: News and views
-        :paths: [ news ]
+        :paths: [news]
         :type: :mode7
       - :title: Messages and ads
         :type: :mode7
-        :paths: [ mess1, mess2 ]
+        :paths: [mess1, mess2]
       - :title: Messages to you
         :type: :mode7
-        :paths: [ uu ]
+        :paths: [uu]
       - :title: Program feedback
         :type: :mode7
-        :paths: [ Reactor ]
+        :paths: [Reactor]
       - :title: Heavy boots again?
         :type: :mode7
-        :paths: [ Size12s ]
+        :paths: [Size12s]
       - :title: Master battery backup
         :type: :mode7
-        :paths: [ OfBatt ]
+        :paths: [OfBatt]
       - :title: Sound Control
         :type: :mode7
-        :paths: [ OfSound ]
+        :paths: [OfSound]
       - :title: Supreme review
         :type: :mode7
-        :paths: [ suprev ]
+        :paths: [suprev]
       - :title: Rating questionnaire info
         :type: :mode7
-        :paths: [ RatQinf ]
+        :paths: [RatQinf]
       - :title: From D.Shimmin
         :type: :mode0
-        :paths: [ FromDG ]
+        :paths: [FromDG]
       - :title: The Archimedes Debate
         :type: :mode0
-        :paths: [ Arch4 ]
+        :paths: [Arch4]
       - :title: Presenting Programs 5
         :type: :mode0
-        :paths: [ PresP ]
+        :paths: [PresP]
       - :title: Games/Graphics/sound
         :type: :menu
         :id: 888
@@ -55,27 +56,27 @@
         :type: :menu
         :id: 1
       - :title: Lightpen Menu
-        :paths: [ ':2.LpenMen' ]
+        :paths: [':2.LpenMen']
       - :title: Supreme
-        :paths: [ ':2.Supreme' ]
+        :paths: [':2.Supreme']
       - :title: Comic Strip
-        :paths: [ ':2.ComicSt' ]
+        :paths: [':2.ComicSt']
       - :title: Music Collection
-        :paths: [ ':2.Warring' ]
+        :paths: [':2.Warring']
       - :title: Pictures
         :type: :screendump
-        :paths: [ ':2.S.Plus', ':2.S.Table' ]
-        :modes: [ 2, 2 ]
+        :paths: [':2.S.Plus', ':2.S.Table']
+        :modes: [2, 2]
       - :title: Can Can
-        :paths: [ ':2.CanCan' ]
+        :paths: [':2.CanCan']
       - :title: Time Tutor
-        :paths: [ ':2.Time' ]
+        :paths: [':2.Time']
       - :title: Review database
-        :paths: [ ':2.RatQ' ]
+        :paths: [':2.RatQ']
       - :title: One liner from 15A
-        :paths: [ ':2.WordPrc' ]
+        :paths: [':2.WordPrc']
       - :title: Test Cards
-        :paths: [ ':2.Cards' ]
+        :paths: [':2.Cards']
   - :title: Utilities
     :id: 999
     :entries:
@@ -83,26 +84,26 @@
         :type: :menu
         :id: 1
       - :title: Line number removal
-        :paths: [ ':2.LineOut' ]
+        :paths: [':2.LineOut']
       - :title: Random in machine code
-        :paths: [ ':2.AssRnd' ]
+        :paths: [':2.AssRnd']
       - :title: Elbow the ADFS 'E' attribute
-        :paths: [ ':2.Eoff!' ]
+        :paths: [':2.Eoff!']
       - :title: Sort
-        :paths: [ ':2.Sort' ]
+        :paths: [':2.Sort']
       - :title: Wapping editor viewer
-        :paths: [ ':2.W.Viewer' ]
+        :paths: [':2.W.Viewer']
       - :title: Pagemaker/clip art viewer
-        :paths: [ ':2.P.Viewer' ]
+        :paths: [':2.P.Viewer']
       - :title: Presenting programs Ex. 1
-        :paths: [ ':2.F.Step1' ]
+        :paths: [':2.F.Step1']
       - :title: Presenting programs Ex. 2
-        :paths: [ ':2.F.Step2' ]
+        :paths: [':2.F.Step2']
       - :title: Presenting programs Ex. 3
-        :paths: [ ':2.F.Step3' ]
+        :paths: [':2.F.Step3']
       - :title: Presenting programs Ex. 4
-        :paths: [ ':2.F.Step4' ]
+        :paths: [':2.F.Step4']
       - :title: Cut
-        :paths: [ ':2.Cut' ]
+        :paths: [':2.Cut']
       - :title: Paste
-        :paths: [ ':2.Paste' ]
+        :paths: [':2.Paste']

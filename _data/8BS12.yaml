@@ -1,3 +1,4 @@
+---
 :date: May/1991
 :menus:
   - :title: Main menu
@@ -10,64 +11,64 @@
         :type: :menu
         :id: 3
       - :title: Chuckie Egg Screens
-        :paths: [ A.CHUCK ]
+        :paths: [A.CHUCK]
       - :title: Lost Your Marbles Fix
-        :paths: [ MM1 ]
+        :paths: [MM1]
       - :title: Disc Magazine Help
         :type: :mode0
-        :paths: [ ':2.MagINS' ]
+        :paths: [':2.MagINS']
       - :title: Andy Nibbs' TECH TIPS
         :type: :mode7
-        :paths: [ ':2.010A', ':2.010b', ':2.010c', ':2.010d', ':2.010e' ]
-        :offsets: [ 0, 1000, 0, 1000, 0, 1000, 0, 1000, 0, 1000 ]
+        :paths: [':2.010A', ':2.010b', ':2.010c', ':2.010d', ':2.010e']
+        :offsets: [0, 1000, 0, 1000, 0, 1000, 0, 1000, 0, 1000]
       - :title: MESSAGES FOR YOU
         :type: :mode0
-        :paths: [ ':2.Message' ]
+        :paths: [':2.Message']
   - :title: Disc Magazine
     :id: 2
     :entries:
       - :title: Introduction
         :type: :mode0
-        :paths: [ ':2.INTRO' ]
+        :paths: [':2.INTRO']
       - :title: Issue News
         :type: :mode0
-        :paths: [ ':2.NEWS' ]
+        :paths: [':2.NEWS']
       - :title: Adverts/Help Wanted
         :type: :mode0
-        :paths: [ ':2.ADVERT' ]
+        :paths: [':2.ADVERT']
       - :title: Hints/Tips
         :type: :mode0
-        :paths: [ ':2.HINTS' ]
+        :paths: [':2.HINTS']
       - :title: LIFE & Devils Island
         :type: :mode0
-        :paths: [ ':2.DevLife' ]
+        :paths: [':2.DevLife']
       - :title: Charges Article 8CT
         :type: :mode0
-        :paths: [ ':2.CHARGES' ]
+        :paths: [':2.CHARGES']
       - :title: BASDUMP Article 709
         :type: :mode0
-        :paths: [ ':2.BASDUMP' ]
+        :paths: [':2.BASDUMP']
       - :title: Arc XArc Article
         :type: :mode0
-        :paths: [ ':2.ARCXARC' ]
+        :paths: [':2.ARCXARC']
       - :title: Programmers Return 5
         :type: :mode0
-        :paths: [ ':2.PRORET5' ]
+        :paths: [':2.PRORET5']
       - :title: Program Construction
         :type: :mode0
-        :paths: [ ':2.PROGTUT' ]
+        :paths: [':2.PROGTUT']
       - :title: On this Months Disc
         :type: :mode0
-        :paths: [ ':2.PROGS' ]
+        :paths: [':2.PROGS']
       - :title: Repton Reportage
         :type: :mode0
-        :paths: [ ':2.REPTON' ]
+        :paths: [':2.REPTON']
       - :title: Members Response Pool
         :type: :mode0
-        :paths: [ ':2.RESPONS' ]
+        :paths: [':2.RESPONS']
       - :title: UIM & SIM City Reviews
         :type: :mode0
-        :paths: [ ':2.UIMSIM' ]
+        :paths: [':2.UIMSIM']
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1
@@ -75,39 +76,39 @@
     :id: 3
     :entries:
       - :title: 3D Spinning Ball
-        :paths: [ 3DSPIN ]
+        :paths: [3DSPIN]
       - :title: Complete Address Book
-        :paths: [ ADDRESS ]
+        :paths: [ADDRESS]
       - :title: Prommer ROM Utility
-        :paths: [ PROMMER ]
+        :paths: [PROMMER]
       - :title: ROT5 Graphics (basic)
-        :paths: [ ROT5 ]
+        :paths: [ROT5]
       - :title: RS232 Utility Prog
-        :paths: [ RS232 ]
+        :paths: [RS232]
       - :title: Shares Accountant
-        :paths: [ SSCREEN ]
+        :paths: [SSCREEN]
       - :title: Sunrise/Sunset
-        :paths: [ SUNPROG ]
+        :paths: [SUNPROG]
       - :title: Devils Island
         :type: :run
-        :paths: [ B.DEVILS ]
+        :paths: [B.DEVILS]
       - :title: BASDUMP Utility
         :type: :run
-        :paths: [ R.BASDUMP ]
+        :paths: [R.BASDUMP]
       - :title: ROM Based LIFE Prog
         :type: :run
-        :paths: [ R.LIFE ]
+        :paths: [R.LIFE]
       - :title: Arc & XArc Utility
         :type: :run
-        :paths: [ R.ARC ]
+        :paths: [R.ARC]
       - :title: Bananas Levels Game
-        :paths: [ ':2.BANANAS' ]
+        :paths: [':2.BANANAS']
       - :title: Space Pods Game
-        :paths: [ ':2.SPCPODS' ]
+        :paths: [':2.SPCPODS']
       - :title: Agog Ago Title Screen
-        :paths: [ ':2.TITLE2' ]
+        :paths: [':2.TITLE2']
       - :title: Persian Carpet Screen
-        :paths: [ ':2.TITLE1' ]
+        :paths: [':2.TITLE1']
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1

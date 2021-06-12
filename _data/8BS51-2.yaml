@@ -1,15 +1,16 @@
+---
 2:
   PCB Picture:
     :paths:
       - ':2.PCBPic'
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]
 4:
   Stereogam:
     :paths:
       - ':2.StGram'
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]
   Not The Acorn User Show Snaps:
     :paths:
       - '1'
@@ -26,11 +27,30 @@
       - The Chimpanzee Incident
       - Stephan Richardson at His Master
       - Paul Clucas Sporting The Stylish 8BS T Shirt
-      - Paul Clucas and Neil Parry Showing off the Not The Acorn User Show Poster
+      - Paul Clucas and Neil Parry Showing off the Not The Acorn User Show
+          Poster
       - Andrew Nelson at Work
       - Neil Parry Exercising
       - Jonathan Harston Speaking with Jon "Armless" Ripley
       - Andrew Nelson Sat in Front of The LVL Camera
       - The Result
-    :modes: [ 0, 0, 0, 0, 0, 0, 0, 0, 4 ]
-    :offsets: [ 0, 20480, 0, 20480, 0, 20480, 0, 20480, 0, 20480, 0, 20480, 0, 20480, 0, 20480, 10240, 10240 ]
+    :modes: [0, 0, 0, 0, 0, 0, 0, 0, 4]
+    :offsets:
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 0
+      - 20480
+      - 10240
+      - 10240

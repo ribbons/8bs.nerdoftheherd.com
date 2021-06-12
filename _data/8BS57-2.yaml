@@ -1,3 +1,4 @@
+---
 3:
   Elite Pictures:
     :paths:
@@ -8,4 +9,4 @@
       - ':2.Viper2'
       - ':2.Viper3'
     :type: :screendump
-    :modes: [ 1, 1, 1, 1, 1, 1 ]
+    :modes: [1, 1, 1, 1, 1, 1]

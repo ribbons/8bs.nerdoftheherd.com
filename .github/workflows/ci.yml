@@ -1,3 +1,4 @@
+---
 name: CI
 on:
   push:
@@ -38,7 +39,8 @@ jobs:
     steps:
       - name: Install libbeebimage
         run: |
-          wget -qO- https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz |\
+          wget -qO- \
+              https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz |\
             tar -xzC ..
           cmake -S ../libbeebimage-1.0 -B ../build -DCMAKE_BUILD_TYPE=Release
           cmake --build ../build && sudo cmake --install ../build

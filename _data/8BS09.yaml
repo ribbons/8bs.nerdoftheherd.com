@@ -1,3 +1,4 @@
+---
 :date: Feb/1991
 :menus:
   - :title: Main menu
@@ -13,42 +14,102 @@
         :type: :menu
         :id: 4
       - :title: VIEW SPELLCHECKER
-        :paths: [ ':2.SPELL' ]
+        :paths: [':2.SPELL']
       - :title: INFORMANT ROM IMAGE
         :type: :run
-        :paths: [ R.Inform ]
+        :paths: [R.Inform]
       - :title: GHOSTBUSTERS LOGO
-        :paths: [ G.GHOST ]
+        :paths: [G.GHOST]
       - :title: MAGAZINE HELP
         :type: :mode0
-        :paths: [ ':2.$.MagINS' ]
+        :paths: [':2.$.MagINS']
   - :title: P.D.MAGAZINE
     :id: 2
     :entries:
       - :title: NEWS
         :type: :mode7
-        :paths: [ ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1', ':2.V.1' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920 ]
+        :paths:
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+          - ':2.V.1'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
       - :title: THIS MONTH'S GOODIES
         :type: :mode7
-        :paths: [ ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2', ':2.V.2' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+        :paths:
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+          - ':2.V.2'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
+          - 6144
+          - 920
       - :title: 8-BIT STAFF
         :type: :mode7
-        :paths: [ ':2.V.300', ':2.V.300', ':2.V.300' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+        :paths: [':2.V.300', ':2.V.300', ':2.V.300']
+        :offsets: [0, 920, 1024, 920, 2048, 920]
       - :title: ADVERTS AND HELP WANTED
         :type: :mode7
-        :paths: [ ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4', ':2.V.4' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920, 6144, 920 ]
+        :paths:
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+          - ':2.V.4'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
+          - 6144
+          - 920
       - :title: PROGRAM REVIEWS
         :type: :mode7
-        :paths: [ ':2.V.5', ':2.V.5', ':2.V.5', ':2.V.5' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+        :paths: [':2.V.5', ':2.V.5', ':2.V.5', ':2.V.5']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920]
       - :title: HINTS AND TIPS
         :type: :mode7
-        :paths: [ ':2.V.6', ':2.V.6' ]
-        :offsets: [ 0, 920, 1024, 920 ]
+        :paths: [':2.V.6', ':2.V.6']
+        :offsets: [0, 920, 1024, 920]
       - :title: Previous Menu
         :type: :menu
         :id: 1
@@ -56,31 +117,31 @@
     :id: 3
     :entries:
       - :title: Advanced Disc Backup
-        :paths: [ BACKUP ]
+        :paths: [BACKUP]
       - :title: VDU Codes Killer
-        :paths: [ ':2.VDUKILL' ]
+        :paths: [':2.VDUKILL']
       - :title: Tape to DFS Utility
-        :paths: [ T>DFS ]
+        :paths: [T>DFS]
       - :title: Tape to ADFS Utility
-        :paths: [ T>ADFS ]
+        :paths: [T>ADFS]
       - :title: Test Cards Program
-        :paths: [ TCintro ]
+        :paths: [TCintro]
       - :title: SWRload and Notepad ROM
-        :paths: [ SWRload ]
+        :paths: [SWRload]
       - :title: Speech! Fiddle Program
-        :paths: [ SPEECHF ]
+        :paths: [SPEECHF]
       - :title: Lost Your Marbles Game
-        :paths: [ MARBLES ]
+        :paths: [MARBLES]
       - :title: Letterhead Designer
-        :paths: [ LETTER ]
+        :paths: [LETTER]
       - :title: SYSTEMS hardcopy Utility
-        :paths: [ HARD ]
+        :paths: [HARD]
       - :title: Faults Graphics Program
-        :paths: [ FAULTS ]
+        :paths: [FAULTS]
       - :title: Inca Treasure Adventure
-        :paths: [ INCA ]
+        :paths: [INCA]
       - :title: City Bomber Game
-        :paths: [ BOMBER ]
+        :paths: [BOMBER]
       - :title: Previous Menu
         :type: :menu
         :id: 1
@@ -89,22 +150,23 @@
     :entries:
       - :title: Speech! Fiddler Instructions
         :type: :mode0
-        :paths: [ T.SpeechI ]
+        :paths: [T.SpeechI]
       - :title: SYSTEMS hardcopy Instructions
         :type: :mode0
-        :paths: [ T.HARDINF ]
-#      - :title: Inca Treasure Instructions
-#        :type: :mode0
-#        :paths: [ T.INCINFO ] # Missing from disc image
+        :paths: [T.HARDINF]
+      # Missing from disc image
+      # - :title: Inca Treasure Instructions
+      #   :type: :mode0
+      #   :paths: [T.INCINFO]
       - :title: Letterhead Designer Information
         :type: :mode0
-        :paths: [ T.LETTINS ]
+        :paths: [T.LETTINS]
       - :title: Informant ROM Instructions
         :type: :mode0
-        :paths: [ T.INFORMI ]
+        :paths: [T.INFORMI]
       - :title: View Spellcheck Instructions
         :type: :mode0
-        :paths: [ ':2.$.SPELINS' ]
+        :paths: [':2.$.SPELINS']
       - :title: PREVIOUS MENU
         :type: :menu
         :id: 1

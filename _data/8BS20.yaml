@@ -1,3 +1,4 @@
+---
 :date: Aug/1992
 :menus:
   - :title: Main menu
@@ -5,42 +6,42 @@
     :entries:
       - :title: What is 8-Bit Software ?
         :type: :mode0
-        :paths: [ 8BS ]
+        :paths: [8BS]
       - :title: Changes to 8-Bit Software
         :type: :mode0
-        :paths: [ CHANGES ]
+        :paths: [CHANGES]
       - :title: Questionnaire instructions
         :type: :mode0
-        :paths: [ QuInstr ]
+        :paths: [QuInstr]
       - :title: FILL IN QUESTIONNAIRE
-        :paths: [ QuFill ]
+        :paths: [QuFill]
       - :title: About This Issue
         :type: :mode0
-        :paths: [ About20 ]
+        :paths: [About20]
       - :title: BASIC Program Protection
         :type: :mode0
-        :paths: [ ProtArt ]
+        :paths: [ProtArt]
       - :title: Teletext-format Articles
         :type: :menu
         :id: 2
       - :title: Messages section
         :type: :mode0
-        :paths: [ Mailbox ]
+        :paths: [Mailbox]
       - :title: New TBI Arrangements
         :type: :mode0
-        :paths: [ NewTBI ]
+        :paths: [NewTBI]
       - :title: GLM PD Catalogue
         :type: :mode0
-        :paths: [ GLM_CAT ]
+        :paths: [GLM_CAT]
       - :title: BBC PD Catalogue Notes
         :type: :mode0
-        :paths: [ B_NOTES ]
+        :paths: [B_NOTES]
       - :title: Optimising 6502 code
         :type: :mode0
-        :paths: [ Opt6502 ]
+        :paths: [Opt6502]
       - :title: Conclusion
         :type: :mode0
-        :paths: [ Conclsn ]
+        :paths: [Conclsn]
       - :title: Issue 20 Software Menu
         :type: :menu
         :id: 999
@@ -49,19 +50,19 @@
     :entries:
       - :title: Wordsearch Creator Instrux
         :type: :mode7
-        :paths: [ WRDINFO ]
+        :paths: [WRDINFO]
       - :title: ECG Simulator Instructions
         :type: :mode7
-        :paths: [ ECGINFO ]
+        :paths: [ECGINFO]
       - :title: 'Cheats #1'
         :type: :mode7
-        :paths: [ CHEATS ]
+        :paths: [CHEATS]
       - :title: 'Cheats #2'
         :type: :mode7
-        :paths: [ CHEATS2 ]
+        :paths: [CHEATS2]
       - :title: Rom-builder Instructions
         :type: :mode7
-        :paths: [ ROMinfo ]
+        :paths: [ROMinfo]
       - :title: Return to Main Magazine Menu
         :type: :menu
         :id: 1
@@ -81,7 +82,7 @@
         :type: :menu
         :id: 6
       - :title: BBC PD Catalogue
-        :paths: [ ':2.B.CatLoad' ]
+        :paths: [':2.B.CatLoad']
       - :title: RETURN TO MAGAZINE
         :type: :menu
         :id: 1
@@ -90,12 +91,12 @@
     :entries:
       - :title: Power Raider Game
         :type: :run
-        :paths: [ ':2.POWER' ]
+        :paths: [':2.POWER']
       - :title: Loopy Loop Game
-        :paths: [ ':2.CRAZE1' ]
+        :paths: [':2.CRAZE1']
       - :title: SWAT demo
         :type: :run
-        :paths: [ ':2.SWAT' ]
+        :paths: [':2.SWAT']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -103,13 +104,13 @@
     :id: 4
     :entries:
       - :title: Pride
-        :paths: [ ':2.PRIDE' ]
+        :paths: [':2.PRIDE']
       - :title: Bad
-        :paths: [ ':2.BAD' ]
+        :paths: [':2.BAD']
       - :title: 13 Amps
-        :paths: [ ':2.13AMPS' ]
+        :paths: [':2.13AMPS']
       - :title: A-Level Project
-        :paths: [ ':2.ALevel' ]
+        :paths: [':2.ALevel']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -118,22 +119,22 @@
     :entries:
       - :title: View to ASCII Converter
         :type: :run
-        :paths: [ ':2.ViewASC' ]
+        :paths: [':2.ViewASC']
       - :title: ASCII Unformatter
-        :paths: [ ':2.Unform' ]
+        :paths: [':2.Unform']
       - :title: Display Unformatted ASCII
         :type: :run
-        :paths: [ ':2.SPECIAL' ]
+        :paths: [':2.SPECIAL']
       - :title: Printer Output to Disk
         :type: :run
-        :paths: [ ':2.PRINTTO' ]
+        :paths: [':2.PRINTTO']
       - :title: Teletext Article Printer
-        :paths: [ ':2.TelPrnt' ]
+        :paths: [':2.TelPrnt']
       - :title: Printout Corrector
         :type: :run
-        :paths: [ ':2.SUBS1' ]
+        :paths: [':2.SUBS1']
       - :title: Printout Corrector Generator
-        :paths: [ ':2.SUBSGEN' ]
+        :paths: [':2.SUBSGEN']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -141,15 +142,15 @@
     :id: 6
     :entries:
       - :title: Presenting Poland Pt.1
-        :paths: [ ':2.POLAND' ]
+        :paths: [':2.POLAND']
       - :title: ECG Simulator V.3
-        :paths: [ ':2.ECGSim3' ]
+        :paths: [':2.ECGSim3']
       - :title: Rom Header Creator
-        :paths: [ ':2.BldROM' ]
+        :paths: [':2.BldROM']
       - :title: Auto Data Scrambler
-        :paths: [ ':2.SCRAM' ]
+        :paths: [':2.SCRAM']
       - :title: Wordsearch Creator
-        :paths: [ ':2.WrdSrch' ]
+        :paths: [':2.WrdSrch']
       - :title: Back to main menu
         :type: :menu
         :id: 999

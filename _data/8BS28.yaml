@@ -1,6 +1,7 @@
+---
 4:
   The Constrictor:
     :paths:
       - ':2.Conpic'
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]

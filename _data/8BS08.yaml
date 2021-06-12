@@ -1,3 +1,4 @@
+---
 :date: Jan/1991
 :menus:
   - :title: Main menu
@@ -14,24 +15,42 @@
     :entries:
       - :title: NEWS
         :type: :mode7
-        :paths: [ ':2.1', ':2.1', ':2.1' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+        :paths: [':2.1', ':2.1', ':2.1']
+        :offsets: [0, 920, 1024, 920, 2048, 920]
       - :title: THIS MONTH'S GOODIES
         :type: :mode7
-        :paths: [ ':2.2', ':2.2', ':2.2', ':2.2' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920 ]
+        :paths: [':2.2', ':2.2', ':2.2', ':2.2']
+        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920]
       - :title: FUTURE SOFTWARE
         :type: :mode7
-        :paths: [ ':2.300', ':2.300' ]
-        :offsets: [ 0, 920, 1024, 920 ]
+        :paths: [':2.300', ':2.300']
+        :offsets: [0, 920, 1024, 920]
       - :title: ADVERTS
         :type: :mode7
-        :paths: [ ':2.4', ':2.4', ':2.4' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920 ]
+        :paths: [':2.4', ':2.4', ':2.4']
+        :offsets: [0, 920, 1024, 920, 2048, 920]
       - :title: PROGRAM REVIEWS
         :type: :mode7
-        :paths: [ ':2.5', ':2.5', ':2.5', ':2.5', ':2.5', ':2.5' ]
-        :offsets: [ 0, 920, 1024, 920, 2048, 920, 3072, 920, 4096, 920, 5120, 920 ]
+        :paths:
+          - ':2.5'
+          - ':2.5'
+          - ':2.5'
+          - ':2.5'
+          - ':2.5'
+          - ':2.5'
+        :offsets:
+          - 0
+          - 920
+          - 1024
+          - 920
+          - 2048
+          - 920
+          - 3072
+          - 920
+          - 4096
+          - 920
+          - 5120
+          - 920
       - :title: Previous Menu
         :type: :menu
         :id: 1
@@ -39,31 +58,31 @@
     :id: 3
     :entries:
       - :title: New Battleships Program
-        :paths: [ BATTLE ]
+        :paths: [BATTLE]
       - :title: New Cells and Serpents
-        :paths: [ NEWCELS ]
+        :paths: [NEWCELS]
       - :title: Elite Cheat Editor
-        :paths: [ CHEAT ]
+        :paths: [CHEAT]
       - :title: Basic Envelope Printer
-        :paths: [ ENVELOP ]
+        :paths: [ENVELOP]
       - :title: Fighter Command Game
-        :paths: [ FCINTRO ]
+        :paths: [FCINTRO]
       - :title: Graphical Globe Screen
-        :paths: [ GLOBE ]
+        :paths: [GLOBE]
       - :title: Stopping Distances Test
-        :paths: [ HIGHWAY ]
+        :paths: [HIGHWAY]
       - :title: Keystrip Designer/Printer
-        :paths: [ KEYSTRP ]
+        :paths: [KEYSTRP]
       - :title: Metric Converter Utility
-        :paths: [ METRIC ]
+        :paths: [METRIC]
       - :title: Musical Keyboard Program
-        :paths: [ MUSIC ]
+        :paths: [MUSIC]
       - :title: Character Re-definition
-        :paths: [ TEXTDEF ]
+        :paths: [TEXTDEF]
       - :title: Typewriter Emulation
-        :paths: [ TYINTRO ]
+        :paths: [TYINTRO]
       - :title: Virus Simulator
-        :paths: [ VIRUS ]
+        :paths: [VIRUS]
       - :title: Previous Menu
         :type: :menu
         :id: 1

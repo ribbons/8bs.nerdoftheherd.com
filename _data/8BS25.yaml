@@ -1,3 +1,4 @@
+---
 :date: Feb/1993
 :menus:
   - :title: Main menu
@@ -5,43 +6,43 @@
     :entries:
       - :title: About this issue
         :type: :mode7
-        :paths: [ this, thi2 ]
+        :paths: [this, thi2]
       - :title: News and views
         :type: :mode7
-        :paths: [ news ]
+        :paths: [news]
       - :title: Messages and ads
         :type: :mode7
-        :paths: [ mess ]
+        :paths: [mess]
       - :title: Messages to you
         :type: :mode7
-        :paths: [ uu ]
+        :paths: [uu]
       - :title: Tonkins computer dictionary
         :type: :mode7
-        :paths: [ tonk ]
+        :paths: [tonk]
       - :title: Please recycle
         :type: :mode7
-        :paths: [ wesabin ]
+        :paths: [wesabin]
       - :title: Presenting programs part 4
         :type: :mode7
-        :paths: [ Pres4 ]
+        :paths: [Pres4]
       - :title: DBase, Selftes, Copy Info
         :type: :mode7
-        :paths: [ utilinf ]
+        :paths: [utilinf]
       - :title: Info on SOLINET
         :type: :mode7
-        :paths: [ soliad ]
+        :paths: [soliad]
       - :title: Info for AMX viewer
         :type: :mode7
-        :paths: [ amxtext ]
+        :paths: [amxtext]
       - :title: Late submissions
         :type: :mode7
-        :paths: [ late ]
+        :paths: [late]
       - :title: Joker info
         :type: :mode0
-        :paths: [ JokerD ]
+        :paths: [JokerD]
       - :title: Weight training
         :type: :mode0
-        :paths: [ Muscles ]
+        :paths: [Muscles]
       - :title: Games and demos
         :type: :menu
         :id: 888
@@ -55,23 +56,23 @@
         :type: :menu
         :id: 1
       - :title: All Fall Down Game.
-        :paths: [ ':2.fall' ]
+        :paths: [':2.fall']
       - :title: Joker.
-        :paths: [ ':2.joker' ]
+        :paths: [':2.joker']
       - :title: Animation demo.
-        :paths: [ ':2.anim' ]
+        :paths: [':2.anim']
       - :title: Shapes demo.
-        :paths: [ ':2.shapes' ]
+        :paths: [':2.shapes']
       - :title: Life.
-        :paths: [ ':2.hexlife' ]
+        :paths: [':2.hexlife']
       - :title: Cosine graph 1.
-        :paths: [ ':2.trig1' ]
+        :paths: [':2.trig1']
       - :title: Cosine graph 2.
-        :paths: [ ':2.trig2' ]
+        :paths: [':2.trig2']
       - :title: Sample.
-        :paths: [ ':2.rh1run' ]
+        :paths: [':2.rh1run']
       - :title: Wordsearch.
-        :paths: [ ':2.pr600-2' ]
+        :paths: [':2.pr600-2']
   - :title: Utilities
     :id: 999
     :entries:
@@ -79,26 +80,26 @@
         :type: :menu
         :id: 1
       - :title: Database.
-        :paths: [ ':2.DBase' ]
+        :paths: [':2.DBase']
       - :title: Test/revision database.
-        :paths: [ ':2.selftes' ]
+        :paths: [':2.selftes']
       - :title: Basic program reader.
-        :paths: [ ':2.listbas' ]
+        :paths: [':2.listbas']
       - :title: Press the spacebar.
-        :paths: [ ':2.space' ]
+        :paths: [':2.space']
       - :title: Program presentation example1
-        :paths: [ ':2.dirctc1' ]
+        :paths: [':2.dirctc1']
       - :title: Program presentation example2
-        :paths: [ ':2.dirctc2' ]
+        :paths: [':2.dirctc2']
       - :title: Program presentation example3
-        :paths: [ ':2.dirctc3' ]
+        :paths: [':2.dirctc3']
       - :title: Program presentation example4
-        :paths: [ ':2.dirctc4' ]
+        :paths: [':2.dirctc4']
       - :title: Big Ben.
-        :paths: [ ':2.bigben' ]
+        :paths: [':2.bigben']
       - :title: AMX view.
-        :paths: [ ':2.amxview' ]
+        :paths: [':2.amxview']
       - :title: Tape backup.
-        :paths: [ ':2.Tcopy' ]
+        :paths: [':2.Tcopy']
       - :title: Catalogues.
-        :paths: [ ':2.ofcats' ]
+        :paths: [':2.ofcats']

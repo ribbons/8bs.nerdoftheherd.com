@@ -1,4 +1,5 @@
+---
 3:
   National Lottery.:
-    :paths: [ ':2.LOTMENU' ]
+    :paths: [':2.LOTMENU']
     :type: :basic

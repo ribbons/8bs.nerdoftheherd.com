@@ -1,3 +1,4 @@
+---
 5:
   Dalek Picture.:
     :paths:
@@ -7,9 +8,9 @@
     :paths:
       - ':2.Pawns'
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]
   Acorn User Show Pic.:
     :paths:
       - ':2.ShowPic'
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]

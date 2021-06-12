@@ -1,3 +1,4 @@
+---
 :date: 1990
 :menus:
   - :title: Main menu
@@ -5,36 +6,36 @@
     :entries:
       - :title: INFO Bank Manager (1)
         :type: :mode0
-        :paths: [ T.BANKGD1 ]
+        :paths: [T.BANKGD1]
       - :title: INFO Bank Manager (2)
         :type: :mode0
-        :paths: [ T.BANKGD2 ]
+        :paths: [T.BANKGD2]
       - :title: INFO Bank Manager (3)
         :type: :mode0
-        :paths: [ T.BANKGD3 ]
+        :paths: [T.BANKGD3]
       - :title: SYSTEMS Bank Manager
-        :paths: [ BANKACC ]
+        :paths: [BANKACC]
       - :title: INFO call costing (1)
         :type: :mode0
-        :paths: [ T.PHONGD1 ]
+        :paths: [T.PHONGD1]
       - :title: INFO call costing (2)
         :type: :mode0
-        :paths: [ T.PHONGD2 ]
+        :paths: [T.PHONGD2]
       - :title: SYSTEMS call costing
-        :paths: [ PHONECS ]
+        :paths: [PHONECS]
       - :title: INFO Fileserver (1)
         :type: :mode0
-        :paths: [ T.SERVGD1 ]
+        :paths: [T.SERVGD1]
       - :title: INFO Fileserver (2)
         :type: :mode0
-        :paths: [ T.SERVGD2 ]
+        :paths: [T.SERVGD2]
       - :title: SYSTEMS Fileserver
-        :paths: [ WOAH ]
+        :paths: [WOAH]
       - :title: Info BB Database (1)
         :type: :mode0
-        :paths: [ ':2.T.BASEGD1' ]
+        :paths: [':2.T.BASEGD1']
       - :title: Info BB Database (2)
         :type: :mode0
-        :paths: [ ':2.T.BASEGD2' ]
+        :paths: [':2.T.BASEGD2']
       - :title: SYSTEMS BB Database
-        :paths: [ ':2.BBDBASE' ]
+        :paths: [':2.BBDBASE']

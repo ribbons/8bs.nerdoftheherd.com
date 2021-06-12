@@ -1,3 +1,4 @@
+---
 6:
   8BS Screen by K2O.:
     :paths:
@@ -7,9 +8,11 @@
     :paths:
       - ':2.ShowPic'
     :type: :screendump
-    :modes: [ 0 ]
+    :modes: [0]
     :captions:
-      - |-
-        Daniel Shimmin, Duncan Webster, Chris Richardson, Derreck Pritchard-Jones, Jonathan Harston
+      - Daniel Shimmin, Duncan Webster, Chris Richardson,
+          Derreck Pritchard-Jones, Jonathan Harston
+
         Acorn User Show 1995
+
         All the pictures are available from 8BS.

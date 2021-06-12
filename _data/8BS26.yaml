@@ -1,3 +1,4 @@
+---
 :date: Apr/1993
 :menus:
   - :title: Main menu
@@ -5,54 +6,54 @@
     :entries:
       - :title: Editorial
         :type: :mode7
-        :paths: [ Editorl ]
+        :paths: [Editorl]
       - :title: User Response
         :type: :mode7
-        :paths: [ Cmments ]
+        :paths: [Cmments]
       - :title: Questionnaire Instructions
         :type: :mode7
-        :paths: [ QuInstr ]
+        :paths: [QuInstr]
       - :title: FILL IN QUESTIONNAIRE
-        :paths: [ QuFill ]
+        :paths: [QuFill]
       - :title: Archimedes Debate pt.3
         :type: :mode7
-        :paths: [ ArchDbt ]
+        :paths: [ArchDbt]
       - :title: ADFS Debate
         :type: :mode7
-        :paths: [ ADFSDbt ]
+        :paths: [ADFSDbt]
       - :title: About this Issue
         :type: :mode7
-        :paths: [ About26 ]
+        :paths: [About26]
       - :title: Humour pt.1
         :type: :mode7
-        :paths: [ Humour ]
+        :paths: [Humour]
       - :title: Humour pt.2
         :type: :mode7
-        :paths: [ HP ]
+        :paths: [HP]
       - :title: Humour pt.3
         :type: :mode0
-        :paths: [ ClMths0 ]
+        :paths: [ClMths0]
       - :title: Mailbox part 1
         :type: :mode7
-        :paths: [ MailBx1 ]
+        :paths: [MailBx1]
       - :title: Mailbox part 2
         :type: :mode7
-        :paths: [ MailBx2 ]
+        :paths: [MailBx2]
       - :title: Sound Envelopes explained
         :type: :mode7
-        :paths: [ Envelps ]
+        :paths: [Envelps]
       - :title: Program Documentation
         :type: :mode7
-        :paths: [ Dcumnts ]
+        :paths: [Dcumnts]
       - :title: Guess Who Info
         :type: :mode7
-        :paths: [ GessInf ]
+        :paths: [GessInf]
       - :title: Green Suggestions
         :type: :mode7
-        :paths: [ Envrnmt ]
+        :paths: [Envrnmt]
       - :title: Technological progress?
         :type: :mode7
-        :paths: [ Tchnlgy ]
+        :paths: [Tchnlgy]
       - :title: Issue 26 Software Menu
         :type: :menu
         :id: 999
@@ -75,15 +76,15 @@
     :id: 2
     :entries:
       - :title: Guess Who
-        :paths: [ ':2.GessWho' ]
+        :paths: [':2.GessWho']
       - :title: Short Game
-        :paths: [ ':2.Short' ]
+        :paths: [':2.Short']
       - :title: Star Commander
-        :paths: [ ':2.STAR' ]
+        :paths: [':2.STAR']
       - :title: Paras
-        :paths: [ ':2.Paras4' ]
+        :paths: [':2.Paras4']
       - :title: Battleships
-        :paths: [ ':2.BShips4' ]
+        :paths: [':2.BShips4']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -91,17 +92,17 @@
     :id: 3
     :entries:
       - :title: Game Cheats Database
-        :paths: [ ':2.A-ZDISP' ]
+        :paths: [':2.A-ZDISP']
       - :title: Mortgage calculator
-        :paths: [ ':2.Mgage' ]
+        :paths: [':2.Mgage']
       - :title: Envelope Editor
-        :paths: [ ':2.EnvEdit' ]
+        :paths: [':2.EnvEdit']
       - :title: Football pools
-        :paths: [ ':2.FtblPls' ]
+        :paths: [':2.FtblPls']
       - :title: Catalogue printer
-        :paths: [ ':2.PRINTv9' ]
+        :paths: [':2.PRINTv9']
       - :title: Banners
-        :paths: [ ':2.Banners' ]
+        :paths: [':2.Banners']
       - :title: Back to main menu
         :type: :menu
         :id: 999
@@ -109,19 +110,19 @@
     :id: 4
     :entries:
       - :title: ADFS Textfile Reader
-        :paths: [ ':2.Reader' ]
+        :paths: [':2.Reader']
       - :title: Joker 1.10
-        :paths: [ ':2.Joker' ]
+        :paths: [':2.Joker']
       - :title: Function key utilities
-        :paths: [ ':2.Util-fK' ]
+        :paths: [':2.Util-fK']
       - :title: Wordsearch Solver 1
-        :paths: [ ':2.WSSolv1' ]
+        :paths: [':2.WSSolv1']
       - :title: Wordsearch Solver 2
-        :paths: [ ':2.WSSolv4' ]
+        :paths: [':2.WSSolv4']
       - :title: Zarch
-        :paths: [ ':2.Zarch' ]
+        :paths: [':2.Zarch']
       - :title: Arch filetypes
-        :paths: [ ':2.SetType' ]
+        :paths: [':2.SetType']
       - :title: Back to main menu
         :type: :menu
         :id: 999

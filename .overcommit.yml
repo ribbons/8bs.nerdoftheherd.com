@@ -32,3 +32,7 @@ PreCommit:
   Copyright:
     description: Check copyright notices are present and updated
     enabled: true
+
+  YamlLint:
+    enabled: true
+    on_warn: fail
