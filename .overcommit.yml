@@ -32,6 +32,9 @@ PreCommit:
   Copyright:
     description: Check copyright notices are present and updated
     enabled: true
+    exclude:
+      - _ext/BBC/arc/arc*
+      - _ext/BBC/arc/proto.h
 
   YamlLint:
     enabled: true

@@ -22,8 +22,8 @@ module Overcommit
       class Copyright < Base
         COPYRIGHT_REGEX = /Copyright © (?:[0-9]{4}-)?(?<year>[0-9]{4})/.freeze
         HASHBANG_REGEX = %r{^#! */(?:[a-z]+/)*[a-z0-9]+(?: |$)}.freeze
-        NAMES_REGEX = /^(?:(?:CMakeLists[.]txt|Gemfile|Rakefile)|[.]
-                          (?:bat|[ch]|cpp|cs|s?css|html|java|js|php|
+        NAMES_REGEX = /(?:^(?:CMakeLists[.]txt|Gemfile|Rakefile)|[.]
+                          (?:bat|[ch]|cpp|cs|s?css|html|java|js|kt[ms]?|php|
                             p[lm]|rc|rb|sql|wxs))$/x.freeze
 
         def run
