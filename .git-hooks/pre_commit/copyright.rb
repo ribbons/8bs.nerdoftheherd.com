@@ -1,26 +1,14 @@
 # frozen_string_literal: true
 
-# This file is part of the 8BS Online Conversion.
-# Copyright © 2021 by the authors - see the AUTHORS file for details.
+# Copyright © 2021 Matt Robinson
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 module Overcommit
   module Hook
     module PreCommit
       class Copyright < Base
-        COPYRIGHT_REGEX = /Copyright © (?:[0-9]{4}-)?(?<year>[0-9]{4})/.freeze
+        COPYRIGHT_REGEX = /© (?:[0-9]{4}-)?(?<year>[0-9]{4}) (?<aut>.+)/.freeze
         HASHBANG_REGEX = %r{^#! */(?:[a-z]+/)*[a-z0-9]+(?: |$)}.freeze
         NAMES_REGEX = /(?:^(?:CMakeLists[.]txt|Gemfile|Rakefile)|[.]
                           (?:bat|[ch]|cpp|cs|s?css|html|java|js|kt[ms]?|php|
@@ -29,12 +17,14 @@ module Overcommit
         def run
           messages = []
           outdated = @context.class.name != 'Overcommit::HookContext::RunAll'
+          author_name = ENV['GIT_AUTHOR_NAME']
 
           applicable_files.each do |filename|
             relfile = filename.delete_prefix("#{Overcommit::Utils.repo_root}/")
 
             File.open(filename, 'r') do |file|
-              found = nil
+              found = false
+              author_year = nil
               hashbang = false
 
               file.each_line do |line|
@@ -42,19 +32,26 @@ module Overcommit
                   hashbang = true
                 end
 
-                if (matches = COPYRIGHT_REGEX.match(line))
-                  found = matches[:year].to_i
-                  break
+                next unless (matches = COPYRIGHT_REGEX.match(line))
+
+                found = true
+                break unless outdated
+
+                if matches[:aut].start_with?(author_name)
+                  author_year = matches[:year].to_i
                 end
+
+                break if author_year == Time.now.year
               end
 
               if found
-                if found != Time.now.year && outdated
+                if author_year != Time.now.year && outdated
                   messages << Overcommit::Hook::Message.new(
                     :error,
                     filename,
                     nil,
-                    "#{relfile}: Copyright notice is out of date"
+                    "#{relfile}: Copyright notice for #{author_name} " \
+                    "#{author_year ? 'out of date' : 'missing'}"
                   )
                 end
 
