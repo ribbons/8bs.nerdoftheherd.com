@@ -64,9 +64,9 @@ module BBC
       disc = build_catalogue(name, files)
 
       files.each do |file|
-        padding = SECTOR_SIZE - file.length % SECTOR_SIZE
+        padding = SECTOR_SIZE - (file.length % SECTOR_SIZE)
         disc << file.content
-        disc << ' ' * padding
+        disc << (' ' * padding)
       end
 
       disc
@@ -125,11 +125,11 @@ module BBC
 
     def read_sector(side, sector)
       track = sector / TRACK_SECTORS
-      track = track * 2 + (side / 2) if @dsd
+      track = (track * 2) + (side / 2) if @dsd
 
       tracksector = sector % TRACK_SECTORS
 
-      @file.seek((track * TRACK_SECTORS + tracksector) * SECTOR_SIZE)
+      @file.seek(((track * TRACK_SECTORS) + tracksector) * SECTOR_SIZE)
       @file.sysread(SECTOR_SIZE)
     end
 
@@ -167,7 +167,7 @@ module BBC
       end
 
       # Pad out to the end of the first catalogue sector
-      cat << ' ' * (pad_entries * FILEREC_SIZE)
+      cat << (' ' * pad_entries * FILEREC_SIZE)
 
       cat << name[8...12] # Rest of the disc title
       cat << 0.chr        # Cycle number
@@ -205,7 +205,7 @@ module BBC
       end
 
       # Pad out to the end of the second catalogue sector
-      cat << ' ' * (pad_entries * FILEREC_SIZE)
+      cat << (' ' * pad_entries * FILEREC_SIZE)
 
       cat
     end

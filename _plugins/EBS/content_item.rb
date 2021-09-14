@@ -70,8 +70,8 @@ module EBS
 
     def trim_scroller(content, loadaddr)
       # The first four bytes are the start and end locations of the text data
-      textstart = (content.getbyte(1) << 8 | content.getbyte(0)) - loadaddr
-      textend = (content.getbyte(3) << 8 | content.getbyte(2)) -
+      textstart = ((content.getbyte(1) << 8) | content.getbyte(0)) - loadaddr
+      textend = ((content.getbyte(3) << 8) | content.getbyte(2)) -
                 loadaddr + MODE7_SCREEN_SIZE - 1
 
       # Chop off scroller code
