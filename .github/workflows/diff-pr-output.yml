@@ -1,0 +1,59 @@
+---
+name: Diff PR output
+on:
+  pull_request:
+
+jobs:
+  diff:
+    name: Diff PR output
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install libbeebimage
+        run: |
+          wget -qO- \
+              https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz |\
+            tar -xzC ..
+          cmake -S ../libbeebimage-1.0 -B ../build -DCMAKE_BUILD_TYPE=Release
+          cmake --build ../build && sudo cmake --install ../build
+
+      - name: Checkout base
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.base_ref }}
+
+      - name: Ruby and bundle
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Build base
+        run: |
+          bundle exec rake compile
+          JEKYLL_ENV=production bundle exec jekyll build -d ../base/
+          git clean -ffdx -e .bundle -e vendor && git reset --hard HEAD
+
+      - name: Checkout PR
+        uses: actions/checkout@v2
+        with:
+          clean: false
+
+      - name: Update dependencies and build PR
+        run: |
+          bundle install
+          bundle exec rake compile
+          JEKYLL_ENV=production bundle exec jekyll build -d ../head/
+
+      - name: Generate diff
+        run: |
+          cd ..
+          diff -rN --unified=1 base/ head/ > "$OLDPWD/diffresult" || true
+          echo ${{ github.event.number }} > "$OLDPWD/pr_number"
+
+      - name: Upload data
+        uses: actions/upload-artifact@v2
+        with:
+          name: data
+          path: |
+            diffresult
+            pr_number
