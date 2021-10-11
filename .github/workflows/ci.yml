@@ -74,9 +74,6 @@ jobs:
           ruby-version: 2.7
           bundler-cache: true
 
-      - name: Node packages
-        run: npm ci
-
       - name: Build, test and proof
         run: |
           bundle exec rake compile
