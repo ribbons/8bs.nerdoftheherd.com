@@ -22,10 +22,6 @@ Header always set X-Frame-Options "SAMEORIGIN"
 
 RewriteEngine on
 
-# Remove www. from domain
-RewriteCond %{HTTP_HOST} ^www\.(.+)$
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-
 # Redirect old-style URLs to their current equivalents
 RewriteRule ^8BS51-1/menu[0-9]\.html$ /8BS51-1/ [R=301,L]
 RewriteRule ^8BS51-1/content/0/\$A_Dinfo\.html$ /8BS51-1/content/0-a-dinfo/ [R=301,L]
