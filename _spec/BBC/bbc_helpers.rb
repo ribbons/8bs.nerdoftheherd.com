@@ -9,7 +9,7 @@ require_relative '../../_plugins/BBC/bbc_file'
 module BBCHelpers
   def get_file(name, tweaks: nil)
     fullpath = File.expand_path("../test_data/#{name}", __FILE__)
-    content = File.open(fullpath, 'rb', &:read)
+    content = File.binread(fullpath)
 
     BBC::BBCFile.new(0, '$', name, 0xFFFFFFFF, 0xFFFFFFFF, content, tweaks)
   end
