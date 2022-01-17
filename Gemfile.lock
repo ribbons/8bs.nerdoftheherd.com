@@ -67,7 +67,7 @@ GEM
     racc (1.6.0)
     rainbow (3.0.0)
     rake (13.0.6)
-    rake-compiler (1.1.7)
+    rake-compiler (1.1.8)
       rake
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
