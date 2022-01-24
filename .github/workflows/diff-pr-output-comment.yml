@@ -53,7 +53,7 @@ jobs:
               comment =
                 "This PR changes the generated site:\n\n" +
                 "<details><summary>Diff</summary>\n\n```\n" + diffresult +
-                "\n```</details>"
+                "```\n</details>"
             }
             const {data: comments} = await github.rest.issues.listComments({
               owner: context.repo.owner,
