@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -18,7 +18,6 @@ module EBS
         dest_path = destination(dest)
 
         FileUtils.mkdir_p(File.dirname(dest_path))
-        FileUtils.rm(dest_path) if File.exist?(dest_path)
         File.write(dest_path, generate_disc)
 
         true
