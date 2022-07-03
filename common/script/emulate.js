@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2020 Matt Robinson
+ * Copyright © 2016-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -54,7 +54,7 @@
             html += '&autoboot';
         }
 
-        html += '" width="100%" height=698 frameborder=0></iframe>';
+        html += '" frameborder=0></iframe>';
 
         if(action === 'basic')
         {

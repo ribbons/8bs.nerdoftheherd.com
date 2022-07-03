@@ -1,5 +1,5 @@
 ---
-# Copyright © 2007-2019 Matt Robinson
+# Copyright © 2007-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 ---
@@ -211,4 +211,11 @@ div#content {
         margin-top: 5px;
         white-space: pre-line;
     }
+}
+
+iframe {
+    max-width: 55em;
+    width: 100%;
+    height: calc(100vh - 10em);
+    max-height: 50em;
 }
