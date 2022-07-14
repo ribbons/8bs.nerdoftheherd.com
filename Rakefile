@@ -42,6 +42,7 @@ task :proof do
     disable_external: true,
     ignore_urls: [
       %r{^/assets/convimages/},
+      %r{^http://8bs[.]com/},
     ]
   ).run
 end
