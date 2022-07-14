@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -37,10 +37,12 @@ task :proof do
 
   HTMLProofer.check_directory(
     builddir,
-    check_html: true,
-    check_favicon: true,
+    checks: %w[Images Links Scripts Favicon],
+    allow_hash_href: false,
     disable_external: true,
-    alt_ignore: [%r{^/assets/convimages/}]
+    ignore_urls: [
+      %r{^/assets/convimages/},
+    ]
   ).run
 end
 
