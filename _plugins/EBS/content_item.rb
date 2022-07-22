@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2019-2021 Matt Robinson
+# Copyright © 2019-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -18,11 +18,13 @@ module EBS
       @path = path
       @imagepath = parent.imagepath
       @model = entry&.model
+      @captions = entry&.captions
 
       @type = entry&.type || files[0][-1].type
     end
 
-    attr_reader :type, :title, :offsets, :modes, :files, :path, :model
+    attr_reader :type, :title, :offsets, :modes, :files, :path, :model,
+                :captions
     attr_accessor :imagepath
 
     def typestr
