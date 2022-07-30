@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -22,11 +22,9 @@ module EBS
           data['layout'] = 'content_mode0'
         when :mode7
           data['layout'] = 'content_mode7'
-          data['includejs'] = '/common/script/mode7.js'
         when :basic
           if extra == :list
             data['layout'] = 'content_basic_list'
-            data['includejs'] = '/common/script/mode7.js'
             data['title'] += ' - Listing'
             data['navchain'].push('navtitle' => 'Listing')
           else

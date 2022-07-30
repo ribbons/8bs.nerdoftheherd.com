@@ -145,14 +145,15 @@ div#content {
     .b6 { background-color: aqua; }
     .b7 { background-color: white; }
 
-    .flashoff { color: black; }
-    .flashoff.b1 { color: red; }
-    .flashoff.b2 { color: lime; }
-    .flashoff.b3 { color: yellow; }
-    .flashoff.b4 { color: blue; }
-    .flashoff.b5 { color: fuchsia; }
-    .flashoff.b6 { color: aqua; }
-    .flashoff.b7 { color: white; }
+    .flash {
+      animation: flashing 1.28s step-start infinite;
+    }
+
+    @keyframes flashing {
+      25% {
+        opacity: 0;
+      }
+    }
 }
 
 .mode0 {
