@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019-2021 Matt Robinson
+ * Copyright © 2019-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -40,7 +40,8 @@ static VALUE basicfile_initialize(VALUE self, VALUE data, VALUE lines)
     return self;
 }
 
-static void process_data_vals(VALUE data, int line_num, char* p, char* nextline)
+static void process_data_vals(VALUE data, int line_num, char* p,
+                              const char* nextline)
 {
     while(*p == ' ')
     {
@@ -78,7 +79,7 @@ static void process_data_vals(VALUE data, int line_num, char* p, char* nextline)
     rb_hash_aset(data, INT2NUM(line_num), linedata);
 }
 
-static void inline_line_num(uint8_t* p, char** lp)
+static void inline_line_num(const uint8_t* p, char** lp)
 {
     // Many thanks to Matt Godbolt for describing the line number format:
     // https://xania.org/200711/bbc-basic-line-number-format
