@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2021 Matt Robinson
+ * Copyright © 2015-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -22,3 +22,4 @@ VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode);
 
 void init_arc_file(VALUE mBBC);
 void init_basic_file(VALUE mBBC);
+void init_dispmo7_file(VALUE mBBC);

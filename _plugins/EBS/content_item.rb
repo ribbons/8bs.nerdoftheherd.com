@@ -57,7 +57,7 @@ module EBS
                    elsif @type == :basic
                      file[-1].parsed.to_html
                    elsif @type == :mode7
-                     trim_scroller(file[-1].content, file[-1].loadaddr)
+                     file[-1].parsed.screendata
                    else
                      file[-1].content
                    end
@@ -67,18 +67,6 @@ module EBS
     end
 
     private
-
-    MODE7_SCREEN_SIZE = 25 * 40
-
-    def trim_scroller(content, loadaddr)
-      # The first four bytes are the start and end locations of the text data
-      textstart = ((content.getbyte(1) << 8) | content.getbyte(0)) - loadaddr
-      textend = ((content.getbyte(3) << 8) | content.getbyte(2)) -
-                loadaddr + MODE7_SCREEN_SIZE - 1
-
-      # Chop off scroller code
-      content[textstart..textend]
-    end
 
     def extract_section(content, offsets, index)
       offind = index * 2

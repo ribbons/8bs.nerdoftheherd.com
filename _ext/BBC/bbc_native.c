@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2021 Matt Robinson
+ * Copyright © 2015-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -17,4 +17,5 @@ void Init_bbc_native()
 
     init_arc_file(mBBC);
     init_basic_file(mBBC);
+    init_dispmo7_file(mBBC);
 }

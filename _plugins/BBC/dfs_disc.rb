@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -106,6 +106,10 @@ module BBC
         loadaddr = (cat[SECTOR_SIZE + offset + 1] << 8) |
                    cat[SECTOR_SIZE + offset]
 
+        # Bytes 3 & 4 are the execution address
+        execaddr = (cat[SECTOR_SIZE + offset + 3] << 8) |
+                   cat[SECTOR_SIZE + offset + 2]
+
         # Bytes 5 & 6 and a couple of bits of 7 are the length
         length = ((cat[SECTOR_SIZE + offset + 6] & 0x30) << 12) |
                  (cat[SECTOR_SIZE + offset + 5] << 8) |
@@ -115,7 +119,7 @@ module BBC
         startsector = ((cat[SECTOR_SIZE + offset + 6] & 0x03) << 8) |
                       cat[SECTOR_SIZE + offset + 7]
 
-        file = BBCFile.new(side, dir, name, loadaddr, nil,
+        file = BBCFile.new(side, dir, name, loadaddr, execaddr,
                            file_content(side, startsector, length),
                            tweaks&.fetch("#{dir}.#{name}", nil))
 

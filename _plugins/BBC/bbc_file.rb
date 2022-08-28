@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -12,6 +12,7 @@ module BBC
   class BBCFile
     PARSETYPES = [
       BasicFile,
+      Dispmo7File,
       Arcer18File,
       Arcver30File,
       ArcFile,
