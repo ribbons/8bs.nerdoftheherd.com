@@ -15,6 +15,7 @@ void Init_bbc_native()
     rb_define_method(NativeFilters, "mode7_mem_to_html", method_mode7_mem_to_html, 1);
     rb_define_method(NativeFilters, "bbc_pic_to_img", method_bbc_pic_to_img, 3);
 
+    init_abz_file(mBBC);
     init_arc_file(mBBC);
     init_basic_file(mBBC);
     init_dispmo7_file(mBBC);

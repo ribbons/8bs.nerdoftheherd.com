@@ -15,42 +15,19 @@
     :entries:
       - :title: NEWS
         :type: :mode7
-        :paths: [':2.1', ':2.1', ':2.1']
-        :offsets: [0, 920, 1024, 920, 2048, 920]
+        :paths: [':2.1']
       - :title: THIS MONTH'S GOODIES
         :type: :mode7
-        :paths: [':2.2', ':2.2', ':2.2', ':2.2']
-        :offsets: [0, 920, 1024, 920, 2048, 920, 3072, 920]
+        :paths: [':2.2']
       - :title: FUTURE SOFTWARE
         :type: :mode7
-        :paths: [':2.300', ':2.300']
-        :offsets: [0, 920, 1024, 920]
+        :paths: [':2.300']
       - :title: ADVERTS
         :type: :mode7
-        :paths: [':2.4', ':2.4', ':2.4']
-        :offsets: [0, 920, 1024, 920, 2048, 920]
+        :paths: [':2.4']
       - :title: PROGRAM REVIEWS
         :type: :mode7
-        :paths:
-          - ':2.5'
-          - ':2.5'
-          - ':2.5'
-          - ':2.5'
-          - ':2.5'
-          - ':2.5'
-        :offsets:
-          - 0
-          - 920
-          - 1024
-          - 920
-          - 2048
-          - 920
-          - 3072
-          - 920
-          - 4096
-          - 920
-          - 5120
-          - 920
+        :paths: [':2.5']
       - :title: Previous Menu
         :type: :menu
         :id: 1

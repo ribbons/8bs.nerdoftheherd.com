@@ -6,7 +6,6 @@
 
 #include "bbc_native.h"
 
-#define MODE7_ROWS 25
 #define HEADER_SIZE 4
 #define MIN_PAGE 0x0E00
 

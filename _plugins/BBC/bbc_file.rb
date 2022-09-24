@@ -16,6 +16,7 @@ module BBC
       Arcer18File,
       Arcver30File,
       ArcFile,
+      AbzFile,
     ].freeze
 
     def initialize(side, dir, name, loadaddr, execaddr, content, tweaks = nil)

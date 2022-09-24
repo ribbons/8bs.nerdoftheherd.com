@@ -28,6 +28,7 @@ PreCommit:
   SingleNewlineAtEof:
     description: Check text files end with a single newline
     enabled: true
+    exclude: _spec/BBC/test_data/*
 
   Copyright:
     description: Check copyright notices are present and updated
