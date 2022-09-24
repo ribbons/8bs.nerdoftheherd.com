@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Matt Robinson
+ * Copyright © 2021-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -115,8 +115,8 @@ static VALUE parse(VALUE self, VALUE bbcfile)
             filetweaks = rb_hash_aref(tweaks, filename);
         }
 
-        VALUE fargs[] = {INT2NUM(0), rb_str_new2("$"), filename,
-                         UINT2NUM(0xFFFFFFFF), UINT2NUM(0xFFFFFFFF),
+        VALUE fargs[] = {INT2NUM(0), rb_str_new_static(STR_AND_LEN("$")),
+                         filename,UINT2NUM(0xFFFFFFFF), UINT2NUM(0xFFFFFFFF),
                          filecontent, filetweaks};
 
         VALUE file = rb_class_new_instance(ARRAY_LEN(fargs), fargs, cBBCFile);
