@@ -14,19 +14,14 @@
     :id: 2
     :entries:
       - :title: NEWS
-        :type: :mode7
         :paths: [':2.1']
       - :title: THIS MONTH'S GOODIES
-        :type: :mode7
         :paths: [':2.2']
       - :title: FUTURE SOFTWARE
-        :type: :mode7
         :paths: [':2.300']
       - :title: ADVERTS
-        :type: :mode7
         :paths: [':2.4']
       - :title: PROGRAM REVIEWS
-        :type: :mode7
         :paths: [':2.5']
       - :title: Previous Menu
         :type: :menu

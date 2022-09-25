@@ -67,6 +67,8 @@ module BBC
         :archive
       when BasicFile
         :basic
+      when Mode7File
+        :mode7
       end
     end
 

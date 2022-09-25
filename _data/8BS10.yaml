@@ -25,25 +25,18 @@
     :id: 2
     :entries:
       - :title: NEWS
-        :type: :mode7
         :paths: [':2.V.1']
       - :title: THIS MONTH'S GOODIES
-        :type: :mode7
         :paths: [':2.V.2']
       - :title: U.I.M. REVIEW
-        :type: :mode7
         :paths: [':2.V.300']
       - :title: ADVERTS/HINTS TIPS&CHEATS
-        :type: :mode7
         :paths: [':2.V.4']
       - :title: PROGRAM REVIEWS
-        :type: :mode7
         :paths: [':2.V.5']
       - :title: MEMBERS ARTICLES
-        :type: :mode7
         :paths: [':2.V.6']
       - :title: M.W. P.D.
-        :type: :mode7
         :paths: [':2.V.7']
       - :title: Previous Menu
         :type: :menu

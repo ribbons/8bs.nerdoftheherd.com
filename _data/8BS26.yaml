@@ -5,54 +5,39 @@
     :id: 1
     :entries:
       - :title: Editorial
-        :type: :mode7
         :paths: [Editorl]
       - :title: User Response
-        :type: :mode7
         :paths: [Cmments]
       - :title: Questionnaire Instructions
-        :type: :mode7
         :paths: [QuInstr]
       - :title: FILL IN QUESTIONNAIRE
         :paths: [QuFill]
       - :title: Archimedes Debate pt.3
-        :type: :mode7
         :paths: [ArchDbt]
       - :title: ADFS Debate
-        :type: :mode7
         :paths: [ADFSDbt]
       - :title: About this Issue
-        :type: :mode7
         :paths: [About26]
       - :title: Humour pt.1
-        :type: :mode7
         :paths: [Humour]
       - :title: Humour pt.2
-        :type: :mode7
         :paths: [HP]
       - :title: Humour pt.3
         :type: :mode0
         :paths: [ClMths0]
       - :title: Mailbox part 1
-        :type: :mode7
         :paths: [MailBx1]
       - :title: Mailbox part 2
-        :type: :mode7
         :paths: [MailBx2]
       - :title: Sound Envelopes explained
-        :type: :mode7
         :paths: [Envelps]
       - :title: Program Documentation
-        :type: :mode7
         :paths: [Dcumnts]
       - :title: Guess Who Info
-        :type: :mode7
         :paths: [GessInf]
       - :title: Green Suggestions
-        :type: :mode7
         :paths: [Envrnmt]
       - :title: Technological progress?
-        :type: :mode7
         :paths: [Tchnlgy]
       - :title: Issue 26 Software Menu
         :type: :menu

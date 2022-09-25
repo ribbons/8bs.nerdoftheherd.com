@@ -5,48 +5,36 @@
     :id: 1
     :entries:
       - :title: Introduction / News
-        :type: :mode7
         :paths: [IntNews]
       - :title: Questionnaire Results
-        :type: :mode7
         :paths: [Results]
       - :title: User Response
-        :type: :mode7
         :paths: [Cmments]
       - :title: C Sourcecode
         :type: :mode0
         :paths: [CSource]
       - :title: About this Issue
-        :type: :mode7
         :paths: [About24]
       - :title: Presenting Programs 3
-        :type: :mode7
         :paths: [Present]
       - :title: Freeze your 6502
         :paths: [Freeze]
       - :title: Book Review
-        :type: :mode7
         :paths: [EpsonBk]
       - :title: Messages Section
-        :type: :mode7
         :paths: [MailBox]
       - :title: Program Documentation
-        :type: :mode7
         :paths: [Dcumnts]
       - :title: Archimedes Debate
-        :type: :mode7
         :paths: [ArchDbt]
       - :title: Puzzle Info
-        :type: :mode7
         :paths: [PuzInfo]
       - :title: Christmas Wordpuzzle
         :type: :mode0
         :paths: [Puzl92]
       - :title: 32016 Section
-        :type: :mode7
         :paths: [NS32016]
       - :title: TBI pool update
-        :type: :mode7
         :paths: [TBIupdt]
       - :title: Issue 24 Software Menu
         :type: :menu

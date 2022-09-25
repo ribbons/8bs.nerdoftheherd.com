@@ -5,40 +5,28 @@
     :id: 1
     :entries:
       - :title: About this issue
-        :type: :mode7
         :paths: [This]
       - :title: News and views
-        :type: :mode7
         :paths: [News]
       - :title: Messages and ads
-        :type: :mode7
         :paths: [Mess]
       - :title: More about cheats
-        :type: :mode7
         :paths: [Cheats]
       - :title: Issue 23 accounts
-        :type: :mode7
         :paths: [Account]
       - :title: Was that you?
-        :type: :mode7
         :paths: [wasityu]
       - :title: Hardwire ROM/RAM
-        :type: :mode7
         :paths: [hrdwire]
       - :title: Back to re-inking
-        :type: :mode7
         :paths: [re-ink]
       - :title: Spirals info
-        :type: :mode7
         :paths: [sprinst]
       - :title: Messages to you
-        :type: :mode7
         :paths: [uu]
       - :title: Tiles and Plot 133
-        :type: :mode7
         :paths: [tilexp]
       - :title: Utilities program info
-        :type: :mode7
         :paths: [utilinf]
       - :title: Graphics/sound
         :type: :menu

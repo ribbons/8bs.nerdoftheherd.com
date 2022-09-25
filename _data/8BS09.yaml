@@ -27,22 +27,16 @@
     :id: 2
     :entries:
       - :title: NEWS
-        :type: :mode7
         :paths: [':2.V.1']
       - :title: THIS MONTH'S GOODIES
-        :type: :mode7
         :paths: [':2.V.2']
       - :title: 8-BIT STAFF
-        :type: :mode7
         :paths: [':2.V.300']
       - :title: ADVERTS AND HELP WANTED
-        :type: :mode7
         :paths: [':2.V.4']
       - :title: PROGRAM REVIEWS
-        :type: :mode7
         :paths: [':2.V.5']
       - :title: HINTS AND TIPS
-        :type: :mode7
         :paths: [':2.V.6']
       - :title: Previous Menu
         :type: :menu

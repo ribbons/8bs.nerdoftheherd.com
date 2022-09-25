@@ -6,33 +6,23 @@
     :entries:
       - :title: About this issue
         :paths: [this, thi2]
-        :type: :mode7
       - :title: News and views
         :paths: [news]
-        :type: :mode7
       - :title: Messages and ads
-        :type: :mode7
         :paths: [mess1, mess2]
       - :title: Messages to you
-        :type: :mode7
         :paths: [uu]
       - :title: Program feedback
-        :type: :mode7
         :paths: [Reactor]
       - :title: Heavy boots again?
-        :type: :mode7
         :paths: [Size12s]
       - :title: Master battery backup
-        :type: :mode7
         :paths: [OfBatt]
       - :title: Sound Control
-        :type: :mode7
         :paths: [OfSound]
       - :title: Supreme review
-        :type: :mode7
         :paths: [suprev]
       - :title: Rating questionnaire info
-        :type: :mode7
         :paths: [RatQinf]
       - :title: From D.Shimmin
         :type: :mode0

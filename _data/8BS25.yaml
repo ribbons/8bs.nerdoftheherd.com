@@ -5,37 +5,26 @@
     :id: 1
     :entries:
       - :title: About this issue
-        :type: :mode7
         :paths: [this, thi2]
       - :title: News and views
-        :type: :mode7
         :paths: [news]
       - :title: Messages and ads
-        :type: :mode7
         :paths: [mess]
       - :title: Messages to you
-        :type: :mode7
         :paths: [uu]
       - :title: Tonkins computer dictionary
-        :type: :mode7
         :paths: [tonk]
       - :title: Please recycle
-        :type: :mode7
         :paths: [wesabin]
       - :title: Presenting programs part 4
-        :type: :mode7
         :paths: [Pres4]
       - :title: DBase, Selftes, Copy Info
-        :type: :mode7
         :paths: [utilinf]
       - :title: Info on SOLINET
-        :type: :mode7
         :paths: [soliad]
       - :title: Info for AMX viewer
-        :type: :mode7
         :paths: [amxtext]
       - :title: Late submissions
-        :type: :mode7
         :paths: [late]
       - :title: Joker info
         :type: :mode0

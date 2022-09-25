@@ -49,19 +49,14 @@
     :id: 2
     :entries:
       - :title: Wordsearch Creator Instrux
-        :type: :mode7
         :paths: [WRDINFO]
       - :title: ECG Simulator Instructions
-        :type: :mode7
         :paths: [ECGINFO]
       - :title: 'Cheats #1'
-        :type: :mode7
         :paths: [CHEATS]
       - :title: 'Cheats #2'
-        :type: :mode7
         :paths: [CHEATS2]
       - :title: Rom-builder Instructions
-        :type: :mode7
         :paths: [ROMinfo]
       - :title: Return to Main Magazine Menu
         :type: :menu

@@ -49,7 +49,6 @@
       - :title: Run Archiver Program v3.0
         :paths: [ARC3.0]
       - :title: 8BS Catalogue (issue 4-18)
-        :type: :mode7
         :paths: [8BS]
   - :title: Archived Software
     :id: 2
@@ -83,7 +82,6 @@
         :type: :run
         :paths: [VIEWASC]
       - :title: Mix-Editor User Guide
-        :type: :mode7
         :paths: [MIXINF]
       - :title: Noughts & Crosses
         :paths: [Noughts]
@@ -115,11 +113,9 @@
         :paths: [C.TextEd]
         :arcpaths: [FONTDES]
       - :title: Teletext Editor User Guide
-        :type: :mode7
         :paths: [C.TextEd]
         :arcpaths: [TX2INFO]
       - :title: Mode 7 Display Program Guide
-        :type: :mode7
         :paths: [C.TextEd]
         :arcpaths: [DISINFO]
       - :title: Mode 7 Graphics Guide (printer on)
