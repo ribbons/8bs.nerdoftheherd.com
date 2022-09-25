@@ -56,6 +56,14 @@ module BBC
       expect(described_class.parse(file)).to be_nil
     end
 
+    it 'returns nil from parsing file with a loader that is too long' do
+      file = get_file(
+        'dispmo7_file_oversize_loader', loadaddr: 0x1900, execaddr: 0x190B
+      )
+
+      expect(described_class.parse(file)).to be_nil
+    end
+
     it 'returns correct screen data from a Dispmo7 file with an older loader' do
       file = get_file(
         'dispmo7_file_oldloader', loadaddr: 0xE00, execaddr: 0xE2B

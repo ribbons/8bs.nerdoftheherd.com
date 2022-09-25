@@ -7,6 +7,7 @@
 #include "bbc_native.h"
 
 #define HEADER_SIZE 4
+#define MAX_LOADER_SIZE 300
 #define MIN_PAGE 0x0E00
 
 VALUE cDispmo7File;
@@ -36,7 +37,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
     uint16_t endaddr = (uint16_t)((uint8_t)input[3] << 8 | (uint8_t)input[2]);
 
     if(execaddr < loadaddr + HEADER_SIZE || startaddr <= loadaddr ||
-       endaddr <= startaddr)
+       endaddr <= startaddr || startaddr - loadaddr > MAX_LOADER_SIZE)
     {
         return Qnil;
     }
