@@ -56,5 +56,10 @@ module BBC
         'A VERY SIMPLE SCREEN 2'.ljust(960) + 'LINE 25'.ljust(40)
       )
     end
+
+    it 'returns nil from parsing file with more printable than screen size' do
+      file = get_file('abz_file_allprintable')
+      expect(described_class.parse(file)).to be_nil
+    end
   end
 end

@@ -12,6 +12,19 @@
 VALUE cAbzFile;
 char blankLine[MODE7_COLS];
 
+static bool allPrintable(char* data, size_t len)
+{
+    for(int i = 0; i < len; i++)
+    {
+        if((unsigned char)data[i] < ' ')
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 static VALUE parse(VALUE self, VALUE bbcfile)
 {
     VALUE content = rb_funcall(bbcfile, rb_intern("content"), 0);
@@ -34,18 +47,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
 
         for(int line = 0; line < MODE7_ROWS; line++)
         {
-            bool allPrintable = true;
-
-            for(int col = 0; col < MODE7_COLS; col++)
-            {
-                if((unsigned char)pageData[line * MODE7_COLS + col] < 32)
-                {
-                    allPrintable = false;
-                    break;
-                }
-            }
-
-            if(!allPrintable)
+            if(!allPrintable(pageData + line * MODE7_COLS, MODE7_COLS))
             {
                 lineCount = line;
                 break;
@@ -55,6 +57,15 @@ static VALUE parse(VALUE self, VALUE bbcfile)
         if(lineCount < MIN_LINES)
         {
             return Qnil;
+        }
+
+        if(lineCount == MODE7_ROWS)
+        {
+            if(allPrintable(pageData + MODE7_COLS * MODE7_ROWS,
+                            PAGE_SIZE - MODE7_COLS * MODE7_ROWS))
+            {
+                return Qnil;
+            }
         }
 
         if(lineCount < MODE7_ROWS)
