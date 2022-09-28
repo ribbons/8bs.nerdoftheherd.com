@@ -1,29 +1,32 @@
 # frozen_string_literal: true
 
-# Copyright © 2017-2021 Matt Robinson
+# Copyright © 2017-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 module BBC
   require_relative 'archive_file'
+  require_relative 'basic_data_file'
 
   class Arcer18File < ArchiveFile
+    extend ReadBasicData
+
     def self.parse(file)
       return nil if file.empty?
 
       files = []
 
       until file.empty?
-        filename = BasicDataFile.read_value(file)
+        filename = read_value(file)
         return nil unless filename.is_a?(String)
 
-        length = BasicDataFile.read_value(file)
+        length = read_value(file)
         return nil unless length.is_a?(Integer)
 
-        load_addr = BasicDataFile.read_value(file)
+        load_addr = read_value(file)
         return nil unless load_addr.is_a?(Integer)
 
-        exec_addr = BasicDataFile.read_value(file)
+        exec_addr = read_value(file)
         return nil unless exec_addr.is_a?(Integer)
 
         splitname = filename.split('.', 2)

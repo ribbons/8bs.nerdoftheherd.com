@@ -1,11 +1,36 @@
 # frozen_string_literal: true
 
-# Copyright © 2017-2021 Matt Robinson
+# Copyright © 2017-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 module BBC
+  module ReadBasicData
+    private
+
+    def read_value(file)
+      return nil if file.empty?
+
+      type = file.shift.ord
+
+      case type
+      when 0x00 # String
+        return nil if file.empty?
+
+        length = file.shift.ord
+        return nil if file.length < length
+
+        file.shift(length).reverse
+
+      when 0x40 # Integer
+        file.shift(4).unpack1('l>')
+      end
+    end
+  end
+
   class BasicDataFile
+    extend ReadBasicData
+
     def self.parse(file)
       values = []
 
@@ -23,25 +48,6 @@ module BBC
 
     def initialize(values)
       @values = values
-    end
-
-    def self.read_value(file)
-      return nil if file.empty?
-
-      type = file.shift.ord
-
-      case type
-      when 0x00 # String
-        return nil if file.empty?
-
-        length = file.shift.ord
-        return nil if file.length < length
-
-        file.shift(length).reverse
-
-      when 0x40 # Integer
-        file.shift(4).unpack1('l>')
-      end
     end
   end
 end
