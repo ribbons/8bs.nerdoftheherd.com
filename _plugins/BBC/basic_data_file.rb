@@ -24,6 +24,15 @@ module BBC
 
       when 0x40 # Integer
         file.shift(4).unpack1('l>')
+
+      when 0xFF # Real
+        mantissa = file.shift(4).unpack1('L<')
+        exponent = file.shift.unpack1('C')
+        return nil if exponent.nil?
+        return 0.0 if mantissa.zero? && exponent.zero?
+
+        sign = (mantissa & 0x80000000).zero? ? 1 : -1
+        Math.ldexp(0x80000000 | mantissa, exponent - 0xA0) * sign
       end
     end
   end
