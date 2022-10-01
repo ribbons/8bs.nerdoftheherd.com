@@ -6,6 +6,10 @@
 
 module BBC
   class Mode7File
+    def self.parse(file)
+      Mode7File.new(file.content)
+    end
+
     def initialize(screendata)
       @screendata = screendata
     end

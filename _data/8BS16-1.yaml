@@ -5,36 +5,29 @@
     :id: 1
     :entries:
       - :title: Problems/help wanted
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x28b2, 0x1680]
+        :arcpaths: [C]
       - :title: Hints and tips
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x3f38, 0x1090]
+        :arcpaths: [D]
       - :title: Mailbox
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x4fce, 0xf50]
+        :arcpaths: [E]
       - :title: Programmers return 8
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x66aa, 0x3700]
+        :arcpaths: [G]
       - :title: Repton reportage
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x5f24, 0x780]
+        :arcpaths: [F]
       - :title: Review
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x78c, 0x2120]
+        :arcpaths: [B]
       - :title: System return
         :type: :mode0
         :paths: [SYSRET]
       - :title: Tech Tips number 3
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x9db0, 0x1d10]
+        :arcpaths: [H]
       - :title: Archiving article
         :type: :mode0
         :paths: [ARCHIVE]
@@ -45,9 +38,14 @@
         :type: :mode0
         :paths: [NEXTMON]
       - :title: Footnote to magazine
-        :type: :mode7
         :paths: [TELEMAG]
-        :offsets: [0x0006, 0x780]
+        :arcpaths: [A]
       - :title: On this month's disc
         :type: :mode0
         :paths: [ONDISC]
+
+:tweaks:
+  :files:
+    0:
+      $.TELEMAG:
+        :parser: TelemagFile

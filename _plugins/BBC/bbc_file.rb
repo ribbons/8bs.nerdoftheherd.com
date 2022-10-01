@@ -51,11 +51,19 @@ module BBC
     end
 
     def parsed
-      PARSETYPES.each do |type|
-        break unless @parsedfile.nil?
+      if @parsedfile.nil?
+        parser = tweaks&.fetch(:parser, nil)
 
-        @parsedfile = type.parse(self)
-        @position = 0
+        if parser.nil?
+          PARSETYPES.each do |type|
+            @parsedfile = type.parse(self)
+            @position = 0
+
+            break unless @parsedfile.nil?
+          end
+        else
+          @parsedfile = Object.const_get("BBC::#{parser}").parse(self)
+        end
       end
 
       @parsedfile
