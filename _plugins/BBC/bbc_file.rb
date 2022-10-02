@@ -46,7 +46,7 @@ module BBC
 
     def shift(elements = 1)
       value = @content.byteslice(@position, elements)
-      @position += elements
+      @position += value.bytesize
       value
     end
 

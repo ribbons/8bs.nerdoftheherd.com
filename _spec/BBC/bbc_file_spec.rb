@@ -73,5 +73,15 @@ module BBC
         empty?: true
       )
     end
+
+    it 'updates length-related attributes after shift past end of data' do
+      file = described_class.new(0, '$', 'TEST', 0x0, 0x0, 'FILE CONTENT')
+      file.shift(20)
+
+      expect(file).to have_attributes(
+        length: 0,
+        empty?: true
+      )
+    end
   end
 end
