@@ -13,15 +13,9 @@ module EBS
     def initialize(site, issue, imagepath)
       super(site, issue, imagepath)
 
-      id = File.basename(imagepath, '.*')
+      @date = @data[:date]
 
-      data = YAML.load_file(
-        File.expand_path("../../_data/#{id}.yaml", __dir__)
-      )
-
-      @date = data[:date]
-
-      data[:menus].each do |menu|
+      @data[:menus].each do |menu|
         @menus << load_menu_data(menu)
       end
 
