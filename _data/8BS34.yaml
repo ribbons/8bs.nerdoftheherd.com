@@ -1,7 +1,8 @@
 ---
-5:
-  Title Screens.:
-    :paths:
-      - ':2.TP1'
-      - ':2.TP2'
-    :type: :ldpic
+:menus:
+  5:
+    Title Screens.:
+      :paths:
+        - ':2.TP1'
+        - ':2.TP2'
+      :type: :ldpic

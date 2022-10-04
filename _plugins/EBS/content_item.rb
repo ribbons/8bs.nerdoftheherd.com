@@ -13,7 +13,6 @@ module EBS
       @files = files
 
       @title = entry&.title&.chomp('.') || files[0][-1].path
-      @offsets = entry&.offsets
       @modes = entry&.modes
       @path = path
       @imagepath = parent.imagepath
@@ -23,8 +22,7 @@ module EBS
       @type = entry&.type || files[0][-1].type
     end
 
-    attr_reader :type, :title, :offsets, :modes, :files, :path, :model,
-                :captions
+    attr_reader :type, :title, :modes, :files, :path, :model, :captions
     attr_accessor :imagepath
 
     def typestr
@@ -51,12 +49,11 @@ module EBS
     def content
       content = []
 
-      @files.each_with_index do |file, idx|
-        content << if !@offsets.nil?
-                     extract_section(file[-1].content, @offsets, idx)
-                   elsif @type == :basic
+      @files.each do |file|
+        content << case @type
+                   when :basic
                      file[-1].parsed.to_html
-                   elsif @type == :mode7
+                   when :mode7
                      file[-1].parsed.screendata
                    else
                      file[-1].content
@@ -64,13 +61,6 @@ module EBS
       end
 
       content
-    end
-
-    private
-
-    def extract_section(content, offsets, index)
-      offind = index * 2
-      content[offsets[offind]..offsets[offind] + offsets[offind + 1] - 1]
     end
   end
 end

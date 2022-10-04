@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -11,8 +11,7 @@ module EBS
       @files = []
     end
 
-    attr_accessor :title, :type, :model, :id, :offsets, :modes, :captions,
-                  :files
+    attr_accessor :title, :type, :model, :id, :modes, :captions, :files
     attr_writer :linkpath
 
     def linkpath

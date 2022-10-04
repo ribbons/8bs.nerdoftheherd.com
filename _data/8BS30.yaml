@@ -1,4 +1,7 @@
 ---
-3:
-  Solinet Adverts.:
-    :offsets: [0x37, 0x4816]
+:tweaks:
+  :files:
+    2:
+      $.Soliad:
+        :parser: Mode7File
+        :byteranges: [0x37, 0x484D]

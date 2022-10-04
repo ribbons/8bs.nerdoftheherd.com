@@ -1,15 +1,16 @@
 ---
-3:
-  Pictures From 4WL. TBI-105:
-    :paths:
-      - SuSie
-      - CLOCK
-      - CSHIP
-      - DW1BBC
-    :type: :screendump
-    :captions:
-      - SuSie
-      - CLOCK
-      - CSHIP
-      - DW1BBC
-    :modes: [0, 0, 0, 0]
+:menus:
+  3:
+    Pictures From 4WL. TBI-105:
+      :paths:
+        - SuSie
+        - CLOCK
+        - CSHIP
+        - DW1BBC
+      :type: :screendump
+      :captions:
+        - SuSie
+        - CLOCK
+        - CSHIP
+        - DW1BBC
+      :modes: [0, 0, 0, 0]

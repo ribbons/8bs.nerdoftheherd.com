@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2022 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -49,12 +49,13 @@ module EBS
     end
 
     def apply_tweaks
-      return if @data.nil?
+      tweaks = @data&.fetch(:menus, nil)
+      return if tweaks.nil?
 
       @menus.each do |menu|
-        next unless @data.key?(menu.id)
+        next unless tweaks.key?(menu.id)
 
-        menudata = @data[menu.id]
+        menudata = tweaks[menu.id]
 
         menu.entries.each do |entry|
           next unless menudata.key?(entry.title)
@@ -66,7 +67,6 @@ module EBS
           end
 
           entry.type = itemdata[:type] if itemdata.key?(:type)
-          entry.offsets = itemdata[:offsets] if itemdata.key?(:offsets)
           entry.modes = itemdata[:modes] if itemdata.key?(:modes)
           entry.captions = itemdata[:captions] if itemdata.key?(:captions)
         end

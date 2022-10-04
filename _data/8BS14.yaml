@@ -22,9 +22,7 @@
         :type: :menu
         :id: 4
       - :title: Tech Tips ISSUE 2
-        :type: :mode7
-        :paths: [SHOWMAG, SHOWMAG, SHOWMAG]
-        :offsets: [17152, 1000, 286, 15360, 18176, 1000]
+        :paths: [SHOWMAG]
       - :title: Kickstart
         :type: :run
         :paths: [kickst]
@@ -125,3 +123,10 @@
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1
+
+:tweaks:
+  :files:
+    0:
+      $.SHOWMAG:
+        :parser: Mode7File
+        :byteranges: [17152, 18152, 286, 15646, 18176, 19176]

@@ -1,7 +1,8 @@
 ---
-1:
-  Christmas Card.:
-    :paths:
-      - ':2.Santa'
-    :type: :screendump
-    :modes: [0]
+:menus:
+  1:
+    Christmas Card.:
+      :paths:
+        - ':2.Santa'
+      :type: :screendump
+      :modes: [0]

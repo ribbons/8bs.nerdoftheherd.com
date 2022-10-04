@@ -50,7 +50,6 @@
       - :title: The Union Jack. Screen.
         :type: :screendump
         :paths: [':2.S.u-jscr']
-        :offsets: [256, 20480]
         :modes: [[1, 0, 1, 4, 7]]
       - :title: Fancy letters and boxes.
         :paths: [':2.lettbox']
@@ -62,7 +61,6 @@
         :type: :screendump
         :paths: [':2.S.scr1']
         :modes: [[1, 2, 4, 7, 6]]
-        :offsets: [256, 20480]
   - :title: Utilities
     :id: 999
     :entries:
@@ -91,3 +89,11 @@
         :paths: [':2.7to3']
       - :title: List variables.
         :paths: [':2.vlistex']
+
+:tweaks:
+  :files:
+    2:
+      S.scr1:
+        :byteranges: [256]
+      S.u-jscr:
+        :byteranges: [256]

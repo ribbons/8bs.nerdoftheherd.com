@@ -31,6 +31,13 @@ module BBC
       )
     end
 
+    it 'selects subset of content with byte ranges from tweaks' do
+      file = described_class.new(0, '$', 'TEST', 0x0, 0x0, 'FILE CONTENT',
+                                 { byteranges: [2, 4, 10] })
+
+      expect(file.content).to eq('LENT')
+    end
+
     it 'calculates length-related attributes from content' do
       file = described_class.new(0, '$', 'TEST', 0x0, 0x0, 'FILE CONTENT')
 

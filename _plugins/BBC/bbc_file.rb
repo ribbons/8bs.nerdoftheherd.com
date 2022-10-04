@@ -25,9 +25,22 @@ module BBC
       @name = name
       @loadaddr = tweaks&.fetch(:loadaddr, nil) || loadaddr
       @execaddr = tweaks&.fetch(:execaddr, nil) || execaddr
-      @content = content
       @position = 0
       @tweaks = tweaks
+
+      byteranges = tweaks&.fetch(:byteranges, nil)
+
+      if byteranges.nil?
+        @content = content
+        return
+      end
+
+      @content = String.new
+
+      (0...byteranges.length).step(2).each do |idx|
+        finish = byteranges[idx + 1] || content.bytesize
+        @content << content[byteranges[idx]...finish]
+      end
     end
 
     attr_reader :side, :dir, :name, :loadaddr, :execaddr, :content, :tweaks

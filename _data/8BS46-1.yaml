@@ -1,7 +1,8 @@
 ---
-6:
-  Santa.:
-    :paths:
-      - ':2.Santa'
-    :type: :screendump
-    :modes: [0]
+:menus:
+  6:
+    Santa.:
+      :paths:
+        - ':2.Santa'
+      :type: :screendump
+      :modes: [0]

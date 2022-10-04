@@ -1,7 +1,8 @@
 ---
-5:
-  Magic Eye Screen.:
-    :paths:
-      - ':2.Fin'
-    :type: :screendump
-    :modes: [1]
+:menus:
+  5:
+    Magic Eye Screen.:
+      :paths:
+        - ':2.Fin'
+      :type: :screendump
+      :modes: [1]
