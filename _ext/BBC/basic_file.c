@@ -199,7 +199,7 @@ static VALUE to_html(VALUE self)
         rb_str_cat_cstr(text, "\r");
     }
 
-    return method_mode7_mem_to_html(Qnil, mode7_text_to_mem(text));
+    return mode7_mem_to_html(mode7_text_to_mem(text));
 }
 
 void init_basic_file(VALUE mBBC)

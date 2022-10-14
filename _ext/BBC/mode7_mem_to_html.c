@@ -1,5 +1,5 @@
 /*
- * Copyright © 2007-2021 Matt Robinson
+ * Copyright © 2007-2022 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -82,7 +82,7 @@ uint32_t graphval(uint32_t value, Height height, bool separated)
     return charval;
 }
 
-VALUE method_mode7_mem_to_html(VALUE self, VALUE input)
+VALUE mode7_mem_to_html(VALUE input)
 {
     int row = 0;
     int column = 0;

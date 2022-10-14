@@ -51,10 +51,8 @@ module EBS
 
       @files.each do |file|
         content << case @type
-                   when :basic
+                   when :basic, :mode7
                      file[-1].parsed.to_html
-                   when :mode7
-                     file[-1].parsed.screendata
                    else
                      file[-1].content
                    end

@@ -6,7 +6,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 require_relative '../../_plugins/BBC/bbc_native'
-require_relative '../../_plugins/BBC/mode7_file'
 require_relative 'bbc_helpers'
 
 RSpec.configure do |c|
