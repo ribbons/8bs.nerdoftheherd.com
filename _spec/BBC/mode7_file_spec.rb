@@ -26,5 +26,21 @@ module BBC
         'LINE 2                                  '
       )
     end
+
+    it 'maps alpha chars to correct code points/entities for Mode7 font' do
+      parsed = described_class.parse(
+        file_from_string(
+          ' !"#$%&\'()*+,-./0123456789:;<=>?@       ' \
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`        ' \
+          "abcdefghijklmnopqrstuvwxyz{|}~\x7F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " !\"£$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@       \n" \
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ[½]^#`        \n" \
+        'abcdefghijklmnopqrstuvwxyz¼|¾÷¶'
+      )
+    end
   end
 end

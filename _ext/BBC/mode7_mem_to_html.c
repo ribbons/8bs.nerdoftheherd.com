@@ -912,7 +912,7 @@ VALUE mode7_mem_to_html(VALUE input)
             case 126:
                 if(mode == MODE_TEXT)
                 {
-                    thischar = textval('~', height);
+                    thischar = textval(0x00F7, height); // ÷
                 }
                 else
                 {
@@ -921,7 +921,15 @@ VALUE mode7_mem_to_html(VALUE input)
 
                 break;
             case 127:
-                thischar = graphval(63, height, separated);
+                if(mode == MODE_TEXT)
+                {
+                    thischar = textval(0x00B6, height);
+                }
+                else
+                {
+                    thischar = graphval(63, height, separated);
+                }
+
                 break;
             case 1:
                 if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
@@ -1392,7 +1400,7 @@ VALUE mode7_mem_to_html(VALUE input)
         g_string_truncate(output, output->len - 1);
     }
 
-    VALUE outputR = rb_str_new(output->str, (long)output->len);
+    VALUE outputR = rb_utf8_str_new(output->str, (long)output->len);
     g_string_free(output, true);
 
     return outputR;
