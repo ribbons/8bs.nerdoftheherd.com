@@ -42,5 +42,21 @@ module BBC
         'abcdefghijklmnopqrstuvwxyz¼|¾÷¶'
       )
     end
+
+    it 'maps graphics chars to correct code points for Mode7 font' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17 !\"#$%&'()*+,-./0123456789:;<=>?       " \
+          "\x17@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_       " \
+          "\x17`abcdefghijklmnopqrstuvwxyz{|}~\x7F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        "  #{[*0xE201..0xE21F].pack('U*')}       \n " \
+        "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[½]^#       \n " \
+        "#{[*0xE220..0xE23F].pack('U*')}"
+      )
+    end
   end
 end
