@@ -58,5 +58,21 @@ module BBC
         "#{[*0xE220..0xE23F].pack('U*')}"
       )
     end
+
+    it 'maps separated graphics to correct code points for Mode7 font' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x1A !\"#$%&'()*+,-./0123456789:;<=>?      " \
+          "\x17\x1A@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_      " \
+          "\x17\x1A`abcdefghijklmnopqrstuvwxyz{|}~\x7F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        "   #{[*0xE2C1..0xE2DF].pack('U*')}      \n  " \
+        "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[½]^#      \n  " \
+        "#{[*0xE2E0..0xE2FF].pack('U*')}"
+      )
+    end
   end
 end
