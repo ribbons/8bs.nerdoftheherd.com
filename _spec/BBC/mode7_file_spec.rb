@@ -88,5 +88,95 @@ module BBC
         "#{[*0xE141..0xE14A].pack('U*')}#{[*0xE04B..0xE054].pack('U*')}"
       )
     end
+
+    it 'sets correct style for flashing text' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x08FLASHING\x09STEADY" \
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '<span class=flash> FLASHING</span> STEADY'
+      )
+    end
+
+    it 'sets correct styles for text colours' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x01RED                                    " \
+          "\x02GREEN                                  " \
+          "\x03YELLOW                                 " \
+          "\x04BLUE                                   " \
+          "\x05MAGENTA                                " \
+          "\x06CYAN                                   " \
+          "\x07WHITE                                  "
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " <span class=t1>RED                                    </span>\n " \
+        "<span class=t2>GREEN                                  </span>\n " \
+        "<span class=t3>YELLOW                                 </span>\n " \
+        "<span class=t4>BLUE                                   </span>\n " \
+        "<span class=t5>MAGENTA                                </span>\n " \
+        "<span class=t6>CYAN                                   </span>\n " \
+        'WHITE                                  '
+      )
+    end
+
+    it 'sets correct styles for graphics colours' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x11\x66                                      " \
+          "\x12\x66                                      " \
+          "\x13\x66                                      " \
+          "\x14\x66                                      " \
+          "\x15\x66                                      " \
+          "\x16\x66                                      " \
+          "\x17\x66                                      "
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " <span class=t1>                                      </span>\n " \
+        "<span class=t2>                                      </span>\n " \
+        "<span class=t3>                                      </span>\n " \
+        "<span class=t4>                                      </span>\n " \
+        "<span class=t5>                                      </span>\n " \
+        "<span class=t6>                                      </span>\n " \
+        '                                      '
+      )
+    end
+
+    it 'sets correct styles for background colours' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x11\x1D                  \x1C                   " \
+          "\x12\x1D                  \x1C                   " \
+          "\x13\x1D                  \x1C                   " \
+          "\x14\x1D                  \x1C                   " \
+          "\x15\x1D                  \x1C                   " \
+          "\x16\x1D                  \x1C                   " \
+          "\x17\x1D                  \x1C                   "
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class="t1 b1">                   </span>' \
+        "<span class=t1>                    </span>\n " \
+        '<span class="t2 b2">                   </span>' \
+        "<span class=t2>                    </span>\n " \
+        '<span class="t3 b3">                   </span>' \
+        "<span class=t3>                    </span>\n " \
+        '<span class="t4 b4">                   </span>' \
+        "<span class=t4>                    </span>\n " \
+        '<span class="t5 b5">                   </span>' \
+        "<span class=t5>                    </span>\n " \
+        '<span class="t6 b6">                   </span>' \
+        "<span class=t6>                    </span>\n " \
+        '<span class=b7>                   </span>                    '
+      )
+    end
   end
 end
