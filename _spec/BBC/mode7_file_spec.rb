@@ -74,5 +74,19 @@ module BBC
         "#{[*0xE2E0..0xE2FF].pack('U*')}"
       )
     end
+
+    it 'maps double height to upper or lower code points as appropriate' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x0DABCDEFGHIJ\x0C                            " \
+          "\x0DABCDEFGHIJKLMNOPQRST"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " #{[*0xE041..0xE04A].pack('U*')}                             \n " \
+        "#{[*0xE141..0xE14A].pack('U*')}#{[*0xE04B..0xE054].pack('U*')}"
+      )
+    end
   end
 end
