@@ -190,5 +190,17 @@ module BBC
         '<span class=b7>                   </span>                    '
       )
     end
+
+    it 'maps values with top bit set the same as without' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x00\x80\x23\xA3\x5F\xDF\x7F\xFF"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  ££##¶¶'
+      )
+    end
   end
 end
