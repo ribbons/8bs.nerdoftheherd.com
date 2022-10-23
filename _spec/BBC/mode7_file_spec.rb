@@ -27,6 +27,18 @@ module BBC
       )
     end
 
+    it 'maps reserved and box characters to spaces' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x00\x0A\x0B\x0E\x0F\x10\x1B"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '       '
+      )
+    end
+
     it 'maps alpha chars to correct code points/entities for Mode7 font' do
       parsed = described_class.parse(
         file_from_string(
