@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <glib.h>
+
 #include "bbc_native.h"
 
 VALUE mode7_text_to_mem(VALUE input)

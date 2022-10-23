@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <glib.h>
 #include <png.h>
 #include <zlib.h>
 #include <BbcImageLoader.h>

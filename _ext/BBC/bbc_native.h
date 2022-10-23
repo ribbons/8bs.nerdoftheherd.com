@@ -5,7 +5,6 @@
  */
 
 #include <stdbool.h>
-#include <glib.h>
 #include <ruby.h>
 
 // Just enable conversion warnings for our code

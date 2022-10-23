@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <ruby/encoding.h>
+
 #include "bbc_native.h"
 
 typedef enum
@@ -111,7 +113,8 @@ VALUE mode7_mem_to_html(VALUE input)
     char* data = RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
 
-    GString *output = g_string_sized_new((gsize)dataLen);
+    VALUE output = rb_str_buf_new(dataLen);
+    rb_enc_set_index(output, rb_utf8_encindex());
 
     for(long i = 0; i < dataLen; i++)
     {
@@ -1284,7 +1287,7 @@ VALUE mode7_mem_to_html(VALUE input)
         {
             if(spanopen)
             {
-                g_string_append_len(output, STR_AND_LEN("</span>"));
+                rb_str_cat(output, STR_AND_LEN("</span>"));
                 spanopen = false;
             }
 
@@ -1308,29 +1311,29 @@ VALUE mode7_mem_to_html(VALUE input)
 
             if(classcount > 0)
             {
-                g_string_append_len(output, STR_AND_LEN("<span class="));
+                rb_str_cat(output, STR_AND_LEN("<span class="));
 
                 if(classcount > 1)
                 {
-                    g_string_append_c(output, '"');
+                    rb_str_cat(output, STR_AND_LEN("\""));
                 }
 
                 for(int j = 0; j < classcount; j++)
                 {
                     if(j != 0)
                     {
-                        g_string_append_c(output, ' ');
+                        rb_str_cat(output, STR_AND_LEN(" "));
                     }
 
-                    g_string_append(output, classes[j]);
+                    rb_str_cat2(output, classes[j]);
                 }
 
                 if(classcount > 1)
                 {
-                    g_string_append_c(output, '"');
+                    rb_str_cat(output, STR_AND_LEN("\""));
                 }
 
-                g_string_append_c(output, '>');
+                rb_str_cat(output, STR_AND_LEN(">"));
                 spanopen = true;
             }
         }
@@ -1340,16 +1343,16 @@ VALUE mode7_mem_to_html(VALUE input)
         switch(thischar)
         {
             case '<':
-                g_string_append_len(output, STR_AND_LEN("&lt;"));
+                rb_str_cat(output, STR_AND_LEN("&lt;"));
                 break;
             case '>':
-                g_string_append_len(output, STR_AND_LEN("&gt;"));
+                rb_str_cat(output, STR_AND_LEN("&gt;"));
                 break;
             case '&':
-                g_string_append_len(output, STR_AND_LEN("&amp;"));
+                rb_str_cat(output, STR_AND_LEN("&amp;"));
                 break;
             default:
-                g_string_append_unichar(output, thischar);
+                rb_str_concat(output, INT2FIX(thischar));
         }
 
         column++;
@@ -1371,11 +1374,11 @@ VALUE mode7_mem_to_html(VALUE input)
 
             if(spanopen)
             {
-                g_string_append_len(output, STR_AND_LEN("</span>"));
+                rb_str_cat(output, STR_AND_LEN("</span>"));
                 spanopen = false;
             }
 
-            g_string_append_c(output, '\n');
+            rb_str_cat(output, STR_AND_LEN("\n"));
         }
         else
         {
@@ -1395,13 +1398,10 @@ VALUE mode7_mem_to_html(VALUE input)
         }
     }
 
-    if(output->str[output->len - 1] == '\n')
+    if(RSTRING_PTR(output)[RSTRING_LEN(output) - 1] == '\n')
     {
-        g_string_truncate(output, output->len - 1);
+        rb_str_set_len(output, RSTRING_LEN(output) - 1);
     }
 
-    VALUE outputR = rb_utf8_str_new(output->str, (long)output->len);
-    g_string_free(output, true);
-
-    return outputR;
+    return output;
 }
