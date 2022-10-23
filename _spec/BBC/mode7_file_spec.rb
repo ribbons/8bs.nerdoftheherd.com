@@ -202,5 +202,20 @@ module BBC
         '  ££##¶¶'
       )
     end
+
+    it 'resets colour, flashing, height, separated and hold at end of line' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x11\x1D\x08\x1A\x0D\x1Ea                                 " \
+          "should have reset\x17a"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class="t1 b1"> </span><span class="t1 b1 flash">    ' \
+        "                                 </span>\n" \
+        'should have reset '
+      )
+    end
   end
 end
