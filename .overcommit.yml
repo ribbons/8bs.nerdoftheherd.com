@@ -40,3 +40,7 @@ PreCommit:
   YamlLint:
     enabled: true
     on_warn: fail
+
+PostCheckout:
+  BundleInstall:
+    enabled: true
