@@ -136,6 +136,7 @@ VALUE mode7_mem_to_html(VALUE input)
         switch(c)
         {
             case 0:
+            case 10:
             case 11:
             case 14:
             case 15:
@@ -1074,7 +1075,6 @@ VALUE mode7_mem_to_html(VALUE input)
                 thischar = ' ';
                 height = HEIGHT_STANDARD;
                 break;
-            case 10:
             case 13:
                 if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
                 {

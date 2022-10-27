@@ -30,12 +30,12 @@ module BBC
     it 'maps reserved and box characters to spaces' do
       parsed = described_class.parse(
         file_from_string(
-          "\x00\x0A\x0B\x0E\x0F\x10\x1B"
+          ".\x00.\x0A.\x0B.\x0E.\x0F.\x10.\x1B."
         )
       )
 
       expect(parsed.to_html).to eql(
-        '       '
+        '. . . . . . . .'
       )
     end
 
