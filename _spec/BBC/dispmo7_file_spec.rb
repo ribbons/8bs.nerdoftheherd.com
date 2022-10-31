@@ -1,3 +1,4 @@
+# encoding: ASCII-8BIT
 # frozen_string_literal: true
 
 # Copyright © 2022 Matt Robinson
@@ -70,6 +71,16 @@ module BBC
 
       expect(described_class.parse(file).screendata).to eq(
         'A VERY SIMPLE'.ljust(80) + 'MODE 7 SCREEN'.ljust(920)
+      )
+    end
+
+    it 'returns correct screen data from an old loader file with converter' do
+      file = get_file(
+        'dispmo7_file_oldloader_conv', loadaddr: 0xE00, execaddr: 0xE2B
+      )
+
+      expect(described_class.parse(file).screendata).to eq(
+        'TEXT UNCHANGED'.ljust(40) + "\x8D\x99\x9A\x9D\x9E\x9F\x9C".ljust(960)
       )
     end
 
