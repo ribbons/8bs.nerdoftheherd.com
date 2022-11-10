@@ -101,38 +101,53 @@ module BBC
       )
     end
 
-    it 'sets correct style for flashing text' do
+    it 'sets and resets correct styles for flashing text' do
       parsed = described_class.parse(
         file_from_string(
-          "\x08FLASHING\x09STEADY" \
+          "\x08FLASHING\x09STEADY\x08FLASHING               " \
+          'STEADY'
         )
       )
 
       expect(parsed.to_html).to eql(
-        '<span class=flash> FLASHING</span> STEADY'
+        '<span class=flash> FLASHING</span> STEADY' \
+        "<span class=flash> FLASHING               </span>\n" \
+        'STEADY'
       )
     end
 
-    it 'sets correct styles for text colours' do
+    it 'sets and resets correct styles for text colours' do
       parsed = described_class.parse(
         file_from_string(
-          "\x01RED                                    " \
-          "\x02GREEN                                  " \
-          "\x03YELLOW                                 " \
-          "\x04BLUE                                   " \
-          "\x05MAGENTA                                " \
-          "\x06CYAN                                   " \
+          "\x01RED                                     " \
+          'WHITE                                  ' \
+          "\x02GREEN                                   " \
+          'WHITE                                  ' \
+          "\x03YELLOW                                  " \
+          'WHITE                                  ' \
+          "\x04BLUE                                    " \
+          'WHITE                                  ' \
+          "\x05MAGENTA                                 " \
+          'WHITE                                  ' \
+          "\x06CYAN                                    " \
+          'WHITE                                  ' \
           "\x07WHITE                                  "
         )
       )
 
       expect(parsed.to_html).to eql(
         " <span class=t1>RED                                    </span>\n " \
+        "WHITE                                  \n " \
         "<span class=t2>GREEN                                  </span>\n " \
+        "WHITE                                  \n " \
         "<span class=t3>YELLOW                                 </span>\n " \
+        "WHITE                                  \n " \
         "<span class=t4>BLUE                                   </span>\n " \
+        "WHITE                                  \n " \
         "<span class=t5>MAGENTA                                </span>\n " \
+        "WHITE                                  \n " \
         "<span class=t6>CYAN                                   </span>\n " \
+        "WHITE                                  \n " \
         'WHITE                                  '
       )
     end
@@ -203,17 +218,17 @@ module BBC
       )
     end
 
-    it 'resets colour, flashing, height, separated and hold at end of line' do
+    it 'resets graphics, height, separated and hold at end of line' do
       parsed = described_class.parse(
         file_from_string(
-          "\x11\x1D\x08\x1A\x0D\x1Ea                                 " \
+          "\x11\x1D\x1A\x0D\x1Ea                                  " \
           "should have reset\x17a"
         )
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class="t1 b1"> </span><span class="t1 b1 flash">    ' \
-        "                                 </span>\n" \
+        ' <span class="t1 b1">                                      ' \
+        "</span>\n" \
         'should have reset '
       )
     end
