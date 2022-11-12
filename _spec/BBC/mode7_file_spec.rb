@@ -101,6 +101,50 @@ module BBC
       )
     end
 
+    it 'maps double-height contiguous graphics to correct code points' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x0D !\"#$%&'()*+,-./0123456789:;<=>?      " \
+          "\x17\x0D !\"#$%&'()*+,-./0123456789:;<=>?      " \
+          "\x17\x0D@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_      " \
+          "\x17\x0D@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_      " \
+          "\x17\x0D`abcdefghijklmnopqrstuvwxyz{|}~\x7F      " \
+          "\x17\x0D`abcdefghijklmnopqrstuvwxyz{|}~\x7F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        "   #{[*0xE241..0xE25F].pack('U*')}      \n   " \
+        "#{[*0xE281..0xE29F].pack('U*')}      \n  " \
+        "#{[*0xE040..0xE05B].pack('U*')}      \n  " \
+        "#{[*0xE140..0xE15B].pack('U*')}      \n  " \
+        "#{[*0xE260..0xE27F].pack('U*')}      \n  " \
+        "#{[*0xE2A0..0xE2BF].pack('U*')}" \
+      )
+    end
+
+    it 'maps double-height separated graphics to correct code points' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x0D\x1A !\"#$%&'()*+,-./0123456789:;<=>?     " \
+          "\x17\x0D\x1A !\"#$%&'()*+,-./0123456789:;<=>?     " \
+          "\x17\x0D\x1A@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_     " \
+          "\x17\x0D\x1A@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_     " \
+          "\x17\x0D\x1A`abcdefghijklmnopqrstuvwxyz{|}~\x7F     " \
+          "\x17\x0D\x1A`abcdefghijklmnopqrstuvwxyz{|}~\x7F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        "    #{[*0xE301..0xE31F].pack('U*')}     \n    " \
+        "#{[*0xE341..0xE35F].pack('U*')}     \n   " \
+        "#{[*0xE040..0xE05B].pack('U*')}     \n   " \
+        "#{[*0xE140..0xE15B].pack('U*')}     \n   " \
+        "#{[*0xE320..0xE33F].pack('U*')}     \n   " \
+        "#{[*0xE360..0xE37F].pack('U*')}" \
+      )
+    end
+
     it 'sets and resets correct styles for flashing text' do
       parsed = described_class.parse(
         file_from_string(
