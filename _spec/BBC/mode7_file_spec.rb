@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # Copyright © 2022 Matt Robinson
+# Copyright © 2020-2021 Chris Evans
+# Copyright © 2020-2022 Tom Seddon
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -274,6 +276,114 @@ module BBC
         ' <span class="t1 b1">                                      ' \
         "</span>\n" \
         'should have reset '
+      )
+    end
+
+    it 'correctly stores space as a held character' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x1E\x7F \x1F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '    '
+      )
+    end
+
+    it 'clears held character when hold is disabled' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x1E\x7F\x1F \x1E\x1F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '     '
+      )
+    end
+
+    it 'handles teletest: FOREGROUND COLOR IS SET-AFTER' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x92\x9E\xFF\x93\x94"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=t2> </span><span class=t3>'
+      )
+    end
+
+    it 'handles teletest: BG->FG IS SET-AT' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x94\x9D\x95\x9E\xFF\x98"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class="t4 b4">  </span><span class="t5 b4">  '
+      )
+    end
+
+    it 'handles teletest: ASCII DOES NOT AFFECT HELD CHARACTER' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x97\x9E\xFFA\x97"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  A'
+      )
+    end
+
+    it 'handles teletest: HOLD ON SET-AT, HOLD OFF SET-AFTER' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x97\xFF\x9E\x9F\x9F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  '
+      )
+    end
+
+    it 'handles teletest: CLEAR HELD CHARACTER #1' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x97\xFF\x9E\x87\x87"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  '
+      )
+    end
+
+    it 'handles teletest: CLEAR HELD CHARACTER #2' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x97\xFF\x97\x9E"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '   '
+      )
+    end
+
+    it 'handles teletest: CLEAR HELD CHARACTER #3' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x8D\x97\xFF\x9E\x8D\x8C\x97\xFF\x9E\x8C\x8D"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '     '
       )
     end
   end

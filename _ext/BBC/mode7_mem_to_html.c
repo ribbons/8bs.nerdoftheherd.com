@@ -102,6 +102,7 @@ VALUE mode7_mem_to_html(VALUE input)
     bool spanopen = false;
 
     uint32_t lastchar = '\0';
+    uint32_t holdchar = ' ';
 
     Height prevheights[MODE7_COLS];
 
@@ -936,9 +937,9 @@ VALUE mode7_mem_to_html(VALUE input)
 
                 break;
             case 1:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -951,9 +952,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 2:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -966,9 +967,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 3:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -981,9 +982,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 4:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -996,9 +997,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 5:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1011,9 +1012,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 6:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1026,9 +1027,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 7:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1041,9 +1042,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 graphicshold = false;
                 break;
             case 8:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1054,9 +1055,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 stylechange = true;
                 break;
             case 9:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1067,21 +1068,36 @@ VALUE mode7_mem_to_html(VALUE input)
                 stylechange = true;
                 break;
             case 12:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(height != HEIGHT_STANDARD)
                 {
-                    rb_fatal("Check if held graphics would be valid here");
+                    graphicshold = false;
                 }
 
-                thischar = ' ';
+                if(graphicshold == true)
+                {
+                    thischar = holdchar;
+                }
+                else
+                {
+                    thischar = ' ';
+                }
+
                 height = HEIGHT_STANDARD;
                 break;
             case 13:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(height == HEIGHT_STANDARD)
                 {
-                    rb_fatal("Check if held graphics would be valid here");
+                    graphicshold = false;
                 }
 
-                thischar = ' ';
+                if(graphicshold == true)
+                {
+                    thischar = holdchar;
+                }
+                else
+                {
+                    thischar = ' ';
+                }
 
                 if(prevheights[column] == HEIGHT_DBL_UPPER)
                 {
@@ -1094,9 +1110,9 @@ VALUE mode7_mem_to_html(VALUE input)
 
                 break;
             case 17:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1108,9 +1124,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 18:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1122,9 +1138,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 19:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1136,9 +1152,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 20:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1150,9 +1166,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 21:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1164,9 +1180,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 22:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1178,9 +1194,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 23:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1192,18 +1208,21 @@ VALUE mode7_mem_to_html(VALUE input)
                 concealed = false;
                 break;
             case 24:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    rb_fatal("Check if held graphics would be valid here");
+                    thischar = holdchar;
+                }
+                else
+                {
+                    thischar = ' ';
                 }
 
-                thischar = ' ';
                 concealed = true;
                 break;
             case 25:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1213,9 +1232,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 separated = false;
                 break;
             case 26:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1225,9 +1244,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 separated = true;
                 break;
             case 28:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1238,9 +1257,9 @@ VALUE mode7_mem_to_html(VALUE input)
                 stylechange = true;
                 break;
             case 29:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1253,19 +1272,20 @@ VALUE mode7_mem_to_html(VALUE input)
             case 30:
                 if(lastchar > OFS_GFX_STANDARD)
                 {
-                    thischar = lastchar;
+                    holdchar = lastchar;
                 }
                 else
                 {
-                    thischar = ' ';
+                    holdchar = ' ';
                 }
 
+                thischar = holdchar;
                 graphicshold = true;
                 break;
             case 31:
-                if(graphicshold == true && lastchar > OFS_GFX_STANDARD)
+                if(graphicshold == true)
                 {
-                    thischar = lastchar;
+                    thischar = holdchar;
                 }
                 else
                 {
@@ -1276,6 +1296,11 @@ VALUE mode7_mem_to_html(VALUE input)
                 break;
             default:
                 rb_fatal("Unknown character value %d at line %d column %d", c, row, column);
+        }
+
+        if(graphicshold && (thischar > OFS_GFX_STANDARD || thischar == ' '))
+        {
+            holdchar = thischar;
         }
 
         if(concealed)
