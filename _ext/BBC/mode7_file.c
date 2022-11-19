@@ -8,6 +8,8 @@
 
 VALUE cMode7File;
 
+void init_mode7_mapping_tables();
+
 static VALUE mode7file_initialize(VALUE self, VALUE screendata)
 {
     rb_iv_set(self, "@screendata", screendata);
@@ -36,4 +38,6 @@ void init_mode7_file(VALUE mBBC)
     rb_define_method(cMode7File, "to_html", to_html, 0);
 
     rb_define_singleton_method(cMode7File, "parse", parse, 1);
+
+    init_mode7_mapping_tables();
 }

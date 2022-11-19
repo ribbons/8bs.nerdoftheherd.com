@@ -28,87 +28,172 @@ typedef enum
     OFS_TXT_DBL_UPPER = 0xE000,
     OFS_TXT_DBL_LOWER = 0xE100,
     OFS_GFX_STANDARD  = 0xE200,
-    OFS_GFX_DBL_UPPER = 0xE240,
-    OFS_GFX_DBL_LOWER = 0xE280,
+    OFS_GFX_DBL_UPPER = 0x40,
+    OFS_GFX_DBL_LOWER = 0x80,
     OFS_GFX_SEPARATED = 0xC0
 } Offsets;
 
 typedef enum
 {
-    MODE_TEXT,
-    MODE_GRAPHICS
+    MODE_TEXT = 0x2,
+    MODE_GRAPHICS = 0x1
 } Mode;
 
 typedef enum
 {
-    HEIGHT_STANDARD,
-    HEIGHT_DBL_UPPER,
-    HEIGHT_DBL_LOWER
+    GFX_STYLE_CONTIGUOUS = 0x2,
+    GFX_STYLE_SEPARATED = 0x3
+} GraphicsStyle;
+
+typedef enum
+{
+    HEIGHT_STANDARD = 0x2,
+    HEIGHT_DOUBLE = 0x1
 } Height;
 
-uint32_t textval(uint32_t chval, Height height)
+typedef enum
 {
-    switch(height)
-    {
-        case HEIGHT_STANDARD:
-            return chval;
-        case HEIGHT_DBL_LOWER:
-            return OFS_TXT_DBL_LOWER + chval;
-        default:
-            return OFS_TXT_DBL_UPPER + chval;
-    }
+    DOUBLE_UPPER = 0x2,
+    DOUBLE_LOWER = 0x3
+} HeightState;
+
+typedef struct
+{
+    int length;
+    char data[5];
+} CharSequence;
+
+CharSequence mappingTables[3][3][0x80];
+
+enum
+{
+    MOSAIC_BITS = 0x20
+};
+
+static void set_mapping(CharSequence *dest, unsigned int codepoint)
+{
+    dest->length = rb_enc_codelen((int)codepoint, rb_utf8_encoding());
+    rb_enc_mbcput(codepoint, dest->data, rb_utf8_encoding());
 }
 
-uint32_t graphval(uint32_t value, Height height, bool separated)
+static void set_mapping_str(CharSequence *dest, char *str, int length)
 {
-    uint32_t charval;
+    dest->length = length;
+    memcpy(dest->data, str, (unsigned int)length);
+}
 
-    switch(height)
+void init_mode7_mapping_tables()
+{
+    for(unsigned int mode = 0; mode <= MODE_TEXT; mode++)
     {
-        case HEIGHT_STANDARD:
-            charval = OFS_GFX_STANDARD + value;
-            break;
-        case HEIGHT_DBL_UPPER:
-            charval = OFS_GFX_DBL_UPPER + value;
-            break;
-        default:
-            charval = OFS_GFX_DBL_LOWER + value;
-            break;
+        for(unsigned int height = 0; height <= HEIGHT_STANDARD; height++)
+        {
+            set_mapping(&mappingTables[mode][height][' '], ' ');
+        }
     }
 
-    if(separated)
+    for(unsigned int i = '!'; i < ARRAY_LEN(mappingTables[0][0]); i++)
     {
-        charval += OFS_GFX_SEPARATED;
+        unsigned int charbase;
+
+        switch(i)
+        {
+            case 0x23:
+                charbase = 0xA3; // £
+                break;
+            case 0x5C:
+                charbase = 0xBD; // ½
+                break;
+            case 0x5F:
+                charbase = '#';
+                break;
+            case 0x7B:
+                charbase = 0xBC; // ¼
+                break;
+            case 0x7D:
+                charbase = 0xBE; // ¾
+                break;
+            case 0x7E:
+                charbase = 0xF7; // ÷
+                break;
+            case 0x7F:
+                charbase = 0xB6;
+                break;
+            default:
+                charbase = i;
+        }
+
+        for(unsigned int mode = 0; mode <= MODE_TEXT; mode++)
+        {
+            set_mapping(&mappingTables[mode][HEIGHT_STANDARD][i], charbase);
+            set_mapping(&mappingTables[mode][HEIGHT_DOUBLE & DOUBLE_UPPER][i],
+                        charbase + OFS_TXT_DBL_UPPER);
+            set_mapping(&mappingTables[mode][HEIGHT_DOUBLE & DOUBLE_LOWER][i],
+                        charbase + OFS_TXT_DBL_LOWER);
+        }
     }
 
-    return charval;
+    set_mapping_str(&mappingTables[MODE_TEXT][HEIGHT_STANDARD]['<'], STR_AND_LEN("&lt;"));
+    set_mapping_str(&mappingTables[MODE_TEXT][HEIGHT_STANDARD]['>'], STR_AND_LEN("&gt;"));
+    set_mapping_str(&mappingTables[MODE_TEXT][HEIGHT_STANDARD]['&'], STR_AND_LEN("&amp;"));
+
+    enum
+    {
+        GFX_CON = MODE_GRAPHICS & GFX_STYLE_CONTIGUOUS,
+        GFX_SEP = MODE_GRAPHICS & GFX_STYLE_SEPARATED
+    };
+
+    unsigned int charbase = OFS_GFX_STANDARD;
+
+    for(unsigned int i = '!'; i < ARRAY_LEN(mappingTables[0][0]); i++)
+    {
+        if(i == '@')
+        {
+            i = '`';
+        }
+
+        charbase++;
+
+        set_mapping(&mappingTables[GFX_CON][HEIGHT_STANDARD][i],
+                    charbase);
+        set_mapping(&mappingTables[GFX_CON][HEIGHT_DOUBLE & DOUBLE_UPPER][i],
+                    charbase + OFS_GFX_DBL_UPPER);
+        set_mapping(&mappingTables[GFX_CON][HEIGHT_DOUBLE & DOUBLE_LOWER][i],
+                    charbase + OFS_GFX_DBL_LOWER);
+
+        set_mapping(&mappingTables[GFX_SEP][HEIGHT_STANDARD][i],
+                    charbase + OFS_GFX_SEPARATED);
+        set_mapping(&mappingTables[GFX_SEP][HEIGHT_DOUBLE & DOUBLE_UPPER][i],
+                    charbase + OFS_GFX_DBL_UPPER + OFS_GFX_SEPARATED);
+        set_mapping(&mappingTables[GFX_SEP][HEIGHT_DOUBLE & DOUBLE_LOWER][i],
+                    charbase + OFS_GFX_DBL_LOWER + OFS_GFX_SEPARATED);
+    }
 }
 
 VALUE mode7_mem_to_html(VALUE input)
 {
-    int row = 0;
     int column = 0;
 
     Mode mode = MODE_TEXT;
+    GraphicsStyle gfxstyle = GFX_STYLE_CONTIGUOUS;
     Colour forecolour = COL_WHITE;
     Colour nextfore = COL_WHITE;
     Colour backcolour = COL_BLACK;
     Height height = HEIGHT_STANDARD;
 
     bool flash = false;
-    bool separated = false;
     bool graphicshold = false;
     bool concealed = false;
     bool spanopen = false;
 
-    uint32_t lastchar = '\0';
-    uint32_t holdchar = ' ';
+    CharSequence* lastgfxchar = NULL;
+    CharSequence* holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
 
-    Height prevheights[MODE7_COLS];
+    HeightState heightstates[MODE7_COLS];
 
     for(int i = 0; i < MODE7_COLS; i++)
     {
-        prevheights[i] = HEIGHT_STANDARD;
+        heightstates[i] = DOUBLE_UPPER;
     }
 
     char* data = RSTRING_PTR(input);
@@ -120,9 +205,9 @@ VALUE mode7_mem_to_html(VALUE input)
     for(long i = 0; i < dataLen; i++)
     {
         bool stylechange;
-        uint32_t thischar;
+        CharSequence* thischar;
 
-        char c = data[i] & 0x7F;
+        unsigned char c = data[i] & 0x7F;
 
         if(forecolour != nextfore)
         {
@@ -136,1176 +221,121 @@ VALUE mode7_mem_to_html(VALUE input)
 
         switch(c)
         {
-            case 0:
-            case 10:
-            case 11:
-            case 14:
-            case 15:
-            case 16:
-            case 27:
-                // "Nothing" in the user guide - displays as a space
-            case 32:
-                thischar = ' ';
-                break;
-            case 33:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('!', height);
-                }
-                else
-                {
-                    thischar = graphval(1, height, separated);
-                }
-
-                break;
-            case 34:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('"', height);
-                }
-                else
-                {
-                    thischar = graphval(2, height, separated);
-                }
-
-                break;
-            case 35:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(0xA3, height); // £
-                }
-                else
-                {
-                    thischar = graphval(3, height, separated);
-                }
-
-                break;
-            case 36:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('$', height);
-                }
-                else
-                {
-                    thischar = graphval(4, height, separated);
-                }
-
-                break;
-            case 37:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('%', height);
-                }
-                else
-                {
-                    thischar = graphval(5, height, separated);
-                }
-
-                break;
-            case 38:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('&', height);
-                }
-                else
-                {
-                    thischar = graphval(6, height, separated);
-                }
-
-                break;
-            case 39:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('\'', height);
-                }
-                else
-                {
-                    thischar = graphval(7, height, separated);
-                }
-
-                break;
-            case 40:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('(', height);
-                }
-                else
-                {
-                    thischar = graphval(8, height, separated);
-                }
-
-                break;
-            case 41:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(')', height);
-                }
-                else
-                {
-                    thischar = graphval(9, height, separated);
-                }
-
-                break;
-            case 42:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('*', height);
-                }
-                else
-                {
-                    thischar = graphval(10, height, separated);
-                }
-
-                break;
-            case 43:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('+', height);
-                }
-                else
-                {
-                    thischar = graphval(11, height, separated);
-                }
-
-                break;
-            case 44:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(',', height);
-                }
-                else
-                {
-                    thischar = graphval(12, height, separated);
-                }
-
-                break;
-            case 45:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('-', height);
-                }
-                else
-                {
-                    thischar = graphval(13, height, separated);
-                }
-
-                break;
-            case 46:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('.', height);
-                }
-                else
-                {
-                    thischar = graphval(14, height, separated);
-                }
-
-                break;
-            case 47:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('/', height);
-                }
-                else
-                {
-                    thischar = graphval(15, height, separated);
-                }
-
-                break;
-            case 48:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('0', height);
-                }
-                else
-                {
-                    thischar = graphval(16, height, separated);
-                }
-
-                break;
-            case 49:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('1', height);
-                }
-                else
-                {
-                    thischar = graphval(17, height, separated);
-                }
-
-                break;
-            case 50:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('2', height);
-                }
-                else
-                {
-                    thischar = graphval(18, height, separated);
-                }
-
-                break;
-            case 51:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('3', height);
-                }
-                else
-                {
-                    thischar = graphval(19, height, separated);
-                }
-
-                break;
-            case 52:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('4', height);
-                }
-                else
-                {
-                    thischar = graphval(20, height, separated);
-                }
-
-                break;
-            case 53:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('5', height);
-                }
-                else
-                {
-                    thischar = graphval(21, height, separated);
-                }
-
-                break;
-            case 54:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('6', height);
-                }
-                else
-                {
-                    thischar = graphval(22, height, separated);
-                }
-
-                break;
-            case 55:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('7', height);
-                }
-                else
-                {
-                    thischar = graphval(23, height, separated);
-                }
-
-                break;
-            case 56:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('8', height);
-                }
-                else
-                {
-                    thischar = graphval(24, height, separated);
-                }
-
-                break;
-            case 57:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('9', height);
-                }
-                else
-                {
-                    thischar = graphval(25, height, separated);
-                }
-
-                break;
-            case 58:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(':', height);
-                }
-                else
-                {
-                    thischar = graphval(26, height, separated);
-                }
-
-                break;
-            case 59:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(';', height);
-                }
-                else
-                {
-                    thischar = graphval(27, height, separated);
-                }
-
-                break;
-            case 60:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('<', height);
-                }
-                else
-                {
-                    thischar = graphval(28, height, separated);
-                }
-
-                break;
-            case 61:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('=', height);
-                }
-                else
-                {
-                    thischar = graphval(29, height, separated);
-                }
-
-                break;
-            case 62:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('>', height);
-                }
-                else
-                {
-                    thischar = graphval(30, height, separated);
-                }
-
-                break;
-            case 63:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('?', height);
-                }
-                else
-                {
-                    thischar = graphval(31, height, separated);
-                }
-
-                break;
-            case 64:
-                thischar = textval('@', height);
-                break;
-            case 65:
-                thischar = textval('A', height);
-                break;
-            case 66:
-                thischar = textval('B', height);
-                break;
-            case 67:
-                thischar = textval('C', height);
-                break;
-            case 68:
-                thischar = textval('D', height);
-                break;
-            case 69:
-                thischar = textval('E', height);
-                break;
-            case 70:
-                thischar = textval('F', height);
-                break;
-            case 71:
-                thischar = textval('G', height);
-                break;
-            case 72:
-                thischar = textval('H', height);
-                break;
-            case 73:
-                thischar = textval('I', height);
-                break;
-            case 74:
-                thischar = textval('J', height);
-                break;
-            case 75:
-                thischar = textval('K', height);
-                break;
-            case 76:
-                thischar = textval('L', height);
-                break;
-            case 77:
-                thischar = textval('M', height);
-                break;
-            case 78:
-                thischar = textval('N', height);
-                break;
-            case 79:
-                thischar = textval('O', height);
-                break;
-            case 80:
-                thischar = textval('P', height);
-                break;
-            case 81:
-                thischar = textval('Q', height);
-                break;
-            case 82:
-                thischar = textval('R', height);
-                break;
-            case 83:
-                thischar = textval('S', height);
-                break;
-            case 84:
-                thischar = textval('T', height);
-                break;
-            case 85:
-                thischar = textval('U', height);
-                break;
-            case 86:
-                thischar = textval('V', height);
-                break;
-            case 87:
-                thischar = textval('W', height);
-                break;
-            case 88:
-                thischar = textval('X', height);
-                break;
-            case 89:
-                thischar = textval('Y', height);
-                break;
-            case 90:
-                thischar = textval('Z', height);
-                break;
-            case 91:
-                thischar = textval('[', height);
-                break;
-            case 92:
-                thischar = textval(0x00BD, height); // ½
-                break;
-            case 93:
-                thischar = textval(']', height);
-                break;
-            case 94:
-                thischar = textval('^', height);
-                break;
-            case 95:
-                thischar = textval('#', height);
-                break;
-            case 96:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('`', height);
-                }
-                else
-                {
-                    thischar = graphval(32, height, separated);
-                }
-
-                break;
-            case 97:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('a', height);
-                }
-                else
-                {
-                    thischar = graphval(33, height, separated);
-                }
-
-                break;
-            case 98:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('b', height);
-                }
-                else
-                {
-                    thischar = graphval(34, height, separated);
-                }
-
-                break;
-            case 99:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('c', height);
-                }
-                else
-                {
-                    thischar = graphval(35, height, separated);
-                }
-
-                break;
-            case 100:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('d', height);
-                }
-                else
-                {
-                    thischar = graphval(36, height, separated);
-                }
-
-                break;
-            case 101:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('e', height);
-                }
-                else
-                {
-                    thischar = graphval(37, height, separated);
-                }
-
-                break;
-            case 102:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('f', height);
-                }
-                else
-                {
-                    thischar = graphval(38, height, separated);
-                }
-
-                break;
-            case 103:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('g', height);
-                }
-                else
-                {
-                    thischar = graphval(39, height, separated);
-                }
-
-                break;
-            case 104:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('h', height);
-                }
-                else
-                {
-                    thischar = graphval(40, height, separated);
-                }
-
-                break;
-            case 105:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('i', height);
-                }
-                else
-                {
-                    thischar = graphval(41, height, separated);
-                }
-
-                break;
-            case 106:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('j', height);
-                }
-                else
-                {
-                    thischar = graphval(42, height, separated);
-                }
-
-                break;
-            case 107:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('k', height);
-                }
-                else
-                {
-                    thischar = graphval(43, height, separated);
-                }
-
-                break;
-            case 108:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('l', height);
-                }
-                else
-                {
-                    thischar = graphval(44, height, separated);
-                }
-
-                break;
-            case 109:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('m', height);
-                }
-                else
-                {
-                    thischar = graphval(45, height, separated);
-                }
-
-                break;
-            case 110:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('n', height);
-                }
-                else
-                {
-                    thischar = graphval(46, height, separated);
-                }
-
-                break;
-            case 111:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('o', height);
-                }
-                else
-                {
-                    thischar = graphval(47, height, separated);
-                }
-
-                break;
-            case 112:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('p', height);
-                }
-                else
-                {
-                    thischar = graphval(48, height, separated);
-                }
-
-                break;
-            case 113:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('q', height);
-                }
-                else
-                {
-                    thischar = graphval(49, height, separated);
-                }
-
-                break;
-            case 114:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('r', height);
-                }
-                else
-                {
-                    thischar = graphval(50, height, separated);
-                }
-
-                break;
-            case 115:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('s', height);
-                }
-                else
-                {
-                    thischar = graphval(51, height, separated);
-                }
-
-                break;
-            case 116:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('t', height);
-                }
-                else
-                {
-                    thischar = graphval(52, height, separated);
-                }
-
-                break;
-            case 117:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('u', height);
-                }
-                else
-                {
-                    thischar = graphval(53, height, separated);
-                }
-
-                break;
-            case 118:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('v', height);
-                }
-                else
-                {
-                    thischar = graphval(54, height, separated);
-                }
-
-                break;
-            case 119:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('w', height);
-                }
-                else
-                {
-                    thischar = graphval(55, height, separated);
-                }
-
-                break;
-            case 120:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('x', height);
-                }
-                else
-                {
-                    thischar = graphval(56, height, separated);
-                }
-
-                break;
-            case 121:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('y', height);
-                }
-                else
-                {
-                    thischar = graphval(57, height, separated);
-                }
-
-                break;
-            case 122:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('z', height);
-                }
-                else
-                {
-                    thischar = graphval(58, height, separated);
-                }
-
-                break;
-            case 123:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(0x00BC, height); // ¼
-                }
-                else
-                {
-                    thischar = graphval(59, height, separated);
-                }
-
-                break;
-            case 124:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval('|', height);
-                }
-                else
-                {
-                    thischar = graphval(60, height, separated);
-                }
-
-                break;
-            case 125:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(0x00BE, height); // ¾
-                }
-                else
-                {
-                    thischar = graphval(61, height, separated);
-                }
-
-                break;
-            case 126:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(0x00F7, height); // ÷
-                }
-                else
-                {
-                    thischar = graphval(62, height, separated);
-                }
-
-                break;
-            case 127:
-                if(mode == MODE_TEXT)
-                {
-                    thischar = textval(0x00B6, height);
-                }
-                else
-                {
-                    thischar = graphval(63, height, separated);
-                }
-
-                break;
-            case 1:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x00:
+            case 0x0A:
+            case 0x0B:
+            case 0x0E:
+            case 0x0F:
+            case 0x10:
+            case 0x1B:
+                thischar = holdchar;
+                break;
+            case 0x01:
+            case 0x02:
+            case 0x03:
+            case 0x04:
+            case 0x05:
+            case 0x06:
+            case 0x07:
+                thischar = holdchar;
                 mode = MODE_TEXT;
-                nextfore = COL_RED;
+                nextfore = c;
                 concealed = false;
                 graphicshold = false;
+                holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
                 break;
-            case 2:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_TEXT;
-                nextfore = COL_GREEN;
-                concealed = false;
-                graphicshold = false;
-                break;
-            case 3:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_TEXT;
-                nextfore = COL_YELLOW;
-                concealed = false;
-                graphicshold = false;
-                break;
-            case 4:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_TEXT;
-                nextfore = COL_BLUE;
-                concealed = false;
-                graphicshold = false;
-                break;
-            case 5:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_TEXT;
-                nextfore = COL_MAGENTA;
-                concealed = false;
-                graphicshold = false;
-                break;
-            case 6:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_TEXT;
-                nextfore = COL_CYAN;
-                concealed = false;
-                graphicshold = false;
-                break;
-            case 7:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_TEXT;
-                nextfore = COL_WHITE;
-                concealed = false;
-                graphicshold = false;
-                break;
-            case 8:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x08:
+                thischar = holdchar;
                 flash = true;
                 stylechange = true;
                 break;
-            case 9:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x09:
+                thischar = holdchar;
                 flash = false;
                 stylechange = true;
                 break;
-            case 12:
+            case 0x0C:
                 if(height != HEIGHT_STANDARD)
                 {
                     graphicshold = false;
+                    holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
                 }
 
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+                thischar = holdchar;
                 height = HEIGHT_STANDARD;
                 break;
-            case 13:
+            case 0x0D:
                 if(height == HEIGHT_STANDARD)
                 {
                     graphicshold = false;
+                    holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
                 }
 
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                if(prevheights[column] == HEIGHT_DBL_UPPER)
-                {
-                    height = HEIGHT_DBL_LOWER;
-                }
-                else
-                {
-                    height = HEIGHT_DBL_UPPER;
-                }
-
+                thischar = holdchar;
+                height = HEIGHT_DOUBLE;
                 break;
-            case 17:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x11:
+            case 0x12:
+            case 0x13:
+            case 0x14:
+            case 0x15:
+            case 0x16:
+            case 0x17:
+                thischar = holdchar;
                 mode = MODE_GRAPHICS;
-                nextfore = COL_RED;
+                nextfore = c & 0xF;
                 concealed = false;
                 break;
-            case 18:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_GRAPHICS;
-                nextfore = COL_GREEN;
-                concealed = false;
-                break;
-            case 19:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_GRAPHICS;
-                nextfore = COL_YELLOW;
-                concealed = false;
-                break;
-            case 20:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_GRAPHICS;
-                nextfore = COL_BLUE;
-                concealed = false;
-                break;
-            case 21:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_GRAPHICS;
-                nextfore = COL_MAGENTA;
-                concealed = false;
-                break;
-            case 22:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_GRAPHICS;
-                nextfore = COL_CYAN;
-                concealed = false;
-                break;
-            case 23:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                mode = MODE_GRAPHICS;
-                nextfore = COL_WHITE;
-                concealed = false;
-                break;
-            case 24:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x18:
+                thischar = holdchar;
                 concealed = true;
                 break;
-            case 25:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                separated = false;
+            case 0x19:
+                thischar = holdchar;
+                gfxstyle = GFX_STYLE_CONTIGUOUS;
                 break;
-            case 26:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
-                separated = true;
+            case 0x1A:
+                thischar = holdchar;
+                gfxstyle = GFX_STYLE_SEPARATED;
                 break;
-            case 28:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x1C:
+                thischar = holdchar;
                 backcolour = COL_BLACK;
                 stylechange = true;
                 break;
-            case 29:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x1D:
+                thischar = holdchar;
                 backcolour = forecolour;
                 stylechange = true;
                 break;
-            case 30:
-                if(lastchar > OFS_GFX_STANDARD)
+            case 0x1E:
+                if(lastgfxchar != NULL)
                 {
-                    holdchar = lastchar;
-                }
-                else
-                {
-                    holdchar = ' ';
+                    holdchar = lastgfxchar;
                 }
 
                 thischar = holdchar;
                 graphicshold = true;
                 break;
-            case 31:
-                if(graphicshold == true)
-                {
-                    thischar = holdchar;
-                }
-                else
-                {
-                    thischar = ' ';
-                }
-
+            case 0x1F:
+                thischar = holdchar;
                 graphicshold = false;
+                holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
                 break;
             default:
-                rb_fatal("Unknown character value %d at line %d column %d", c, row, column);
+                thischar = &mappingTables[mode & gfxstyle][height & heightstates[column]][c];
+
+                if(graphicshold && mode == MODE_GRAPHICS && c & MOSAIC_BITS)
+                {
+                    holdchar = thischar;
+                }
         }
 
-        if(graphicshold && (thischar > OFS_GFX_STANDARD || thischar == ' '))
-        {
-            holdchar = thischar;
-        }
+        heightstates[column] = (heightstates[column] ^ 0x1) & (height | 0x2);
 
         if(concealed)
         {
-            thischar = ' ';
+            thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
         }
 
         if(stylechange)
@@ -1363,39 +393,24 @@ VALUE mode7_mem_to_html(VALUE input)
             }
         }
 
-        prevheights[column] = height;
-
-        switch(thischar)
-        {
-            case '<':
-                rb_str_cat(output, STR_AND_LEN("&lt;"));
-                break;
-            case '>':
-                rb_str_cat(output, STR_AND_LEN("&gt;"));
-                break;
-            case '&':
-                rb_str_cat(output, STR_AND_LEN("&amp;"));
-                break;
-            default:
-                rb_str_concat(output, INT2FIX(thischar));
-        }
+        rb_str_cat(output, thischar->data, thischar->length);
 
         column++;
 
         if(column == MODE7_COLS)
         {
             column = 0;
-            row++;
             mode = MODE_TEXT;
             forecolour = nextfore = COL_WHITE;
             backcolour = COL_BLACK;
             height = HEIGHT_STANDARD;
             flash = false;
-            separated = false;
+            gfxstyle = GFX_STYLE_CONTIGUOUS;
             graphicshold = false;
+            holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
             concealed = false;
 
-            lastchar = '\0';
+            lastgfxchar = NULL;
 
             if(spanopen)
             {
@@ -1405,21 +420,13 @@ VALUE mode7_mem_to_html(VALUE input)
 
             rb_str_cat(output, STR_AND_LEN("\n"));
         }
+        else if(mode == MODE_GRAPHICS && c & MOSAIC_BITS)
+        {
+            lastgfxchar = thischar;
+        }
         else
         {
-            if(height != HEIGHT_STANDARD)
-            {
-                if(prevheights[column] == HEIGHT_DBL_UPPER)
-                {
-                    height = HEIGHT_DBL_LOWER;
-                }
-                else
-                {
-                    height = HEIGHT_DBL_UPPER;
-                }
-            }
-
-            lastchar = thischar;
+            lastgfxchar = NULL;
         }
     }
 

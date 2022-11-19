@@ -303,6 +303,55 @@ module BBC
       )
     end
 
+    it 'uses held graphics for reserved and box characters' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x1E\x7F\x00\x0A\x0B\x0E\x0F\x10\x1B"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  '
+      )
+    end
+
+    it 'does not hold blast through text before hold' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17A\x1E"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' A '
+      )
+    end
+
+    it 'does not hold characters when in text mode' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x1Ea\x1F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' a '
+      )
+    end
+
+    it 'resets control characters to space at EOL' do
+      parsed = described_class.parse(
+        file_from_string(
+          "                                     \x17\x1E\x7F" \
+          "\x17"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        "                                       \n "
+      )
+    end
+
     it 'handles teletest: FOREGROUND COLOR IS SET-AFTER' do
       parsed = described_class.parse(
         file_from_string(
