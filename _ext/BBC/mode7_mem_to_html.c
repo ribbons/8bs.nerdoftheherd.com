@@ -47,14 +47,14 @@ typedef enum
 
 typedef enum
 {
-    HEIGHT_STANDARD = 0x2,
-    HEIGHT_DOUBLE = 0x1
+    HEIGHT_STANDARD = 0x0,
+    HEIGHT_DOUBLE = 0x2
 } Height;
 
 typedef enum
 {
-    DOUBLE_UPPER = 0x2,
-    DOUBLE_LOWER = 0x3
+    DOUBLE_UPPER = 0x0,
+    DOUBLE_LOWER = 0x1
 } HeightState;
 
 typedef struct
@@ -63,7 +63,7 @@ typedef struct
     char data[5];
 } CharSequence;
 
-CharSequence mappingTables[3][3][0x80];
+CharSequence mappingTables[3][4][0x80];
 
 enum
 {
@@ -84,9 +84,9 @@ static void set_mapping_str(CharSequence *dest, char *str, int length)
 
 void init_mode7_mapping_tables()
 {
-    for(unsigned int mode = 0; mode <= MODE_TEXT; mode++)
+    for(int mode = 0; mode <= MODE_TEXT; mode++)
     {
-        for(unsigned int height = 0; height <= HEIGHT_STANDARD; height++)
+        for(int height = 0; height < ARRAY_LEN(mappingTables[0]); height++)
         {
             set_mapping(&mappingTables[mode][height][' '], ' ');
         }
@@ -126,9 +126,10 @@ void init_mode7_mapping_tables()
         for(unsigned int mode = 0; mode <= MODE_TEXT; mode++)
         {
             set_mapping(&mappingTables[mode][HEIGHT_STANDARD][i], charbase);
-            set_mapping(&mappingTables[mode][HEIGHT_DOUBLE & DOUBLE_UPPER][i],
+            set_mapping(&mappingTables[mode][HEIGHT_STANDARD | DOUBLE_LOWER][i], ' ');
+            set_mapping(&mappingTables[mode][HEIGHT_DOUBLE | DOUBLE_UPPER][i],
                         charbase + OFS_TXT_DBL_UPPER);
-            set_mapping(&mappingTables[mode][HEIGHT_DOUBLE & DOUBLE_LOWER][i],
+            set_mapping(&mappingTables[mode][HEIGHT_DOUBLE | DOUBLE_LOWER][i],
                         charbase + OFS_TXT_DBL_LOWER);
         }
     }
@@ -156,16 +157,16 @@ void init_mode7_mapping_tables()
 
         set_mapping(&mappingTables[GFX_CON][HEIGHT_STANDARD][i],
                     charbase);
-        set_mapping(&mappingTables[GFX_CON][HEIGHT_DOUBLE & DOUBLE_UPPER][i],
+        set_mapping(&mappingTables[GFX_CON][HEIGHT_DOUBLE | DOUBLE_UPPER][i],
                     charbase + OFS_GFX_DBL_UPPER);
-        set_mapping(&mappingTables[GFX_CON][HEIGHT_DOUBLE & DOUBLE_LOWER][i],
+        set_mapping(&mappingTables[GFX_CON][HEIGHT_DOUBLE | DOUBLE_LOWER][i],
                     charbase + OFS_GFX_DBL_LOWER);
 
         set_mapping(&mappingTables[GFX_SEP][HEIGHT_STANDARD][i],
                     charbase + OFS_GFX_SEPARATED);
-        set_mapping(&mappingTables[GFX_SEP][HEIGHT_DOUBLE & DOUBLE_UPPER][i],
+        set_mapping(&mappingTables[GFX_SEP][HEIGHT_DOUBLE | DOUBLE_UPPER][i],
                     charbase + OFS_GFX_DBL_UPPER + OFS_GFX_SEPARATED);
-        set_mapping(&mappingTables[GFX_SEP][HEIGHT_DOUBLE & DOUBLE_LOWER][i],
+        set_mapping(&mappingTables[GFX_SEP][HEIGHT_DOUBLE | DOUBLE_LOWER][i],
                     charbase + OFS_GFX_DBL_LOWER + OFS_GFX_SEPARATED);
     }
 }
@@ -180,21 +181,16 @@ VALUE mode7_mem_to_html(VALUE input)
     Colour nextfore = COL_WHITE;
     Colour backcolour = COL_BLACK;
     Height height = HEIGHT_STANDARD;
+    HeightState heightstate = DOUBLE_UPPER;
 
     bool flash = false;
     bool graphicshold = false;
     bool concealed = false;
+    bool nextrowlower = false;
     bool spanopen = false;
 
     CharSequence* lastgfxchar = NULL;
     CharSequence* holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
-
-    HeightState heightstates[MODE7_COLS];
-
-    for(int i = 0; i < MODE7_COLS; i++)
-    {
-        heightstates[i] = DOUBLE_UPPER;
-    }
 
     char* data = RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
@@ -273,6 +269,7 @@ VALUE mode7_mem_to_html(VALUE input)
 
                 thischar = holdchar;
                 height = HEIGHT_DOUBLE;
+                nextrowlower = heightstate == DOUBLE_UPPER;
                 break;
             case 0x11:
             case 0x12:
@@ -323,15 +320,13 @@ VALUE mode7_mem_to_html(VALUE input)
                 holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
                 break;
             default:
-                thischar = &mappingTables[mode & gfxstyle][height & heightstates[column]][c];
+                thischar = &mappingTables[mode & gfxstyle][height | heightstate][c];
 
                 if(graphicshold && mode == MODE_GRAPHICS && c & MOSAIC_BITS)
                 {
                     holdchar = thischar;
                 }
         }
-
-        heightstates[column] = (heightstates[column] ^ 0x1) & (height | 0x2);
 
         if(concealed)
         {
@@ -404,6 +399,8 @@ VALUE mode7_mem_to_html(VALUE input)
             forecolour = nextfore = COL_WHITE;
             backcolour = COL_BLACK;
             height = HEIGHT_STANDARD;
+            heightstate = nextrowlower ? DOUBLE_LOWER : DOUBLE_UPPER;
+            nextrowlower = false;
             flash = false;
             gfxstyle = GFX_STYLE_CONTIGUOUS;
             graphicshold = false;

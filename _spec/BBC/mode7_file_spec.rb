@@ -89,17 +89,33 @@ module BBC
       )
     end
 
-    it 'maps double height to upper or lower code points as appropriate' do
+    it 'maps double height to upper or lower code points per line' do
       parsed = described_class.parse(
         file_from_string(
-          "\x0DABCDEFGHIJ\x0C                            " \
+          "    \x0DEFGHIJ\x0C                            " \
           "\x0DABCDEFGHIJKLMNOPQRST"
         )
       )
 
       expect(parsed.to_html).to eql(
-        " #{[*0xE041..0xE04A].pack('U*')}                             \n " \
-        "#{[*0xE141..0xE14A].pack('U*')}#{[*0xE04B..0xE054].pack('U*')}"
+        "     #{[*0xE045..0xE04A].pack('U*')}                             \n " \
+        "#{[*0xE141..0xE154].pack('U*')}"
+      )
+    end
+
+    it 'maps normal height chars to blank on line below double height upper' do
+      parsed = described_class.parse(
+        file_from_string(
+          "                  \x0D                      " \
+          'abcdefg                                 ' \
+          'abcdefg'
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '                                        ' \
+        "\n                                        " \
+        "\n abcdefg"
       )
     end
 
@@ -267,14 +283,14 @@ module BBC
     it 'resets graphics, height, separated and hold at end of line' do
       parsed = described_class.parse(
         file_from_string(
-          "\x11\x1D\x1A\x0D\x1Ea                                  " \
+          "\x11\x1D\x1A\x0D\x1Ea#{' ' * 74}" \
           "should have reset\x17a"
         )
       )
 
       expect(parsed.to_html).to eql(
         ' <span class="t1 b1">                                      ' \
-        "</span>\n" \
+        "</span>\n                                        \n" \
         'should have reset '
       )
     end
@@ -433,6 +449,19 @@ module BBC
 
       expect(parsed.to_html).to eql(
         '     '
+      )
+    end
+
+    it 'handles teletest: MISSING SECOND DOUBLE' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x97\x9A\x8D\xFF                                    " \
+          "\x97\x9A\x8C\xFF"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        "                                       \n    "
       )
     end
   end
