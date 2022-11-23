@@ -16,7 +16,7 @@ jobs:
       - name: Fetch data
         # Fetch manually via API as download-artifact doesn't support this yet
         # https://github.com/actions/download-artifact/issues/3
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -41,7 +41,7 @@ jobs:
         run: unzip data.zip
 
       - name: Add PR comment with diff result
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs')
