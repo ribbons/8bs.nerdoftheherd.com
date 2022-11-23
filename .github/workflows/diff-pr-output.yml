@@ -17,7 +17,7 @@ jobs:
           cmake --build ../build && sudo cmake --install ../build
 
       - name: Checkout base
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.base_ref }}
 
@@ -33,7 +33,7 @@ jobs:
           git clean -ffdx -e .bundle -e vendor && git reset --hard HEAD
 
       - name: Checkout PR
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           clean: false
 
