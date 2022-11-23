@@ -464,5 +464,17 @@ module BBC
         "                                       \n    "
       )
     end
+
+    it 'handles teletest: GRAPHICS SEPARATED/CONTIGUOUS STATE' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x97\xFF\x87\xFF\x99\xFF\x9A\xFF\x97\xFF\x87\xFF\x97\xFF"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  ¶ ¶ ¶  ¶ '
+      )
+    end
   end
 end
