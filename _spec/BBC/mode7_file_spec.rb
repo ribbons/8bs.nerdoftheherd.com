@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2022 Matt Robinson
+# Copyright © 2022-2023 Matt Robinson
 # Copyright © 2020-2021 Chris Evans
 # Copyright © 2020-2022 Tom Seddon
 #
@@ -178,6 +178,18 @@ module BBC
       )
     end
 
+    it 'does not generate multiple spans for repeated flash codes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x08A\x08A\x08A"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '<span class=flash> A A A'
+      )
+    end
+
     it 'sets and resets correct styles for text colours' do
       parsed = described_class.parse(
         file_from_string(
@@ -211,6 +223,18 @@ module BBC
         "<span class=t6>CYAN                                   </span>\n " \
         "WHITE                                  \n " \
         'WHITE                                  '
+      )
+    end
+
+    it 'does not generate multiple spans for repeated colour codes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x01A\x01A\x01A"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=t1>A A A'
       )
     end
 
@@ -265,6 +289,18 @@ module BBC
         '<span class="t6 b6">                   </span>' \
         "<span class=t6>                    </span>\n " \
         '<span class=b7>                   </span>                    '
+      )
+    end
+
+    it 'does not generate multiple spans for repeated new background codes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x1D\x1D\x1D"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '<span class=b7>   '
       )
     end
 

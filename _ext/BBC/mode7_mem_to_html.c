@@ -1,5 +1,5 @@
 /*
- * Copyright © 2007-2022 Matt Robinson
+ * Copyright © 2007-2023 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -177,13 +177,16 @@ VALUE mode7_mem_to_html(VALUE input)
 
     Mode mode = MODE_TEXT;
     GraphicsStyle gfxstyle = GFX_STYLE_CONTIGUOUS;
-    Colour forecolour = COL_WHITE;
-    Colour nextfore = COL_WHITE;
+    Colour forecolour;
+    Colour nextfgcol = COL_WHITE;
+    Colour stylefgcol = COL_WHITE;
     Colour backcolour = COL_BLACK;
+    Colour stylebgcol = COL_BLACK;
     Height height = HEIGHT_STANDARD;
     HeightState heightstate = DOUBLE_UPPER;
 
     bool flash = false;
+    bool styleflash = false;
     bool graphicshold = false;
     bool concealed = false;
     bool nextrowlower = false;
@@ -200,20 +203,10 @@ VALUE mode7_mem_to_html(VALUE input)
 
     for(long i = 0; i < dataLen; i++)
     {
-        bool stylechange;
         CharSequence* thischar;
 
         unsigned char c = data[i] & 0x7F;
-
-        if(forecolour != nextfore)
-        {
-            forecolour = nextfore;
-            stylechange = true;
-        }
-        else
-        {
-            stylechange = false;
-        }
+        forecolour = nextfgcol;
 
         switch(c)
         {
@@ -235,7 +228,7 @@ VALUE mode7_mem_to_html(VALUE input)
             case 0x07:
                 thischar = holdchar;
                 mode = MODE_TEXT;
-                nextfore = c;
+                nextfgcol = c;
                 concealed = false;
                 graphicshold = false;
                 holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
@@ -243,12 +236,10 @@ VALUE mode7_mem_to_html(VALUE input)
             case 0x08:
                 thischar = holdchar;
                 flash = true;
-                stylechange = true;
                 break;
             case 0x09:
                 thischar = holdchar;
                 flash = false;
-                stylechange = true;
                 break;
             case 0x0C:
                 if(height != HEIGHT_STANDARD)
@@ -280,7 +271,7 @@ VALUE mode7_mem_to_html(VALUE input)
             case 0x17:
                 thischar = holdchar;
                 mode = MODE_GRAPHICS;
-                nextfore = c & 0xF;
+                nextfgcol = c & 0xF;
                 concealed = false;
                 break;
             case 0x18:
@@ -298,12 +289,10 @@ VALUE mode7_mem_to_html(VALUE input)
             case 0x1C:
                 thischar = holdchar;
                 backcolour = COL_BLACK;
-                stylechange = true;
                 break;
             case 0x1D:
                 thischar = holdchar;
                 backcolour = forecolour;
-                stylechange = true;
                 break;
             case 0x1E:
                 if(lastgfxchar != NULL)
@@ -333,7 +322,8 @@ VALUE mode7_mem_to_html(VALUE input)
             thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
         }
 
-        if(stylechange)
+        if(forecolour != stylefgcol || backcolour != stylebgcol ||
+           flash != styleflash)
         {
             if(spanopen)
             {
@@ -386,6 +376,10 @@ VALUE mode7_mem_to_html(VALUE input)
                 rb_str_cat(output, STR_AND_LEN(">"));
                 spanopen = true;
             }
+
+            stylefgcol = forecolour;
+            stylebgcol = backcolour;
+            styleflash = flash;
         }
 
         rb_str_cat(output, thischar->data, thischar->length);
@@ -396,12 +390,15 @@ VALUE mode7_mem_to_html(VALUE input)
         {
             column = 0;
             mode = MODE_TEXT;
-            forecolour = nextfore = COL_WHITE;
+            nextfgcol = COL_WHITE;
             backcolour = COL_BLACK;
+            stylefgcol = COL_WHITE;
+            stylebgcol = COL_BLACK;
             height = HEIGHT_STANDARD;
             heightstate = nextrowlower ? DOUBLE_LOWER : DOUBLE_UPPER;
             nextrowlower = false;
             flash = false;
+            styleflash = false;
             gfxstyle = GFX_STYLE_CONTIGUOUS;
             graphicshold = false;
             holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
