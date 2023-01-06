@@ -20,8 +20,8 @@ typedef enum
     COL_WHITE = 7
 } Colour;
 
-const char* fgClasses[] = { "t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7" };
-const char* bgClasses[] = { "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7" };
+const char* fgClasses[] = { NULL, "t1", "t2", "t3", "t4", "t5", "t6", NULL };
+const char* bgClasses[] = { NULL, "b1", "b2", "b3", "b4", "b5", "b6", "b7" };
 
 typedef enum
 {
