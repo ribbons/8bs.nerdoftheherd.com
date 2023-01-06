@@ -328,18 +328,12 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class="t1 b1">                   ' \
-        "</span>                    \n " \
-        '<span class="t2 b2">                   ' \
-        "</span>                    \n " \
-        '<span class="t3 b3">                   ' \
-        "</span>                    \n " \
-        '<span class="t4 b4">                   ' \
-        "</span>                    \n " \
-        '<span class="t5 b5">                   ' \
-        "</span>                    \n " \
-        '<span class="t6 b6">                   ' \
-        "</span>                    \n " \
+        " <span class=b1>                   </span>                    \n " \
+        "<span class=b2>                   </span>                    \n " \
+        "<span class=b3>                   </span>                    \n " \
+        "<span class=b4>                   </span>                    \n " \
+        "<span class=b5>                   </span>                    \n " \
+        "<span class=b6>                   </span>                    \n " \
         '<span class=b7>                   </span>                    '
       )
     end
@@ -353,6 +347,18 @@ module BBC
 
       expect(parsed.to_html).to eql(
         '<span class=b7>   '
+      )
+    end
+
+    it 'replaces content with spaces when fg and bg colours are the same' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x1DABCDE"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '<span class=b7>      '
       )
     end
 
@@ -377,7 +383,7 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class="t1 b1">                                      ' \
+        ' <span class=b1>                                       ' \
         "\n</span>                                        \n" \
         'should have reset '
       )
@@ -456,6 +462,18 @@ module BBC
       )
     end
 
+    it 'holds graphics char when fg and bg colours are the same' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x1D\x7F\x1E\x1C"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=b7>   </span>'
+      )
+    end
+
     it 'handles teletest: FOREGROUND COLOR IS SET-AFTER' do
       parsed = described_class.parse(
         file_from_string(
@@ -476,7 +494,7 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class="t4 b4">   </span><span class="t5 b4"> '
+        ' <span class=b4>   </span><span class="t5 b4"> '
       )
     end
 

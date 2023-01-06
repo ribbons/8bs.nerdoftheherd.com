@@ -179,7 +179,6 @@ VALUE mode7_mem_to_html(VALUE input)
 
     Mode mode = MODE_TEXT;
     GraphicsStyle gfxstyle = GFX_STYLE_CONTIGUOUS;
-    Colour forecolour;
     Colour nextfgcol = COL_WHITE;
     Colour stylefgcol = COL_WHITE;
     Colour backcolour = COL_BLACK;
@@ -206,9 +205,9 @@ VALUE mode7_mem_to_html(VALUE input)
     for(long i = 0; i < dataLen; i++)
     {
         CharSequence* thischar;
+        Colour forecolour = nextfgcol;
 
         unsigned char c = data[i] & 0x7F;
-        forecolour = nextfgcol;
 
         switch(c)
         {
@@ -319,7 +318,21 @@ VALUE mode7_mem_to_html(VALUE input)
                 }
         }
 
-        if(concealed)
+        if(mode == MODE_GRAPHICS && c & MOSAIC_BITS)
+        {
+            lastgfxchar = thischar;
+        }
+        else
+        {
+            lastgfxchar = NULL;
+        }
+
+        if(backcolour == forecolour)
+        {
+            thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
+            forecolour = COL_WHITE;
+        }
+        else if(concealed)
         {
             thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
         }
@@ -410,14 +423,6 @@ VALUE mode7_mem_to_html(VALUE input)
             lastgfxchar = NULL;
 
             rb_str_cat(output, STR_AND_LEN("\n"));
-        }
-        else if(mode == MODE_GRAPHICS && c & MOSAIC_BITS)
-        {
-            lastgfxchar = thischar;
-        }
-        else
-        {
-            lastgfxchar = NULL;
         }
     }
 
