@@ -216,6 +216,59 @@ module BBC
       )
     end
 
+    it 'sets and resets correct styles for concealed text' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x18CONCEALED\x07SHOWN\x18CONCEALED              " \
+          'SHOWN'
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=conceal>CONCEALED </span>SHOWN ' \
+        "<span class=conceal>CONCEALED              \n" \
+        '</span>SHOWN'
+      )
+    end
+
+    it 'does not generate multiple spans for repeated conceal codes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x18A\x18A\x18A"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=conceal>A A A'
+      )
+    end
+
+    it 'does not generate spans for invisible conceal style changes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x18A\x07\x18A\x07"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=conceal>A  A '
+      )
+    end
+
+    it 'keeps spans open for concealed content on next line' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x18A                                      " \
+          "\x18A" \
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " <span class=conceal>A                                      \n " \
+        'A'
+      )
+    end
+
     it 'sets and resets correct styles for text colours' do
       parsed = described_class.parse(
         file_from_string(
@@ -494,7 +547,8 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class=b4>   </span><span class="t5 b4"> '
+        ' <span class=b4>   </span><span class="t5 b4"></span>' \
+        '<span class="t5 b4 conceal">'
       )
     end
 

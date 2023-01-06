@@ -145,6 +145,10 @@ div#content {
     .b6 { background-color: aqua; }
     .b7 { background-color: white; }
 
+    .conceal {
+        color: transparent;
+    }
+
     .flash {
       animation: flashing 1.28s step-start infinite;
     }

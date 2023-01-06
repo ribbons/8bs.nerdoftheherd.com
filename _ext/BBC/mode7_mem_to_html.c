@@ -190,6 +190,7 @@ VALUE mode7_mem_to_html(VALUE input)
     bool styleflash = false;
     bool graphicshold = false;
     bool concealed = false;
+    bool styleconceal = false;
     bool nextrowlower = false;
     bool spanopen = false;
 
@@ -332,13 +333,10 @@ VALUE mode7_mem_to_html(VALUE input)
             thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
             forecolour = COL_WHITE;
         }
-        else if(concealed)
-        {
-            thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
-        }
 
         if(backcolour != stylebgcol || (NOT_SPACE(thischar) &&
-            (forecolour != stylefgcol || flash != styleflash)))
+            (forecolour != stylefgcol || flash != styleflash ||
+             concealed != styleconceal)))
         {
             if(spanopen)
             {
@@ -348,7 +346,7 @@ VALUE mode7_mem_to_html(VALUE input)
 
             if(backcolour != COL_BLACK || NOT_SPACE(thischar))
             {
-                const char* classes[3];
+                const char* classes[4];
                 int classcount = 0;
 
                 if(forecolour != COL_WHITE)
@@ -364,6 +362,11 @@ VALUE mode7_mem_to_html(VALUE input)
                 if(flash)
                 {
                     classes[classcount++] = "flash";
+                }
+
+                if(concealed)
+                {
+                    classes[classcount++] = "conceal";
                 }
 
                 if(classcount > 0)
@@ -396,6 +399,7 @@ VALUE mode7_mem_to_html(VALUE input)
 
                 stylefgcol = forecolour;
                 styleflash = flash;
+                styleconceal = concealed;
             }
 
             stylebgcol = backcolour;
