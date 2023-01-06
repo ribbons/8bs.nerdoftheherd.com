@@ -172,9 +172,9 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        '<span class=flash> FLASHING</span> STEADY' \
-        "<span class=flash> FLASHING               </span>\n" \
-        'STEADY'
+        ' <span class=flash>FLASHING </span>STEADY ' \
+        "<span class=flash>FLASHING               \n" \
+        '</span>STEADY'
       )
     end
 
@@ -186,7 +186,33 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        '<span class=flash> A A A'
+        ' <span class=flash>A A A'
+      )
+    end
+
+    it 'does not generate spans for invisible flash style changes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x08A\x09\x08A\x09"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        ' <span class=flash>A  A '
+      )
+    end
+
+    it 'keeps spans open for flashing content on next line' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x08A                                      " \
+          "\x08A" \
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " <span class=flash>A                                      \n " \
+        'A'
       )
     end
 
@@ -210,18 +236,18 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        " <span class=t1>RED                                    </span>\n " \
-        "WHITE                                  \n " \
-        "<span class=t2>GREEN                                  </span>\n " \
-        "WHITE                                  \n " \
-        "<span class=t3>YELLOW                                 </span>\n " \
-        "WHITE                                  \n " \
-        "<span class=t4>BLUE                                   </span>\n " \
-        "WHITE                                  \n " \
-        "<span class=t5>MAGENTA                                </span>\n " \
-        "WHITE                                  \n " \
-        "<span class=t6>CYAN                                   </span>\n " \
-        "WHITE                                  \n " \
+        " <span class=t1>RED                                    \n " \
+        "</span>WHITE                                  \n " \
+        "<span class=t2>GREEN                                  \n " \
+        "</span>WHITE                                  \n " \
+        "<span class=t3>YELLOW                                 \n " \
+        "</span>WHITE                                  \n " \
+        "<span class=t4>BLUE                                   \n " \
+        "</span>WHITE                                  \n " \
+        "<span class=t5>MAGENTA                                \n " \
+        "</span>WHITE                                  \n " \
+        "<span class=t6>CYAN                                   \n " \
+        "</span>WHITE                                  \n " \
         'WHITE                                  '
       )
     end
@@ -235,6 +261,32 @@ module BBC
 
       expect(parsed.to_html).to eql(
         ' <span class=t1>A A A'
+      )
+    end
+
+    it 'does not generate spans for invisible colour changes' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x01\x02A\x03\x02A\x04"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  <span class=t2>A  A '
+      )
+    end
+
+    it 'keeps spans open for same colour on next line' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x01A                                      " \
+          "\x01A" \
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        " <span class=t1>A                                      \n " \
+        'A'
       )
     end
 
@@ -252,13 +304,13 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        " <span class=t1>                                      </span>\n " \
-        "<span class=t2>                                      </span>\n " \
-        "<span class=t3>                                      </span>\n " \
-        "<span class=t4>                                      </span>\n " \
-        "<span class=t5>                                      </span>\n " \
-        "<span class=t6>                                      </span>\n " \
-        '                                      '
+        " <span class=t1>                                      \n " \
+        "</span><span class=t2>                                      \n " \
+        "</span><span class=t3>                                      \n " \
+        "</span><span class=t4>                                      \n " \
+        "</span><span class=t5>                                      \n " \
+        "</span><span class=t6>                                      \n " \
+        '</span>                                      '
       )
     end
 
@@ -276,18 +328,18 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class="t1 b1">                   </span>' \
-        "<span class=t1>                    </span>\n " \
-        '<span class="t2 b2">                   </span>' \
-        "<span class=t2>                    </span>\n " \
-        '<span class="t3 b3">                   </span>' \
-        "<span class=t3>                    </span>\n " \
-        '<span class="t4 b4">                   </span>' \
-        "<span class=t4>                    </span>\n " \
-        '<span class="t5 b5">                   </span>' \
-        "<span class=t5>                    </span>\n " \
-        '<span class="t6 b6">                   </span>' \
-        "<span class=t6>                    </span>\n " \
+        ' <span class="t1 b1">                   ' \
+        "</span>                    \n " \
+        '<span class="t2 b2">                   ' \
+        "</span>                    \n " \
+        '<span class="t3 b3">                   ' \
+        "</span>                    \n " \
+        '<span class="t4 b4">                   ' \
+        "</span>                    \n " \
+        '<span class="t5 b5">                   ' \
+        "</span>                    \n " \
+        '<span class="t6 b6">                   ' \
+        "</span>                    \n " \
         '<span class=b7>                   </span>                    '
       )
     end
@@ -326,7 +378,7 @@ module BBC
 
       expect(parsed.to_html).to eql(
         ' <span class="t1 b1">                                      ' \
-        "</span>\n                                        \n" \
+        "\n</span>                                        \n" \
         'should have reset '
       )
     end
@@ -412,7 +464,7 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class=t2> </span><span class=t3>'
+        '  <span class=t2></span><span class=t3>'
       )
     end
 
@@ -424,7 +476,7 @@ module BBC
       )
 
       expect(parsed.to_html).to eql(
-        ' <span class="t4 b4">  </span><span class="t5 b4">  '
+        ' <span class="t4 b4">   </span><span class="t5 b4"> '
       )
     end
 

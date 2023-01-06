@@ -70,6 +70,8 @@ enum
     MOSAIC_BITS = 0x20
 };
 
+#define NOT_SPACE(c) (c->data[0] != ' ')
+
 static void set_mapping(CharSequence *dest, unsigned int codepoint)
 {
     dest->length = rb_enc_codelen((int)codepoint, rb_utf8_encoding());
@@ -322,8 +324,8 @@ VALUE mode7_mem_to_html(VALUE input)
             thischar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
         }
 
-        if(forecolour != stylefgcol || backcolour != stylebgcol ||
-           flash != styleflash)
+        if(backcolour != stylebgcol || (NOT_SPACE(thischar) &&
+            (forecolour != stylefgcol || flash != styleflash)))
         {
             if(spanopen)
             {
@@ -331,55 +333,59 @@ VALUE mode7_mem_to_html(VALUE input)
                 spanopen = false;
             }
 
-            const char* classes[3];
-            int classcount = 0;
-
-            if(forecolour != COL_WHITE)
+            if(backcolour != COL_BLACK || NOT_SPACE(thischar))
             {
-                classes[classcount++] = fgClasses[forecolour];
-            }
+                const char* classes[3];
+                int classcount = 0;
 
-            if(backcolour != COL_BLACK)
-            {
-                classes[classcount++] = bgClasses[backcolour];
-            }
-
-            if(flash)
-            {
-                classes[classcount++] = "flash";
-            }
-
-            if(classcount > 0)
-            {
-                rb_str_cat(output, STR_AND_LEN("<span class="));
-
-                if(classcount > 1)
+                if(forecolour != COL_WHITE)
                 {
-                    rb_str_cat(output, STR_AND_LEN("\""));
+                    classes[classcount++] = fgClasses[forecolour];
                 }
 
-                for(int j = 0; j < classcount; j++)
+                if(backcolour != COL_BLACK)
                 {
-                    if(j != 0)
+                    classes[classcount++] = bgClasses[backcolour];
+                }
+
+                if(flash)
+                {
+                    classes[classcount++] = "flash";
+                }
+
+                if(classcount > 0)
+                {
+                    rb_str_cat(output, STR_AND_LEN("<span class="));
+
+                    if(classcount > 1)
                     {
-                        rb_str_cat(output, STR_AND_LEN(" "));
+                        rb_str_cat(output, STR_AND_LEN("\""));
                     }
 
-                    rb_str_cat2(output, classes[j]);
+                    for(int j = 0; j < classcount; j++)
+                    {
+                        if(j != 0)
+                        {
+                            rb_str_cat(output, STR_AND_LEN(" "));
+                        }
+
+                        rb_str_cat2(output, classes[j]);
+                    }
+
+                    if(classcount > 1)
+                    {
+                        rb_str_cat(output, STR_AND_LEN("\""));
+                    }
+
+                    rb_str_cat(output, STR_AND_LEN(">"));
+                    spanopen = true;
                 }
 
-                if(classcount > 1)
-                {
-                    rb_str_cat(output, STR_AND_LEN("\""));
-                }
-
-                rb_str_cat(output, STR_AND_LEN(">"));
-                spanopen = true;
+                stylefgcol = forecolour;
+                styleflash = flash;
             }
 
-            stylefgcol = forecolour;
             stylebgcol = backcolour;
-            styleflash = flash;
         }
 
         rb_str_cat(output, thischar->data, thischar->length);
@@ -392,25 +398,16 @@ VALUE mode7_mem_to_html(VALUE input)
             mode = MODE_TEXT;
             nextfgcol = COL_WHITE;
             backcolour = COL_BLACK;
-            stylefgcol = COL_WHITE;
-            stylebgcol = COL_BLACK;
             height = HEIGHT_STANDARD;
             heightstate = nextrowlower ? DOUBLE_LOWER : DOUBLE_UPPER;
             nextrowlower = false;
             flash = false;
-            styleflash = false;
             gfxstyle = GFX_STYLE_CONTIGUOUS;
             graphicshold = false;
             holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
             concealed = false;
 
             lastgfxchar = NULL;
-
-            if(spanopen)
-            {
-                rb_str_cat(output, STR_AND_LEN("</span>"));
-                spanopen = false;
-            }
 
             rb_str_cat(output, STR_AND_LEN("\n"));
         }
