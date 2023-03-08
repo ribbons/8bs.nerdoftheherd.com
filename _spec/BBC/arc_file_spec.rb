@@ -1,7 +1,7 @@
 # encoding: ASCII-8BIT
 # frozen_string_literal: true
 
-# Copyright © 2021 Matt Robinson
+# Copyright © 2021-2023 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -42,25 +42,23 @@ module BBC
     it 'correctly loads files from archive' do
       archive = described_class.parse(get_file('arc_file_simple'))
 
-      expect(archive.files).to match_array(
-        [
-          have_attributes(
-            side: 0,
-            dir: '$',
-            name: 'TEXT',
-            loadaddr: 0xFFFFFFFF,
-            execaddr: 0xFFFFFFFF,
-            content: 'TEXT  TEXT  TEXT'
-          ),
-          have_attributes(
-            side: 0,
-            dir: '$',
-            name: 'TEXT1',
-            loadaddr: 0xFFFFFFFF,
-            execaddr: 0xFFFFFFFF,
-            content: 'TEXT1 TEXT1 TEXT1'
-          ),
-        ]
+      expect(archive.files).to contain_exactly(
+        have_attributes(
+          side: 0,
+          dir: '$',
+          name: 'TEXT',
+          loadaddr: 0xFFFFFFFF,
+          execaddr: 0xFFFFFFFF,
+          content: 'TEXT  TEXT  TEXT'
+        ),
+        have_attributes(
+          side: 0,
+          dir: '$',
+          name: 'TEXT1',
+          loadaddr: 0xFFFFFFFF,
+          execaddr: 0xFFFFFFFF,
+          content: 'TEXT1 TEXT1 TEXT1'
+        )
       )
     end
 
@@ -75,17 +73,15 @@ module BBC
                  })
       )
 
-      expect(archive.files).to match_array(
-        [
-          have_attributes(
-            name: 'TEXT',
-            loadaddr: 0xFFFF1234
-          ),
-          have_attributes(
-            name: 'TEXT1',
-            execaddr: 0x00005678
-          ),
-        ]
+      expect(archive.files).to contain_exactly(
+        have_attributes(
+          name: 'TEXT',
+          loadaddr: 0xFFFF1234
+        ),
+        have_attributes(
+          name: 'TEXT1',
+          execaddr: 0x00005678
+        )
       )
     end
   end

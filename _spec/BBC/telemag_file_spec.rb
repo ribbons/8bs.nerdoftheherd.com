@@ -1,7 +1,7 @@
 # encoding: ASCII-8BIT
 # frozen_string_literal: true
 
-# Copyright © 2022 Matt Robinson
+# Copyright © 2022-2023 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -32,23 +32,21 @@ module BBC
     it 'correctly loads files from archive' do
       archive = described_class.parse(get_file('telemag_file'))
 
-      expect(archive.files).to match_array(
-        [
-          have_attributes(
-            side: 0,
-            dir: '$',
-            name: 'A',
-            type: :mode7,
-            content: 'THIS IS FILE 1'.ljust(1000)
-          ),
-          have_attributes(
-            side: 0,
-            dir: '$',
-            name: 'B',
-            type: :mode7,
-            content: 'THIS IS FILE 2'.ljust(1040)
-          ),
-        ]
+      expect(archive.files).to contain_exactly(
+        have_attributes(
+          side: 0,
+          dir: '$',
+          name: 'A',
+          type: :mode7,
+          content: 'THIS IS FILE 1'.ljust(1000)
+        ),
+        have_attributes(
+          side: 0,
+          dir: '$',
+          name: 'B',
+          type: :mode7,
+          content: 'THIS IS FILE 2'.ljust(1040)
+        )
       )
     end
   end

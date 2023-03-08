@@ -1,7 +1,7 @@
 # encoding: ASCII-8BIT
 # frozen_string_literal: true
 
-# Copyright © 2021 Matt Robinson
+# Copyright © 2021-2023 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -27,25 +27,23 @@ module BBC
     it 'correctly loads files from archive' do
       archive = described_class.parse(get_file('arcver30_file_simple'))
 
-      expect(archive.files).to match_array(
-        [
-          have_attributes(
-            side: 0,
-            dir: '$',
-            name: 'BASIC',
-            loadaddr: 0xFFFF1900,
-            execaddr: 0xFFFF8023,
-            content: "\r\x00\n\r\xF1 \"HELLO\"\r\xFF"
-          ),
-          have_attributes(
-            side: 0,
-            dir: '$',
-            name: 'TEXT',
-            loadaddr: 0x00000000,
-            execaddr: 0xFFFFFFFF,
-            content: 'A Text File'
-          ),
-        ]
+      expect(archive.files).to contain_exactly(
+        have_attributes(
+          side: 0,
+          dir: '$',
+          name: 'BASIC',
+          loadaddr: 0xFFFF1900,
+          execaddr: 0xFFFF8023,
+          content: "\r\x00\n\r\xF1 \"HELLO\"\r\xFF"
+        ),
+        have_attributes(
+          side: 0,
+          dir: '$',
+          name: 'TEXT',
+          loadaddr: 0x00000000,
+          execaddr: 0xFFFFFFFF,
+          content: 'A Text File'
+        )
       )
     end
   end
