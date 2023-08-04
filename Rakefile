@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2022 Matt Robinson
+# Copyright © 2015-2023 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -25,7 +25,7 @@ Rake::ExtensionTask.new do |ext|
   ext.name = 'bbc_native'
   ext.ext_dir = '_ext/BBC'
   ext.tmp_dir = File.join(Dir.tmpdir, '8bs_online_conversion')
-  ext.lib_dir = '_plugins/BBC'
+  ext.lib_dir = File.join(__dir__, '/_plugins/BBC')
 end
 
 desc 'Build site and run HTMLProofer against the output'
