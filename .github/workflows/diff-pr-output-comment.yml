@@ -14,31 +14,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Fetch data
-        # Fetch manually via API as download-artifact doesn't support this yet
-        # https://github.com/actions/download-artifact/issues/3
-        uses: actions/github-script@v7
+        uses: actions/download-artifact@v4
         with:
-          script: |
-            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: ${{ github.event.workflow_run.id }},
-            })
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "data"
-            })[0]
-            var download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            })
-            const fs = require('fs')
-            fs.writeFileSync('${{github.workspace}}/data.zip',
-                             Buffer.from(download.data))
-
-      - name: Unzip data
-        run: unzip data.zip
+          name: data
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add PR comment with diff result
         uses: actions/github-script@v7
