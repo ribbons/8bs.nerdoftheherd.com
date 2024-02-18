@@ -110,22 +110,3 @@
       - :title: RETURN TO MAIN MENU
         :type: :menu
         :id: 1
-
-:tweaks:
-  :files:
-    2:
-      $.010A:
-        :parser: Mode7File
-        :byteranges: [0, 1000]
-      $.010b:
-        :parser: Mode7File
-        :byteranges: [0, 1000]
-      $.010c:
-        :parser: Mode7File
-        :byteranges: [0, 1000]
-      $.010d:
-        :parser: Mode7File
-        :byteranges: [0, 1000]
-      $.010e:
-        :parser: Mode7File
-        :byteranges: [0, 1000]

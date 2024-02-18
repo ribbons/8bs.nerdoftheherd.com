@@ -1,10 +1,11 @@
 /*
- * Copyright © 2015-2022 Matt Robinson
+ * Copyright © 2015-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 #include <stdbool.h>
+#include <sys/param.h>
 #include <ruby.h>
 
 // Just enable conversion warnings for our code
@@ -25,3 +26,4 @@ void init_arc_file(VALUE mBBC);
 void init_basic_file(VALUE mBBC);
 void init_dispmo7_file(VALUE mBBC);
 void init_mode7_file(VALUE mBBC);
+void init_mode7_screen_file(VALUE mBBC);

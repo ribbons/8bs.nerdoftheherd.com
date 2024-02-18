@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2022 Matt Robinson
+# Copyright © 2015-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -17,6 +17,7 @@ module BBC
       Arcver30File,
       ArcFile,
       AbzFile,
+      Mode7ScreenFile,
     ].freeze
 
     def initialize(side, dir, name, loadaddr, execaddr, content, tweaks = nil)
