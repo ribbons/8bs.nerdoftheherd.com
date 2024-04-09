@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2019-2022 Matt Robinson
+# Copyright © 2019-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -47,18 +47,14 @@ module EBS
     end
 
     def content
-      content = []
-
-      @files.each do |file|
-        content << case @type
-                   when :basic, :mode7
-                     file[-1].parsed.to_html
-                   else
-                     file[-1].content
-                   end
+      @files.map do |file|
+        case @type
+        when :basic, :mode7
+          file[-1].parsed.to_html
+        else
+          file[-1].content
+        end
       end
-
-      content
     end
   end
 end
