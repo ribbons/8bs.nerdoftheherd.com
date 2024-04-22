@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2022 Matt Robinson
+ * Copyright © 2016-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -38,7 +38,7 @@
         var model = container.data('model');
         var action = container.data('action');
 
-        var html = '<iframe src="' + location.protocol + '//bbc.godbolt.org/?embed&disc=' + imagePath;
+        var html = '<iframe src="' + location.protocol + '//bbc.xania.org/?embed&disc=' + imagePath;
 
         if(model)
         {
