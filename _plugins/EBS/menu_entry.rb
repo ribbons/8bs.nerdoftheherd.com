@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2022 Matt Robinson
+# Copyright © 2015-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 module EBS
   class MenuEntry < Liquid::Drop
     def initialize
-      super()
+      super
       @files = []
     end
 

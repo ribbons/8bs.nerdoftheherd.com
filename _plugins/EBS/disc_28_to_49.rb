@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -9,7 +9,7 @@ require_relative 'disc'
 module EBS
   class Disc28To49 < Disc
     def initialize(site, issue, imagepath)
-      super(site, issue, imagepath)
+      super
 
       bootlines = disc.file('$.!Boot').content.split("\r")
       datevals = bootlines[6]
