@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2007-2021 Matt Robinson
+# Copyright © 2007-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -9,7 +9,7 @@ require_relative 'disc'
 module EBS
   class Disc50To66 < Disc
     def initialize(site, issue, imagepath)
-      super(site, issue, imagepath)
+      super
 
       lines = disc.file('$.!BOOT').parsed.data.values
       vals = lines.shift

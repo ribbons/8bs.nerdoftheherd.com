@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2022 Matt Robinson
+# Copyright © 2015-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -11,7 +11,7 @@ module EBS
     require 'yaml'
 
     def initialize(site, issue, imagepath)
-      super(site, issue, imagepath)
+      super
 
       @date = @data[:date]
 
