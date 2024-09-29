@@ -7,14 +7,15 @@
 require_relative 'disc'
 
 module EBS
-  class Disc50To66 < Disc
+  class Disc50To67 < Disc
     def initialize(site, issue, imagepath)
       super
 
       lines = disc.file('$.!BOOT').parsed.data.values
       vals = lines.shift
 
-      @date = Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
+      @date = @data&.fetch(:date, nil) ||
+              Date.strptime(vals[1].tr('.', '/'), '%d/%m/%y')
                   .strftime('%d/%b/%Y')
       @menuid = 1
 

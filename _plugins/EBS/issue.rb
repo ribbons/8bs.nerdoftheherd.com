@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2020 Matt Robinson
+# Copyright © 2015-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -35,8 +35,8 @@ module EBS
           disc = EBS::Disc1To27.new(site, issues[issuenum], discimg)
         when 28..49
           disc = EBS::Disc28To49.new(site, issues[issuenum], discimg)
-        when 50..66
-          disc = EBS::Disc50To66.new(site, issues[issuenum], discimg)
+        when 50..67
+          disc = EBS::Disc50To67.new(site, issues[issuenum], discimg)
         end
 
         issues[issuenum].add_disc(disc)

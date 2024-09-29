@@ -1,0 +1,29 @@
+---
+:date: 19/Apr/2013
+:menus:
+  4:
+    GoSDC Image:
+      :paths:
+        - I.GOSDC
+      :type: :screendump
+      :modes: [2]
+    CB750 CE 1981 Image:
+      :paths:
+        - ':2.I.CB750M1'
+      :type: :screendump
+      :modes: [1]
+    Home Made BBC B Image:
+      :paths:
+        - ':2.I.HOMEADE'
+      :type: :screendump
+      :modes: [1]
+    The Beeb at 30 Image:
+      :paths:
+        - ':2.I.BEEB30C'
+      :type: :screendump
+      :modes: [1]
+    Master 128 Image:
+      :paths:
+        - I.M128M1
+      :type: :screendump
+      :modes: [1]
