@@ -3,6 +3,9 @@ name: Diff PR output
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   diff:
     name: Diff PR output
