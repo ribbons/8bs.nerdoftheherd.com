@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2017-2023 Matt Robinson
+# Copyright © 2017-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -31,7 +31,7 @@ module BBC
         return nil if exponent.nil?
         return 0.0 if mantissa.zero? && exponent.zero?
 
-        sign = (mantissa & 0x80000000).zero? ? 1 : -1
+        sign = mantissa.nobits?(0x80000000) ? 1 : -1
         Math.ldexp(mantissa | 0x80000000, exponent - 0xA0) * sign
       end
     end
