@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2019-2021 Matt Robinson
+# Copyright © 2019-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -47,7 +47,7 @@ module EBS
       linkpath = "#{baselink}/"
       suffix = 0
 
-      while (item = @paths[linkpath])
+      while @paths[linkpath]
         suffix += 1
         linkpath = "#{baselink}-#{suffix}/"
       end
