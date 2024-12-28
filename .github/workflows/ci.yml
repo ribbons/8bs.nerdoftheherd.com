@@ -59,12 +59,17 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependency packages
+        run: |
+          sudo apt-get install --no-install-recommends \
+            libglib2.0-dev libpng-dev
+
       - name: Install libbeebimage
         run: |
           wget -qO- \
-              https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz |\
+              https://github.com/ribbons/libbeebimage/archive/v1.1.tar.gz |\
             tar -xzC ..
-          cmake -S ../libbeebimage-1.0 -B ../build -DCMAKE_BUILD_TYPE=Release
+          cmake -S ../libbeebimage-1.1 -B ../build -DCMAKE_BUILD_TYPE=Release
           cmake --build ../build && sudo cmake --install ../build
 
       - name: Checkout
