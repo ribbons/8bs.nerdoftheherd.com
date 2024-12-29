@@ -1,5 +1,5 @@
 /*
- * Copyright © 2007-2023 Matt Robinson
+ * Copyright © 2007-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -78,7 +78,7 @@ static void set_mapping(CharSequence *dest, unsigned int codepoint)
     rb_enc_mbcput(codepoint, dest->data, rb_utf8_encoding());
 }
 
-static void set_mapping_str(CharSequence *dest, char *str, int length)
+static void set_mapping_str(CharSequence *dest, const char *str, int length)
 {
     dest->length = length;
     memcpy(dest->data, str, (unsigned int)length);
@@ -197,7 +197,7 @@ VALUE mode7_mem_to_html(VALUE input)
     CharSequence* lastgfxchar = NULL;
     CharSequence* holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
 
-    char* data = RSTRING_PTR(input);
+    const char* data = RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
 
     VALUE output = rb_str_buf_new(dataLen);

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2022 Matt Robinson
+ * Copyright © 2022-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -12,7 +12,7 @@
 VALUE cAbzFile;
 char blankLine[MODE7_COLS];
 
-static bool allPrintable(char* data, size_t len)
+static bool allPrintable(const char* data, size_t len)
 {
     for(int i = 0; i < len; i++)
     {

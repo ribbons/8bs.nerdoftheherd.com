@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019-2022 Matt Robinson
+ * Copyright © 2019-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -65,7 +65,7 @@ static void process_data_vals(VALUE data, int line_num, char* p,
             p++;
         }
 
-        char* end = p - 1;
+        const char* end = p - 1;
 
         while(*start == ' ')
         {
@@ -98,7 +98,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
     VALUE content = rb_funcall(bbcfile, rb_intern("content"), 0);
 
     char* input = RSTRING_PTR(content);
-    char* endinput = input + RSTRING_LEN(content);
+    const char* endinput = input + RSTRING_LEN(content);
 
     VALUE data = rb_hash_new();
     VALUE lines = rb_hash_new();
@@ -146,7 +146,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
                 }
                 else
                 {
-                    char* token = Tokens[*p & 0x7f];
+                    const char* token = Tokens[*p & 0x7f];
 
                     if(token == NULL)
                     {
@@ -187,7 +187,7 @@ static VALUE to_html(VALUE self)
     VALUE lines = rb_iv_get(self, "@lines");
     size_t size = RHASH_SIZE(lines);
 
-    VALUE* linenums = RARRAY_PTR(rb_funcall(lines, rb_intern("keys"), 0));
+    const VALUE* linenums = RARRAY_PTR(rb_funcall(lines, rb_intern("keys"), 0));
     VALUE text = rb_str_new_cstr("");
 
     for(int i = 0; i < size; i++)

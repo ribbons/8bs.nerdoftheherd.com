@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2023 Matt Robinson
+# Copyright © 2015-2024 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -52,7 +52,8 @@ task :cppcheck do
   puts 'Running Cppcheck...'
 
   sh 'cppcheck --quiet --error-exitcode=2 --enable=all --std=c99 \
-               --suppress=missingIncludeSystem --inline-suppr _ext/BBC/*.c',
+               --check-level=exhaustive --suppress=missingIncludeSystem \
+               --suppress=checkersReport --inline-suppr _ext/BBC/*.c',
      verbose: false
 
   puts 'No errors found'

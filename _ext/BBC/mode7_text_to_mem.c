@@ -1,5 +1,5 @@
 /*
- * Copyright © 2015-2019 Matt Robinson
+ * Copyright © 2015-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -10,7 +10,7 @@
 
 VALUE mode7_text_to_mem(VALUE input)
 {
-    char* data = RSTRING_PTR(input);
+    const char* data = RSTRING_PTR(input);
     long dataLen = RSTRING_LEN(input);
 
     GString *output = g_string_sized_new((gsize)dataLen);

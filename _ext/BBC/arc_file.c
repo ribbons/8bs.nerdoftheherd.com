@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2022 Matt Robinson
+ * Copyright © 2021-2024 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -28,7 +28,7 @@ static VALUE parse(VALUE self, VALUE bbcfile)
     VALUE content = rb_funcall(bbcfile, rb_intern("content"), 0);
 
     char* input = RSTRING_PTR(content);
-    char* endinput = input + RSTRING_LEN(content);
+    const char* endinput = input + RSTRING_LEN(content);
 
     VALUE tweaks = rb_funcall(bbcfile, rb_intern("tweaks"), 0);
 
