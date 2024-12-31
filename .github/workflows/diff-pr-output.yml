@@ -11,23 +11,13 @@ jobs:
     name: Diff PR output
     runs-on: ubuntu-latest
     steps:
-      - name: Install libbeebimage
-        run: |
-          wget -qO- \
-              https://github.com/ribbons/libbeebimage/archive/v1.0.tar.gz |\
-            tar -xzC ..
-          cmake -S ../libbeebimage-1.0 -B ../build -DCMAKE_BUILD_TYPE=Release
-          cmake --build ../build && sudo cmake --install ../build
-
       - name: Checkout base
         uses: actions/checkout@v4
         with:
           ref: ${{ github.base_ref }}
 
-      - name: Ruby and bundle
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      - name: Base dependencies
+        uses: ./.github/actions/dependencies
 
       - name: Build base
         run: |

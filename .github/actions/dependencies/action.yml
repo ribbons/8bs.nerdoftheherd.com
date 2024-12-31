@@ -1,0 +1,25 @@
+---
+name: Dependencies
+description: Fetch and set up dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Install packages
+      shell: bash
+      run: sudo apt-get install --no-install-recommends libpng-dev
+        libglib2.0-dev
+
+    - name: Install libbeebimage
+      shell: bash
+      run: |
+        wget -qO- \
+            https://github.com/ribbons/libbeebimage/archive/v1.1.tar.gz |\
+          tar -xzC ..
+        cmake -S ../libbeebimage-1.1 -B ../build -DCMAKE_BUILD_TYPE=Release
+        cmake --build ../build && sudo cmake --install ../build
+
+    - name: Ruby and bundle
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
