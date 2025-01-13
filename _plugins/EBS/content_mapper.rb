@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2019-2024 Matt Robinson
+# Copyright © 2019-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -73,7 +73,7 @@ module EBS
         @site, linkpath, @infodisc, item, extra
       )
 
-      if item.type == :basic || item.type == :run
+      if %i[basic run].include?(item.type)
         if files[0][0].type == :archive
           item.imagepath = map_arcimage(files, parent.path)
         end
