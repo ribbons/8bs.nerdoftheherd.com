@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2024 Matt Robinson
+# Copyright © 2015-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -51,10 +51,17 @@ desc 'Run Cppcheck'
 task :cppcheck do
   puts 'Running Cppcheck...'
 
-  sh 'cppcheck --quiet --error-exitcode=2 --enable=all --std=c99 \
-               --check-level=exhaustive --suppress=missingIncludeSystem \
-               --suppress=checkersReport --inline-suppr _ext/BBC/*.c',
-     verbose: false
+  cppcheck_conf = YAML.load_file(
+    File.join(__dir__, '.overcommit.yml')
+  )['PreCommit']['Cppcheck']
+
+  included = Dir.glob(File.join(__dir__, '_ext', cppcheck_conf['include']))
+  excluded = Dir.glob(File.join(__dir__, cppcheck_conf['exclude']))
+
+  abort unless system 'cppcheck',
+                      '--error-exitcode=2',
+                      *cppcheck_conf['flags'],
+                      *(included - excluded)
 
   puts 'No errors found'
 end

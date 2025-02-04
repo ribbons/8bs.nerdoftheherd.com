@@ -52,7 +52,7 @@ jobs:
         env:
           GIT_AUTHOR_NAME: Dummy
           GIT_AUTHOR_EMAIL: dummy@example.com
-          SKIP: RSpec,RuboCop
+          SKIP: RSpec,RuboCop,Cppcheck
         run: overcommit --run
 
   build:

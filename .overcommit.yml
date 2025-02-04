@@ -41,6 +41,25 @@ PreCommit:
     enabled: true
     on_warn: fail
 
+  Cppcheck:
+    description: Check C/C++ source files with cppcheck
+    enabled: true
+    required_executable: cppcheck
+    include:
+      - "**/*.c"
+    exclude:
+      - _ext/BBC/arc/*.c
+    flags:
+      - --quiet
+      - --std=c99
+      - --enable=all
+      - --inline-suppr
+      - --check-level=exhaustive
+      - --suppress=checkersReport
+      - --suppress=missingIncludeSystem
+      - "--template={file}:{line}:{message}"
+
 PostCheckout:
+
   BundleInstall:
     enabled: true
