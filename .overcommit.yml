@@ -6,7 +6,6 @@ PreCommit:
 
   RSpec:
     enabled: true
-    description: Run RSpec test suite
     required_executable: bundle
     command: [bundle, exec, rake, rspec]
 
