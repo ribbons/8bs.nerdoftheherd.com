@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2019-2022 Matt Robinson
+# Copyright © 2019-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -12,7 +12,7 @@ module EBS
         @item = item
       end
 
-      def write(dest)
+      def write(dest) # rubocop:disable Naming/PredicateMethod
         dest_path = destination(dest)
 
         FileUtils.mkdir_p(File.dirname(dest_path))
