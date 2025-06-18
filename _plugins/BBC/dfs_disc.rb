@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2022 Matt Robinson
+# Copyright © 2015-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -92,7 +92,7 @@ module BBC
         name = ''
 
         # Sector 1:  Bytes 1-7 of the file record are the name
-        cat[offset..offset + 6].each do |b|
+        cat[offset..(offset + 6)].each do |b|
           name += (b & 0x7F).chr
         end
 
@@ -151,7 +151,7 @@ module BBC
 
         if remaining.zero?
           # Only include the sector data up to EOF
-          data << buffer[0..lastlen - 1]
+          data << buffer[0..(lastlen - 1)]
           return data
         end
 
