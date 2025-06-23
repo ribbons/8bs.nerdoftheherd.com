@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2017-2022 Matt Robinson
+# Copyright © 2017-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -56,7 +56,7 @@ module BBC
         end
 
         splitname = fileinfo[:name].split('.', 2)
-        dir = splitname.count == 1 ? '$' : splitname.shift
+        dir = splitname.one? ? '$' : splitname.shift
         justname = splitname.shift
 
         files << BBCFile.new(0, dir, justname, fileinfo[:load_addr],
