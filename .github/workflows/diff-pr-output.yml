@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout base
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.base_ref }}
 
@@ -26,7 +26,7 @@ jobs:
           git clean -ffdx -e .bundle -e vendor && git reset --hard HEAD
 
       - name: Checkout PR
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           clean: false
 
