@@ -43,7 +43,7 @@ jobs:
           echo ${{ github.event.number }} > "$OLDPWD/pr_number"
 
       - name: Upload data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: data
           path: |
