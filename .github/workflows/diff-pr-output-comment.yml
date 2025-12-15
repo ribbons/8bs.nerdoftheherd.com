@@ -18,7 +18,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Fetch data
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: data
           run-id: ${{ github.event.workflow_run.id }}
