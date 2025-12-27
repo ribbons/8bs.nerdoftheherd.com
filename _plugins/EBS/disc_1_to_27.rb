@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2024 Matt Robinson
+# Copyright © 2015-2025 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -45,9 +45,9 @@ module EBS
                         else
                           entdat[:paths].zip(entdat[:arcpaths])
                                         .map do |path, arcpath|
-                            file = @disc.file(path)
-                            [file, file.parsed.file(arcpath)]
-                          end
+                                          file = @disc.file(path)
+                                          [file, file.parsed.file(arcpath)]
+                                        end
                         end
         end
 
