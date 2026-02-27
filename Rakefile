@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2025 Matt Robinson
+# Copyright © 2015-2026 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -13,13 +13,13 @@ require 'jekyll'
 
 RuboCop::RakeTask.new
 
-desc 'Run JShint'
-task :jshint do
-  sh 'npm run --silent jshint'
+desc 'Run ESLint'
+task :eslint do
+  sh 'npx eslint'
 end
 
 desc 'Run all lint tasks'
-task lint: %w[rubocop jshint cppcheck]
+task lint: %w[rubocop eslint cppcheck]
 
 Rake::ExtensionTask.new do |ext|
   ext.name = 'bbc_native'

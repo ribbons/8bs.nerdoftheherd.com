@@ -31,7 +31,7 @@ jobs:
 
       - name: Lint
         run: |
-          bundle exec rake jshint
+          bundle exec rake eslint
           bundle exec rubocop --format github
           bundle exec rake cppcheck
 
