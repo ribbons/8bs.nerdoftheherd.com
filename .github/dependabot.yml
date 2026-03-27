@@ -4,9 +4,9 @@ updates:
   - package-ecosystem: bundler
     directory: /
     schedule:
-      interval: daily
+      interval: cron
+      cronjob: 30 6 * * *
       timezone: Europe/London
-      time: "06:00"
     cooldown:
       default-days: 7
       semver-minor-days: 9
@@ -17,9 +17,9 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: daily
+      interval: cron
+      cronjob: 30 6 * * *
       timezone: Europe/London
-      time: "06:00"
     cooldown:
       default-days: 7
       semver-minor-days: 9
@@ -32,9 +32,9 @@ updates:
       - .github/actions/*
       - /
     schedule:
-      interval: daily
+      interval: cron
+      cronjob: 30 6 * * *
       timezone: Europe/London
-      time: "06:00"
     cooldown:
       default-days: 7
     labels:
