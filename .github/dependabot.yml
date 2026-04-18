@@ -37,5 +37,7 @@ updates:
       timezone: Europe/London
     cooldown:
       default-days: 7
+      exclude:
+        - ruby/setup-ruby
     labels:
       - dependencies
