@@ -21,6 +21,6 @@ runs:
         cmake --build ../build && sudo cmake --install ../build
 
     - name: Ruby and bundle
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@v1.300.0
       with:
         bundler-cache: true
