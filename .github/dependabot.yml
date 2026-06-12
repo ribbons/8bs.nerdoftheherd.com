@@ -38,6 +38,7 @@ updates:
     cooldown:
       default-days: 7
       exclude:
+        - actions/*
         - ruby/setup-ruby
     labels:
       - dependencies
