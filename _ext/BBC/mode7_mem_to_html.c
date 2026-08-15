@@ -1,5 +1,5 @@
 /*
- * Copyright © 2007-2024 Matt Robinson
+ * Copyright © 2007-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -189,7 +189,7 @@ VALUE mode7_mem_to_html(VALUE input)
     bool flash = false;
     bool styleflash = false;
     bool graphicshold = false;
-    bool concealed = false;
+    bool nextconcealed = false;
     bool styleconceal = false;
     bool nextrowlower = false;
     bool spanopen = false;
@@ -207,6 +207,7 @@ VALUE mode7_mem_to_html(VALUE input)
     {
         CharSequence* thischar;
         Colour forecolour = nextfgcol;
+        bool concealed = nextconcealed;
 
         unsigned char c = data[i] & 0x7F;
 
@@ -231,7 +232,7 @@ VALUE mode7_mem_to_html(VALUE input)
                 thischar = holdchar;
                 mode = MODE_TEXT;
                 nextfgcol = c;
-                concealed = false;
+                nextconcealed = false;
                 graphicshold = false;
                 holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
                 break;
@@ -274,11 +275,11 @@ VALUE mode7_mem_to_html(VALUE input)
                 thischar = holdchar;
                 mode = MODE_GRAPHICS;
                 nextfgcol = c & 0xF;
-                concealed = false;
+                nextconcealed = false;
                 break;
             case 0x18:
                 thischar = holdchar;
-                concealed = true;
+                concealed = nextconcealed = true;
                 break;
             case 0x19:
                 thischar = holdchar;
@@ -422,7 +423,7 @@ VALUE mode7_mem_to_html(VALUE input)
             gfxstyle = GFX_STYLE_CONTIGUOUS;
             graphicshold = false;
             holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
-            concealed = false;
+            nextconcealed = false;
 
             lastgfxchar = NULL;
 

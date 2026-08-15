@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Copyright © 2022-2026 Matt Robinson
-# Copyright © 2020-2021 Chris Evans
+# Copyright © 2020-2026 Chris Evans
 # Copyright © 2020-2022 Tom Seddon
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
@@ -634,6 +634,20 @@ module BBC
 
       expect(parsed.to_html).to eql(
         '  ¶ ¶ ¶  ¶ '
+      )
+    end
+
+    it 'handles teletest: CONCEAL' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x9E\x97\xA9\x98A\xFF\x9CA\x9DA\x85\xC1\x96\x9E\x98\xA9\x93\x9A"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  <span class=conceal>AA</span>' \
+        '<span class="b7 conceal">   </span><span class="t5 b7">A   </span>' \
+        '<span class="t6 b7 conceal"></span><span class="t3 b7">'
       )
     end
   end
