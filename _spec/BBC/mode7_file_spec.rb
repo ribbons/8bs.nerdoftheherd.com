@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2022-2023 Matt Robinson
+# Copyright © 2022-2026 Matt Robinson
 # Copyright © 2020-2021 Chris Evans
 # Copyright © 2020-2022 Tom Seddon
 #
@@ -137,7 +137,7 @@ module BBC
         "#{[*0xE040..0xE05B].pack('U*')}      \n  " \
         "#{[*0xE140..0xE15B].pack('U*')}      \n  " \
         "#{[*0xE260..0xE27F].pack('U*')}      \n  " \
-        "#{[*0xE2A0..0xE2BF].pack('U*')}" \
+        "#{[*0xE2A0..0xE2BF].pack('U*')}"
       )
     end
 
@@ -159,7 +159,7 @@ module BBC
         "#{[*0xE040..0xE05B].pack('U*')}     \n   " \
         "#{[*0xE140..0xE15B].pack('U*')}     \n   " \
         "#{[*0xE320..0xE33F].pack('U*')}     \n   " \
-        "#{[*0xE360..0xE37F].pack('U*')}" \
+        "#{[*0xE360..0xE37F].pack('U*')}"
       )
     end
 
@@ -206,7 +206,7 @@ module BBC
       parsed = described_class.parse(
         file_from_string(
           "\x08A                                      " \
-          "\x08A" \
+          "\x08A"
         )
       )
 
@@ -259,7 +259,7 @@ module BBC
       parsed = described_class.parse(
         file_from_string(
           "\x18A                                      " \
-          "\x18A" \
+          "\x18A"
         )
       )
 
@@ -333,7 +333,7 @@ module BBC
       parsed = described_class.parse(
         file_from_string(
           "\x01A                                      " \
-          "\x01A" \
+          "\x01A"
         )
       )
 
