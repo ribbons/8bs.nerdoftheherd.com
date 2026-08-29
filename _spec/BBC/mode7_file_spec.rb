@@ -216,6 +216,18 @@ module BBC
       )
     end
 
+    it 'applies flashing style immediately but clears from next char' do
+      parsed = described_class.parse(
+        file_from_string(
+          "\x17\x1E\x7F\x08\x09\x7F"
+        )
+      )
+
+      expect(parsed.to_html).to eql(
+        '  <span class=flash></span>'
+      )
+    end
+
     it 'sets and resets correct styles for concealed text' do
       parsed = described_class.parse(
         file_from_string(

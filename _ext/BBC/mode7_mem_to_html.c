@@ -186,7 +186,7 @@ VALUE mode7_mem_to_html(VALUE input)
     Height height = HEIGHT_STANDARD;
     HeightState heightstate = DOUBLE_UPPER;
 
-    bool flash = false;
+    bool nextflash = false;
     bool styleflash = false;
     bool graphicshold = false;
     bool nextconcealed = false;
@@ -207,6 +207,7 @@ VALUE mode7_mem_to_html(VALUE input)
     {
         CharSequence* thischar;
         Colour forecolour = nextfgcol;
+        bool flash = nextflash;
         bool concealed = nextconcealed;
 
         unsigned char c = data[i] & 0x7F;
@@ -238,11 +239,11 @@ VALUE mode7_mem_to_html(VALUE input)
                 break;
             case 0x08:
                 thischar = holdchar;
-                flash = true;
+                flash = nextflash = true;
                 break;
             case 0x09:
                 thischar = holdchar;
-                flash = false;
+                nextflash = false;
                 break;
             case 0x0C:
                 if(height != HEIGHT_STANDARD)
@@ -419,7 +420,7 @@ VALUE mode7_mem_to_html(VALUE input)
             height = HEIGHT_STANDARD;
             heightstate = nextrowlower ? DOUBLE_LOWER : DOUBLE_UPPER;
             nextrowlower = false;
-            flash = false;
+            nextflash = false;
             gfxstyle = GFX_STYLE_CONTIGUOUS;
             graphicshold = false;
             holdchar = &mappingTables[MODE_TEXT][HEIGHT_STANDARD][' '];
