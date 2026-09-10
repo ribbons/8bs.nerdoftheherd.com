@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2024 Matt Robinson
+ * Copyright © 2016-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -34,7 +34,7 @@
         }
 
         var container = $('#emulator');
-        var imagePath = location.protocol + location.hostname + container.data('imagePath');
+        var imagePath = location.protocol + '//' + location.hostname + container.data('imagePath');
         var model = container.data('model');
         var action = container.data('action');
 
