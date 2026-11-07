@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021-2024 Matt Robinson
+ * Copyright © 2021-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -18,7 +18,7 @@ VALUE cArcFile, cBBCFile;
 
 void arc_decompress(char* input, uint32_t inlen, char* output, uint32_t outlen);
 
-static uint32_t read_length(uint8_t* p)
+static uint32_t read_length(const uint8_t* p)
 {
     return (uint32_t)(*p + (*(p + 1) << 8) + (*(p + 2) << 16) + (*(p + 3) << 24));
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016-2021 Matt Robinson
+ * Copyright © 2016-2026 Matt Robinson
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -13,7 +13,7 @@
 
 png_bytep *row_pointers;
 
-void callback(int x, int y, uint8_t colour)
+static void callback(int x, int y, uint8_t colour)
 {
     if(colour > 7)
     {
@@ -88,6 +88,11 @@ VALUE method_bbc_pic_to_img(VALUE self, VALUE input, VALUE type, VALUE mode)
 
     size_t bufsize = sizeof(png_bytep) * height;
     row_pointers = (png_bytep*)malloc(bufsize);
+
+    if(row_pointers == NULL)
+    {
+        rb_sys_fail("malloc row_pointers");
+    }
 
     for(int i = 0; i < height; i++)
     {
