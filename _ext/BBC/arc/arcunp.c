@@ -202,10 +202,11 @@ putb_unp(buf, len, t)
  */
 
 VOID
-putb_ncr(buf, len, t)		/* put NCR coded bytes */
-	u_char	*buf;
-	u_int	len;
-	FILE	*t;		/* file to receive data */
+putb_ncr(			/* put NCR coded bytes */
+	u_char	*buf,
+	u_int	len,
+	FILE	*t		/* file to receive data */
+)
 {
 	u_char	*pakptr=pakbuf;
 	u_int	i;

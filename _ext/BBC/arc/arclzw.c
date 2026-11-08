@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #include "arc.h"
 
-VOID            arcdie();
+VOID            arcdie(const char *format, ...);
 #if	MSDOS
 char           *setmem();
 #else
@@ -139,7 +139,7 @@ u_char          *stack;		/* local push/pop stack */
 static int      clear_flg;
 static long     ratio;
 static long     checkpoint;
-VOID            upd_tab();
+VOID            upd_tab(u_short pred, u_short foll);
 
 /*
  * the next two codes should not be changed lightly, as they must not lie
@@ -282,8 +282,9 @@ putcode(code, t)		/* output a code */
  */
 
 static int
-getcode(f)			/* get a code */
-	FILE           *f;	/* file to get from */
+getcode(			/* get a code */
+	FILE           *f	/* file to get from */
+)
 {
 	int             code;
 	static int      size = 0;
@@ -386,8 +387,9 @@ inittabs()
  */
 
 VOID
-init_cm(buf)			/* initialize for compression */
-	u_char          *buf;	/* input buffer */
+init_cm(			/* initialize for compression */
+	u_char          *buf	/* input buffer */
+)
 {
 	offset = 0;
 	clear_flg = 0;
@@ -502,10 +504,11 @@ flsh_cm(t)			/* flush compressed file */
  */
 
 VOID
-decomp(squash, f, t)		/* decompress a file */
-	int		squash;	/* squashed or crunched? */
-	FILE           *f;	/* file to read codes from */
-	FILE           *t;	/* file to write text to */
+decomp(			/* decompress a file */
+	int		squash,	/* squashed or crunched? */
+	FILE           *f,	/* file to read codes from */
+	FILE           *t	/* file to write text to */
+)
 {
 	u_char          *stackp;
 	int             finchar;
@@ -638,12 +641,13 @@ decomp(squash, f, t)		/* decompress a file */
  * release of a developmental copy forces us to leave this in.
  */
 
-static          u_short(*h) ();	/* pointer to hash function */
+static          u_short(*h) (u_short pred, u_char foll); /* pointer to hash function */
 
 static          u_short
-oldh(pred, foll)		/* old hash function */
-	u_short          pred;	/* code for preceeding string */
-	u_char           foll;	/* value of following char */
+oldh(				/* old hash function */
+	u_short          pred,	/* code for preceeding string */
+	u_char           foll	/* value of following char */
+)
 {
 	long            local;	/* local hash value */
 
@@ -653,9 +657,10 @@ oldh(pred, foll)		/* old hash function */
 }
 
 static          u_short
-newh(pred, foll)		/* new hash function */
-	u_short          pred;	/* code for preceeding string */
-	u_char           foll;	/* value of following char */
+newh(				/* new hash function */
+	u_short          pred,	/* code for preceeding string */
+	u_char           foll	/* value of following char */
+)
 {
 	return (((pred + foll) & 0xFFFF) * 15073) & 0xFFF;	/* faster hash */
 }
@@ -666,8 +671,9 @@ newh(pred, foll)		/* new hash function */
  */
 
 static          u_short
-eolist(index)			/* find last duplicate */
-	u_short          index;
+eolist(			/* find last duplicate */
+	u_short          index
+)
 {
 	int             temp;
 
@@ -686,9 +692,10 @@ eolist(index)			/* find last duplicate */
  */
 
 static          u_short
-hash(pred, foll)		/* find spot in the string table */
-	u_short          pred;	/* code for preceeding string */
-	u_char           foll;	/* char following string */
+hash(				/* find spot in the string table */
+	u_short          pred,	/* code for preceeding string */
+	u_char           foll	/* char following string */
+)
 {
 	u_short          local, tempnext;	/* scratch storage */
 	struct entry   *ep;	/* allows faster table handling */
@@ -752,9 +759,10 @@ init_tab()
  */
 
 VOID
-upd_tab(pred, foll)		/* add an entry to the table */
-	u_short          pred;	/* code for preceeding string */
-	u_short          foll;	/* character which follows string */
+upd_tab(			/* add an entry to the table */
+	u_short          pred,	/* code for preceeding string */
+	u_short          foll	/* character which follows string */
+)
 {
 	struct entry   *ep;	/* pointer to current entry */
 
@@ -793,9 +801,10 @@ static int      code_count;	/* needed to detect table full */
 static int      oldcode, finchar;
 
 VOID
-init_ucr(new, f)		/* get set for uncrunching */
-	int             new;	/* true to use new hash function */
-	FILE	       *f;	/* input file */
+init_ucr(			/* get set for uncrunching */
+	int             new,	/* true to use new hash function */
+	FILE	       *f	/* input file */
+)
 {
 	if (new)		/* set proper hash function */
 		h = newh;
@@ -816,8 +825,9 @@ init_ucr(new, f)		/* get set for uncrunching */
 }
 
 u_int
-getb_ucr(f)			/* get next uncrunched byte */
-	FILE           *f;	/* file containing crunched data */
+getb_ucr(			/* get next uncrunched byte */
+	FILE           *f	/* file containing crunched data */
+)
 {
 	int             code, newcode;
 	struct entry   *ep;	/* allows faster table handling */

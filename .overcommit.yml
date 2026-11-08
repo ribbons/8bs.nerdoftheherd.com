@@ -50,7 +50,7 @@ PreCommit:
       - _ext/BBC/arc/*.c
     flags:
       - --quiet
-      - --std=c99
+      - --std=c23
       - --enable=all
       - --inline-suppr
       - --check-level=exhaustive

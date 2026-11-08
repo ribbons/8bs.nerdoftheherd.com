@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright © 2015-2021 Matt Robinson
+# Copyright © 2015-2026 Matt Robinson
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -14,7 +14,7 @@ throw 'libbeebimage is required' unless find_library('beebimage', 'main')
 
 # rubocop:disable Style/GlobalVars
 $srcs = Dir.glob('**/*.c', base: $srcdir)
-$CFLAGS = '-O3 -Wall -Werror -fPIC -std=c99'
+$CFLAGS = '-O3 -Wall -Werror -fPIC -std=c23'
 $VPATH << '$(srcdir)/arc'
 # rubocop:enable Style/GlobalVars
 
